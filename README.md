@@ -1,67 +1,65 @@
 # Spencer Butler
-- spencer@tcos.us
-- 612-460-7448
-- Minneapolis, MN
 
-## Skills
-- customer service
-- bash, python scripting
-- puppet automation
-- LAMP server stack
-- load balancing
-- network/server/service monitoring
-- database administration
-- API development
-- startups
+Minneapolis, MN
+<spencer@tcos.us> 612-460-7448
+
+## Summary
+
+Infrastructure Engineer with 20+ years of experience operating and deploying large-scale systems across datacenter and production environments. Proven track record in hardware bring-up, failure analysis, and infrastructure deployment, including early datacenter expansion at Google and rapid deployment environments at Groq. Known for identifying complex system issues early and driving them to resolution across hardware and software layers.
+
+## Core Skills
+
+- Datacenter Operations & Deployment
+- Infrastructure Bring-up & Hardware Validation
+- Linux / Unix Systems (FreeBSD, OpenBSD, Linux)
+- Automation (Puppet, Bash, Python)
+- Monitoring & Observability (Check_MK, LibreNMS)
+- Load Balancing & Web Infrastructure (HAProxy, Nginx, Apache)
+- Failure Analysis & Debugging
+- API & Internal Tooling Development
 
 ## Professional Experience
-### Twin Cities Open Systems => August 2001 - CURRENT
-- President and CEO
-- Consulting and project development
-- Custom software solutions
 
-### Groq Inc. => July 2024 - CURRENT
-- Install and maintain Deterministic Inference Datacenters.
-- Implement and own HWOps Systems Documentation and Standardization.
+### Groq — Infrastructure Engineer (Systems)
 
-### Honeycomb Internet Services => August 2021 - November 2023
-#### Unix System Administrator
-- Puppet development
-- Bash, Python Scripting
-- Automation development and configuration
-- Monitoring
+July 2024 – April 2025
 
-### UPPER, LLC => November 2020 - August 2021
-#### Data Center Engineer
-- Install, configure, and maintain server infrastructure
+Supported rapid deployment of datacenter infrastructure in a high-growth AI environment
+Worked closely with infrastructure leadership to bring systems online at speed while maintaining operational stability
+Contributed to hardware deployment, system validation, and early-stage infrastructure operations
 
-### Keller Williams Integrity Realty => May 2020 - October 2020
-#### Residential Real Estate Agent
-- I was drawn to Keller Williams by their indulgence in technology. After obtaining my license, I realized two things. One, their technology was not yet beta quality; and two, I am not a salesman.
+### Honeycomb Internet Services — Unix Systems Administrator / DevOps
 
-### Honeycomb Internet Services => June 2017 - July 2020
-#### Unix System Administrator
-- Utilized Check_MK (Nagios based) and LibreNMS to monitor server and network infrastructure
-- Resolved customer related issues ranging from broken email accounts to broken web sites
+June 2017 – November 2023
 
-#### DevOps Engineer
-- Developed puppet modules to automate the distribution of monitoring agents based on hardware and software specifications unique to each server
-- Utilized python and bash to code monitoring plugins for Linux, OpenBSD, and FreeBSD
-- Built a Flask based API for internal tools
+Designed and implemented monitoring systems across server and network infrastructure using Check_MK and LibreNMS
+Developed Puppet-based automation for deploying and configuring monitoring agents across heterogeneous systems
+Built internal tools and APIs (Flask, Python) to support infrastructure visibility and operational workflows
+Wrote custom monitoring plugins for Linux, OpenBSD, and FreeBSD environments
+Diagnosed and resolved complex system and application issues across production environments
 
-### Personal Sabbatical => September 2015 - June 2017
-#### Personal Development
-- I took 18 months to travel and develop, as a human being.
+### Reflected Networks — Linux Systems Administrator
 
-### Reflected Networks => July 2010 - September 2015
-#### Linux System Administrator
-- Worked with a globally diverse group of administrators to ensure 100% uptime for critical customer services
-- Leveraged HAProxy, Nginx, Apache, and MySQL to provide crucial services
-- Provided High traffic CDN origin using lightHTTPd
+July 2010 – September 2015
 
-### Google Inc. => October 2006 - September 2009
-#### Data Center Technician 3
-- Lead multiple teams, turning up the Iowa datacenter
-- Extensive work with the Platforms Development Team
-- Hardware Support for new Platform Introductions
-- Lots and lots of documentation
+Maintained high-availability infrastructure supporting critical customer-facing services
+Deployed and managed web and application stack (HAProxy, Nginx, Apache, MySQL)
+Supported high-traffic CDN origin systems using Lighttpd
+Collaborated with distributed teams to ensure reliability and uptime across production systems
+
+### Google — Data Center Technician / Infrastructure Operations
+
+October 2006 – September 2009
+
+Played a key role in turning up Google’s Iowa datacenter, including infrastructure deployment and team leadership
+Worked directly with Platforms Development teams to test and validate new server hardware
+Identified hardware and deployment issues during early platform rollouts, improving system reliability
+Produced extensive operational documentation supporting large-scale infrastructure deployment
+
+### Twin Cities Open Systems — Infrastructure Consultant
+
+August 2001 – Current
+
+Delivered infrastructure consulting, custom systems, and software solutions across diverse environments
+Designed and implemented Linux-based systems, automation workflows, and monitoring solutions
+Supported a wide range of infrastructure projects from small business systems to complex deployments
