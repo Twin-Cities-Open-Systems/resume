@@ -11,6 +11,6 @@ W_EOF
 
 echo "=== PROVISIONING AUTHORITATIVE SUBDOMAIN POINTER VIA WRANGLER ==="
 # Execute the native command payload to inject your CNAME string into your live zone topology
-npx wrangler dns create "8f10dd1cf4a09800045330e7ef048b81" "spencer.blog" --type="CNAME" --content="://cfargotunnel.com" --proxied=true
+npx wrangler dns create "f7653a2322319cb118516b533d12a564" "spencer.blog" --type="CNAME" --content="://cfargotunnel.com" --proxied=true
 
 echo -e "\n=== Routing Core Synchronized Successfully ==="

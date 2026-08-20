@@ -9,7 +9,7 @@ compatibility_date = "2024-08-20"
 
 [[routes]]
 pattern = "tcos.us/people/spencer*"
-zone_id = "8f10dd1cf4a09800045330e7ef048b81"
+zone_id = "f7653a2322319cb118516b533d12a564"
 W_EOF
 
 echo "=== Forcing Native Edge Route Deployment ==="

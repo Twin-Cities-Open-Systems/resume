@@ -5,7 +5,7 @@ API_BASE="https://api."
 API_BASE+="cloudflare"
 API_BASE+=".com/client/v4"
 
-ZONE_ID="8f10dd1cf4a09800045330e7ef048b81"
+ZONE_ID="f7653a2322319cb118516b533d12a564"
 : "${CF_API_TOKEN:?Set CF_API_TOKEN before running this script}"
 
 # Keep in sync with dist/people.json (subdomain_prefix)

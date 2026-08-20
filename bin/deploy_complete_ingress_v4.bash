@@ -22,7 +22,7 @@ curl -X POST "${API_BASE}/accounts/a33d047ae2835100b8ea875863913f96/pages/projec
      --data '{"name": "spencer.blog.tcos.us"}' || echo "Domain already bound, continuing..."
 
 echo -e "\n\n=== [Step 3/3] Direct Inject Ingress Route Into Zone Architecture ==="
-curl -X POST "${API_BASE}/zones/8f10dd1cf4a09800045330e7ef048b81/workers/routes" \
+curl -X POST "${API_BASE}/zones/f7653a2322319cb118516b533d12a564/workers/routes" \
      -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
      -H "Content-Type: application/json" \
      --data '{"pattern": "tcos.us/people/spencer*", "script": "tcos-ingress-proxy"}'

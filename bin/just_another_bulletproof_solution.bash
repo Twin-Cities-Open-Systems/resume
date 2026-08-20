@@ -3,7 +3,7 @@ set -e
 
 # Define operational variables
 ACCOUNT_ID="a33d047ae2835100b8ea875863913f96"
-ZONE_ID="8f10dd1cf4a09800045330e7ef048b81"
+ZONE_ID="f7653a2322319cb118516b533d12a564"
 EMAIL="spencerunderground@gmail.com"
 GLOBAL_KEY="cfk_mv70928DQaYYO7GmiZHf5HWa51U5LsJooWHVV3op7af913c6"
 
