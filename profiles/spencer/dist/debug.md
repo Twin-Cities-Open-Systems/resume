@@ -1,0 +1,32 @@
+# SPENCER BUTLER — MASTER TECHNICAL LEDGER (DEBUG)
+
+## Chronological Commits & System Evolutions
+* [2019-11-18] Initial commit
+
+* [2019-11-18] Spencer
+
+* [2019-11-18] Spencer
+
+* [2019-11-18] Spencer
+
+* [2019-11-18] Added alternate formats.
+
+* [2019-11-19] Added convert.sh
+
+* [2020-11-04] post KW update (#3)
+
+* [2020-11-30] added UPPER
+
+* [2023-03-06] 2023 - Back at Honeycomb
+
+* [2023-12-19] Honeycomb is now a Client of TCOS
+
+* [2024-08-03] Update README.md
+On the fly update, still need to convert.
+* [2025-04-19] chore: update resume after Groq (#4)
+Co-authored-by: Spencer Butler <dev@tcos.us>
+* [2026-06-15] summer updates
+Co-authored-by: Spencer Butler <dev@tcos.us>
+* [2026-08-19] docs: align repo documentation architecture with master TCOS blueprint
+
+* [2026-08-19] feat(resume-revamp): mono-repo, direct people link and soa for people info, easter eggs?
