@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "entity": "Spencer Butler",
+    "type": "human",
+    "roster_slug": "spencer",
+    "public_routing": "spencer.blog.tcos.us",
+    "schema_version": "1.3.0"
+  },
+  "language_profiles": {
+    "active_default": "spencer",
+    "supported_modes": ["professional", "spencer", "ninja", "pirate", "HwOps"],
+    "payloads": {
+      "professional": {
+        "title": "High-Impact Systems Architecture & Platform Engineering",
+        "paradigm": "Systems Engineer specializing in the design, configuration, and protection of automated developer workflows, multi-agent evaluation runtimes, and high-performance bare-metal environments."
+      },
+      "spencer": {
+        "title": "Systems Infrastructure Master Engine",
+        "paradigm": "exactly how I type it, typos and gibberish and all, full of fuck this and cunt that"
+      },
+      "ninja": {
+        "title": "HWOps Silent Execution Node",
+        "paradigm": "Direct lethal strike vectors across legacy datacenter architecture lines. Absolute silence. Zero signal trace."
+      },
+      "pirate": {
+        "title": "HWOps Fleet Privateer Captain",
+        "paradigm": "Commandeer the host steel and run up the black flags across the processing grid. Take everything, leave nothing behind."
+      },
+      "HwOps": {
+        "title": "HwOps Legacy Veteran — Paul Froutan Era",
+        "paradigm": "HWOps For Life. Loud steel, raw configurations, and hard-won scars. Surviving months of endless project management debates about a single rack, only to watch the master database try to blast 700,000+ records into the void because someone didn't use the dry run option. We don't simulate reality; we run it."
+      }
+    }
+  }
+}
+

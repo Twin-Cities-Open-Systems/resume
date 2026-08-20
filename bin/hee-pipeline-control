@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# TCOS Tooling Ecosystem — Project #5: Resume Pipeline Control Shell Engine
+# Script Type: Portable POSIX/Bash Userland Utility
+# Invariant: Centralizes multi-stage compilation, validation, and test commands
+# ==============================================================================
+set -euo pipefail
+
+SHOW_HELP() {
+    cat << EOF
+Usage: ./bin/hee-pipeline-control <command> [options]
+
+Commands:
+  compile                Run the Project #5 multi-profile resume conversion suite
+  test                   Execute the python frontend data binding verification pass
+  full-cycle             Run compilation followed immediately by validation passes
+EOF
+}
+
+if [[ $# -lt 1 ]]; then
+    SHOW_HELP
+    exit 1
+fi
+
+COMMAND="${1}"
+shift
+
+case "$COMMAND" in
+    compile)
+        echo "[+] Executing local compilation pass..."
+        ./convert.sh "${@}"
+        ;;
+    test)
+        echo "[+] Running automated python DOM validation checks..."
+        python3 tests/run_mock_frontend_test.py
+        ;;
+    full-cycle)
+        echo "[+] Starting comprehensive validation workflow block..."
+        ./convert.sh "${@}"
+        python3 tests/run_mock_frontend_test.py
+        ;;
+    *)
+        echo "[-] Execution Error: Unknown controller subcommand '$COMMAND'." >&2
+        SHOW_HELP
+        exit 1
+        ;;
+esac
+
