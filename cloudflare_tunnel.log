@@ -1,0 +1,34 @@
+Need to install the following packages:
+cloudflared@0.7.3
+Ok to proceed? (y) 
+2026-08-20T07:56:48Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-08-20T07:56:48Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-08-20T07:56:52Z INF +--------------------------------------------------------------------------------------------+
+2026-08-20T07:56:52Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-08-20T07:56:52Z INF |  https://furnishings-portland-cliff-rainbow.trycloudflare.com                              |
+2026-08-20T07:56:52Z INF +--------------------------------------------------------------------------------------------+
+2026-08-20T07:56:52Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp /etc/cloudflared /usr/local/etc/cloudflared]
+2026-08-20T07:56:52Z INF Version 2026.8.2 (Checksum fcfb02b575a52ca1af2e3267af4e1517bcdeb30ac48c834c69abaed3c0576ad2)
+2026-08-20T07:56:52Z INF GOOS: linux, GOVersion: go1.26.4, GoArch: amd64
+2026-08-20T07:56:52Z INF Settings: map[ha-connections:1 no-autoupdate:true protocol:quic url:http://127.0.0.1:8080]
+2026-08-20T07:56:52Z INF Generated Connector ID: 92f5b5ab-8b06-4631-ad0f-b9a0d6d17912
+2026-08-20T07:56:52Z INF Initial protocol quic
+2026-08-20T07:56:52Z INF ICMP proxy will use 10.0.0.72 as source for IPv4
+2026-08-20T07:56:52Z INF ICMP proxy will use fe80::1e69:7aff:feae:f9bd in zone eth0 as source for IPv6
+2026-08-20T07:56:52Z WRN The user running cloudflared process has a GID (group ID) that is not within ping_group_range. You might need to add that user to a group within that range, or instead update the range to encompass a group the user is already in by modifying /proc/sys/net/ipv4/ping_group_range. Otherwise cloudflared will not be able to ping this network error="Group ID 1002 is not between ping group 1 to 0"
+2026-08-20T07:56:52Z WRN ICMP proxy feature is disabled error="cannot create ICMPv4 proxy: Group ID 1002 is not between ping group 1 to 0 nor ICMPv6 proxy: socket: permission denied"
+2026/08/20 02:56:53 failed to sufficiently increase receive buffer size (was: 208 kiB, wanted: 7168 kiB, got: 416 kiB). See https://github.com/quic-go/quic-go/wiki/UDP-Buffer-Sizes for details.
+2026-08-20T07:56:53Z INF ICMP proxy will use 10.0.0.72 as source for IPv4
+2026-08-20T07:56:53Z INF ICMP proxy will use fe80::1e69:7aff:feae:f9bd in zone eth0 as source for IPv6
+2026-08-20T07:56:53Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-08-20T07:56:53Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveID(65074) CurveP256] connIndex=0 event=0 ip=198.41.192.67
+2026-08-20T07:56:53Z INF Registered tunnel connection connIndex=0 connection=251cb455-c19e-4358-aa10-d875fd26d75b event=0 ip=198.41.192.67 location=msp01 protocol=quic
+2026-08-20T07:56:56Z INF Initiating graceful shutdown due to signal interrupt ...
+2026-08-20T07:56:56Z ERR failed to run the datagram handler error="context canceled" connIndex=0 event=0 ip=198.41.192.67
+2026-08-20T07:56:56Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.67
+2026-08-20T07:56:56Z ERR Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.67
+2026-08-20T07:56:56Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.192.67
+2026-08-20T07:56:56Z ERR Connection terminated connIndex=0
+2026-08-20T07:56:56Z ERR no more connections active and exiting
+2026-08-20T07:56:56Z INF Tunnel server stopped
+2026-08-20T07:56:56Z INF Metrics server stopped

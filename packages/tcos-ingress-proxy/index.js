@@ -6,6 +6,11 @@ async function handleRequest(request) {
   const url = new URL(request.url)
   const TARGET_HOST = 'resume-9wa.pages.dev'
   
+  // Rule A: Natively redirect root sub-path visits to your main stream node
+  if (url.pathname === '/people/spencer' || url.pathname === '/people/spencer/') {
+    return Response.redirect('https://tcos.us', 301)
+  }
+  
   url.hostname = TARGET_HOST
   
   if (url.pathname.startsWith('/people/spencer')) {
