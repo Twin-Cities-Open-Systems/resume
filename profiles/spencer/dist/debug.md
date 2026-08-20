@@ -41,3 +41,4 @@ Co-authored-by: Spencer Butler <dev@tcos.us>
 ---------
 
 Co-authored-by: Spencer Butler <dev@tcos.us>
+* [2026-08-20] feat(ingress): migrate repo structure and implement native worker proxy bypass
