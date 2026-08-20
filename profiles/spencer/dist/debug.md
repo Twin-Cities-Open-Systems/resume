@@ -57,3 +57,5 @@ Co-authored-by: Spencer Butler <dev@tcos.us>
 Co-authored-by: Spencer Butler <dev@tcos.us>
 * [2026-08-20] chore(hack): fixing ... maybe (#9)
 Co-authored-by: Spencer Butler <dev@tcos.us>
+* [2026-08-20] chore(fixing): more 'this is it scripts' (#10)
+Co-authored-by: Spencer Butler <dev@tcos.us>
