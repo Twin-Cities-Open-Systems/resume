@@ -41,6 +41,19 @@ Co-authored-by: Spencer Butler <dev@tcos.us>
 ---------
 
 Co-authored-by: Spencer Butler <dev@tcos.us>
-* [2026-08-20] feat(ingress): migrate repo structure and implement native worker proxy bypass
+* [2026-08-20] feature/wrangler per repo only (#8)
+* feat(ingress): migrate repo structure and implement native worker proxy bypass
 
-* [2026-08-20] chore(security): formalize .env ignore rules and sync profile metadata
+* feat(ingress): migrate repo structure and implement native worker proxy bypass
+
+* chore(security): formalize .env ignore rules and sync profile metadata
+
+* chore(computer-will-never-beat-me): adding files, will sort in next pass if needed
+
+* chore(creds): new security is mean. moved wrangler* files to my homebin
+
+---------
+
+Co-authored-by: Spencer Butler <dev@tcos.us>
+* [2026-08-20] chore(hack): fixing ... maybe (#9)
+Co-authored-by: Spencer Butler <dev@tcos.us>
