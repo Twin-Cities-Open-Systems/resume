@@ -1,0 +1,6 @@
+name = "tcos-mono-platform"
+compatibility_date = "2026-08-20"
+
+[pages]
+# Native routing gateway bypasses CLI subcommand argument errors
+custom_domains = [ "tcos.us" ]

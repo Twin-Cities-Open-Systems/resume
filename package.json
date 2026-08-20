@@ -1,0 +1,26 @@
+{
+  "name": "resume",
+  "version": "1.0.0",
+  "description": "This repository is a verified component of the **Twin-Cities-Open-Systems (TCOS)** architecture.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Twin-Cities-Open-Systems/resume.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Twin-Cities-Open-Systems/resume/issues"
+  },
+  "homepage": "https://github.com/Twin-Cities-Open-Systems/resume#readme",
+  "devDependencies": {
+    "wrangler": "^4.124.0"
+  }
+}
