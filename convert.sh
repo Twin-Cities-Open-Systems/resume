@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Spencer Butler <dev@tcos.us>
 # convert.sh
+# Manages the resume MonoRepo
 
 set -euo pipefail
 

@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spencer Butler — TCOS Platform Stream</title>
     <style>
-        body { font-family: monospace; background: #111; color: #eee; padding: 2rem; max-width: 800px; margin: 0 auto; }
-        header { border-bottom: 1px solid #333; padding-bottom: 1rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; }
-        select { background: #222; color: #00ff00; border: 1px solid #444; padding: 0.5rem; font-family: monospace; cursor: pointer; }
-        .pane { background: #1a1a1a; padding: 1.5rem; border-left: 3px solid #00ff00; border-radius: 4px; }
-        h1 { color: #fff; margin-top: 0; }
+        :root { --bg: #111; --pane-bg: #1a1a1a; --text: #eee; --accent: #00ff00; --border: #333; --muted: #888; }
+        body { font-family: monospace; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        select { background: var(--pane-bg); color: var(--accent); border: 1px solid #444; padding: 0.5rem; font-family: monospace; cursor: pointer; }
+        .pane { background: var(--pane-bg); padding: 1.5rem; border-left: 3px solid var(--accent); border-radius: 4px; margin-bottom: 2rem; }
+        h1, h2 { color: #fff; margin-top: 0; }
         p { line-height: 1.6; color: #ccc; }
+        .post-list { list-style: none; padding: 0; }
+        .post-item { background: var(--pane-bg); border: 1px solid var(--border); padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+        .post-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+        .post-content { color: #ccc; line-height: 1.5; white-space: pre-wrap; }
     </style>
 </head>
 <body>
 
     <header>
-        <div>
-            <strong>TCOS Node: spencer.blog.tcos.us</strong>
-        </div>
+        <div><strong>TCOS Node: spencer.blog.tcos.us</strong></div>
         <div>
             <label for="mode-select">Language Profile: </label>
             <select id="mode-select" onchange="switchLanguageProfile(this.value)">
@@ -31,34 +34,63 @@
         </div>
     </header>
 
-    <main class="pane">
+    <section class="pane">
         <h1 id="profile-title">Loading...</h1>
         <p id="profile-paradigm">Initial state synchronization in progress...</p>
-    </main>
+    </section>
+
+    <section>
+        <h2>Stream Entries</h2>
+        <ul id="blog-posts" class="post-list"></ul>
+    </section>
 
     <script>
-        let profilesData = {};
+        let coreProfiles = {};
+        let blogEntries = [];
 
         async function initProfileEngine() {
             try {
-                const response = await fetch('../profiles/spencer/profile.json');
-                const data = await response.json();
-                profilesData = data.language_profiles.payloads;
+                const profileRes = await fetch('../profiles/spencer/profile.json');
+                const profileData = await profileRes.json();
+                coreProfiles = profileData.language_profiles.payloads;
                 
-                const defaultMode = data.language_profiles.active_default || 'professional';
+                const blogRes = await fetch('blog_manifest.json');
+                blogEntries = await blogRes.json();
+
+                const defaultMode = profileData.language_profiles.active_default || 'professional';
                 document.getElementById('mode-select').value = defaultMode;
                 switchLanguageProfile(defaultMode);
             } catch (error) {
                 document.getElementById('profile-title').innerText = "Execution Error";
-                document.getElementById('profile-paradigm').innerText = "Failed to pull profile data ledger matrix.";
+                document.getElementById('profile-paradigm').innerText = "Failed to pull data ledger matrices.";
             }
         }
 
         function switchLanguageProfile(mode) {
-            if (profilesData[mode]) {
-                document.getElementById('profile-title').innerText = profilesData[mode].title;
-                document.getElementById('profile-paradigm').innerText = profilesData[mode].paradigm;
+            if (coreProfiles[mode]) {
+                document.getElementById('profile-title').innerText = coreProfiles[mode].title;
+                document.getElementById('profile-paradigm').innerText = coreProfiles[mode].paradigm;
             }
+            renderBlogEntries(mode);
+        }
+
+        function renderBlogEntries(mode) {
+            const listContainer = document.getElementById('blog-posts');
+            listContainer.innerHTML = '';
+
+            blogEntries.forEach(post => {
+                const li = document.createElement('li');
+                li.className = 'post-item';
+                
+                const contentText = post.localized_content[mode] || post.localized_content['professional'] || post.raw_fallback;
+
+                li.innerHTML = `
+                    <div class="post-meta">[${post.date}] Sub-system: ${post.slug}</div>
+                    <h3>${post.title}</h3>
+                    <div class="post-content">${contentText}</div>
+                `;
+                listContainer.appendChild(li);
+            });
         }
 
         window.addEventListener('DOMContentLoaded', initProfileEngine);
