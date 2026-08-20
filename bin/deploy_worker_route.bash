@@ -8,7 +8,7 @@ main = "packages/tcos-ingress-proxy/index.js"
 compatibility_date = "2024-08-20"
 
 [[routes]]
-pattern = "tcos.us/people/spencer*"
+pattern = "tcos.us/people/*"
 zone_id = "8f10dd1cf4a09800045330e7ef048b81"
 W_EOF
 
