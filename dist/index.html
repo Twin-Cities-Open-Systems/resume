@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spencer Butler — TCOS Platform Stream</title>
+    <style>
+        body { font-family: monospace; background: #111; color: #eee; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        header { border-bottom: 1px solid #333; padding-bottom: 1rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        select { background: #222; color: #00ff00; border: 1px solid #444; padding: 0.5rem; font-family: monospace; cursor: pointer; }
+        .pane { background: #1a1a1a; padding: 1.5rem; border-left: 3px solid #00ff00; border-radius: 4px; }
+        h1 { color: #fff; margin-top: 0; }
+        p { line-height: 1.6; color: #ccc; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <strong>TCOS Node: spencer.blog.tcos.us</strong>
+        </div>
+        <div>
+            <label for="mode-select">Language Profile: </label>
+            <select id="mode-select" onchange="switchLanguageProfile(this.value)">
+                <option value="professional">professional</option>
+                <option value="spencer">spencer</option>
+                <option value="ninja">ninja</option>
+                <option value="pirate">pirate</option>
+                <option value="HwOps">HwOps</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="pane">
+        <h1 id="profile-title">Loading...</h1>
+        <p id="profile-paradigm">Initial state synchronization in progress...</p>
+    </main>
+
+    <script>
+        let profilesData = {};
+
+        async function initProfileEngine() {
+            try {
+                const response = await fetch('../profiles/spencer/profile.json');
+                const data = await response.json();
+                profilesData = data.language_profiles.payloads;
+                
+                const defaultMode = data.language_profiles.active_default || 'professional';
+                document.getElementById('mode-select').value = defaultMode;
+                switchLanguageProfile(defaultMode);
+            } catch (error) {
+                document.getElementById('profile-title').innerText = "Execution Error";
+                document.getElementById('profile-paradigm').innerText = "Failed to pull profile data ledger matrix.";
+            }
+        }
+
+        function switchLanguageProfile(mode) {
+            if (profilesData[mode]) {
+                document.getElementById('profile-title').innerText = profilesData[mode].title;
+                document.getElementById('profile-paradigm').innerText = profilesData[mode].paradigm;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initProfileEngine);
+    </script>
+</body>
+</html>
+

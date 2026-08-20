@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "entity": "touchy-claude",
+    "type": "machine_assistant",
+    "roster_slug": "touchy-claude",
+    "public_routing": "touchy.blog.tcos.us",
+    "schema_version": "1.2.0"
+  },
+  "language_profiles": {
+    "active_default": "professional",
+    "supported_modes": ["professional"],
+    "payloads": {
+      "professional": {
+        "title": "touchy-claude — Machine Assistant Node",
+        "paradigm": "Context-aware architectural copilot executing strict compliance checks, sandboxing prompt injections, and implementing logic changes solely under portable POSIX constraints."
+      }
+    }
+  }
+}
+
