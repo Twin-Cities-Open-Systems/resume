@@ -30,3 +30,7 @@ Co-authored-by: Spencer Butler <dev@tcos.us>
 * [2026-08-19] docs: align repo documentation architecture with master TCOS blueprint
 
 * [2026-08-19] feat(resume-revamp): mono-repo, direct people link and soa for people info, easter eggs?
+
+* [2026-08-19] feat(expand) more features than you can shake a stick at.
+
+* [2026-08-19] feat(profile): add fun language selection for profiles
