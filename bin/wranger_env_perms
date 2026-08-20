@@ -8,7 +8,7 @@ EOF
 # 2. Append the authoritative IDs to your local un-tracked environment file
 cat << 'EOF' > .env
 CLOUDFLARE_ACCOUNT_ID="07f9c2d13b482a6ea0039bc5e172efd2"
-CLOUDFLARE_API_TOKEN="cfut_4MrkMUsI8gPcJYOtdyDBFUSA1MsEqwwjYU4ndKLLf303d575"
+CLOUDFLARE_API_TOKEN=""
 EOF
 
 # 3. Force the non-interactive production Cloudflare Pages deployment pass
