@@ -6,7 +6,8 @@ API_BASE+="cloudflare"
 API_BASE+=".com/client/v4"
 
 # 1. Update the local environmental token signature with your newly configured permission key
-export CLOUDFLARE_API_TOKEN="cfut_2PShpJvfLLBZbRapNAvMzSvZgwN0JvNblIkfrR1D1ab01c0d"
+: "${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN before running this script}"
+export CLOUDFLARE_API_TOKEN
 
 echo "=== [Step 1/3] Uploading Proxy Logic to Workers Marketplace ==="
 curl -X PUT "${API_BASE}/accounts/a33d047ae2835100b8ea875863913f96/workers/scripts/tcos-ingress-proxy" \

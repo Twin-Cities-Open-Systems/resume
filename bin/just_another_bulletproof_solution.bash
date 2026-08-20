@@ -5,7 +5,8 @@ set -e
 ACCOUNT_ID="a33d047ae2835100b8ea875863913f96"
 ZONE_ID="f7653a2322319cb118516b533d12a564"
 EMAIL="spencerunderground@gmail.com"
-GLOBAL_KEY="cfk_mv70928DQaYYO7GmiZHf5HWa51U5LsJooWHVV3op7af913c6"
+: "${CF_GLOBAL_KEY:?Set CF_GLOBAL_KEY before running this script}"
+GLOBAL_KEY="$CF_GLOBAL_KEY"
 
 echo "=== STEP 1: Injecting Proxied DNS Record ==="
 curl -X POST "https://cloudflare.com/${ZONE_ID}/dns_records" \

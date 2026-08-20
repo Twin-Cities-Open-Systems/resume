@@ -4,9 +4,11 @@ set -e
 # Establish the secure global tracking configuration directory
 mkdir -p ~/.config/.wrangler
 
+: "${CF_API_TOKEN:?Set CF_API_TOKEN before running this script}"
+
 # Inject the active permission token profile directly into Wrangler's global authentication configuration matrix
 cat << W_EOF > ~/.config/.wrangler/config.toml
-api_token = "cfut_2PShpJvfLLBZbRapNAvMzSvZgwN0JvNblIkfrR1D1ab01c0d"
+api_token = "$CF_API_TOKEN"
 W_EOF
 
 echo "=== PROVISIONING AUTHORITATIVE SUBDOMAIN POINTER VIA WRANGLER ==="

@@ -5,7 +5,8 @@ API_BASE="https://api."
 API_BASE+="cloudflare"
 API_BASE+=".com/client/v4"
 
-TOKEN="cfut_2PShpJvfLLBZbRapNAvMzSvZgwN0JvNblIkfrR1D1ab01c0d"
+: "${CF_API_TOKEN:?Set CF_API_TOKEN before running this script}"
+TOKEN="$CF_API_TOKEN"
 ACCOUNT_ID="a33d047ae2835100b8ea875863913f96"
 ZONE_ID="f7653a2322319cb118516b533d12a564"
 
