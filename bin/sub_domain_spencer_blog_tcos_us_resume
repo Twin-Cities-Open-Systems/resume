@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+ACCOUNT_ID="a33d047ae2835100b8ea875863913f96"
+EMAIL="spencerunderground@gmail.com"
+GLOBAL_KEY="cfk_mv70928DQaYYO7GmiZHf5HWa51U5LsJooWHVV3op7af913c6"
+
+echo "=== Attaching Dedicated Subdomain Mapping to 'resume' ==="
+curl -X POST "https://cloudflare.com/${ACCOUNT_ID}/pages/projects/resume/domains" \
+     -H "X-Auth-Email: ${EMAIL}" \
+     -H "X-Auth-Key: ${GLOBAL_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{
+       "name": "spencer.blog.tcos.us"
+     }'
+

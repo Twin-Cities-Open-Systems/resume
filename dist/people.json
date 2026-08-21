@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "spencer",
+    "type": "human",
+    "subdomain_prefix": "spencer",
+    "public_dns": "spencer.blog.tcos.us",
+    "route_path": "people/spencer"
+  }
+,
+  {
+    "slug": "touchy-claude",
+    "type": "machine_assistant",
+    "subdomain_prefix": "touchy",
+    "public_dns": "touchy.blog.tcos.us",
+    "route_path": "people/touchy-claude"
+  }
+
+]
