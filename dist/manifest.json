@@ -1,0 +1,22 @@
+{
+  "3857e97a90c42584b13a0cae2482a6a1d806771f8a913b5ed460a958176f6b8d": {
+    "accent_color": "#F2A900",
+    "badge": "corner_dot",
+    "base_color": "#8B1E3F",
+    "fill": "stripe:5",
+    "label": "HEE",
+    "shape": "hex",
+    "size": "1024x1024",
+    "steps": []
+  },
+  "f3fee23cc0bfa27134bcca95e5186c3d65f83e7e7353c0fba84ad5a5bb32f561": {
+    "accent_color": "#F2A900",
+    "badge": "corner_dot",
+    "base_color": "#1a1a1a",
+    "fill": "split:2",
+    "glyph": "\ud83d\udc27",
+    "shape": "circle",
+    "size": "1024x1024",
+    "steps": []
+  }
+}
