@@ -22,9 +22,9 @@ for profile_dir in profiles/*; do
         slug=$(grep -o '"roster_slug": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
         type_raw=$(grep -o '"type": "[^"]*' "$profile_dir/profile.json" | head -n1 | cut -d'"' -f4)
         public_dns=$(grep -o '"public_routing": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
-        
+
         fuzzy_prefix=$(echo "$public_dns" | cut -d'.' -f1)
-        
+
         if [[ -n "${ASSIGNED_SUBDOMAINS[$fuzzy_prefix]+x}" ]]; then
             echo "[!] CRITICAL CONFLICT IDENTIFIED: Subdomain prefix '$fuzzy_prefix' is already occupied by ${ASSIGNED_SUBDOMAINS[$fuzzy_prefix]}." >&2
             echo "[?] Enter manual disambiguation modifier string: " >&2
@@ -32,16 +32,16 @@ for profile_dir in profiles/*; do
             fuzzy_prefix=$(echo "$manual_override" | tr '[:upper:]' '[:lower:]' | tr -cd 'a-z0-9-')
             public_dns="$fuzzy_prefix.blog.tcos.us"
         fi
-        
+
         ASSIGNED_SUBDOMAINS[$fuzzy_prefix]="$slug"
         mkdir -p "$profile_dir/dist"
-        
+
         if [ "$FIRST_ENTRY" = true ]; then
             FIRST_ENTRY=false
         else
             echo "," >> "$OUTPUT_WEB_DIR/people.json"
         fi
-        
+
         cat <<- EOF >> "$OUTPUT_WEB_DIR/people.json"
   {
     "slug": "$slug",
@@ -52,6 +52,57 @@ for profile_dir in profiles/*; do
   }
 EOF
 
+        # Generic per-profile blog content, driven entirely by profile.json --
+        # no per-slug special-casing. dist/sane.md and dist/resume.md default
+        # to the "professional" payload specifically, NOT active_default --
+        # the filename says why (spencer's real active_default is his own
+        # unfiltered "spencer" mode, not something that belongs in a resume
+        # or the "sane" fallback by default). --profile-mode=<X> overrides
+        # for any profile that actually supports mode X (silently ignored
+        # otherwise, falls back to professional, then active_default if a
+        # profile somehow has neither).
+        active_mode=$(grep -A 2 '"language_profiles"' "$profile_dir/profile.json" | grep '"active_default"' | cut -d'"' -f4)
+        if grep -q '"professional":' "$profile_dir/profile.json"; then
+            requested_mode="professional"
+        else
+            requested_mode="${active_mode}"
+        fi
+        for arg in "$@"; do
+            case "$arg" in
+                --profile-mode=*)
+                    candidate="${arg#--profile-mode=}"
+                    if grep -q "\"${candidate}\":" "$profile_dir/profile.json"; then
+                        requested_mode="$candidate"
+                    fi
+                    ;;
+            esac
+        done
+
+        entity=$(grep -o '"entity": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
+        payload_title=$(python3 -c "
+import json
+d = json.load(open('$profile_dir/profile.json'))
+p = d.get('language_profiles', {}).get('payloads', {}).get('$requested_mode', {})
+print(p.get('title', ''))
+")
+        payload_paradigm=$(python3 -c "
+import json
+d = json.load(open('$profile_dir/profile.json'))
+p = d.get('language_profiles', {}).get('payloads', {}).get('$requested_mode', {})
+print(p.get('paradigm', ''))
+")
+
+        cat > "$profile_dir/dist/sane.md" <<- SANEEOF
+# ${payload_title}
+> Route Source: tcos.us/people/${slug} | Target Node: ${public_dns}
+
+## Profile
+${payload_paradigm}
+SANEEOF
+
+        # Spencer-specific extras: real, personal achievement content and the
+        # git-log ledger. Not generic -- these don't make sense for every
+        # profile, kept as real spencer-only content, not a template.
         if [[ "$slug" == "spencer" ]]; then
             cat << 'EOF' > "$profile_dir/dist/filter-pass.md"
 # SPENCER BUTLER
@@ -64,26 +115,6 @@ EOF
 * Optimized distributed processing architectures using deterministic systemd user timers.
 EOF
 
-            active_mode=$(grep -A 2 '"language_profiles"' "$profile_dir/profile.json" | grep '"active_default"' | cut -d'"' -f4)
-            
-            if [[ "${1:-}" == "--profile-mode=HwOps" ]] || [[ "$active_mode" == "HwOps" ]]; then
-                cat << 'EOF' > "$profile_dir/dist/sane.md"
-# Spencer Butler — HwOps Systems Core (Not HEE)
-> "Surviving the Froutan era. We build the physical foundation that software scripts dream about."
-
-## The Master Record Incident
-* Monitored, contained, and triaged a systemic database catastrophe when a rack reconfiguration deployment triggered an unauthorized update vector attempting to rewrite over 700,000 live infrastructure entities. Kept the perimeter isolated while the post-mortems debated the dry run option.
-EOF
-            else
-                cat << 'EOF' > "$profile_dir/dist/sane.md"
-# Spencer Butler — Platform Systems Engineer
-> "Correctness over consensus. Structure over vibes. Determinism over convenience."
-
-## Technical Paradigm
-Systems Engineer specializing in the design, configuration, and protection of automated developer workflows, multi-agent evaluation runtimes, and high-performance bare-metal environments.
-EOF
-            fi
-
             {
                 echo "# SPENCER BUTLER — MASTER TECHNICAL LEDGER (DEBUG)"
                 echo ""
@@ -92,20 +123,37 @@ EOF
             } > "$profile_dir/dist/debug.md"
         fi
 
-        if [[ "$slug" == "touchy-claude" ]]; then
-            cat << 'EOF' > "$profile_dir/dist/sane.md"
-# touchy-claude — Machine Assistant Node
-## Sub-System Registry: Twin Cities Open Systems (TCOS)
-> Route Source: tcos.us/people/touchy-claude | Target Node: touchy.blog.tcos.us
+        # Generic per-profile resume entry -- every profile gets one, not just
+        # spencer's root-level SpencerButler.md. Same title/paradigm source as
+        # sane.md above, just framed as a resume doc instead of a blog page.
+        cat > "$profile_dir/dist/resume.md" <<- RESUMEEOF
+# ${entity} Resume
 
-### Operational Directives
-* Context Preservation: Monitors repository state maps, layout configurations, and compliance boundaries without manual drift.
-* Syntax Enforcement: Validates compliance with strict userland script design guidelines.
-EOF
+## Summary
+${payload_paradigm}
+
+## Role
+${payload_title}
+RESUMEEOF
+
+        # Real multi-format conversion, same as the root-level
+        # SpencerButler.{html,pdf,txt} -- now for every profile, not just
+        # spencer's. Same simple formats, same tools (pandoc, wkhtmltopdf
+        # as the pdf engine so this doesn't need a full texlive install).
+        if command -v pandoc >/dev/null 2>&1; then
+            pandoc -s "$profile_dir/dist/resume.md" -t html5 \
+                --metadata title="${entity} Resume" \
+                -o "$profile_dir/dist/resume.html" 2>/dev/null
+            if command -v wkhtmltopdf >/dev/null 2>&1; then
+                pandoc -s "$profile_dir/dist/resume.md" \
+                    --metadata title="${entity} Resume" \
+                    --pdf-engine=wkhtmltopdf \
+                    -o "$profile_dir/dist/resume.pdf" 2>/dev/null
+            fi
         fi
+        sed -e 's/^#*[[:space:]]//g' "$profile_dir/dist/resume.md" > "$profile_dir/dist/resume.txt"
     fi
 done
 
 echo "" >> "$OUTPUT_WEB_DIR/people.json"
 echo "]" >> "$OUTPUT_WEB_DIR/people.json"
-

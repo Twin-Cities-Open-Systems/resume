@@ -1,5 +1,13 @@
 [
   {
+    "slug": "claude-intern-j2",
+    "type": "machine_assistant",
+    "subdomain_prefix": "intern-j2",
+    "public_dns": "intern-j2.blog.tcos.us",
+    "route_path": "people/claude-intern-j2"
+  }
+,
+  {
     "slug": "spencer",
     "type": "human",
     "subdomain_prefix": "spencer",
