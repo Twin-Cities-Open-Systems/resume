@@ -127,3 +127,31 @@ spencer-only route pattern superseded by deploy_worker_route.bash).
 Flagging on fleet-ops#196 rather than fixing blind -- most of these
 look like abandoned trial-and-error attempts already superseded by
 the scripts that actually got run successfully.
+
+* [2026-08-22] feat(convert.sh): generic per-profile blog + resume content, no more per-slug hardcoding
+"nice on the people! if in people/ should auto create \${oper}.blog" --
+convert.sh's content generation was hardcoded per-slug (if slug ==
+"spencer" ... if slug == "touchy-claude" ...), so a new profile
+dropped into profiles/ got a subdomain assignment and a people.json
+entry, but no actual blog content -- someone had to hand-write a new
+if-block in the script first. Replaced with one generic renderer
+driven entirely by profile.json's language_profiles payloads.
+
+dist/sane.md and the new dist/resume.md ("and our own resume, so they
+all get an entry in resume") default to the "professional" payload
+specifically, not active_default -- spencer's real active_default is
+his own unfiltered "spencer" mode, which is exactly wrong for a resume
+or the "sane" fallback. Caught this by actually diffing the generated
+output before committing, not just checking the script ran clean:
+first pass silently regenerated spencer's sane.md with profanity in it.
+
+Real proof case: profiles/claude-intern-j2/profile.json, a brand-new
+profile added with zero new script logic, produces correct dist/sane.md
+and dist/resume.md output on the first run.
+
+Kept spencer's real personal achievement content (filter-pass.md) and
+git-log ledger (debug.md) as genuinely spencer-specific, not templated
+-- those don't generalize to every profile.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_011tVMcJAK7j2m3vUoqxteYY

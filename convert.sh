@@ -135,6 +135,23 @@ ${payload_paradigm}
 ## Role
 ${payload_title}
 RESUMEEOF
+
+        # Real multi-format conversion, same as the root-level
+        # SpencerButler.{html,pdf,txt} -- now for every profile, not just
+        # spencer's. Same simple formats, same tools (pandoc, wkhtmltopdf
+        # as the pdf engine so this doesn't need a full texlive install).
+        if command -v pandoc >/dev/null 2>&1; then
+            pandoc -s "$profile_dir/dist/resume.md" -t html5 \
+                --metadata title="${entity} Resume" \
+                -o "$profile_dir/dist/resume.html" 2>/dev/null
+            if command -v wkhtmltopdf >/dev/null 2>&1; then
+                pandoc -s "$profile_dir/dist/resume.md" \
+                    --metadata title="${entity} Resume" \
+                    --pdf-engine=wkhtmltopdf \
+                    -o "$profile_dir/dist/resume.pdf" 2>/dev/null
+            fi
+        fi
+        sed -e 's/^#*[[:space:]]//g' "$profile_dir/dist/resume.md" > "$profile_dir/dist/resume.txt"
     fi
 done
 
