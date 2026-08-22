@@ -16,6 +16,10 @@
         .post-item { background: var(--pane-bg); border: 1px solid var(--border); padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
         .post-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
         .post-content { color: #ccc; line-height: 1.5; white-space: pre-wrap; }
+        .hash-pane { display: none; background: var(--pane-bg); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.5rem; margin-bottom: 2rem; }
+        .hash-pane.found { display: block; }
+        .hash-pane.notfound { display: block; border-left-color: #c33; }
+        .hash-pane pre { white-space: pre-wrap; color: #ccc; background: #111; padding: 0.75rem; border-radius: 4px; overflow-x: auto; }
     </style>
 </head>
 <body>
@@ -38,6 +42,8 @@
         <h1 id="profile-title">Loading...</h1>
         <p id="profile-paradigm">Initial state synchronization in progress...</p>
     </section>
+
+    <section id="hash-pane" class="hash-pane"></section>
 
     <section>
         <h2>Stream Entries</h2>
@@ -93,7 +99,50 @@
             });
         }
 
+        // Real "hee-key hole" lookup: works for any real hash we generate
+        // going forward, not just this one -- reads ?hash=, checks it
+        // against a static manifest.json (no backend, "static is
+        // perfect"), same real data hee-qr -manifest writes.
+        // Exact query-param shape may get refined later; this is the
+        // simple, fast first version.
+        async function checkHashLookup() {
+            const params = new URLSearchParams(window.location.search);
+            const hash = params.get('hash');
+            if (!hash) return;
+
+            const pane = document.getElementById('hash-pane');
+            try {
+                const res = await fetch('manifest.json');
+                const manifest = await res.json();
+                const recipe = manifest[hash];
+                if (recipe) {
+                    pane.className = 'hash-pane found';
+                    pane.innerHTML = `
+                        <h2>Verified Artifact</h2>
+                        <p>Real recipe, matches the hash embedded in this image's own anchor (QR + PNG metadata). Reproducible, bit-for-bit -- not asserted.</p>
+                        <pre>${escapeHtmlHash(JSON.stringify(recipe, null, 2))}</pre>
+                        <p class="post-meta">hash: ${escapeHtmlHash(hash)}</p>
+                    `;
+                } else {
+                    pane.className = 'hash-pane notfound';
+                    pane.innerHTML = `
+                        <h2>Unknown Hash</h2>
+                        <p>No recipe on file for this hash. Either it hasn't been published to the manifest yet, or it doesn't match anything real.</p>
+                        <p class="post-meta">hash: ${escapeHtmlHash(hash)}</p>
+                    `;
+                }
+            } catch (error) {
+                pane.className = 'hash-pane notfound';
+                pane.innerHTML = '<h2>Lookup Failed</h2><p>Could not load the manifest.</p>';
+            }
+        }
+
+        function escapeHtmlHash(s) {
+            return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
         window.addEventListener('DOMContentLoaded', initProfileEngine);
+        window.addEventListener('DOMContentLoaded', checkHashLookup);
     </script>
 </body>
 </html>
