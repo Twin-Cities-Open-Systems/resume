@@ -1,0 +1,33 @@
+{
+  "3857e97a90c42584b13a0cae2482a6a1d806771f8a913b5ed460a958176f6b8d": {
+    "accent_color": "#F2A900",
+    "badge": "corner_dot",
+    "base_color": "#8B1E3F",
+    "fill": "stripe:5",
+    "label": "HEE",
+    "shape": "hex",
+    "size": "1024x1024",
+    "steps": []
+  },
+  "d9ad910d2526fb06d2cd5d50905733f63339dcb95b3f803853d9d4eff5a8fd71": {
+    "accent_color": "#00ff00",
+    "badge": "corner_dot",
+    "base_color": "#1a1a1a",
+    "fill": "solid",
+    "label": "J2",
+    "mark": "dot",
+    "shape": "hex",
+    "size": "512x512",
+    "steps": []
+  },
+  "f3fee23cc0bfa27134bcca95e5186c3d65f83e7e7353c0fba84ad5a5bb32f561": {
+    "accent_color": "#F2A900",
+    "badge": "corner_dot",
+    "base_color": "#1a1a1a",
+    "fill": "split:2",
+    "glyph": "\ud83d\udc27",
+    "shape": "circle",
+    "size": "1024x1024",
+    "steps": []
+  }
+}
