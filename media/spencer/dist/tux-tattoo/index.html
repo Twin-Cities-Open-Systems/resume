@@ -172,7 +172,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
     Real, correctly-attributed copyright: the photographer and tattoo artist holds the rights to this
     work, not the page hosting it.</span>
     <span class="note">Shop location per Spencer's own account, not independently corroborated online (2001-era, predates most of what's indexed today) — his identity as a real, working tattoo artist is confirmed. Each photo below carries its own real EXIF badge and a live GPG signature check, verified in your browser against TCOS's real public key — not just asserted text.</span>
-    <span class="note">Promoted to spencer.media.tcos.us and personally reviewed by Spencer Butler — <a href="promotion-attestation.txt">real, GPG-signed attestation</a> (<a href="promotion-attestation.txt.asc">.asc</a>), per <a href="https://github.com/Twin-Cities-Open-Systems/human-execution-engine/blob/main/contracts/content-signing-v1.contract.yaml" target="_blank" rel="noopener">content-signing-v1</a>.</span>
+    <span class="note">Promoted to spencer.media.tcos.us and personally reviewed by Spencer Butler — <a href="promotion-attestation.txt">real, GPG-signed attestation</a> (<a href="promotion-attestation.txt.asc">.asc</a>), per <a href="https://github.com/Twin-Cities-Open-Systems/human-execution-engine/blob/main/contracts/content-signing-v1.contract.yaml" target="_blank" rel="noopener">content-signing-v1</a>. <span class="gpg-badge" id="attestation-badge" tabindex="0"><span class="gpg-dot"></span><span class="gpg-text">verifying&hellip;</span></span></span>
   </div>
 
   <div class="freshness" id="freshness" data-generated="2026-08-25T21:41:28Z">
@@ -391,6 +391,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
 // executed in the viewer's own browser.
 (function () {
   var PUBKEY_ARMORED = "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmDMEan6BHhYJKwYBBAHaRw8BAQdArrL28CL6ThrANhP/Yk/HQerqT0wUzj7zLTzl\nfxbdkeq0JXRvdWNoeS1jbGF1ZGUgPHRvdWNoeS1jbGF1ZGVAdGNvcy51cz6ImQQT\nFgoAQRYhBGpY/kfviQDED5EfpqImjf8gYjGIBQJqfoEeAhsjBQkDwmcABQsJCAcC\nAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJEKImjf8gYjGIP94A/2JJavySZCjdUxPt\nH8jzy/JChCLCTtU7Vy8pBq0E8+GRAP9g/39rjMWHIkcVcoZin10gt/bGUMAsVCKa\nwCAI0rnNCrg4BGp+gR4SCisGAQQBl1UBBQEBB0DOVxsi4lwxCB6DbEwYSwQlsVTo\nai9ynIhRPE6tjq4VAAMBCAeIfgQYFgoAJhYhBGpY/kfviQDED5EfpqImjf8gYjGI\nBQJqfoEeAhsMBQkDwmcAAAoJEKImjf8gYjGIXkQA/R8QcqtKPj0PPsXvNMY1WNCy\ny9rBcXa5GI/k2JxW9f0zAP9U4b/YUnzJZAixVROnGC6GEefD7t0u5yrk8txIFlY7\nAg==\n=XPjG\n-----END PGP PUBLIC KEY BLOCK-----\n";
+  var PUBKEY_ARMORED_SPENCER = "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmDMEan4vmBYJKwYBBAHaRw8BAQdAxo8+VkyOE84V6sz27U/T/QBNYoRqZVMiYvDZ\nKP4IqE+0IlNwZW5jZXIgQnV0bGVyIDxpbnNwZWN0b3JAdGNvcy51cz6IkAQTFggA\nOBYhBC2ZCSL7ncqz7kBccQwuKgjUfyorBQJqfi+YAhsDBQsJCAcCBhUKCQgLAgQW\nAgMBAh4BAheAAAoJEAwuKgjUfyor1ZQBAKUAN7ofSEzLKPA0uEIxY/CrGckS6dBf\nxEPl+g4yJmziAP9aTB7BXJakrP1Pcqz75DAmg9e4sBPXgJcejrYoPPe/Bbg4BGp+\nL5gSCisGAQQBl1UBBQEBB0B+7MR5yhCxypi3m0DHoXtU5+oYlzwEj5gtF47nQdbb\nEQMBCAeIeAQYFggAIBYhBC2ZCSL7ncqz7kBccQwuKgjUfyorBQJqfi+YAhsMAAoJ\nEAwuKgjUfyorcYsBAM1hI5R8ZeCBko504X8Xwy8yMN48W9M+R8jKDv2eyOJDAQDS\nRRNuZsjS7B4DE/uHChhVNNmj/ATA/b2b7INozzz9AA==\n=wBJN\n-----END PGP PUBLIC KEY BLOCK-----\n";
   var SIGNATURES = {"03-before-1344": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niH1LAP0dCrdOr17wGlHotfyAczUc4E6aql1jhQdkT2udQVzn1wEAqMw/mwvkT+7r\n3sfF+Xk0QcU0ZGdv8Eyc6x8GSz4iQQQ=\n=2h6s\n-----END PGP SIGNATURE-----\n", "04-outline-1348": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niNttAPwMWvMj4jRfsNgqxFkob5jV2O1rbgQlo5AGxqftumH8qQD/YznAEdxvr3D/\n+So27/FNyrsn9noEPmvX+xYaERdhMA4=\n=ZiYu\n-----END PGP SIGNATURE-----\n", "05-shading-1420": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niC8RAQC4zANM77GMl8giQw0zG9NRoTCLmax2/bkoF/IALY8V/gEA7LCgiZy7aBb1\nfl/cNOjTQU/NxUTLyErvAwu/twqucAs=\n=2Jso\n-----END PGP SIGNATURE-----\n", "06-black-fill-1458": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niNKZAP9wU/P+jZVAJNgO73ob/fc7gBvdApBukUv9rfyPNQWINgD+IiLPAr8PdjWq\nRp7lV0ZwNAhS5nPq9LYAfKSG0s2jWgo=\n=kLVJ\n-----END PGP SIGNATURE-----\n", "07-more-fill-1514": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niMPtAPwP5TSa+kipUNHiXrGnH5OaFFI968L7mS8Kj0AyAeC2NQD/VfM6Xv/mslam\nG3VLYtEJCwG/LCmASyFLe5PDqmrmAQ0=\n=rHzD\n-----END PGP SIGNATURE-----\n", "08-color-begins-1530": "-----BEGIN PGP SIGNATURE-----\n\niHQEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niKvIAPYurxIBLO6sBAB4jo5WdM6h/AVL5QRHz20vIyDbNjAMAQCS0zX8s7MMBD7A\ndCWbTyWq6h9rkkOBulYa7m9KsCMlBw==\n=I91W\n-----END PGP SIGNATURE-----\n", "09-nearly-done-1530": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niFfiAQCmTsMThpipb2c8a9EQLKlcFyv6jPVc7ppbc8pmShqqQwD/cuesQWcUdBQR\ncKVSaxl8ZcVTWnqMeVXtXnSBBvdh2QU=\n=XL8x\n-----END PGP SIGNATURE-----\n", "10-finished-1530": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niKWIAQD9D1qwlGvuTpuu/AO5gfxQ9sRc0c56lYp8xxOIQ7CVsgEAke7uNTvwvDmR\nIbA4KTlHP/E1clBCfeeobudfATi8tQ8=\n=2dOx\n-----END PGP SIGNATURE-----\n", "11-finished-1531": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCao4J5wAKCRCiJo3/IGIx\niD3lAP9/d0GUF/FTD3mBtH+2GqcFM1P/mBCTFb7HzmN3pWO0kQEAwGxs6qZmzSqu\nkiqZ4gc0HQqGRBKqE1VF0hdD4D3yIws=\n=vFEo\n-----END PGP SIGNATURE-----\n"};
 
   function b64ToUint8Array(b64) {
@@ -441,6 +442,39 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
           badge.appendChild(tip);
         }
       })(photoName);
+    }
+
+    // Second signer: Spencer Butler's own promotion attestation,
+    // verified the same real way -- fetches the actual served
+    // attestation file and its detached signature, checks both
+    // live against his real public key. Not the same key as the
+    // per-photo lab signatures above -- see the attestation's own
+    // text for why (content-signing-v1's lab/prod signing split).
+    var attestationBadge = document.getElementById("attestation-badge");
+    if (attestationBadge) {
+      try {
+        var attestationText = await (await fetch("promotion-attestation.txt")).text();
+        var attestationSig = await (await fetch("promotion-attestation.txt.asc")).text();
+        var spencerKey = await openpgp.readKey({ armoredKey: PUBKEY_ARMORED_SPENCER });
+        var aSignature = await openpgp.readSignature({ armoredSignature: attestationSig });
+        var aMessage = await openpgp.createMessage({ text: attestationText });
+        var aResult = await openpgp.verify({ message: aMessage, signature: aSignature, verificationKeys: spencerKey });
+        var aSig0 = aResult.signatures[0];
+        await aSig0.verified;
+        attestationBadge.classList.add("good");
+        attestationBadge.querySelector(".gpg-text").textContent = "GPG verified";
+        var aTip = document.createElement("span");
+        aTip.className = "tip";
+        aTip.innerHTML = "Good signature<br>Key: " + aSig0.keyID.toHex() + "<br>Signer: Spencer Butler &lt;inspector@tcos.us&gt;<br>Verified live in your browser";
+        attestationBadge.appendChild(aTip);
+      } catch (e) {
+        attestationBadge.classList.add("bad");
+        attestationBadge.querySelector(".gpg-text").textContent = "GPG FAILED";
+        var aTip2 = document.createElement("span");
+        aTip2.className = "tip";
+        aTip2.textContent = "Verification failed: " + e.message;
+        attestationBadge.appendChild(aTip2);
+      }
     }
   });
 })();
