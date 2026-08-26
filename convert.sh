@@ -142,11 +142,12 @@ RESUMEEOF
         # as the pdf engine so this doesn't need a full texlive install).
         if command -v pandoc >/dev/null 2>&1; then
             pandoc -s "$profile_dir/dist/resume.md" -t html5 \
-                --metadata title="${entity} Resume" \
+                --metadata pagetitle="${entity} Resume" \
+                -H resume-theme.html \
                 -o "$profile_dir/dist/resume.html" 2>/dev/null
             if command -v wkhtmltopdf >/dev/null 2>&1; then
                 pandoc -s "$profile_dir/dist/resume.md" \
-                    --metadata title="${entity} Resume" \
+                    --metadata pagetitle="${entity} Resume" \
                     --pdf-engine=wkhtmltopdf \
                     -o "$profile_dir/dist/resume.pdf" 2>/dev/null
             fi
