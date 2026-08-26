@@ -373,6 +373,16 @@ logic now lives as real hee-exif subcommands (regen-pubkey,
 embed-exif), per Spencer's direct instruction to keep tools under hee
 rather than scattering one-offs per repo.
 
+* [2026-08-25] blog: chat-mach-dude-kthxbai -- the 2017 PlutoTV/Slim Jim callback (#13)
+Real dogfood of the spencer.blog.tcos.us pipeline, closing the loop for
+an FB post: October 5, 2017's PlutoTV/Slim Jim Facebook post gets a
+real 8-years-11-months-later callback ("chat-mach-dude, put this show
+on this device now,kthxbai"), across all five language-profile voices.
+
+No numbered slug prefix -- ditched per Spencer's real objection to the
+001/002/003 convention. Existing 001 entry untouched.
+
+Co-authored-by: Spencer Butler <spencerunderground@gmail.com>
 * [2026-08-25] fix(deploy): deploy.sh now syncs lab first, then promotes verbatim bytes to prod
 Real drift bug caught live (Spencer: "make sure that lab is going to
 be synced to prod for real" -> found genuinely mismatched via MD5
@@ -495,6 +505,56 @@ Claude-Session: https://claude.ai/code/session_01NjgMEU5Zu6QrnRjjpE9uNz
 Real Meta app "spencer.media" (App ID 1083442627963213), dev-mode
 is sufficient -- no publish/business-verification needed just to
 attribute link-preview scrapes.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01NjgMEU5Zu6QrnRjjpE9uNz
+
+* [2026-08-26] fix(blog): real per-host profile detection + Resume/Media links (#25)
+* fix(blog): real per-host profile detection + Resume/Media links
+
+Two real bugs fixed:
+- dist/index.html hardcoded fetching spencer's profile.json regardless
+  of which domain served it -- confirmed live, touchy.blog.tcos.us was
+  showing spencer's content. Now looks up the real slug for the
+  current hostname via people.json first.
+- No link anywhere to Resume or Media (spencer.media.tcos.us) -- added
+  both to the header, Resume works for every profile, Media only
+  shows for profiles with a real one (MEDIA_HOSTS, spencer today).
+
+Resume files (profiles/*/dist/resume.html) were also confirmed
+unreachable on the live site (identical response to a bogus path --
+Cloudflare Pages' fallback was masking their absence from the actual
+deployed asset set). Copied into dist/ root, which is confirmed
+reliably deployed, as resume-<slug>.html.
+
+* fix(resume): real dark-theme styling + fix duplicate title heading
+
+resume-spencer.html/resume-touchy-claude.html rendered completely
+unstyled (bare pandoc output: white background, serif font, links not
+themed) -- confirmed live, jarring next to the rest of the dark-themed
+site. Added resume-theme.html, included via pandoc's -H flag so future
+regenerations keep it.
+
+Also fixed a real duplicate-heading bug: passing --metadata title=
+made pandoc render its own visible title-block H1 *in addition to*
+the markdown's own '# ${entity} Resume' H1 -- same text, rendered
+twice. Switched to --metadata pagetitle=, which only sets the <title>
+tag (browser tab), leaving the markdown's own heading as the sole
+visible H1.
+
+---------
+
+Co-authored-by: Spencer Butler <spencerunderground@gmail.com>
+* [2026-08-26] Merge origin/master into touchy/spencer-signs-tattoo-promotion
+Real conflict, not mechanical: master (via #25) still had the old
+unconditional per-profile resume generation (persona/paradigm source
+for every profile -- the exact bug Spencer flagged live on
+resume-spencer). This branch's REAL_RESUME_SOURCES-gated fix wins;
+kept the version with no fabricated fallback. Regenerated dist/
+output via ./convert.sh to match. Also kept this branch's
+resume-theme.html (matches the real site's dark-theme tokens, has a
+documented rationale) over master's unrelated ad hoc green-terminal
+palette from the add/add conflict.
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01NjgMEU5Zu6QrnRjjpE9uNz

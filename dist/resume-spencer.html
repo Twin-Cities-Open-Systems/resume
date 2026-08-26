@@ -163,25 +163,125 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
+  <!-- Real dark-theme snippet for pandoc-generated resume.html, passed via
+       `-H resume-theme.html`. Real bug this fixes: pandoc's own default
+       resume.html output has zero styling (bare white background) --
+       matches the site's real dark theme (same token values as
+       media/spencer/dist/shell-theme.css) rather than inventing a
+       second, unrelated palette. Dark-only by design: a printed/emailed
+       resume gets read on whatever device opens it, but the *web*
+       rendering should match the rest of spencer.blog.tcos.us, not look
+       like a stray unstyled pandoc default. -->
   <style>
-    :root { --bg: #111; --pane-bg: #1a1a1a; --text: #eee; --accent: #00ff00; --border: #333; --muted: #888; }
-    body { font-family: monospace; background: var(--bg); color: var(--text); padding: 2rem; max-width: 700px; margin: 0 auto; line-height: 1.6; }
-    h1, h2, h3 { color: #fff; }
-    h1 { border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-    a { color: var(--accent); }
-    a:hover { text-decoration: none; }
-    code, pre { background: var(--pane-bg); color: var(--text); }
-    hr { border-color: var(--border); }
-    blockquote { border-left: 3px solid var(--accent); margin-left: 0; padding-left: 1rem; color: var(--muted); }
+    :root {
+      --ground: #0b1211; --surface: #101918; --line: #223330;
+      --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
+      --accent: #2bbdb2; --accent-ink: #7fe0d6;
+    }
+    html { background-color: var(--ground); color: var(--ink); }
+    body {
+      background-color: var(--ground); color: var(--ink);
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    h1, h2, h3, h4 { color: var(--ink); }
+    h2 { border-bottom: 1px solid var(--line); padding-bottom: 0.3em; }
+    a { color: var(--accent-ink); }
+    code { background-color: var(--surface); color: var(--ink); }
+    hr { border-color: var(--line); }
+    blockquote { color: var(--ink-dim); border-left: 2px solid var(--line); }
   </style>
 </head>
 <body>
 <h1 id="spencer-butler-resume">Spencer Butler Resume</h1>
+<p><a href="mailto:spencer@tcos.us"
+class="email">spencer@tcos.us</a></p>
 <h2 id="summary">Summary</h2>
-<p>Systems Engineer specializing in the design, configuration, and
-protection of automated developer workflows, multi-agent evaluation
-runtimes, and high-performance bare-metal environments.</p>
-<h2 id="role">Role</h2>
-<p>High-Impact Systems Architecture &amp; Platform Engineering</p>
+<p>Infrastructure Engineer with 20+ years of experience operating and
+deploying large-scale systems across datacenter and production
+environments. Proven track record in hardware bring-up, failure
+analysis, and infrastructure deployment, including early datacenter
+expansion at Google and rapid deployment environments at Groq. Known for
+identifying complex system issues early and driving them to resolution
+across hardware and software layers.</p>
+<h2 id="core-skills">Core Skills</h2>
+<ul>
+<li>Datacenter Operations &amp; Deployment</li>
+<li>Infrastructure Bring-up &amp; Hardware Validation</li>
+<li>Linux / Unix Systems (FreeBSD, OpenBSD, Linux)</li>
+<li>Automation</li>
+<li>Monitoring &amp; Observability</li>
+<li>Failure Analysis &amp; Debugging</li>
+<li>Quality Assurance</li>
+<li>Tool Development</li>
+</ul>
+<h2 id="professional-experience">Professional Experience</h2>
+<h3 id="groq-infrastructure-engineer-systems">Groq — Infrastructure
+Engineer (Systems)</h3>
+<p>July 2024 – April 2025</p>
+<ul>
+<li>Supported rapid deployment of datacenter infrastructure in a
+high-growth AI environment</li>
+<li>Worked closely with local AI techs to deliver clusters for QA and
+deployment</li>
+<li>Worked closely with the Infrastructure team to bring clusters online
+at speed while maintaining operational stability</li>
+<li>Contributed to hardware deployment, system validation, and
+early-stage infrastructure operations</li>
+<li>SME for Groq LPU deployment and failure analysis in the Data
+Center</li>
+</ul>
+<h3
+id="honeycomb-internet-services-unix-systems-administrator-devops">Honeycomb
+Internet Services — Unix Systems Administrator / DevOps</h3>
+<p>June 2017 – November 2023</p>
+<ul>
+<li>Designed and implemented monitoring systems across server and
+network infrastructure using Check_MK (Nagios) and LibreNMS</li>
+<li>Developed Puppet-based automation for deploying and configuring
+monitoring agents across heterogeneous systems</li>
+<li>Built internal tools and APIs (Flask, Python) to support
+infrastructure visibility and operational workflows</li>
+<li>Wrote custom monitoring plugins for Linux, OpenBSD, and FreeBSD
+environments</li>
+<li>Diagnosed and resolved complex system and application issues across
+production environments</li>
+<li>Developed and built custom FreeBSD image, with Puppet backend, for
+MN Snow Plows</li>
+</ul>
+<h3 id="reflected-networks-linux-systems-administrator">Reflected
+Networks — Linux Systems Administrator</h3>
+<p>July 2010 – September 2015</p>
+<ul>
+<li>Maintained high-availability infrastructure supporting critical
+customer-facing services</li>
+<li>Deployed and managed web and application stack (HAProxy, Nginx,
+Apache, MySQL)</li>
+<li>Supported high-traffic CDN origin systems using Lighttpd</li>
+<li>Collaborated with distributed teams to ensure reliability and uptime
+across production systems</li>
+</ul>
+<h3 id="google-data-center-technician-infrastructure-operations">Google
+— Data Center Technician / Infrastructure Operations</h3>
+<p>October 2006 – September 2009</p>
+<ul>
+<li>Played a key role in turning up Google’s Iowa datacenter, including
+infrastructure deployment and team leadership</li>
+<li>Worked directly with Platforms Development teams to test and
+validate new server hardware</li>
+<li>Identified hardware and deployment issues during early platform
+rollouts, improving system reliability</li>
+<li>Produced extensive operational documentation supporting large-scale
+infrastructure deployment</li>
+</ul>
+<h3
+id="twin-cities-open-systems-infrastructure-consultant-self-employ">Twin
+Cities Open Systems — Infrastructure Consultant (self employ)</h3>
+<p>August 2001 – Current</p>
+<ul>
+<li>Infrastructure consulting, custom systems, and software solutions
+across diverse environments</li>
+<li>Linux-based systems, automation workflows, and monitoring
+solutions</li>
+</ul>
 </body>
 </html>

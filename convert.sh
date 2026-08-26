@@ -157,6 +157,13 @@ EOF
                         --pdf-engine=wkhtmltopdf \
                         -o "$profile_dir/dist/resume.pdf" 2>/dev/null
                 fi
+
+                # Real bug, caught live (2026-08-26): this root-level copy
+                # is what `wrangler pages deploy dist` actually serves at
+                # /resume-<slug> -- PR#25 introduced it as a one-off manual
+                # cp, never wired into convert.sh itself, so it silently
+                # kept serving stale content through this exact fix.
+                cp "$profile_dir/dist/resume.html" "$OUTPUT_WEB_DIR/resume-${slug}.html"
             fi
             sed -e 's/^#*[[:space:]]//g' "$profile_dir/dist/resume.md" > "$profile_dir/dist/resume.txt"
         else
