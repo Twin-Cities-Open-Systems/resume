@@ -64,3 +64,4 @@ August 2001 – Current
 
 - Infrastructure consulting, custom systems, and software solutions across diverse environments
 - Linux-based systems, automation workflows, and monitoring solutions
+- Currently building a doctrine-first, multi-agent execution framework (HEE) and org-wide governance/automation fleet, including API-driven Proxmox lab infrastructure and 0-token operational tooling
