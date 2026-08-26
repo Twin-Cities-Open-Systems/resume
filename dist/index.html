@@ -106,23 +106,37 @@
             renderBlogEntries(mode);
         }
 
-        function renderBlogEntries(mode) {
+        // Real trigger, 2026-08-26 (Spencer: "keep json to a minimum ...
+        // too much bloat to parse"): blog_manifest.json used to embed
+        // every post's full text, 5 persona variants each -- the actual
+        // real content already lives in profiles/<slug>/blog/*.md (git-
+        // tracked, human-readable), so the JSON only needs to be a thin
+        // index (slug/date/title/path) now. Post bodies are fetched on
+        // demand, one plain-text .md per post, not pre-loaded for every
+        // persona of every post up front.
+        async function renderBlogEntries(mode) {
             const listContainer = document.getElementById('blog-posts');
             listContainer.innerHTML = '';
 
-            blogEntries.forEach(post => {
+            for (const post of blogEntries) {
                 const li = document.createElement('li');
                 li.className = 'post-item';
-                
-                const contentText = post.localized_content[mode] || post.localized_content['professional'] || post.raw_fallback;
-
                 li.innerHTML = `
                     <div class="post-meta">[${post.date}] Sub-system: ${post.slug}</div>
                     <h3>${post.title}</h3>
-                    <div class="post-content">${contentText}</div>
+                    <div class="post-content">Loading&hellip;</div>
                 `;
                 listContainer.appendChild(li);
-            });
+
+                const contentDiv = li.querySelector('.post-content');
+                try {
+                    const res = await fetch(post.path);
+                    if (!res.ok) throw new Error('not found');
+                    contentDiv.textContent = await res.text();
+                } catch (error) {
+                    contentDiv.textContent = post.raw_fallback || '(content unavailable)';
+                }
+            }
         }
 
         // Real "hee-key hole" lookup: works for any real hash we generate
