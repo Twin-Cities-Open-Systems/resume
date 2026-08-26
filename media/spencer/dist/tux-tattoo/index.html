@@ -293,7 +293,7 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
       else if (mins < 60) rel = mins + "m";
       else if (mins < 60 * 24) rel = Math.floor(mins / 60) + "h" + (mins % 60) + "m";
       else rel = Math.floor(mins / (60 * 24)) + "d" + Math.floor((mins % (60 * 24)) / 60) + "h";
-      textEl.innerHTML = "last update: " + fancyDate(generated) + ' <span class="fr-rel">(' + rel + " ago)</span>";
+      textEl.innerHTML = "lu: " + fancyDate(generated) + ' <span class="fr-rel">(' + rel + " ago)</span>";
       // Real technical value, same one this is computed from (the
       // wire-format data-generated attribute) -- muted, hover-only, not
       // the primary claim. hee-epoch will eventually own real epoch
