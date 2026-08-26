@@ -68,6 +68,7 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
 }
 .fr-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex: none; }
 .freshness[data-stale="true"] .fr-dot { background: var(--warning); }
+.fr-rel { color: var(--ink-faint); }
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
 .photo { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .photo img { width: 100%; display: block; background: var(--surface-2); cursor: zoom-in; }
@@ -266,6 +267,20 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
 <script>
 (function () {
   var STALE_AFTER_MS = 24 * 60 * 60 * 1000;
+  var WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function ordinal(n) {
+    if (n >= 11 && n <= 13) return n + "th";
+    switch (n % 10) { case 1: return n + "st"; case 2: return n + "nd"; case 3: return n + "rd"; default: return n + "th"; }
+  }
+  // Real, human-readable absolute date shown first (per Spencer's ask
+  // for something "more sqz" than a fully spelled-out date+time, but
+  // still a genuine calendar date, not the raw ISO/ts_human machine
+  // format) -- squeezed relative time second, as a quick gut-check,
+  // not the primary claim.
+  function fancyDate(d) {
+    return WEEKDAYS[d.getUTCDay()] + " " + MONTHS[d.getUTCMonth()] + " " + ordinal(d.getUTCDate()) + " " + d.getUTCFullYear();
+  }
   document.addEventListener("DOMContentLoaded", function () {
     var wrap = document.getElementById("freshness");
     var textEl = document.getElementById("fr-text");
@@ -273,12 +288,17 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
     function renderDelta() {
       var ms = Date.now() - generated.getTime();
       var mins = Math.floor(ms / 60000);
-      var label;
-      if (mins < 1) label = "last update: just now";
-      else if (mins < 60) label = "last update: " + mins + "m ago";
-      else if (mins < 60 * 24) label = "last update: " + Math.floor(mins / 60) + "h" + (mins % 60) + "m ago";
-      else label = "last update: " + Math.floor(mins / (60 * 24)) + "d ago";
-      textEl.textContent = label;
+      var rel;
+      if (mins < 1) rel = "now";
+      else if (mins < 60) rel = mins + "m";
+      else if (mins < 60 * 24) rel = Math.floor(mins / 60) + "h" + (mins % 60) + "m";
+      else rel = Math.floor(mins / (60 * 24)) + "d" + Math.floor((mins % (60 * 24)) / 60) + "h";
+      textEl.innerHTML = "lu: " + fancyDate(generated) + ' <span class="fr-rel">(' + rel + " ago)</span>";
+      // Real technical value, same one this is computed from (the
+      // wire-format data-generated attribute) -- muted, hover-only, not
+      // the primary claim. hee-epoch will eventually own real epoch
+      // tracking; this is the honest ISO number until then.
+      textEl.title = "ISO: " + wrap.dataset.generated;
       wrap.dataset.stale = String(ms > STALE_AFTER_MS);
     }
     renderDelta();

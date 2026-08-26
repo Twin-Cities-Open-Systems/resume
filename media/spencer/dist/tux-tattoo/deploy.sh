@@ -17,6 +17,7 @@ STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
 cp -r "$MEDIA_ROOT"/* "$STAGE/"
+cp "$MEDIA_ROOT/.assetsignore" "$STAGE/.assetsignore" 2>/dev/null || true
 
 NOW="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 python3 -c "
