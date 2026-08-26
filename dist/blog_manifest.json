@@ -11,6 +11,18 @@
       "pirate": "The master galleon database nearly slipped into the watery deeps with 700,000 records on the line, but we held the line against the quartermasters. Harnessing the wind and the raw kinetic entropy of the crew to drive the engines forward.",
       "HwOps": "Paul Froutan era steel rules. Month-long planning meetings for one rack, a 700,000 record cascade across the MDB, and the immortal punchline: 'Why didn't you use the dry run option?' We map out the finite energy limits, harvest physical keyboarding entropy to build the duople engine, and deploy actual litraly thin area nano generators to protect the local power lines. We don't simulate reality; we patch it live."
     }
+  },
+  {
+    "slug": "chat-mach-dude-kthxbai",
+    "date": "2026-08-22",
+    "title": "chat-mach-dude, put this show on this device now, kthxbai",
+    "raw_fallback": "Callback to an October 5, 2017 Facebook post about a Slim Jim/PlutoTV commercial parody, 8 years and 11 months later.",
+    "localized_content": {
+      "professional": "Reflecting on an October 2017 social media post satirizing early streaming-service advertising, in the context of the intervening evolution of natural-language voice interfaces for media control. What required a multi-step manual remote workflow in 2017 is now expressed as a single conversational utterance to an assistant.",
+      "spencer": "found an old post from October 2017, some dumb bit about a Slim Jim commercial on plutoTV with an amish buggy in it. read it again tonight and just went 'damn, now I just do something like \"chat-mach-dude, put this show on this device now,kthxbai\" and it just does it.' no amish buggy required. 8 years and 11 months and the whole bit is just... obsolete. wild timeline, dot dot dot.",
+      "ninja": "Legacy 2017 signal intercepted and re-analyzed. Manual remote-control vectors fully deprecated. Single-utterance command injection now handles target device state directly. Silent, immediate, no physical interface required.",
+      "pirate": "Dug up an old log from October 2017 -- a tale of amish buggies and slim jims on the crow's nest television. Now, arr, I just bark the order at me first mate 'chat-mach-dude' and the show sails onto the screen without so much as raisin' a sail. Nigh eight years since that log, and the old ways be dead and buried.",
+      "HwOps": "Pulled an old ticket from October 2017 -- some bit about a Slim Jim ad on plutoTV. Back then, putting a show on meant hands on a physical remote, menus, the whole dance. Now it's one line: 'chat-mach-dude, put this show on this device now, kthxbai.' We don't simulate the interface anymore; we just say the command and it runs."
+    }
   }
 ]
-
