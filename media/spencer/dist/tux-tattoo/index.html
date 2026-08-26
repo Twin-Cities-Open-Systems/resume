@@ -61,14 +61,9 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
 }
 .gpg-badge:hover .tip, .gpg-badge:focus .tip { display: block; }
 
-.freshness {
-  display: flex; align-items: center; gap: 10px; margin: 18px 0 24px; padding: 9px 13px;
-  background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px;
-  font-family: var(--mono); font-size: 12px; color: var(--ink-dim); flex-wrap: wrap;
-}
-.fr-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex: none; }
-.freshness[data-stale="true"] .fr-dot { background: var(--warning); }
-.fr-rel { color: var(--ink-faint); }
+/* .freshness / .fr-dot / .fr-rel now live in shell-theme.css -- shared
+   with the root index.html page, not copy-pasted (this was the second
+   real use, which is exactly the line to dedup at). */
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
 .photo { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .photo img { width: 100%; display: block; background: var(--surface-2); cursor: zoom-in; }
@@ -101,7 +96,7 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
 <body>
 <div class="page">
   <div class="topbar">
-    <a class="brand" href="https://tcos.us/people">&larr; Twin Cities Open Systems</a>
+    <a class="brand" href="https://tcos.us" data-cross-site>&larr; Twin Cities Open Systems</a>
     <a class="brand" href="/" style="margin-left:14px;">&larr; spencer.media</a>
     <div class="toggles">
       <span class="fs-label">Aa</span>
@@ -139,11 +134,11 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
     <span class="note">Promoted to spencer.media.tcos.us and personally reviewed by Spencer Butler — <a href="promotion-attestation.txt">real, GPG-signed attestation</a> (<a href="promotion-attestation.txt.asc">.asc</a>), per <a href="https://github.com/Twin-Cities-Open-Systems/human-execution-engine/blob/main/contracts/content-signing-v1.contract.yaml" target="_blank" rel="noopener">content-signing-v1</a>. <span class="gpg-badge" id="attestation-badge" tabindex="0"><span class="gpg-dot"></span><span class="gpg-text">verifying&hellip;</span></span></span>
   </div>
 
-  <div class="freshness" id="freshness" data-generated="2026-08-26T03:20:17Z">
+  <div class="freshness" id="freshness" data-generated="2026-08-26T04:52:53Z">
     <span class="fr-dot"></span>
     <span id="fr-text">last update: just now</span>
     <span class="tgl-sep"></span>
-    <span>live on spencer.media.tcos.us</span>
+    <span>live on <span data-host></span></span>
     <span class="tgl-sep"></span>
     <span>source: <a href="https://github.com/Twin-Cities-Open-Systems/resume/blob/master/media/spencer/dist/tux-tattoo/index.html" target="_blank" rel="noopener">Twin-Cities-Open-Systems/resume</a> &mdash; deploy is a direct wrangler upload, not yet CI/commit-linked (tracked: <a href="https://github.com/Twin-Cities-Open-Systems/resume/issues/23" target="_blank" rel="noopener">resume#23</a>)</span>
   </div>
@@ -257,54 +252,15 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
     </figure>
   </div>
 
-  <footer>Twin-Cities-Open-Systems &middot; spencer.media.tcos.us &middot; first real instance of the &lt;oper&gt;.media.tcos.us idea</footer>
+  <footer>Twin-Cities-Open-Systems &middot; <span data-host></span> &middot; first real instance of the &lt;oper&gt;.media.tcos.us idea</footer>
 </div>
 
 <div class="lightbox" id="lightbox"><button class="lb-close" type="button">&times; close</button><img id="lightbox-img" alt=""></div>
 
 <script src="openpgp.min.js"></script>
 <script src="/shell-toggles.js"></script>
+<script src="/shell-freshness.js"></script>
 <script>
-(function () {
-  var STALE_AFTER_MS = 24 * 60 * 60 * 1000;
-  var WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  function ordinal(n) {
-    if (n >= 11 && n <= 13) return n + "th";
-    switch (n % 10) { case 1: return n + "st"; case 2: return n + "nd"; case 3: return n + "rd"; default: return n + "th"; }
-  }
-  // Real, human-readable absolute date shown first (per Spencer's ask
-  // for something "more sqz" than a fully spelled-out date+time, but
-  // still a genuine calendar date, not the raw ISO/ts_human machine
-  // format) -- squeezed relative time second, as a quick gut-check,
-  // not the primary claim.
-  function fancyDate(d) {
-    return WEEKDAYS[d.getUTCDay()] + " " + MONTHS[d.getUTCMonth()] + " " + ordinal(d.getUTCDate()) + " " + d.getUTCFullYear();
-  }
-  document.addEventListener("DOMContentLoaded", function () {
-    var wrap = document.getElementById("freshness");
-    var textEl = document.getElementById("fr-text");
-    var generated = new Date(wrap.dataset.generated);
-    function renderDelta() {
-      var ms = Date.now() - generated.getTime();
-      var mins = Math.floor(ms / 60000);
-      var rel;
-      if (mins < 1) rel = "now";
-      else if (mins < 60) rel = mins + "m";
-      else if (mins < 60 * 24) rel = Math.floor(mins / 60) + "h" + (mins % 60) + "m";
-      else rel = Math.floor(mins / (60 * 24)) + "d" + Math.floor((mins % (60 * 24)) / 60) + "h";
-      textEl.innerHTML = "lu: " + fancyDate(generated) + ' <span class="fr-rel">(' + rel + " ago)</span>";
-      // Real technical value, same one this is computed from (the
-      // wire-format data-generated attribute) -- muted, hover-only, not
-      // the primary claim. hee-epoch will eventually own real epoch
-      // tracking; this is the honest ISO number until then.
-      textEl.title = "ISO: " + wrap.dataset.generated;
-      wrap.dataset.stale = String(ms > STALE_AFTER_MS);
-    }
-    renderDelta();
-    setInterval(renderDelta, 30000);
-  });
-})();
 
 (function () {
   var lb = document.getElementById("lightbox");

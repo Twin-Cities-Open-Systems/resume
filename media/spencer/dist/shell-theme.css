@@ -49,3 +49,23 @@ body[data-fontsize="m"] { zoom: 1; }
 body[data-fontsize="l"] { zoom: 1.125; }
 body[data-fontsize="xl"] { zoom: 1.25; }
 footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+
+/* Real cross-environment link rule (Spencer, 2026-08-26): "lab links
+   should only point to lab stuff and prod to prod." Where a real lab
+   counterpart exists, link to it; where none exists yet (no
+   tcos.lab.tcos.us / <oper>.blog.lab.tcos.us mirror is live), go inert
+   on lab instead of silently bouncing a lab reviewer out to prod --
+   see shell-toggles.js's `envLink()` for the actual host-detection
+   logic this pairs with. */
+.link-inert { color: var(--ink-faint) !important; text-decoration: none; cursor: default; }
+
+/* Freshness banner: shared, first built for tux-tattoo, now reused --
+   second use is exactly the "extract, don't copy" line (never dup). */
+.freshness {
+  display: flex; align-items: center; gap: 10px; margin: 18px 0 24px; padding: 9px 13px;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px;
+  font-family: var(--mono); font-size: 12px; color: var(--ink-dim); flex-wrap: wrap;
+}
+.fr-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex: none; }
+.freshness[data-stale="true"] .fr-dot { background: var(--warning); }
+.fr-rel { color: var(--ink-faint); }
