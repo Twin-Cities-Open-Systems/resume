@@ -1,11 +1,27 @@
+<!-- Real dark-theme snippet for pandoc-generated resume.html, passed via
+     `-H resume-theme.html`. Real bug this fixes: pandoc's own default
+     resume.html output has zero styling (bare white background) --
+     matches the site's real dark theme (same token values as
+     media/spencer/dist/shell-theme.css) rather than inventing a
+     second, unrelated palette. Dark-only by design: a printed/emailed
+     resume gets read on whatever device opens it, but the *web*
+     rendering should match the rest of spencer.blog.tcos.us, not look
+     like a stray unstyled pandoc default. -->
 <style>
-  :root { --bg: #111; --pane-bg: #1a1a1a; --text: #eee; --accent: #00ff00; --border: #333; --muted: #888; }
-  body { font-family: monospace; background: var(--bg); color: var(--text); padding: 2rem; max-width: 700px; margin: 0 auto; line-height: 1.6; }
-  h1, h2, h3 { color: #fff; }
-  h1 { border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-  a { color: var(--accent); }
-  a:hover { text-decoration: none; }
-  code, pre { background: var(--pane-bg); color: var(--text); }
-  hr { border-color: var(--border); }
-  blockquote { border-left: 3px solid var(--accent); margin-left: 0; padding-left: 1rem; color: var(--muted); }
+  :root {
+    --ground: #0b1211; --surface: #101918; --line: #223330;
+    --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
+    --accent: #2bbdb2; --accent-ink: #7fe0d6;
+  }
+  html { background-color: var(--ground); color: var(--ink); }
+  body {
+    background-color: var(--ground); color: var(--ink);
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  h1, h2, h3, h4 { color: var(--ink); }
+  h2 { border-bottom: 1px solid var(--line); padding-bottom: 0.3em; }
+  a { color: var(--accent-ink); }
+  code { background-color: var(--surface); color: var(--ink); }
+  hr { border-color: var(--line); }
+  blockquote { color: var(--ink-dim); border-left: 2px solid var(--line); }
 </style>

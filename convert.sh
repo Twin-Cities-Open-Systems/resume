@@ -14,6 +14,21 @@ declare -A ASSIGNED_SUBDOMAINS
 OUTPUT_WEB_DIR="dist"
 mkdir -p "$OUTPUT_WEB_DIR"
 
+# Real resume source per profile -- a factual document, never the
+# language_profiles persona copy (that's a voice/tone variant for blog
+# pages, not resume content). Real bug, Spencer direct (2026-08-26):
+# the live resume-spencer page was showing "Systems Engineer
+# specializing in... multi-agent evaluation runtimes" (the "professional"
+# language-profile paradigm blurb) instead of his real, factual work
+# history (Groq, Honeycomb, Reflected Networks, Google...). Fix:
+# resume.md is built from a real per-profile source file when one
+# exists; language-profile reintegration for resumes is deferred
+# (Spencer: "remove the lang-profile stuff for now, we will put it
+# back in later, issue that for backlog" -- see resume#<TBD>).
+declare -A REAL_RESUME_SOURCES=(
+    [spencer]="SpencerButler.md"
+)
+
 echo "[" > "$OUTPUT_WEB_DIR/people.json"
 FIRST_ENTRY=true
 
@@ -123,36 +138,30 @@ EOF
             } > "$profile_dir/dist/debug.md"
         fi
 
-        # Generic per-profile resume entry -- every profile gets one, not just
-        # spencer's root-level SpencerButler.md. Same title/paradigm source as
-        # sane.md above, just framed as a resume doc instead of a blog page.
-        cat > "$profile_dir/dist/resume.md" <<- RESUMEEOF
-# ${entity} Resume
+        # Real per-profile resume -- only generated when a real, factual
+        # source document exists (REAL_RESUME_SOURCES above). No
+        # fabricated fallback: a profile without a real resume yet
+        # simply doesn't get one, rather than showing persona copy
+        # dressed up as facts.
+        if [[ -n "${REAL_RESUME_SOURCES[$slug]+x}" ]] && [[ -f "${REAL_RESUME_SOURCES[$slug]}" ]]; then
+            cp "${REAL_RESUME_SOURCES[$slug]}" "$profile_dir/dist/resume.md"
 
-## Summary
-${payload_paradigm}
-
-## Role
-${payload_title}
-RESUMEEOF
-
-        # Real multi-format conversion, same as the root-level
-        # SpencerButler.{html,pdf,txt} -- now for every profile, not just
-        # spencer's. Same simple formats, same tools (pandoc, wkhtmltopdf
-        # as the pdf engine so this doesn't need a full texlive install).
-        if command -v pandoc >/dev/null 2>&1; then
-            pandoc -s "$profile_dir/dist/resume.md" -t html5 \
-                --metadata pagetitle="${entity} Resume" \
-                -H resume-theme.html \
-                -o "$profile_dir/dist/resume.html" 2>/dev/null
-            if command -v wkhtmltopdf >/dev/null 2>&1; then
-                pandoc -s "$profile_dir/dist/resume.md" \
+            if command -v pandoc >/dev/null 2>&1; then
+                pandoc -s "$profile_dir/dist/resume.md" -t html5 \
                     --metadata pagetitle="${entity} Resume" \
-                    --pdf-engine=wkhtmltopdf \
-                    -o "$profile_dir/dist/resume.pdf" 2>/dev/null
+                    -H resume-theme.html \
+                    -o "$profile_dir/dist/resume.html" 2>/dev/null
+                if command -v wkhtmltopdf >/dev/null 2>&1; then
+                    pandoc -s "$profile_dir/dist/resume.md" \
+                        --metadata pagetitle="${entity} Resume" \
+                        --pdf-engine=wkhtmltopdf \
+                        -o "$profile_dir/dist/resume.pdf" 2>/dev/null
+                fi
             fi
+            sed -e 's/^#*[[:space:]]//g' "$profile_dir/dist/resume.md" > "$profile_dir/dist/resume.txt"
+        else
+            echo "  [i] no real resume source for '$slug' yet -- skipping resume.{md,html,pdf,txt}" >&2
         fi
-        sed -e 's/^#*[[:space:]]//g' "$profile_dir/dist/resume.md" > "$profile_dir/dist/resume.txt"
     fi
 done
 

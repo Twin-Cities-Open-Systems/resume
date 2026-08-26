@@ -1,0 +1,18 @@
+TCOS content promotion attestation
+
+Content: Tux Tattoo gallery (11 photos, Oct 2, 2001 tattoo session by
+Jason "Skitch" King)
+Published at: https://spencer.media.tcos.us/tux-tattoo/
+Per-photo signatures: touchy-claude (lab build + verification stage)
+Promoted to prod by: Spencer Butler
+Date: 2026-08-26
+Governing policy: contracts/content-signing-v1.contract.yaml
+(Twin-Cities-Open-Systems/human-execution-engine)
+
+I attest that I reviewed this content and personally promoted it to
+the real spencer.media.tcos.us production domain, per the lab/prod
+signing split in content-signing-v1: lab work is signed by whoever
+built it, and the prod promotion itself is signed by whoever actually
+performed it.
+
+-- Spencer Butler
