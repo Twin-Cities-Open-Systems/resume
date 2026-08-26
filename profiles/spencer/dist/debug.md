@@ -390,3 +390,111 @@ lab." deploy.sh now: (1) syncs lab from the tracked source verbatim,
 finishing. Freshness (data-generated) is set once, at real edit time,
 same discipline as any other content change -- not silently
 regenerated at deploy time.
+
+* [2026-08-26] fix(resume): resume.md was rendering persona copy, not real facts
+Real bug, Spencer direct (2026-08-26): the live spencer.blog.tcos.us
+resume page said "Systems Engineer specializing in... multi-agent
+evaluation runtimes" -- that's the "professional" language_profiles
+paradigm blurb (a blog voice/tone variant), not his real, factual work
+history. convert.sh's generic per-profile resume.md generation reused
+sane.md's title/paradigm source for every profile including the one
+document that's supposed to be strictly factual.
+
+Fix: resume.md is now built from a real per-profile source document
+(REAL_RESUME_SOURCES map; spencer -> SpencerButler.md, his actual
+resume) when one exists. A profile without a real source gets no
+resume.md/html/pdf/txt at all -- no fabricated fallback. Only spencer
+has a real source today; touchy-claude and claude-intern-j2 correctly
+get nothing until they have real content.
+
+Per Spencer's explicit instruction, language-profile-driven resume
+generation is NOT being redesigned to work correctly here -- it's
+removed for now, to be reintroduced properly later (backlog).
+
+Also fixes a real crash: resume-theme.html (referenced by convert.sh's
+pandoc -H flag since an earlier session) didn't actually exist in this
+checkout, so every run of convert.sh was aborting partway through
+(set -euo pipefail) the moment it reached a profile with a real
+resume. Recreated it -- the dark-theme snippet matching
+media/spencer/dist/shell-theme.css's real token values, not a new
+palette.
+
+* [2026-08-26] fix(spencer.media): cross-env links, freshness widget, tux icon, dedup
+Real bugs Spencer caught live, all on spencer.media.lab.tcos.us /
+spencer.media.tcos.us:
+
+- Breadcrumb "<- Twin Cities Open Systems" pointed at tcos.us/people,
+  should be tcos.us itself.
+- Same breadcrumb, plus the "spencer.blog.tcos.us" note link, silently
+  bounced a lab reviewer to PROD -- no tcos.lab.tcos.us or
+  spencer.blog.lab.tcos.us mirror exists yet (confirmed via DNS, they
+  don't resolve). Fixed via a real host-aware link handler
+  (shell-toggles.js's new IIFE): any a[data-cross-site] with no real
+  lab target goes inert with a visible "(prod only)" label on lab,
+  instead of linking to prod silently.
+- Root landing page had no "lu:" freshness banner and no icon next to
+  the "Tux Tattoo" list item, both real per earlier asks that were
+  only ever built on the tux-tattoo subpage, never the root page.
+- tux-tattoo page hardcoded "live on spencer.media.tcos.us" and the
+  footer domain -- both literally false when served from lab. Now
+  computed from window.location.hostname at load time via a generic
+  [data-host] handler ("remove all static content... exception not
+  rule").
+- The eyebrow ("SPENCER.MEDIA") is now a self-link; a second
+  eyebrow-styled line for spencer.blog sits under it, replacing the
+  old prose note link (Spencer: "add the blog link under it just like
+  that, I like that style").
+- Freshness widget (.freshness/.fr-dot/.fr-rel CSS + the "lu:" render
+  logic) was inline-duplicated on tux-tattoo/index.html; extracted to
+  shared shell-theme.css + a new shell-freshness.js, this being the
+  second real use (never dup, always dedup).
+- deploy.sh: real incident (fleet-ops#312) -- it synced lab then
+  pushed the same bytes to prod in one shot, no checkpoint, so a lab
+  edit auto-promoted to prod before Spencer could review it. Split
+  into `deploy.sh lab` (sync only) and `deploy.sh promote` (lab sync +
+  prod push + lab==prod verify) -- prod is never touched by `lab`.
+- deploy.sh also now minifies shell-toggles.js/shell-freshness.js via
+  terser, but ONLY inside the ephemeral build stage dir -- never the
+  tracked source (real footgun Spencer flagged: minifying source in
+  place would make future edits happen on unreadable code).
+
+* [2026-08-26] feat(spencer.media): real Open Graph / Twitter Card previews
+Real gap, Spencer direct (2026-08-26), caught live from an actual
+Facebook post: sharing the tux-tattoo link showed a bare link card,
+no image, no real title -- no og:*/twitter:* meta tags existed at
+all.
+
+og:image/twitter:image use a real, purpose-built 1200x630 banner
+(og-banner.jpg), not a stretched square icon -- composited from three
+of the actual progression photos (outline / more-fill / finished),
+each scaled only mildly (max ~1.5x) to avoid the blur a single
+283x432 source photo would produce at that target size. Real pixels,
+not upscaled guesswork.
+
+* [2026-08-26] chore(resume): regenerate spencer dist output with real-facts fix
+convert.sh's REAL_RESUME_SOURCES fix (74f90d6) landed but the
+regenerated dist/ artifacts were never committed -- picking that
+up now, no source change.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01NjgMEU5Zu6QrnRjjpE9uNz
+
+* [2026-08-26] fix(media): declare og RDFa prefix on spencer.media pages
+Facebook's Sharing Debugger was folding twitter:* meta tags into a
+synthetic og:temporal:twitter:* namespace because <html> never
+declared the OG RDFa prefix per the ogp.me spec. Adds
+prefix="og: https://ogp.me/ns#" to all three spencer.media pages.
+
+fb:app_id warning still open -- no real Facebook App ID exists yet
+for TCOS, not fabricating a placeholder.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01NjgMEU5Zu6QrnRjjpE9uNz
+
+* [2026-08-26] fix(media): add real fb:app_id, closes Facebook debugger warning
+Real Meta app "spencer.media" (App ID 1083442627963213), dev-mode
+is sufficient -- no publish/business-verification needed just to
+attribute link-preview scrapes.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01NjgMEU5Zu6QrnRjjpE9uNz
