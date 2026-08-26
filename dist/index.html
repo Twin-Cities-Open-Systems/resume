@@ -25,7 +25,8 @@
 <body>
 
     <header>
-        <div><strong>TCOS Node: spencer.blog.tcos.us</strong></div>
+        <div><strong id="node-label">TCOS Node: loading&hellip;</strong></div>
+        <div id="header-links"></div>
         <div>
             <label for="mode-select">Language Profile: </label>
             <select id="mode-select" onchange="switchLanguageProfile(this.value)">
@@ -54,12 +55,37 @@
         let coreProfiles = {};
         let blogEntries = [];
 
+        // Real per-person media presences (<oper>.media.tcos.us). Only
+        // people who actually have one appear here -- hand-maintained
+        // until this and tcos-www's MEDIA_HOSTS share a real source.
+        const MEDIA_HOSTS = { "spencer": "spencer.media.tcos.us" };
+
         async function initProfileEngine() {
             try {
-                const profileRes = await fetch('../profiles/spencer/profile.json');
+                // Real trigger: this page was hardcoded to always fetch
+                // spencer's profile.json regardless of which domain
+                // (spencer.blog.tcos.us vs touchy.blog.tcos.us, etc.)
+                // actually served it -- confirmed live, touchy.blog.tcos.us
+                // was showing spencer's content. Fixed by looking up the
+                // real slug for the current hostname in people.json first.
+                const peopleRes = await fetch('people.json');
+                const people = await peopleRes.json();
+                const me = people.find(p => p.public_dns === window.location.hostname);
+                const slug = me ? me.slug : 'spencer';
+
+                document.getElementById('node-label').innerText = `TCOS Node: ${window.location.hostname}`;
+
+                const links = [];
+                links.push(`<a href="resume-${slug}.html">Resume &#8594;</a>`);
+                if (MEDIA_HOSTS[slug]) {
+                    links.push(`<a href="https://${MEDIA_HOSTS[slug]}">Media &#8594;</a>`);
+                }
+                document.getElementById('header-links').innerHTML = links.join(' &middot; ');
+
+                const profileRes = await fetch(`profiles/${slug}/profile.json`);
                 const profileData = await profileRes.json();
                 coreProfiles = profileData.language_profiles.payloads;
-                
+
                 const blogRes = await fetch('blog_manifest.json');
                 blogEntries = await blogRes.json();
 
