@@ -11,50 +11,8 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/shell-theme.css">
 <style>
-:root {
-  --ground: #f6f5f1; --surface: #ffffff; --surface-2: #eef1ee; --line: #dbe0da;
-  --ink: #131a19; --ink-dim: #4d5b58; --ink-faint: #7c8985;
-  --accent: #0d7d78; --accent-ink: #085e5a; --accent-soft: #dcf1ee;
-  --good: #0ca30c; --good-soft: #e2f6e0; --warning: #b8790a; --critical: #d03b3b; --critical-soft: #fbdada;
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
-  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
-    --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
-    --accent: #2bbdb2; --accent-ink: #7fe0d6; --accent-soft: #10312e;
-    --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
-  --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
-  --accent: #2bbdb2; --accent-ink: #7fe0d6; --accent-soft: #10312e;
-  --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); line-height: 1.6; }
-.page { max-width: 980px; margin: 0 auto; padding: 40px 20px 70px; }
-.topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
-.brand { font-family: var(--mono); font-weight: 700; font-size: 13px; color: var(--ink-dim); text-decoration: none; }
-.toggles { display: flex; align-items: center; gap: 4px; }
-.fs-label { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); margin-right: 2px; }
-.tgl-sep { width: 1px; height: 16px; background: var(--line); margin: 0 4px; }
-.tgl-btn {
-  background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint);
-  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
-  padding: 0 8px; height: 22px; border-radius: 5px; cursor: pointer;
-}
-.tgl-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
-body[data-fontsize="s"] { zoom: 0.875; }
-body[data-fontsize="m"] { zoom: 1; }
-body[data-fontsize="l"] { zoom: 1.125; }
-body[data-fontsize="xl"] { zoom: 1.25; }
 .eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
 h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 6px; }
 .sub { color: var(--ink-dim); max-width: 60ch; }
@@ -117,7 +75,6 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
 .ft { font-family: var(--mono); font-weight: 700; font-size: 12.5px; color: var(--ink); }
 .fc { font-size: 12.5px; color: var(--ink-dim); }
 .fmeta { margin-top: 2px; min-height: 18px; }
-footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
 
 .lightbox {
   position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100;
@@ -183,7 +140,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
 
   <div class="freshness" id="freshness" data-generated="2026-08-25T21:41:28Z">
     <span class="fr-dot"></span>
-    <span id="fr-text">updated just now</span>
+    <span id="fr-text">last update: just now</span>
     <span class="tgl-sep"></span>
     <span>live on spencer.media.tcos.us</span>
     <span class="tgl-sep"></span>
@@ -305,46 +262,8 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
 <div class="lightbox" id="lightbox"><button class="lb-close" type="button">&times; close</button><img id="lightbox-img" alt=""></div>
 
 <script src="openpgp.min.js"></script>
+<script src="/shell-toggles.js"></script>
 <script>
-(function () {
-  var KEY = "tcos-fontsize";
-  function apply(size) {
-    document.body.setAttribute("data-fontsize", size);
-    document.querySelectorAll(".fontsize-btn").forEach(function (b) {
-      b.classList.toggle("active", b.dataset.size === size);
-    });
-  }
-  document.addEventListener("DOMContentLoaded", function () {
-    apply(localStorage.getItem(KEY) || "m");
-    document.querySelectorAll(".fontsize-btn").forEach(function (b) {
-      b.addEventListener("click", function () {
-        localStorage.setItem(KEY, b.dataset.size);
-        apply(b.dataset.size);
-      });
-    });
-  });
-})();
-
-(function () {
-  var KEY = "tcos-theme";
-  function apply(theme) {
-    if (theme === "auto") document.documentElement.removeAttribute("data-theme");
-    else document.documentElement.setAttribute("data-theme", theme);
-    document.querySelectorAll(".theme-btn").forEach(function (b) {
-      b.classList.toggle("active", b.dataset.theme === theme);
-    });
-  }
-  document.addEventListener("DOMContentLoaded", function () {
-    apply(localStorage.getItem(KEY) || "auto");
-    document.querySelectorAll(".theme-btn").forEach(function (b) {
-      b.addEventListener("click", function () {
-        localStorage.setItem(KEY, b.dataset.theme);
-        apply(b.dataset.theme);
-      });
-    });
-  });
-})();
-
 (function () {
   var STALE_AFTER_MS = 24 * 60 * 60 * 1000;
   document.addEventListener("DOMContentLoaded", function () {
@@ -355,10 +274,10 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
       var ms = Date.now() - generated.getTime();
       var mins = Math.floor(ms / 60000);
       var label;
-      if (mins < 1) label = "updated just now";
-      else if (mins < 60) label = "updated " + mins + "m ago";
-      else if (mins < 60 * 24) label = "updated " + Math.floor(mins / 60) + "h" + (mins % 60) + "m ago";
-      else label = "updated " + Math.floor(mins / (60 * 24)) + "d ago";
+      if (mins < 1) label = "last update: just now";
+      else if (mins < 60) label = "last update: " + mins + "m ago";
+      else if (mins < 60 * 24) label = "last update: " + Math.floor(mins / 60) + "h" + (mins % 60) + "m ago";
+      else label = "last update: " + Math.floor(mins / (60 * 24)) + "d ago";
       textEl.textContent = label;
       wrap.dataset.stale = String(ms > STALE_AFTER_MS);
     }

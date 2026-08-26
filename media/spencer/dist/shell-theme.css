@@ -1,0 +1,51 @@
+/* Shared theme shell: light/dark tokens + header toggle bar styles.
+   One real source, referenced by every page under spencer.media
+   (and meant to be copied to other <oper>.media/<oper>.blog sites the
+   same low-tech way tcos-www's site.js already gets reused) rather
+   than pasted inline into each page and left to drift. Swap a whole
+   theme by editing the :root/dark blocks here -- nothing else needs
+   to change. */
+:root {
+  --ground: #f6f5f1; --surface: #ffffff; --surface-2: #eef1ee; --line: #dbe0da;
+  --ink: #131a19; --ink-dim: #4d5b58; --ink-faint: #7c8985;
+  --accent: #0d7d78; --accent-ink: #085e5a; --accent-soft: #dcf1ee;
+  --good: #0ca30c; --good-soft: #e2f6e0; --warning: #b8790a; --critical: #d03b3b; --critical-soft: #fbdada;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
+    --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
+    --accent: #2bbdb2; --accent-ink: #7fe0d6; --accent-soft: #10312e;
+    --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
+  --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
+  --accent: #2bbdb2; --accent-ink: #7fe0d6; --accent-soft: #10312e;
+  --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); line-height: 1.6; }
+.page { max-width: 980px; margin: 0 auto; padding: 40px 20px 70px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.brand { font-family: var(--mono); font-weight: 700; font-size: 13px; color: var(--ink-dim); text-decoration: none; }
+.toggles { display: flex; align-items: center; gap: 4px; }
+.fs-label { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); margin-right: 2px; }
+.tgl-sep { width: 1px; height: 16px; background: var(--line); margin: 0 4px; }
+.tgl-btn {
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint);
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  padding: 0 8px; height: 22px; border-radius: 5px; cursor: pointer;
+}
+.tgl-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+body[data-fontsize="s"] { zoom: 0.875; }
+body[data-fontsize="m"] { zoom: 1; }
+body[data-fontsize="l"] { zoom: 1.125; }
+body[data-fontsize="xl"] { zoom: 1.25; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
