@@ -2,15 +2,18 @@
 set -e
 
 ACCOUNT_ID="a33d047ae2835100b8ea875863913f96"
-EMAIL="spencerunderground@gmail.com"
-GLOBAL_KEY="cfk_mv70928DQaYYO7GmiZHf5HWa51U5LsJooWHVV3op7af913c6"
+
+# Real secret: a scoped Cloudflare API Token (not a Global Key), sealed
+# via hee-cred. Lives in mt-logo's secrets store because that's where
+# the org's real cf-tcos-deploy token was already sealed and verified
+# working against this account -- not colocated with this repo.
+CF_SECRETS_DIR="/srv/mt-logo/.hee/secrets"
+CF_SECRET_ACCOUNT="cf-tcos-deploy"
 
 echo "=== Attaching Dedicated Subdomain Mapping to 'resume' ==="
-curl -X POST "https://cloudflare.com/${ACCOUNT_ID}/pages/projects/resume/domains" \
-     -H "X-Auth-Email: ${EMAIL}" \
-     -H "X-Auth-Key: ${GLOBAL_KEY}" \
-     -H "Content-Type: application/json" \
-     --data '{
-       "name": "spencer.blog.tcos.us"
-     }'
-
+hee cred -pass "${CF_SECRET_ACCOUNT}" -dir "${CF_SECRETS_DIR}" -exec sh -c '
+  curl -X POST "https://api.cloudflare.com/client/v4/accounts/'"${ACCOUNT_ID}"'/pages/projects/resume/domains" \
+       -H "Authorization: Bearer ${HEE_CRED_PASS}" \
+       -H "Content-Type: application/json" \
+       --data "{\"name\": \"spencer.blog.tcos.us\"}"
+'
