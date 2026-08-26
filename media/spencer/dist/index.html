@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spencer Butler &mdash; Media</title>
+<meta name="description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spencer.media.tcos.us/">
+<meta property="og:title" content="Spencer Butler — Media">
+<meta property="og:description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
+<meta property="og:image" content="https://spencer.media.tcos.us/og-banner.jpg">
+<meta property="fb:app_id" content="1083442627963213">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Spencer Butler — Media">
+<meta name="twitter:description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
+<meta name="twitter:image" content="https://spencer.media.tcos.us/og-banner.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/shell-theme.css">
+<style>
+/* Page-specific only -- shared tokens/toggle styles live in shell-theme.css */
+.page { max-width: 700px; }
+.eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 2px; }
+.eyebrow a, .eyebrow .link-inert { color: inherit; text-decoration: none; }
+.eyebrow a:hover { text-decoration: underline; }
+.eyebrow.eyebrow-sub { color: var(--ink-faint); }
+h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 6px; color: var(--ink); }
+ul.items { list-style: none; padding: 0; margin: 24px 0; }
+ul.items li { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start; }
+ul.items img.item-icon { width: 32px; height: 32px; border-radius: 6px; flex: none; margin-top: 2px; }
+ul.items a { color: var(--accent-ink); text-decoration: none; font-weight: 700; font-family: var(--mono); }
+ul.items a:hover { text-decoration: underline; }
+ul.items p { color: var(--ink-dim); margin: 6px 0 0; }
+.note { color: var(--ink-faint); font-size: 13px; margin-top: 24px; }
+.note a, .note .link-inert { color: var(--accent-ink); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="brand" href="https://tcos.us" data-cross-site>&larr; Twin Cities Open Systems</a>
+    <div class="toggles">
+      <span class="fs-label">Aa</span>
+      <button class="tgl-btn fontsize-btn" data-size="s">S</button>
+      <button class="tgl-btn fontsize-btn active" data-size="m">M</button>
+      <button class="tgl-btn fontsize-btn" data-size="l">L</button>
+      <button class="tgl-btn fontsize-btn" data-size="xl">XL</button>
+      <span class="tgl-sep"></span>
+      <button class="tgl-btn theme-btn active" data-theme="auto">Auto</button>
+      <button class="tgl-btn theme-btn" data-theme="light">Light</button>
+      <button class="tgl-btn theme-btn" data-theme="dark">Dark</button>
+    </div>
+  </div>
+
+  <p class="eyebrow"><a href="/">spencer.media</a></p>
+  <p class="eyebrow eyebrow-sub"><a href="https://spencer.blog.tcos.us" data-cross-site>spencer.blog</a></p>
+  <h1>Spencer Butler</h1>
+  <div class="freshness" id="freshness" data-generated="2026-08-26T04:52:53Z">
+    <span class="fr-dot"></span><span id="fr-text"></span>
+  </div>
+  <ul class="items">
+    <li>
+      <img class="item-icon" src="/icons/favicon-32.png" alt="">
+      <div>
+        <a href="/tux-tattoo">Tux Tattoo</a>
+        <p>Oct 2, 2001 &mdash; the real Linux mascot, tattooed in one sitting. Real EXIF timestamps, real GPG-signed photos, verified in your browser.</p>
+      </div>
+    </li>
+  </ul>
+  <p class="note">More coming here over time.</p>
+
+  <footer>Twin-Cities-Open-Systems &middot; <span data-host></span></footer>
+</div>
+
+<script src="/shell-toggles.js"></script>
+<script src="/shell-freshness.js"></script>
+</body>
+</html>

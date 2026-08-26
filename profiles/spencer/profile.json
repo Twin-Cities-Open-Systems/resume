@@ -6,6 +6,20 @@
     "public_routing": "spencer.blog.tcos.us",
     "schema_version": "1.3.0"
   },
+  "badges": {
+    "note": "First pass, mechanical -- general, meant to be tweaked/refined later, not a finished taxonomy.",
+    "session_2026_08_24": [
+      "org-wide fleet + PVE lab buildout (0 to 8 real containers)",
+      "governance/doctrine authorship (contracts, decision-framework doctrine)",
+      "security incident triage (credential exposure, GPG ceremony design)",
+      "0-token workflow architecture direction"
+    ],
+    "all_time": [
+      "20+ years datacenter/infra ops (Google Iowa buildout, Groq LPU deployment)",
+      "founder-operator, Twin Cities Open Systems (2001-present)",
+      "hardware bring-up & failure analysis at scale"
+    ]
+  },
   "language_profiles": {
     "active_default": "spencer",
     "supported_modes": ["professional", "spencer", "ninja", "pirate", "HwOps"],

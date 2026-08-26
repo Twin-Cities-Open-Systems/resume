@@ -1,12 +1,12 @@
-# Spencer Butler Resume
+Spencer Butler Resume
 
 <spencer@tcos.us>
 
-## Summary
+Summary
 
 Infrastructure Engineer with 20+ years of experience operating and deploying large-scale systems across datacenter and production environments. Proven track record in hardware bring-up, failure analysis, and infrastructure deployment, including early datacenter expansion at Google and rapid deployment environments at Groq. Known for identifying complex system issues early and driving them to resolution across hardware and software layers.
 
-## Core Skills
+Core Skills
 
 - Datacenter Operations & Deployment
 - Infrastructure Bring-up & Hardware Validation
@@ -17,9 +17,9 @@ Infrastructure Engineer with 20+ years of experience operating and deploying lar
 - Quality Assurance
 - Tool Development
 
-## Professional Experience
+Professional Experience
 
-### Groq — Infrastructure Engineer (Systems)
+Groq — Infrastructure Engineer (Systems)
 
 July 2024 – April 2025
 
@@ -29,7 +29,7 @@ July 2024 – April 2025
 - Contributed to hardware deployment, system validation, and early-stage infrastructure operations
 - SME for Groq LPU deployment and failure analysis in the Data Center
 
-### Honeycomb Internet Services — Unix Systems Administrator / DevOps
+Honeycomb Internet Services — Unix Systems Administrator / DevOps
 
 June 2017 – November 2023
 
@@ -40,7 +40,7 @@ June 2017 – November 2023
 - Diagnosed and resolved complex system and application issues across production environments
 - Developed and built custom FreeBSD image, with Puppet backend, for MN Snow Plows
 
-### Reflected Networks — Linux Systems Administrator
+Reflected Networks — Linux Systems Administrator
 
 July 2010 – September 2015
 
@@ -49,7 +49,7 @@ July 2010 – September 2015
 - Supported high-traffic CDN origin systems using Lighttpd
 - Collaborated with distributed teams to ensure reliability and uptime across production systems
 
-### Google — Data Center Technician / Infrastructure Operations
+Google — Data Center Technician / Infrastructure Operations
 
 October 2006 – September 2009
 
@@ -58,10 +58,9 @@ October 2006 – September 2009
 - Identified hardware and deployment issues during early platform rollouts, improving system reliability
 - Produced extensive operational documentation supporting large-scale infrastructure deployment
 
-### Twin Cities Open Systems — Infrastructure Consultant (self employ)
+Twin Cities Open Systems — Infrastructure Consultant (self employ)
 
 August 2001 – Current
 
 - Infrastructure consulting, custom systems, and software solutions across diverse environments
 - Linux-based systems, automation workflows, and monitoring solutions
-- Currently building a doctrine-first, multi-agent execution framework (HEE) and org-wide governance/automation fleet, including API-driven Proxmox lab infrastructure and 0-token operational tooling

@@ -6,6 +6,21 @@
     "public_routing": "touchy.blog.tcos.us",
     "schema_version": "1.2.0"
   },
+  "badges": {
+    "note": "First pass, mechanical -- general, meant to be tweaked/refined later, not a finished taxonomy.",
+    "session_2026_08_24": [
+      "0-token systems design (hee-quota, hee-filter, hee-publish, hee-gen-manpages)",
+      "PVE/infra-as-API (no-SSH admin ops, 8-container real buildout)",
+      "org-wide CI/CD hardening",
+      "cross-session coordination (peer fleet sync under real rate-limit pressure)",
+      "security incident response (GH credential + secret-exposure findings)"
+    ],
+    "all_time": [
+      "doctrine-first governance tooling (HEE contracts/blueprints/cards)",
+      "org-wide field/compliance backfill at scale",
+      "real, live infrastructure automation (not simulated)"
+    ]
+  },
   "language_profiles": {
     "active_default": "professional",
     "supported_modes": ["professional"],
