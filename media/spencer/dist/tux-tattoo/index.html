@@ -428,7 +428,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
           var sig0 = result.signatures[0];
           await sig0.verified;
           badge.classList.add("good");
-          badge.querySelector(".gpg-text").textContent = "GPG verified";
+          badge.querySelector(".gpg-text").textContent = "Lab verified";
           var tip = document.createElement("span");
           tip.className = "tip";
           tip.innerHTML = "Good signature<br>Key: " + sig0.keyID.toHex() + "<br>Signer: touchy-claude &lt;touchy-claude@tcos.us&gt;<br>Verified live in your browser";
@@ -453,16 +453,23 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
     var attestationBadge = document.getElementById("attestation-badge");
     if (attestationBadge) {
       try {
-        var attestationText = await (await fetch("promotion-attestation.txt")).text();
+        var attestationBytes = new Uint8Array(await (await fetch("promotion-attestation.txt")).arrayBuffer());
         var attestationSig = await (await fetch("promotion-attestation.txt.asc")).text();
         var spencerKey = await openpgp.readKey({ armoredKey: PUBKEY_ARMORED_SPENCER });
         var aSignature = await openpgp.readSignature({ armoredSignature: attestationSig });
-        var aMessage = await openpgp.createMessage({ text: attestationText });
+        // Binary mode, matching how `gpg --detach-sign` actually signed
+        // the file (raw bytes, no OpenPGP text-mode line-ending
+        // canonicalization) -- same reason the photo verification above
+        // uses `binary:` instead of `text:`. Using `text:` here silently
+        // fails verification even though the signature is genuinely
+        // valid, because openpgp.js normalizes line endings for text-mode
+        // messages and that no longer matches what was actually signed.
+        var aMessage = await openpgp.createMessage({ binary: attestationBytes });
         var aResult = await openpgp.verify({ message: aMessage, signature: aSignature, verificationKeys: spencerKey });
         var aSig0 = aResult.signatures[0];
         await aSig0.verified;
         attestationBadge.classList.add("good");
-        attestationBadge.querySelector(".gpg-text").textContent = "GPG verified";
+        attestationBadge.querySelector(".gpg-text").textContent = "Prod verified";
         var aTip = document.createElement("span");
         aTip.className = "tip";
         aTip.innerHTML = "Good signature<br>Key: " + aSig0.keyID.toHex() + "<br>Signer: Spencer Butler &lt;inspector@tcos.us&gt;<br>Verified live in your browser";
