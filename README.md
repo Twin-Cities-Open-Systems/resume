@@ -58,10 +58,6 @@ For the full architecture manifest, see the [TCOS Command Center Config](../.git
 
 ## SpencerButler.md, in full
 
-The real source this whole system was built to dogfood -- reproduced
-here rather than just linked, so it's readable without leaving the
-README.
-
 # Spencer Butler Resume
 
 <spencer@tcos.us>
