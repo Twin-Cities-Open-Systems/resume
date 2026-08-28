@@ -37,6 +37,16 @@ for profile_dir in profiles/*; do
         slug=$(grep -o '"roster_slug": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
         type_raw=$(grep -o '"type": "[^"]*' "$profile_dir/profile.json" | head -n1 | cut -d'"' -f4)
         public_dns=$(grep -o '"public_routing": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
+        # Real "set it and forget it" fix (2026-08-28): media_dns used
+        # to be a hand-maintained MEDIA_HOSTS list duplicated in both
+        # index.html and media-hub.html -- real drift risk, explicitly
+        # flagged in both files' own comments. Now reads the same real
+        # per-profile source every other real routing field already
+        # comes from; a new person with a media presence just adds
+        # media_routing to their own profile.json, nothing else to
+        # touch. Empty string (not omitted) when absent, so downstream
+        # JS can check `if (media_dns)` without a missing-key branch.
+        media_dns=$(grep -o '"media_routing": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
 
         fuzzy_prefix=$(echo "$public_dns" | cut -d'.' -f1)
 
@@ -63,6 +73,7 @@ for profile_dir in profiles/*; do
     "type": "$type_raw",
     "subdomain_prefix": "$fuzzy_prefix",
     "public_dns": "$public_dns",
+    "media_dns": "$media_dns",
     "route_path": "people/$slug"
   }
 EOF
@@ -145,6 +156,14 @@ EOF
         # dressed up as facts.
         if [[ -n "${REAL_RESUME_SOURCES[$slug]+x}" ]] && [[ -f "${REAL_RESUME_SOURCES[$slug]}" ]]; then
             cp "${REAL_RESUME_SOURCES[$slug]}" "$profile_dir/dist/resume.md"
+            # Real gap, caught live (2026-08-28): the original source
+            # file (SpencerButler.md) sat at the repo root, never
+            # copied into dist/ -- README linked to it, but a real
+            # visitor on the live site had no way to reach it, only
+            # someone browsing the repo on GitHub did. Root-level copy,
+            # same real reason resume.html gets one (this is what
+            # `wrangler pages deploy dist` actually serves).
+            cp "${REAL_RESUME_SOURCES[$slug]}" "$OUTPUT_WEB_DIR/${REAL_RESUME_SOURCES[$slug]}"
 
             if command -v pandoc >/dev/null 2>&1; then
                 pandoc -s "$profile_dir/dist/resume.md" -t html5 \

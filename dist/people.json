@@ -4,6 +4,7 @@
     "type": "machine_assistant",
     "subdomain_prefix": "intern-j2",
     "public_dns": "intern-j2.blog.tcos.us",
+    "media_dns": "",
     "route_path": "people/claude-intern-j2"
   }
 ,
@@ -12,6 +13,7 @@
     "type": "human",
     "subdomain_prefix": "spencer",
     "public_dns": "spencer.blog.tcos.us",
+    "media_dns": "spencer.media.tcos.us",
     "route_path": "people/spencer"
   }
 ,
@@ -20,6 +22,7 @@
     "type": "machine_assistant",
     "subdomain_prefix": "touchy",
     "public_dns": "touchy.blog.tcos.us",
+    "media_dns": "",
     "route_path": "people/touchy-claude"
   }
 

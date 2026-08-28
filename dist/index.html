@@ -55,10 +55,21 @@
         let coreProfiles = {};
         let blogEntries = [];
 
-        // Real per-person media presences (<oper>.media.tcos.us). Only
-        // people who actually have one appear here -- hand-maintained
-        // until this and tcos-www's MEDIA_HOSTS share a real source.
-        const MEDIA_HOSTS = { "spencer": "spencer.media.tcos.us" };
+        // Real fix, 2026-08-28: "the blogs from lab link to live, fix
+        // and prevent future drift." Two real bugs, same root cause --
+        // nothing here was lab-aware. (1) public_dns in people.json is
+        // only ever the real prod hostname, so the exact-match lookup
+        // below always missed on any *.lab.tcos.us domain and silently
+        // fell back to 'spencer' -- the exact bug this file's own
+        // comment says was already fixed once for prod, just never
+        // extended to lab. (2) MEDIA_HOSTS values are real prod
+        // domains only, so the "Media" link always pointed at live
+        // even when viewed from lab. Both fixed by normalizing the
+        // real .lab.tcos.us suffix before matching/linking, matching
+        // the same {person}.{service}[.lab].tcos.us shape
+        // human-execution-engine's hee_hostmap already formalizes.
+        const IS_LAB = /(^|\.)lab\.tcos\.us$/.test(window.location.hostname);
+        const NORMALIZED_HOST = window.location.hostname.replace(/\.lab\.tcos\.us$/, '.tcos.us');
 
         async function initProfileEngine() {
             try {
@@ -70,15 +81,26 @@
                 // real slug for the current hostname in people.json first.
                 const peopleRes = await fetch('people.json');
                 const people = await peopleRes.json();
-                const me = people.find(p => p.public_dns === window.location.hostname);
+                const me = people.find(p => p.public_dns === NORMALIZED_HOST);
                 const slug = me ? me.slug : 'spencer';
+                // Real fallback-safe lookup: when the hostname isn't
+                // in people.json at all (me is undefined), still find
+                // the 'spencer' record by slug so media_dns behaves
+                // the same as every other fallback field here.
+                const mePerson = me || people.find(p => p.slug === slug);
 
                 document.getElementById('node-label').innerText = `TCOS Node: ${window.location.hostname}`;
 
                 const links = [];
                 links.push(`<a href="resume-${slug}.html">Resume &#8594;</a>`);
-                if (MEDIA_HOSTS[slug]) {
-                    links.push(`<a href="https://${MEDIA_HOSTS[slug]}">Media &#8594;</a>`);
+                // Real "set it and forget it" fix: media_dns comes
+                // straight from people.json (already fetched above,
+                // sourced from each person's own profile.json) -- no
+                // second hardcoded MEDIA_HOSTS list to drift out of
+                // sync with media-hub.html's copy.
+                if (mePerson && mePerson.media_dns) {
+                    const mediaHost = IS_LAB ? mePerson.media_dns.replace(/\.tcos\.us$/, '.lab.tcos.us') : mePerson.media_dns;
+                    links.push(`<a href="https://${mediaHost}">Media &#8594;</a>`);
                 }
                 document.getElementById('header-links').innerHTML = links.join(' &middot; ');
 
