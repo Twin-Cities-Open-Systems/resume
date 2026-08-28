@@ -4,7 +4,7 @@ A real, live mono-repo: one person's profile per directory, each one
 driving that person's own `<person>.blog.tcos.us` (and, for people who
 have one, `<person>.media.tcos.us`) presence automatically. Built and
 maintained by dogfooding it on my own resume -- this isn't a demo repo,
-it's the real thing spencer.blog.tcos.us runs from.
+it's the real thing [spencer.blog.tcos.us](https://spencer.blog.tcos.us/) runs from.
 
 <spencer@tcos.us>
 
