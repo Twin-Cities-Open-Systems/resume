@@ -4,6 +4,7 @@
     "type": "human",
     "roster_slug": "spencer",
     "public_routing": "spencer.blog.tcos.us",
+    "media_routing": "spencer.media.tcos.us",
     "schema_version": "1.3.0"
   },
   "badges": {

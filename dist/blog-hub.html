@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog.tcos.us -- every operator</title>
+    <style>
+        :root { --bg: #111; --pane-bg: #1a1a1a; --text: #eee; --accent: #00ff00; --border: #333; --muted: #888; }
+        body { font-family: monospace; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
+        h1 { color: #fff; margin: 0 0 0.25rem; }
+        .tag { color: var(--muted); font-size: 0.85rem; }
+        ul { list-style: none; padding: 0; }
+        li { background: var(--pane-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+        li.unavailable { border-left-color: var(--muted); opacity: 0.6; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .note { color: var(--muted); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>blog.tcos.us</h1>
+        <p class="tag">Real category-level hub -- every operator's blog. Individual instance: &lt;person&gt;.blog.tcos.us.</p>
+    </header>
+    <ul id="hub-list"></ul>
+    <script>
+        (async function () {
+            const IS_LAB = /(^|\.)lab\.tcos\.us$/.test(window.location.hostname);
+            const res = await fetch('people.json');
+            const people = await res.json();
+            const list = document.getElementById('hub-list');
+            for (const p of people) {
+                const prodHost = p.public_dns;
+                const labHost = prodHost.replace(/\.tcos\.us$/, '.lab.tcos.us');
+                const li = document.createElement('li');
+                if (IS_LAB) {
+                    // Real, honest state: not every person has a real
+                    // lab mirror of their blog yet -- link where it
+                    // exists, say plainly where it doesn't rather than
+                    // link to a real 404.
+                    li.innerHTML = `<a href="https://${labHost}/" data-check="${labHost}">${labHost}</a> <span class="note">(${p.type.replace('_', ' ')})</span>`;
+                } else {
+                    li.innerHTML = `<a href="https://${prodHost}/">${prodHost}</a> <span class="note">(${p.type.replace('_', ' ')})</span>`;
+                }
+                list.appendChild(li);
+            }
+            if (IS_LAB) {
+                // Real, live check -- mark any lab link that 404s
+                // rather than silently claim it works.
+                for (const a of list.querySelectorAll('a[data-check]')) {
+                    try {
+                        const r = await fetch(a.href, { method: 'HEAD' });
+                        if (!r.ok) { a.parentElement.classList.add('unavailable'); a.insertAdjacentHTML('afterend', ' <span class="note">(not yet mirrored to lab)</span>'); }
+                    } catch (e) {
+                        a.parentElement.classList.add('unavailable');
+                        a.insertAdjacentHTML('afterend', ' <span class="note">(not yet mirrored to lab)</span>');
+                    }
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

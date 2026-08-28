@@ -55,11 +55,6 @@
         let coreProfiles = {};
         let blogEntries = [];
 
-        // Real per-person media presences (<oper>.media.tcos.us). Only
-        // people who actually have one appear here -- hand-maintained
-        // until this and tcos-www's MEDIA_HOSTS share a real source.
-        const MEDIA_HOSTS = { "spencer": "spencer.media.tcos.us" };
-
         // Real fix, 2026-08-28: "the blogs from lab link to live, fix
         // and prevent future drift." Two real bugs, same root cause --
         // nothing here was lab-aware. (1) public_dns in people.json is
@@ -88,13 +83,23 @@
                 const people = await peopleRes.json();
                 const me = people.find(p => p.public_dns === NORMALIZED_HOST);
                 const slug = me ? me.slug : 'spencer';
+                // Real fallback-safe lookup: when the hostname isn't
+                // in people.json at all (me is undefined), still find
+                // the 'spencer' record by slug so media_dns behaves
+                // the same as every other fallback field here.
+                const mePerson = me || people.find(p => p.slug === slug);
 
                 document.getElementById('node-label').innerText = `TCOS Node: ${window.location.hostname}`;
 
                 const links = [];
                 links.push(`<a href="resume-${slug}.html">Resume &#8594;</a>`);
-                if (MEDIA_HOSTS[slug]) {
-                    const mediaHost = IS_LAB ? MEDIA_HOSTS[slug].replace(/\.tcos\.us$/, '.lab.tcos.us') : MEDIA_HOSTS[slug];
+                // Real "set it and forget it" fix: media_dns comes
+                // straight from people.json (already fetched above,
+                // sourced from each person's own profile.json) -- no
+                // second hardcoded MEDIA_HOSTS list to drift out of
+                // sync with media-hub.html's copy.
+                if (mePerson && mePerson.media_dns) {
+                    const mediaHost = IS_LAB ? mePerson.media_dns.replace(/\.tcos\.us$/, '.lab.tcos.us') : mePerson.media_dns;
                     links.push(`<a href="https://${mediaHost}">Media &#8594;</a>`);
                 }
                 document.getElementById('header-links').innerHTML = links.join(' &middot; ');
