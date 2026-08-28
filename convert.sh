@@ -156,6 +156,14 @@ EOF
         # dressed up as facts.
         if [[ -n "${REAL_RESUME_SOURCES[$slug]+x}" ]] && [[ -f "${REAL_RESUME_SOURCES[$slug]}" ]]; then
             cp "${REAL_RESUME_SOURCES[$slug]}" "$profile_dir/dist/resume.md"
+            # Real gap, caught live (2026-08-28): the original source
+            # file (SpencerButler.md) sat at the repo root, never
+            # copied into dist/ -- README linked to it, but a real
+            # visitor on the live site had no way to reach it, only
+            # someone browsing the repo on GitHub did. Root-level copy,
+            # same real reason resume.html gets one (this is what
+            # `wrangler pages deploy dist` actually serves).
+            cp "${REAL_RESUME_SOURCES[$slug]}" "$OUTPUT_WEB_DIR/${REAL_RESUME_SOURCES[$slug]}"
 
             if command -v pandoc >/dev/null 2>&1; then
                 pandoc -s "$profile_dir/dist/resume.md" -t html5 \
