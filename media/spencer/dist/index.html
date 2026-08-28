@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spencer Butler &mdash; Media</title>
 <meta name="description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
+<meta property="og:site_name" content="TCOS Media">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://spencer.media.tcos.us/">
 <meta property="og:title" content="Spencer Butler — Media">
 <meta property="og:description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
 <meta property="og:image" content="https://spencer.media.tcos.us/og-banner.jpg">
 <meta property="fb:app_id" content="1083442627963213">
+<link rel="canonical" href="https://spencer.media.tcos.us/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Spencer Butler — Media">
 <meta name="twitter:description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
@@ -23,6 +25,18 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/shell-theme.css">
+<script>
+// Real gap, found 2026-08-28: this page had no pre-paint script at all
+// -- shell-toggles.js only applied the saved theme on DOMContentLoaded,
+// a real flash-of-wrong-theme every load (same class of fix already
+// made for tcos.us's own index.html).
+(function () {
+  try {
+    var t = localStorage.getItem("tcos-theme") || "auto";
+    if (t !== "auto") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
 <style>
 /* Page-specific only -- shared tokens/toggle styles live in shell-theme.css */
 .page { max-width: 700px; }
@@ -51,18 +65,21 @@ ul.items p { color: var(--ink-dim); margin: 6px 0 0; }
       <button class="tgl-btn fontsize-btn active" data-size="m">M</button>
       <button class="tgl-btn fontsize-btn" data-size="l">L</button>
       <button class="tgl-btn fontsize-btn" data-size="xl">XL</button>
+      <button class="tgl-btn fontsize-btn" data-size="xxl">XXL</button>
       <span class="tgl-sep"></span>
-      <button class="tgl-btn theme-btn active" data-theme="auto">Auto</button>
-      <button class="tgl-btn theme-btn" data-theme="light">Light</button>
-      <button class="tgl-btn theme-btn" data-theme="dark">Dark</button>
+      <button class="tgl-btn theme-btn active" data-theme-choice="auto">Auto</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="light">Light</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="dark">Dark</button>
     </div>
   </div>
 
   <p class="eyebrow"><a href="/">spencer.media</a></p>
   <p class="eyebrow eyebrow-sub"><a href="https://spencer.blog.tcos.us" data-cross-site>spencer.blog</a></p>
   <h1>Spencer Butler</h1>
-  <div class="freshness" id="freshness" data-generated="2026-08-26T04:52:53Z">
-    <span class="fr-dot"></span><span id="fr-text"></span>
+  <div class="lu-row">
+    <div class="freshness" id="freshness">
+      <span class="fr-dot"></span><b>lu:</b> <time class="lu-iso" datetime="2026-08-26T04:52:53Z">2026-08-26T04:52:53Z</time> <span id="fr-text"></span>
+    </div>
   </div>
   <ul class="items">
     <li>

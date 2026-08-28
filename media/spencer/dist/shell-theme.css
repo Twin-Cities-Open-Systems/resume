@@ -16,9 +16,15 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    /* Real bug, found 2026-08-28 (Spencer, direct, side-by-side on
+       glass: "spencer.media v spencer.blog are slightly diff colors"):
+       this was an earlier draft of Gold's teal (#2bbdb2/#7fe0d6, matched
+       an early version of resume#32's own PR description) that never
+       got updated to the canonical value everyone else uses
+       (render-review.py, tc-theme.js, resume's blog template). */
     --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
     --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
-    --accent: #2bbdb2; --accent-ink: #7fe0d6; --accent-soft: #10312e;
+    --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
     --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
     color-scheme: dark;
   }
@@ -26,7 +32,7 @@
 :root[data-theme="dark"] {
   --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
   --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
-  --accent: #2bbdb2; --accent-ink: #7fe0d6; --accent-soft: #10312e;
+  --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
   --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
   color-scheme: dark;
 }
@@ -48,7 +54,14 @@ body[data-fontsize="s"] { zoom: 0.875; }
 body[data-fontsize="m"] { zoom: 1; }
 body[data-fontsize="l"] { zoom: 1.125; }
 body[data-fontsize="xl"] { zoom: 1.25; }
+body[data-fontsize="xxl"] { zoom: 1.375; }
 footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+
+/* Real gap, found 2026-08-28: this shell had no lu: freshness row at
+   all, a real required Gold component (profile/GLOSSARY.md), used by
+   every other real Gold port in this org. */
+.lu-row { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin: 0.5rem 0 1rem; }
+.lu-row b { color: var(--ink); font-weight: 600; }
 
 /* Real cross-environment link rule (Spencer, 2026-08-26): "lab links
    should only point to lab stuff and prod to prod." Where a real lab

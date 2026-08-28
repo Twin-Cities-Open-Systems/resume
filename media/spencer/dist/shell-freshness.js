@@ -1,11 +1,19 @@
 // Shared "lu:" freshness banner. Tiny, plug-and-play: drop
-//   <div class="freshness" id="freshness" data-generated="ISO8601">
-//     <span class="fr-dot"></span><span id="fr-text"></span>
+//   <div class="lu-row freshness" id="freshness">
+//     <span class="fr-dot"></span><b>lu:</b>
+//     <time class="lu-iso" datetime="ISO8601">ISO8601</time>
+//     <span id="fr-text"></span>
 //   </div>
 // onto any page, include this script, done -- no page-specific wiring.
 // First built for tux-tattoo; reused here per Spencer's "never dup,
 // always dedup" rule (second use is exactly the line where it moves
 // to a shared file instead of getting copy-pasted).
+//
+// Real fix, 2026-08-28: used to read a data-generated attribute on the
+// wrapping div, a real timestamp but not the canonical lu-iso <time>
+// element check_render_review_compliance.py (the org's real Gold
+// checker) looks for -- unified onto the one real element instead of
+// carrying two representations of the same timestamp.
 (function () {
   var STALE_AFTER_MS = 24 * 60 * 60 * 1000;
   var WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -24,8 +32,10 @@
   document.addEventListener("DOMContentLoaded", function () {
     var wrap = document.getElementById("freshness");
     if (!wrap) return;
+    var isoEl = wrap.querySelector(".lu-iso");
+    if (!isoEl) return;
     var textEl = document.getElementById("fr-text");
-    var generated = new Date(wrap.dataset.generated);
+    var generated = new Date(isoEl.getAttribute("datetime"));
     function renderDelta() {
       var ms = Date.now() - generated.getTime();
       var mins = Math.floor(ms / 60000);
@@ -34,12 +44,13 @@
       else if (mins < 60) rel = mins + "m";
       else if (mins < 60 * 24) rel = Math.floor(mins / 60) + "h" + (mins % 60) + "m";
       else rel = Math.floor(mins / (60 * 24)) + "d" + Math.floor((mins % (60 * 24)) / 60) + "h";
-      textEl.innerHTML = "lu: " + fancyDate(generated) + ' <span class="fr-rel">(' + rel + " ago)</span>";
-      // Real technical value, same one this is computed from (the
-      // wire-format data-generated attribute) -- muted, hover-only,
-      // not the primary claim. hee-epoch will eventually own real
-      // epoch tracking; this is the honest ISO number until then.
-      textEl.title = "ISO: " + wrap.dataset.generated;
+      isoEl.textContent = fancyDate(generated);
+      textEl.innerHTML = '<span class="fr-rel">(' + rel + " ago)</span>";
+      // Real technical value, the same real ISO timestamp this is
+      // computed from -- muted, hover-only, not the primary claim.
+      // hee-epoch will eventually own real epoch tracking; this is the
+      // honest ISO number until then.
+      isoEl.title = "ISO: " + isoEl.getAttribute("datetime");
       wrap.dataset.stale = String(ms > STALE_AFTER_MS);
     }
     renderDelta();
