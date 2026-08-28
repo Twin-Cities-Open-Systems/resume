@@ -46,7 +46,13 @@ for profile_dir in profiles/*; do
         # media_routing to their own profile.json, nothing else to
         # touch. Empty string (not omitted) when absent, so downstream
         # JS can check `if (media_dns)` without a missing-key branch.
-        media_dns=$(grep -o '"media_routing": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
+        # Real bug, found 2026-08-28: grep -o finds zero matches (correctly)
+        # for any profile with no media_routing field, exits 1, and under
+        # this script's set -e that was fatal -- silently broke every real
+        # build for any roster entry lacking a media presence, contradicting
+        # this exact comment's own stated intent one line above. `|| true`
+        # lets an empty match through as intended instead of aborting.
+        media_dns=$( { grep -o '"media_routing": "[^"]*' "$profile_dir/profile.json" || true; } | cut -d'"' -f4)
 
         fuzzy_prefix=$(echo "$public_dns" | cut -d'.' -f1)
 

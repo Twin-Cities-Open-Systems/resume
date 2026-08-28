@@ -37,14 +37,22 @@ def execute_simulation_pass():
             print(f"[-] Binding Failure: Required language payload [{mode}] is missing from registry.")
             sys.exit(1)
 
-    print("[+] Mode layout verified. Inspecting front-end runtime select element configurations...")
+    print("[+] Mode layout verified. Inspecting front-end runtime profile rendering...")
     with open(html_path, "r") as f:
         html_content = f.read()
 
-    for mode in required_modes:
-        option_pattern = f'value="{mode}"'
-        if option_pattern not in html_content:
-            print(f"[-] DOM Binding Failure: Front-end selector is missing static injection option for [{mode}].")
+    # Real design change, 2026-08-28 (Spencer, direct: "all of the dropdown
+    # for lang spencer, hwops, etc is not to be there"): modes are no longer
+    # statically injected as <select><option value="mode"> markup -- the
+    # public switcher UI was removed. The page still renders whichever mode
+    # profile.json's own active_default names, purely via runtime JS
+    # (coreProfiles[mode] lookup against the fetched profile.json), so what
+    # this test can actually still verify is that the dynamic-rendering
+    # machinery is present, not any particular mode's static markup.
+    required_runtime_hooks = ["coreProfiles", "active_default", "profile-title", "profile-paradigm"]
+    for hook in required_runtime_hooks:
+        if hook not in html_content:
+            print(f"[-] DOM Binding Failure: Front-end is missing real runtime hook [{hook}].")
             sys.exit(1)
 
     print("[+] Select elements mapped. Validating responsive dark-mode styling variables...")
@@ -55,11 +63,19 @@ def execute_simulation_pass():
             sys.exit(1)
 
     print("[+] Testing data model array binding vectors across stream entries...")
+    # Real design change, 2026-08-26 (Spencer, direct: "keep json to a
+    # minimum ... too much bloat to parse"): blog_manifest.json used to
+    # embed every post's full text, 5 persona variants each -- retired in
+    # favor of a thin index (slug/date/title/path); real content lives in
+    # profiles/<slug>/blog/*.md, fetched on demand. This test still checked
+    # for the retired localized_content shape, which no longer exists on
+    # any real post -- never updated after that redesign landed. Checking
+    # the real, current required fields instead.
+    required_post_fields = ["slug", "date", "title", "path"]
     for post in manifest_data:
-        localized_content = post.get("localized_content", {})
-        for mode in required_modes:
-            if mode not in localized_content:
-                print(f"[-] Stream Manifest Failure: Post [{post.get('slug')}] is missing localized string for [{mode}].")
+        for field in required_post_fields:
+            if field not in post:
+                print(f"[-] Stream Manifest Failure: Post [{post.get('slug', '?')}] is missing required field [{field}].")
                 sys.exit(1)
 
     print("[+] All verification passes successfully completed. Integration is stable.")
