@@ -4,21 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>blog.tcos.us -- every operator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+    <script>
+    // Real oper theme choice (light/dark/auto), applied before first paint --
+    // same pattern as view.lab.tcos.us, the gold-standard reference this page
+    // was reskinned from (2026-08-28, replacing the old green-terminal look).
+    (function () {
+      try {
+        var t = localStorage.getItem("tcos-theme") || "dark";
+        if (t !== "auto") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+    </script>
     <style>
-        :root { --bg: #111; --pane-bg: #1a1a1a; --text: #eee; --accent: #00ff00; --border: #333; --muted: #888; }
-        body { font-family: monospace; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
+        /* SYNCED-FROM: view.lab.tcos.us's token palette (gold standard). */
+        :root {
+            --bg: #fbfbfa; --pane-bg: #ffffff; --text: #12181a; --muted: #7c8688;
+            --border: #e2e4e0; --accent: #0d7d78; --accent-ink: #085e5a; --accent-soft: #e3f3f1;
+            color-scheme: light;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0b0f0f; --pane-bg: #12181a; --text: #eef2f1; --muted: #6f7d7d;
+                --border: #263030; --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
+                color-scheme: dark;
+            }
+        }
+        :root[data-theme="dark"] {
+            --bg: #0b0f0f; --pane-bg: #12181a; --text: #eef2f1; --muted: #6f7d7d;
+            --border: #263030; --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
+            color-scheme: dark;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
+        .site-bar { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 1.5rem; }
+        .theme-toggle { display: flex; align-items: center; gap: 4px; }
+        .theme-toggle span { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; color: var(--muted); margin-right: 2px; }
+        .theme-btn { background: var(--pane-bg); border: 1px solid var(--border); color: var(--muted); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 9.5px; font-weight: 700; padding: 0 7px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; text-transform: uppercase; }
+        .theme-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
         header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
-        h1 { color: #fff; margin: 0 0 0.25rem; }
+        h1 { font-family: "JetBrains Mono", ui-monospace, monospace; color: var(--text); margin: 0 0 0.25rem; }
         .tag { color: var(--muted); font-size: 0.85rem; }
         ul { list-style: none; padding: 0; }
-        li { background: var(--pane-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+        li { background: var(--pane-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
         li.unavailable { border-left-color: var(--muted); opacity: 0.6; }
-        a { color: var(--accent); text-decoration: none; }
+        a { color: var(--accent-ink); text-decoration: none; }
         a:hover { text-decoration: underline; }
         .note { color: var(--muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
+    <div class="site-bar">
+        <div class="theme-toggle">
+            <span>Theme</span>
+            <button class="theme-btn" data-theme-choice="light" type="button">Light</button>
+            <button class="theme-btn" data-theme-choice="dark" type="button">Dark</button>
+            <button class="theme-btn" data-theme-choice="auto" type="button">Auto</button>
+        </div>
+    </div>
     <header>
         <h1>blog.tcos.us</h1>
         <p class="tag">Real category-level hub -- every operator's blog. Individual instance: &lt;person&gt;.blog.tcos.us.</p>
@@ -58,6 +103,29 @@
                     }
                 }
             }
+        })();
+        (function () {
+            var TH_KEY = "tcos-theme";
+            function markActive(choice) {
+                document.querySelectorAll(".theme-btn").forEach(function (b) {
+                    b.classList.toggle("active", b.dataset.themeChoice === choice);
+                });
+            }
+            var saved = "dark";
+            try { saved = localStorage.getItem(TH_KEY) || "dark"; } catch (e) {}
+            markActive(saved);
+            document.querySelectorAll(".theme-btn").forEach(function (b) {
+                b.addEventListener("click", function () {
+                    var choice = b.dataset.themeChoice;
+                    try { localStorage.setItem(TH_KEY, choice); } catch (e) {}
+                    if (choice === "auto") {
+                        document.documentElement.removeAttribute("data-theme");
+                    } else {
+                        document.documentElement.setAttribute("data-theme", choice);
+                    }
+                    markActive(choice);
+                });
+            });
         })();
     </script>
 </body>
