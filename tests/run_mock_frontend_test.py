@@ -49,7 +49,11 @@ def execute_simulation_pass():
     # (coreProfiles[mode] lookup against the fetched profile.json), so what
     # this test can actually still verify is that the dynamic-rendering
     # machinery is present, not any particular mode's static markup.
-    required_runtime_hooks = ["coreProfiles", "active_default", "profile-title", "profile-paradigm"]
+    # Real design change, 2026-08-28 (Spencer, direct: "ditch all the
+    # persona shit"): no more coreProfiles/active_default multi-mode
+    # selection either -- one real, fixed identity per person, sourced
+    # directly from profile.json's own "professional" payload.
+    required_runtime_hooks = ["payloads.professional", "profile-title", "profile-paradigm"]
     for hook in required_runtime_hooks:
         if hook not in html_content:
             print(f"[-] DOM Binding Failure: Front-end is missing real runtime hook [{hook}].")
