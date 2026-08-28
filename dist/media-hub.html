@@ -4,24 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>media.tcos.us -- every operator</title>
+    <link rel="icon" type="image/x-icon" href="https://view.lab.tcos.us/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://view.lab.tcos.us/assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://view.lab.tcos.us/assets/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://view.lab.tcos.us/assets/favicon-180.png">
+    <meta property="og:site_name" content="TCOS Media">
+    <meta property="og:title" content="media.tcos.us -- every operator">
+    <meta property="og:description" content="Real category-level hub -- every operator's media presence. Individual instance: <person>.media.tcos.us.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://media.tcos.us/">
+    <meta property="og:image" content="https://view.lab.tcos.us/assets/favicon-180.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://view.lab.tcos.us/assets/favicon-180.png">
+    <meta name="description" content="Real category-level hub -- every operator's media presence. Individual instance: <person>.media.tcos.us.">
+    <link rel="canonical" href="https://media.tcos.us/">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+    <script>
+    // Real oper theme choice (light/dark/auto), applied before first paint --
+    // same pattern as view.lab.tcos.us, the gold-standard reference this page
+    // was reskinned from (2026-08-28, replacing the old green-terminal look).
+    (function () {
+      try {
+        var t = localStorage.getItem("tcos-theme") || "dark";
+        if (t !== "auto") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+    </script>
     <style>
-        :root { --bg: #111; --pane-bg: #1a1a1a; --text: #eee; --accent: #00ff00; --border: #333; --muted: #888; }
-        body { font-family: monospace; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
+        /* SYNCED-FROM: view.lab.tcos.us's token palette (gold standard). */
+        :root {
+            --bg: #fbfbfa; --pane-bg: #ffffff; --text: #12181a; --muted: #7c8688;
+            --border: #e2e4e0; --accent: #0d7d78; --accent-ink: #085e5a; --accent-soft: #e3f3f1;
+            color-scheme: light;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0b0f0f; --pane-bg: #12181a; --text: #eef2f1; --muted: #6f7d7d;
+                --border: #263030; --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
+                color-scheme: dark;
+            }
+        }
+        :root[data-theme="dark"] {
+            --bg: #0b0f0f; --pane-bg: #12181a; --text: #eef2f1; --muted: #6f7d7d;
+            --border: #263030; --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
+            color-scheme: dark;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
+        .site-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 1.5rem; }
+        .theme-toggle { display: flex; align-items: center; gap: 4px; }
+        .theme-toggle span { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; color: var(--muted); margin-right: 2px; }
+        .theme-btn { background: var(--pane-bg); border: 1px solid var(--border); color: var(--muted); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 9.5px; font-weight: 700; padding: 0 7px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; text-transform: uppercase; }
+        .theme-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+        .fontsize-toggle { display: flex; align-items: center; gap: 6px; }
+        .fontsize-toggle .fs-label { font-family: ui-monospace, monospace; font-size: 10px; color: var(--muted); cursor: default; user-select: none; }
+        .fontsize-toggle .fs-options { display: flex; align-items: center; gap: 4px; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .18s ease, opacity .12s ease; }
+        .fontsize-toggle:hover .fs-options, .fontsize-toggle:focus-within .fs-options { max-width: 200px; opacity: 1; }
+        .fontsize-btn { background: var(--pane-bg); border: 1px solid var(--border); color: var(--muted); font-family: ui-monospace, monospace; font-size: 10.5px; font-weight: 700; width: 22px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; }
+        .fontsize-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+        body[data-fontsize="s"] { zoom: 0.875; }
+        body[data-fontsize="m"] { zoom: 1; }
+        body[data-fontsize="l"] { zoom: 1.125; }
+        body[data-fontsize="xl"] { zoom: 1.25; }
+        body[data-fontsize="xxl"] { zoom: 1.375; }
+        .lu-row { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: var(--muted); margin: 0.5rem 0 0; }
+        .lu-row b { color: var(--text); font-weight: 600; }
         header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
-        h1 { color: #fff; margin: 0 0 0.25rem; }
+        h1 { font-family: "JetBrains Mono", ui-monospace, monospace; color: var(--text); margin: 0 0 0.25rem; }
         .tag { color: var(--muted); font-size: 0.85rem; }
         ul { list-style: none; padding: 0; }
-        li { background: var(--pane-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+        li { background: var(--pane-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
         li.unavailable { border-left-color: var(--muted); opacity: 0.6; }
-        a { color: var(--accent); text-decoration: none; }
+        a { color: var(--accent-ink); text-decoration: none; }
         a:hover { text-decoration: underline; }
         .note { color: var(--muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
+    <div class="site-bar">
+        <div class="theme-toggle">
+            <span>Theme</span>
+            <button class="theme-btn" data-theme-choice="light" type="button">Light</button>
+            <button class="theme-btn" data-theme-choice="dark" type="button">Dark</button>
+            <button class="theme-btn" data-theme-choice="auto" type="button">Auto</button>
+        </div>
+        <div class="fontsize-toggle">
+            <span class="fs-label" tabindex="0">Aa</span>
+            <div class="fs-options">
+                <button class="fontsize-btn" data-size="s" type="button">S</button>
+                <button class="fontsize-btn" data-size="m" type="button">M</button>
+                <button class="fontsize-btn" data-size="l" type="button">L</button>
+                <button class="fontsize-btn" data-size="xl" type="button">XL</button>
+                <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+            </div>
+        </div>
+    </div>
     <header>
         <h1>media.tcos.us</h1>
         <p class="tag">Real category-level hub -- every operator's media presence. Individual instance: &lt;person&gt;.media.tcos.us.</p>
+        <div class="lu-row">
+            <span><b>lu:</b> <time class="lu-iso" datetime="2026-08-28T11:22:00Z">2026-08-28T11:22:00Z</time> &middot; <span class="lu-human"></span> &middot; <span class="lu-delta"></span></span>
+        </div>
     </header>
     <ul id="hub-list"></ul>
     <script>
@@ -63,6 +148,71 @@
                     }
                 }
             }
+        })();
+        (function () {
+            var TH_KEY = "tcos-theme";
+            function markActive(choice) {
+                document.querySelectorAll(".theme-btn").forEach(function (b) {
+                    b.classList.toggle("active", b.dataset.themeChoice === choice);
+                });
+            }
+            var saved = "dark";
+            try { saved = localStorage.getItem(TH_KEY) || "dark"; } catch (e) {}
+            markActive(saved);
+            document.querySelectorAll(".theme-btn").forEach(function (b) {
+                b.addEventListener("click", function () {
+                    var choice = b.dataset.themeChoice;
+                    try { localStorage.setItem(TH_KEY, choice); } catch (e) {}
+                    if (choice === "auto") {
+                        document.documentElement.removeAttribute("data-theme");
+                    } else {
+                        document.documentElement.setAttribute("data-theme", choice);
+                    }
+                    markActive(choice);
+                });
+            });
+        })();
+        (function () {
+            var FS_KEY = "tcos-fontsize";
+            function applyFontsize(size) {
+                document.body.setAttribute("data-fontsize", size);
+                document.querySelectorAll(".fontsize-btn").forEach(function (b) {
+                    b.classList.toggle("active", b.dataset.size === size);
+                });
+            }
+            var savedSize = "m";
+            try { savedSize = localStorage.getItem(FS_KEY) || "m"; } catch (e) {}
+            applyFontsize(savedSize);
+            document.querySelectorAll(".fontsize-btn").forEach(function (b) {
+                b.addEventListener("click", function () {
+                    try { localStorage.setItem(FS_KEY, b.dataset.size); } catch (e) {}
+                    applyFontsize(b.dataset.size);
+                    b.blur();
+                });
+            });
+        })();
+        (function () {
+            var isoEl = document.querySelector(".lu-iso");
+            if (!isoEl) return;
+            var generated = new Date(isoEl.getAttribute("datetime"));
+            var humanEl = document.querySelector(".lu-human");
+            var deltaEl = document.querySelector(".lu-delta");
+            if (humanEl) {
+                humanEl.textContent = generated.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+            }
+            function renderDelta() {
+                if (!deltaEl) return;
+                var ms = Date.now() - generated.getTime();
+                var mins = Math.floor(ms / 60000);
+                var label;
+                if (mins < 1) label = "just now";
+                else if (mins < 60) label = mins + "m ago";
+                else if (mins < 60 * 24) label = Math.floor(mins / 60) + "h" + (mins % 60) + "m ago";
+                else label = Math.floor(mins / (60 * 24)) + "d ago";
+                deltaEl.textContent = label;
+            }
+            renderDelta();
+            setInterval(renderDelta, 30000);
         })();
     </script>
 </body>
