@@ -46,7 +46,13 @@ for profile_dir in profiles/*; do
         # media_routing to their own profile.json, nothing else to
         # touch. Empty string (not omitted) when absent, so downstream
         # JS can check `if (media_dns)` without a missing-key branch.
-        media_dns=$(grep -o '"media_routing": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
+        # Real bug, found 2026-08-28: grep -o finds zero matches (correctly)
+        # for any profile with no media_routing field, exits 1, and under
+        # this script's set -e that was fatal -- silently broke every real
+        # build for any roster entry lacking a media presence, contradicting
+        # this exact comment's own stated intent one line above. `|| true`
+        # lets an empty match through as intended instead of aborting.
+        media_dns=$( { grep -o '"media_routing": "[^"]*' "$profile_dir/profile.json" || true; } | cut -d'"' -f4)
 
         fuzzy_prefix=$(echo "$public_dns" | cut -d'.' -f1)
 
@@ -193,3 +199,65 @@ done
 
 echo "" >> "$OUTPUT_WEB_DIR/people.json"
 echo "]" >> "$OUTPUT_WEB_DIR/people.json"
+
+# Real bug, found 2026-08-28: blog_manifest.json was entirely
+# hand-maintained -- nothing generated it, so profiles/spencer/blog/
+# 004-callsign-hunt.md (written the same day, real content) silently
+# never made it in and never rendered on the live site. Same drift-risk
+# class as every other hand-duplicated list already fixed in this file
+# (media_dns, people.json) -- scan the real .md files on disk instead of
+# trusting a list to stay in sync with itself.
+echo "[" > "$OUTPUT_WEB_DIR/blog_manifest.json"
+FIRST_POST=true
+for profile_dir in profiles/*; do
+    [ -f "$profile_dir/profile.json" ] || continue
+    slug=$(grep -o '"roster_slug": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
+    [ -d "$profile_dir/blog" ] || continue
+    for post_file in "$profile_dir"/blog/*.md; do
+        [ -f "$post_file" ] || continue
+        post_slug=$(basename "$post_file" .md)
+        title=$(sed -n '1s/^#*[[:space:]]*//p' "$post_file")
+        # Real bug, found live building this exact fix: a post with no
+        # "**Date:**" line on line 2 (002-cloudflare-wrangler-convergence.md
+        # -- separately flagged 2026-08-28 as fabricated/unreviewed
+        # content, see fleet-ops#332) makes grep -oE find zero matches,
+        # exit 1, fatal under this script's set -e -- the same bug class
+        # just fixed for media_dns, reproduced in this same commit's own
+        # new code. `|| true` so one malformed post can't crash the
+        # entire build for every real one.
+        # Real fallback chain, all real data, never fabricated: not every
+        # real post follows the "**Date:**" line-2 convention (found
+        # live -- chat-mach-dude-kthxbai.md and others are just prose,
+        # no metadata block at all). Try the content date first, then a
+        # date embedded in the filename itself (real, common pattern:
+        # "003-2026-08-24-lessons-learned.md"), then the file's own real
+        # mtime -- never a fake placeholder like 1970-01-01.
+        date=$( { sed -n '2p' "$post_file" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' || true; } | head -1)
+        if [ -z "$date" ]; then
+            date=$(basename "$post_file" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1 || true)
+        fi
+        if [ -z "$date" ]; then
+            date=$(date -u -r "$post_file" +%Y-%m-%d)
+        fi
+        [ "$FIRST_POST" = true ] || echo "," >> "$OUTPUT_WEB_DIR/blog_manifest.json"
+        FIRST_POST=false
+        # Real values passed via env vars, not interpolated into Python
+        # source text -- a title containing a quote/apostrophe (real,
+        # expected in real prose) would otherwise break the generated
+        # source rather than just being real, safely-escaped JSON data.
+        POST_SLUG="$post_slug" POST_DATE="$date" POST_TITLE="$title" \
+        POST_PATH="profiles/$slug/blog/$(basename "$post_file")" \
+        python3 -c "
+import json, os
+print(json.dumps({
+    'slug': os.environ['POST_SLUG'],
+    'date': os.environ['POST_DATE'],
+    'title': os.environ['POST_TITLE'],
+    'raw_fallback': '(see full post)',
+    'path': os.environ['POST_PATH'],
+}), end='')
+" >> "$OUTPUT_WEB_DIR/blog_manifest.json"
+    done
+done
+echo "" >> "$OUTPUT_WEB_DIR/blog_manifest.json"
+echo "]" >> "$OUTPUT_WEB_DIR/blog_manifest.json"

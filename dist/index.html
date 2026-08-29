@@ -131,7 +131,6 @@
     </section>
 
     <script>
-        let coreProfiles = {};
         let blogEntries = [];
 
         // Real fix, 2026-08-28: "the blogs from lab link to live, fix
@@ -189,33 +188,34 @@
 
                 const profileRes = await fetch(`profiles/${slug}/profile.json`);
                 const profileData = await profileRes.json();
-                coreProfiles = profileData.language_profiles.payloads;
 
                 const blogRes = await fetch('blog_manifest.json');
                 blogEntries = await blogRes.json();
 
-                // Real removal, 2026-08-28: the public Language Profile
-                // switcher UI is gone (Spencer, direct: "all of the
-                // dropdown for lang spencer, hwops, etc is not to be
-                // there") -- this page now just renders whichever mode
-                // profile.json's own active_default names, same as
-                // before, minus the visitor-facing control to change it.
-                const defaultMode = profileData.language_profiles.active_default || 'professional';
-                renderProfile(defaultMode);
+                // Real removal, 2026-08-28 (Spencer, direct: "ditch all
+                // the persona shit"): no more multi-mode payloads, no
+                // more active_default selection -- one real, fixed
+                // identity per person, sourced from profile.json's own
+                // "professional" payload (already real content, not
+                // invented here). The public Language Profile switcher
+                // UI was removed first; this removes the underlying
+                // multi-persona machinery it was ever switching between.
+                const identity = profileData.language_profiles.payloads.professional;
+                renderProfile(identity);
             } catch (error) {
                 document.getElementById('profile-title').innerText = "Execution Error";
                 document.getElementById('profile-paradigm').innerText = "Failed to pull data ledger matrices.";
             }
         }
 
-        function renderProfile(mode) {
-            if (coreProfiles[mode]) {
-                document.getElementById('profile-title').innerText = coreProfiles[mode].title;
-                document.getElementById('profile-paradigm').innerText = coreProfiles[mode].paradigm;
-                document.getElementById('og-description').setAttribute('content', coreProfiles[mode].paradigm);
-                document.getElementById('meta-description').setAttribute('content', coreProfiles[mode].paradigm);
+        function renderProfile(identity) {
+            if (identity) {
+                document.getElementById('profile-title').innerText = identity.title;
+                document.getElementById('profile-paradigm').innerText = identity.paradigm;
+                document.getElementById('og-description').setAttribute('content', identity.paradigm);
+                document.getElementById('meta-description').setAttribute('content', identity.paradigm);
             }
-            renderBlogEntries(mode);
+            renderBlogEntries();
         }
 
         // Real trigger, 2026-08-26 (Spencer: "keep json to a minimum ...
@@ -226,7 +226,7 @@
         // index (slug/date/title/path) now. Post bodies are fetched on
         // demand, one plain-text .md per post, not pre-loaded for every
         // persona of every post up front.
-        async function renderBlogEntries(mode) {
+        async function renderBlogEntries() {
             const listContainer = document.getElementById('blog-posts');
             listContainer.innerHTML = '';
 
