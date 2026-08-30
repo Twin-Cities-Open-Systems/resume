@@ -143,6 +143,7 @@
 
     <script>
         let blogEntries = [];
+        let currentSlug = 'spencer';
 
         // Real fix, 2026-08-28: "the blogs from lab link to live, fix
         // and prevent future drift." Two real bugs, same root cause --
@@ -203,6 +204,8 @@
                     links.push(`<a href="https://${mediaHost}">Media &#8594;</a>`);
                 }
                 document.getElementById('header-links').innerHTML = links.join(' &middot; ');
+
+                currentSlug = slug;
 
                 const profileRes = await fetch(`profiles/${slug}/profile.json`);
                 const profileData = await profileRes.json();
@@ -266,7 +269,15 @@
             const listContainer = document.getElementById('blog-posts');
             listContainer.innerHTML = '';
 
-            for (const post of blogEntries) {
+            // Real fix, 2026-08-30: this loop rendered every post from
+            // every real person's profile on every node -- confirmed
+            // live, touchy.blog.tcos.us was showing spencer's posts too
+            // (blog_manifest.json is one shared index across all real
+            // profiles, path-prefixed per person, never filtered here).
+            // Filter to this node's own resolved identity before render.
+            const myPosts = blogEntries.filter(post => post.path.startsWith(`profiles/${currentSlug}/`));
+
+            for (const post of myPosts) {
                 const li = document.createElement('li');
                 li.className = 'post-item';
                 li.innerHTML = `
