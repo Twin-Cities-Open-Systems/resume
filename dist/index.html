@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">TCOS Node</title>
-    <link rel="icon" type="image/x-icon" href="https://view.lab.tcos.us/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://view.lab.tcos.us/assets/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://view.lab.tcos.us/assets/favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://view.lab.tcos.us/assets/favicon-180.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <meta property="og:site_name" content="TCOS Node">
     <meta property="og:title" id="og-title" content="TCOS Node">
     <meta property="og:description" id="og-description" content="Real per-operator TCOS node -- profile, resume, and blog stream.">
     <meta property="og:type" content="profile">
     <meta property="og:url" id="og-url" content="">
-    <meta property="og:image" content="https://view.lab.tcos.us/assets/favicon-180.png">
+    <meta property="og:image" id="og-image" content="https://spencer.blog.tcos.us/icons/icon-512.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://view.lab.tcos.us/assets/favicon-180.png">
+    <meta name="twitter:image" id="twitter-image" content="https://spencer.blog.tcos.us/icons/icon-512.png">
     <meta name="description" id="meta-description" content="Real per-operator TCOS node -- profile, resume, and blog stream.">
     <link rel="canonical" id="canonical-link" href="">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -53,7 +53,11 @@
         }
         * { box-sizing: border-box; }
         body { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
-        .site-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 1.5rem; }
+        .site-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 1.5rem; }
+        .site-logo { display: flex; align-items: center; gap: 7px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+        .site-logo .mark { color: var(--accent); font-size: 15px; }
+        .site-logo:hover { color: var(--accent-ink); }
+        .toggles-row { display: flex; align-items: center; gap: 12px; }
         .theme-toggle { display: flex; align-items: center; gap: 4px; }
         .theme-toggle span { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; color: var(--muted); margin-right: 2px; }
         .theme-btn { background: var(--pane-bg); border: 1px solid var(--border); color: var(--muted); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 9.5px; font-weight: 700; padding: 0 7px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; text-transform: uppercase; }
@@ -62,6 +66,7 @@
         .fontsize-toggle .fs-label { font-family: ui-monospace, monospace; font-size: 10px; color: var(--muted); cursor: default; user-select: none; }
         .fontsize-toggle .fs-options { display: flex; align-items: center; gap: 4px; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .18s ease, opacity .12s ease; }
         .fontsize-toggle:hover .fs-options, .fontsize-toggle:focus-within .fs-options { max-width: 200px; opacity: 1; }
+        .fontsize-toggle.fs-force-collapsed .fs-options { max-width: 0 !important; opacity: 0 !important; }
         .fontsize-btn { background: var(--pane-bg); border: 1px solid var(--border); color: var(--muted); font-family: ui-monospace, monospace; font-size: 10.5px; font-weight: 700; width: 22px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; }
         .fontsize-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
         body[data-fontsize="s"] { zoom: 0.875; }
@@ -81,7 +86,10 @@
         .post-list { list-style: none; padding: 0; }
         .post-item { background: var(--pane-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; margin-bottom: 1rem; border-radius: 8px; }
         .post-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
-        .post-content { color: var(--muted); line-height: 1.5; white-space: pre-wrap; }
+        .post-item h3 { margin: 0 0 0.4rem; }
+        .post-item h3 a { color: var(--text); text-decoration: none; }
+        .post-item h3 a:hover { color: var(--accent-ink); text-decoration: underline; }
+        .post-excerpt { color: var(--muted); line-height: 1.5; margin: 0; }
         .hash-pane { display: none; background: var(--pane-bg); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid var(--border); }
         .hash-pane.found { display: block; }
         .hash-pane.notfound { display: block; border-left-color: #c93030; }
@@ -91,20 +99,23 @@
 <body>
 
     <div class="site-bar">
-        <div class="theme-toggle">
-            <span>Theme</span>
-            <button class="theme-btn" data-theme-choice="light" type="button">Light</button>
-            <button class="theme-btn" data-theme-choice="dark" type="button">Dark</button>
-            <button class="theme-btn" data-theme-choice="auto" type="button">Auto</button>
-        </div>
-        <div class="fontsize-toggle">
-            <span class="fs-label" tabindex="0">Aa</span>
-            <div class="fs-options">
-                <button class="fontsize-btn" data-size="s" type="button">S</button>
-                <button class="fontsize-btn" data-size="m" type="button">M</button>
-                <button class="fontsize-btn" data-size="l" type="button">L</button>
-                <button class="fontsize-btn" data-size="xl" type="button">XL</button>
-                <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+        <a href="/" class="site-logo"><span class="mark">&#9670;</span> TCOS Node</a>
+        <div class="toggles-row">
+            <div class="theme-toggle">
+                <span>Theme</span>
+                <button class="theme-btn" data-theme-choice="light" type="button">Light</button>
+                <button class="theme-btn" data-theme-choice="dark" type="button">Dark</button>
+                <button class="theme-btn" data-theme-choice="auto" type="button">Auto</button>
+            </div>
+            <div class="fontsize-toggle">
+                <span class="fs-label" tabindex="0">Aa</span>
+                <div class="fs-options">
+                    <button class="fontsize-btn" data-size="s" type="button">S</button>
+                    <button class="fontsize-btn" data-size="m" type="button">M</button>
+                    <button class="fontsize-btn" data-size="l" type="button">L</button>
+                    <button class="fontsize-btn" data-size="xl" type="button">XL</button>
+                    <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+                </div>
             </div>
         </div>
     </div>
@@ -172,6 +183,13 @@
                 document.getElementById('og-title').setAttribute('content', `${window.location.hostname} — TCOS Node`);
                 document.getElementById('og-url').setAttribute('content', `https://${NORMALIZED_HOST}/`);
                 document.getElementById('canonical-link').setAttribute('href', `https://${NORMALIZED_HOST}/`);
+                // Real fix: og:image/twitter:image were hardcoded to one
+                // specific domain even though this same page serves four
+                // real domains -- same lab/prod-style hardcoding footgun
+                // already tracked at fleet-ops#295, fixed here the same
+                // way og-url/canonical already were.
+                document.getElementById('og-image').setAttribute('content', `https://${NORMALIZED_HOST}/icons/icon-512.png`);
+                document.getElementById('twitter-image').setAttribute('content', `https://${NORMALIZED_HOST}/icons/icon-512.png`);
 
                 const links = [];
                 links.push(`<a href="resume-${slug}.html">Resume &#8594;</a>`);
@@ -223,9 +241,27 @@
         // every post's full text, 5 persona variants each -- the actual
         // real content already lives in profiles/<slug>/blog/*.md (git-
         // tracked, human-readable), so the JSON only needs to be a thin
-        // index (slug/date/title/path) now. Post bodies are fetched on
-        // demand, one plain-text .md per post, not pre-loaded for every
-        // persona of every post up front.
+        // index (slug/date/title/path) now.
+        //
+        // Real fix, 2026-08-30 (Spencer, direct: "the entries should be
+        // links, not walls of text"): this used to dump every post's
+        // entire real body inline via textContent -- confirmed live, one
+        // real post's own content (which happens to quote this exact
+        // page's own JS as an example) rendered as a giant literal wall
+        // of code-looking text right on the index page. Now: a real,
+        // short excerpt (first non-empty line after the title) plus a
+        // real link straight to the post's own raw .md, so the full
+        // content is one click away instead of dumped on every load.
+        function firstExcerptLine(text, title) {
+            const lines = text.split('\n').map(l => l.trim());
+            for (const line of lines) {
+                if (!line) continue;
+                if (line.replace(/^#+\s*/, '') === title) continue; // skip the title line itself
+                return line.length > 220 ? line.slice(0, 217) + '…' : line;
+            }
+            return '';
+        }
+
         async function renderBlogEntries() {
             const listContainer = document.getElementById('blog-posts');
             listContainer.innerHTML = '';
@@ -235,18 +271,19 @@
                 li.className = 'post-item';
                 li.innerHTML = `
                     <div class="post-meta">[${post.date}] Sub-system: ${post.slug}</div>
-                    <h3>${post.title}</h3>
-                    <div class="post-content">Loading&hellip;</div>
+                    <h3><a href="${post.path}">${post.title}</a></h3>
+                    <p class="post-excerpt">Loading&hellip;</p>
                 `;
                 listContainer.appendChild(li);
 
-                const contentDiv = li.querySelector('.post-content');
+                const excerptEl = li.querySelector('.post-excerpt');
                 try {
                     const res = await fetch(post.path);
                     if (!res.ok) throw new Error('not found');
-                    contentDiv.textContent = await res.text();
+                    const body = await res.text();
+                    excerptEl.textContent = firstExcerptLine(body, post.title) || post.raw_fallback || '';
                 } catch (error) {
-                    contentDiv.textContent = post.raw_fallback || '(content unavailable)';
+                    excerptEl.textContent = post.raw_fallback || '(content unavailable)';
                 }
             }
         }
@@ -340,6 +377,20 @@
                     try { localStorage.setItem(FS_KEY, b.dataset.size); } catch (e) {}
                     applyFontsize(b.dataset.size);
                     b.blur();
+                    // Real fix (2026-08-30): :hover alone keeps .fs-options
+                    // expanded after a click since the cursor is still over
+                    // the widget -- force-collapse it, then let normal
+                    // hover/focus-within behavior resume once the cursor
+                    // actually leaves. Ported from the canonical Gold
+                    // reference (.github/bin/render-review.py).
+                    var toggle = b.closest(".fontsize-toggle");
+                    if (toggle) {
+                        toggle.classList.add("fs-force-collapsed");
+                        toggle.addEventListener("mouseleave", function onLeave() {
+                            toggle.classList.remove("fs-force-collapsed");
+                            toggle.removeEventListener("mouseleave", onLeave);
+                        });
+                    }
                 });
             });
         })();
