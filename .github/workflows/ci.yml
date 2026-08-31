@@ -1,0 +1,72 @@
+# Org CI baseline -- PROMPTING_RULES rule 16.
+#
+# Two layers: hee-check for what only this org knows, standard tools for
+# what is standard. hee-check needs no toolchain and no language runtime,
+# so it works in every repo including docs-only ones.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  hee-check:
+    name: hee-check (org tooling)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout resume
+        uses: actions/checkout@v4
+        with:
+          path: resume
+
+      # Check out the tool's home repo rather than vendoring a copy.
+      # Vendoring is what produced three divergent security_scanner.py
+      # files across the org -- human-execution-engine#468.
+      - name: Checkout human-execution-engine (hee-check lives there)
+        uses: actions/checkout@v4
+        with:
+          repository: Twin-Cities-Open-Systems/human-execution-engine
+          path: human-execution-engine
+
+      # BLOCKING, and verified green before this workflow was added:
+      # hee-check boundary and refs both exit 0 on this repo today.
+      # It catches broken file references, hardcoded /home/<user>/ paths,
+      # and derived state committed to git.
+      - name: hee-check all
+        run: human-execution-engine/tooling/bin/hee-check all resume
+
+  shellcheck:
+    name: shellcheck (25 script(s))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # REPORTING ONLY on first landing. shellcheck is not installed on the
+      # authoring host, so it could not be verified green beforehand, and
+      # rule 16 forbids adding a check that is red on day one.
+      # FLIP CONDITION: if the first run on main is green, remove
+      # continue-on-error. If it is red, fix or scope it -- do not leave
+      # this line here indefinitely.
+      - name: shellcheck
+        continue-on-error: true
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          find . -name '*.sh' -o -name '*.bash' | grep -v '/\.git/' | xargs -r shellcheck
+
+  ruff:
+    name: ruff (1 file(s))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # REPORTING ONLY on first landing, same reason as shellcheck above:
+      # ruff was not installed on the authoring host, so it could not be
+      # verified green. Same flip condition.
+      - name: ruff
+        continue-on-error: true
+        run: |
+          pip install --quiet ruff
+          ruff check .
