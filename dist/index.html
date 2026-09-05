@@ -255,6 +255,13 @@
         // short excerpt (first non-empty line after the title) plus a
         // real link straight to the post's own raw .md, so the full
         // content is one click away instead of dumped on every load.
+        //
+        // Real fix, 2026-09-05 (Spencer: "this is just raw markdown"):
+        // that link went straight at the .md, which the host serves as
+        // text/markdown. The manifest now carries "html" -- the Gold page
+        // convert.sh renders beside each post via .github's
+        // render-review.py -- so the link is the rendered page and the .md
+        // stays the source the excerpt is read from.
         function firstExcerptLine(text, title) {
             const lines = text.split('\n').map(l => l.trim());
             for (const line of lines) {
@@ -282,7 +289,7 @@
                 li.className = 'post-item';
                 li.innerHTML = `
                     <div class="post-meta">[${post.date}] Sub-system: ${post.slug}</div>
-                    <h3><a href="${post.path}">${post.title}</a></h3>
+                    <h3><a href="${post.html || post.path}">${post.title}</a></h3>
                     <p class="post-excerpt">Loading&hellip;</p>
                 `;
                 listContainer.appendChild(li);

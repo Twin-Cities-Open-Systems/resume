@@ -261,3 +261,12 @@ print(json.dumps({
 done
 echo "" >> "$OUTPUT_WEB_DIR/blog_manifest.json"
 echo "]" >> "$OUTPUT_WEB_DIR/blog_manifest.json"
+
+# Real fix, 2026-09-05 (Spencer: "we need to fix the blogs next, this is
+# just raw markdown"): every post is rendered to a real Gold HTML page
+# beside its .md, through .github's render-review.py -- never a hand
+# copy of the template (GLOSSARY "Gold"). Adds "html" to each manifest
+# entry; index.html links that and keeps fetching the .md for the
+# excerpt. --check runs Gold compliance on every page and fails the
+# build if one is not compliant.
+python3 bin/render-blog.py --check
