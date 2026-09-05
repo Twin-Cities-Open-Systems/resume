@@ -24,6 +24,12 @@
 # Usage:
 #   media/bin/media-item.py build <item-dir>        # <item-dir>/item.card.v1.yaml -> index.html + exif.html
 #   media/bin/media-item.py build <item-dir> --no-network   # skip regen-pubkey (offline check)
+#   media/bin/media-item.py root <media-dist> [--posts MANIFEST --oper SLUG --posts-src DIR]
+#       regenerate the media root's <ul class="items"> from every item card
+#       under <media-dist>, plus this oper's blog posts (copied into
+#       <media-dist>/posts/ from the rendered Gold pages). Operator,
+#       2026-09-05: "get *blog.lab migrated to *media.lab to prepare to sync
+#       to prod" -- one host per person, posts and galleries on it.
 import base64
 import html
 import json
@@ -201,7 +207,52 @@ def build(item_dir, network=True):
     return 0
 
 
+ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
+
+
+def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
+    """The media root lists galleries (every item.card.v1.yaml below it, by
+    date) and this oper's blog posts, copied in from the rendered Gold
+    pages. The <ul class="items"> block is the only generated region of
+    the root page; everything around it stays hand-written."""
+    media_dist = Path(media_dist).resolve()
+    rows = []
+    for card_path in sorted(media_dist.glob("*/item.card.v1.yaml")):
+        spec = yaml.safe_load(card_path.read_text())["spec"]
+        slug = card_path.parent.name
+        when = spec.get("date") or max((it.get("date", "") for it in spec.get("items", [])), default="")
+        rows.append((when, "gallery", f"/{slug}", spec["title"], spec["description"]))
+    if posts_manifest and oper:
+        posts_dir = media_dist / "posts"; posts_dir.mkdir(exist_ok=True)
+        for post in json.loads(Path(posts_manifest).read_text()):
+            if not post["path"].startswith(f"profiles/{oper}/") or not post.get("html"):
+                continue
+            src = Path(posts_src or ".") / post["html"]
+            if not src.is_file():
+                print(f"⚠️  WARNING  media-item root: rendered post missing, skipped: {src}", file=sys.stderr); continue
+            dst = posts_dir / (post["slug"] + ".html")
+            dst.write_bytes(src.read_bytes())
+            rows.append((post["date"], "post", f"/posts/{post['slug']}.html", post["title"],
+                         f"Blog post, {post['date']}."))
+    rows.sort(key=lambda r: r[0], reverse=True)
+    li = "".join(
+        f'    <li data-kind="{esc(kind)}">\n      <img class="item-icon" src="/icons/favicon-32.png" alt="">\n      <div>\n'
+        f'        <a href="{esc(href)}">{esc(title)}</a>\n        <p><span class="mono">{esc(when)} &middot; {esc(kind)}</span> &mdash; {esc(desc)}</p>\n      </div>\n    </li>\n'
+        for when, kind, href, title, desc in rows)
+    index = media_dist / "index.html"
+    s = index.read_text()
+    m = ITEMS_RE.search(s)
+    if not m:
+        sys.exit(f"media-item root: no <ul class=\"items\"> block in {index}")
+    index.write_text(s[:m.start()] + m.group(1) + li + m.group(3) + s[m.end():])
+    print(f"[+] {index}: {sum(1 for r in rows if r[1]=='gallery')} gallery(ies), {sum(1 for r in rows if r[1]=='post')} post(s)")
+    return 0
+
+
 def main(argv):
+    if len(argv) >= 2 and argv[0] == "root":
+        opts = dict(zip(argv[2::2], argv[3::2]))
+        return root(argv[1], opts.get("--posts"), opts.get("--oper"), opts.get("--posts-src"))
     if len(argv) < 2 or argv[0] != "build":
         print(__doc__ or "usage: media-item.py build <item-dir> [--no-network]"); return 2
     return build(argv[1], network="--no-network" not in argv)
