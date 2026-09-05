@@ -1,0 +1,19 @@
+{
+  "tool": "meme-factory/faceoff",
+  "commit": "9d66577",
+  "job": "fleet-ops/tools/meme-factory/jobs/mn2600-moa-sept-2026.bofh.faceoff.json",
+  "job_sha256": "8f3df710bd7b745143d8d51854447694e4ba06f2746a2c605a4c4f645322f4a4",
+  "source": "mn2600-moa-sept-2026.orig.jpg",
+  "source_sha256": "3befb8fa1a60ebbf1190fdf35f850a625c4ee8b7e9391a33f62b9f329b0f550c",
+  "model": "u2net_human_seg",
+  "badge": {
+    "stem": "recipe-fe3fe84af0627d6d-0b0f0b--39ff14-fill-solid-mark-dot-badge-none-label-2600-512x512",
+    "sha256": "b68aa35d5ec9be73e55ad3729ad1b727abe83831530b10972db4647153fdaf63"
+  },
+  "outputs": {
+    "mn2600-moa-sept-2026.bofh.cut-beard.png": "a6a872dac58be740497d6b6047f0aad8e8b5ce3b33c0afacee585bd78bd6c641",
+    "mn2600-moa-sept-2026.bofh.cut-2600cap.png": "e9b4c67da463feeaa53b9d24db8e54ebab77e5421e9c45b1c51f5e92d1b69d3f",
+    "mn2600-moa-sept-2026.bofh.jpg": "c65232b366c02a8c7ea9782de350005c701b7ef50167acf312ab0503590d8f8b",
+    "mn2600-moa-sept-2026.bofh.gif": "01cbe4322c1e8fd9de3286fc7a11263930d5f066364da62bcfe80c83214448d8"
+  }
+}
