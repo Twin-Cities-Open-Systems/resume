@@ -23,6 +23,7 @@
 import importlib.util
 import json
 import os
+import sys as _sys
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -35,6 +36,18 @@ DIST = Path("dist")
 MANIFEST = DIST / "blog_manifest.json"
 
 
+def gtag_snippet():
+    """The org's Google tag, from hee_gtag (one source for every generator);
+    ID from the branding card via $HEE_BRANDING. Empty, with a WARNING,
+    when there is no card -- a post without analytics is still a post."""
+    _sys.path.insert(0, str(Path(os.environ.get("HEE_REPO_DIR", Path.home() / "git" / "human-execution-engine")) / "library" / "py"))
+    try:
+        import hee_gtag
+    except ImportError:
+        print("⚠️  WARNING hee_gtag not importable -- posts ship without the Google tag", file=sys.stderr); return ""
+    return hee_gtag.snippet_or_empty()
+
+
 def load_renderer():
     if not RENDER.is_file():
         sys.exit(f"render-blog: {RENDER} not found -- check out Twin-Cities-Open-Systems/.github under ~/git "
@@ -44,6 +57,9 @@ def load_renderer():
     spec.loader.exec_module(mod)
     if not hasattr(mod, "render_file_page"):
         sys.exit("render-blog: this render-review.py has no render_file_page() -- update the .github checkout")
+    import inspect
+    if "extra_head" not in inspect.signature(mod.render_file_page).parameters:
+        sys.exit("render-blog: this render-review.py's render_file_page() has no extra_head= -- update the .github checkout")
     return mod
 
 
@@ -74,6 +90,7 @@ def main(argv):
     posts = json.loads(MANIFEST.read_text())
     generated_iso = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     repo = str(Path(".").resolve())
+    gtag = gtag_snippet()
     produced = []
     for post in posts:
         src = Path(post["path"])                       # profiles/<slug>/blog/<post>.md
@@ -91,6 +108,7 @@ def main(argv):
             site_name=host,
             active_tab="pretty",
             github_url=f"https://github.com/{rr.GITHUB_ORG}/resume/blob/main/{src}",
+            extra_head=gtag,
         )
         out.write_text(page, encoding="utf-8")
         post["html"] = str(out.relative_to(DIST))
