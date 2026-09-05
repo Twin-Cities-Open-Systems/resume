@@ -270,3 +270,7 @@ echo "]" >> "$OUTPUT_WEB_DIR/blog_manifest.json"
 # excerpt. --check runs Gold compliance on every page and fails the
 # build if one is not compliant.
 python3 bin/render-blog.py --check
+
+# The hand-maintained pages carry the same Google tag (tcos-www#52) --
+# idempotent, so every build re-asserts it rather than trusting a paste.
+python3 bin/ensure-gtag.py "$OUTPUT_WEB_DIR/index.html" "$OUTPUT_WEB_DIR/blog-hub.html" "$OUTPUT_WEB_DIR/media-hub.html"
