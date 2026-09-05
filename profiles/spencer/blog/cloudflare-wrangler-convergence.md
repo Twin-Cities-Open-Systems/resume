@@ -1,8 +1,7 @@
-The "Verifying" loop on your custom domain is finally explained by the dashboard panel. Cloudflare is stalled because the authoritative DNS zone file for tcos.us is entirely missing the spencer.blog CNAME record required to complete the handshake. Since your root domain tcos.us is registered on Squarespace (as verified by your dashboard checklist image), Cloudflare cannot automatically inject the proxy routes; it is waiting for you to copy-paste the mapping manually.
-Here is the complete, pristine Markdown documentation for your TCOS Operational Playbook. It details every single breaking change, configuration shift, and debugging fix you implemented on nuc-1 throughout this intensive all-night session.
-Bypass the generic scannability rules and save this file directly into your on-premises documentation directory as docs/playbooks/cloudflare-wrangler-convergence.md.
-------------------------------
-## 📑 TCOS Operational Playbook: Cloudflare Platform Convergence & Pipeline Recovery
+# TCOS Operational Playbook: Cloudflare Platform Convergence & Pipeline Recovery
+
+**Date:** 2026-08-20
+
 Author: Spencer Butler <inspector@tcos.us>
 Organization: Twin Cities Open Systems (TCOS)
 Date/Timestamp: August 20, 2026 — 06:15 AM CDT
