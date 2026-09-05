@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+$GTAG
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$TITLE</title>
+<meta name="description" content="$DESCRIPTION">
+<meta property="og:site_name" content="$HOST">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="$OG_URL">
+<meta property="og:title" content="$TITLE — $OWNER">
+<meta property="og:description" content="$DESCRIPTION">
+<meta property="og:image" content="$OG_IMAGE">
+<meta property="og:image:alt" content="$OG_IMAGE_ALT">
+<meta property="og:image:width" content="$OG_IMAGE_W">
+<meta property="og:image:height" content="$OG_IMAGE_H">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="$TITLE — $OWNER">
+<meta name="twitter:description" content="$DESCRIPTION">
+<meta name="twitter:image" content="$OG_IMAGE">
+<link rel="canonical" href="$OG_URL">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/shell-theme.css">
+<style>
+.eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 6px; }
+.sub { color: var(--ink-dim); max-width: 60ch; }
+.stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0 4px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; }
+.stat .n { font-family: var(--mono); font-weight: 700; font-size: 20px; color: var(--accent-ink); }
+.stat .l { font-size: 11.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.04em; }
+.credit {
+  margin: 20px 0 4px; padding: 16px 20px; border-radius: 12px;
+  background: var(--accent-soft); border: 2px solid var(--accent);
+}
+.credit .headline { font-family: var(--mono); font-weight: 700; font-size: 16px; color: var(--accent-ink); display: block; margin-bottom: 4px; }
+.credit .headline a { color: var(--accent-ink); text-decoration: underline; }
+.credit .sub { font-size: 13.5px; color: var(--ink); }
+.credit a { color: var(--accent-ink); font-weight: 600; }
+.credit .note { display: block; margin-top: 8px; color: var(--ink-dim); font-size: 12.5px; }
+.evidence-hover { position: relative; border-bottom: 1px dashed var(--ink-faint); cursor: help; }
+.evidence-hover .tip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 10;
+  background: var(--ink); color: var(--ground); font-family: var(--mono); font-size: 11.5px;
+  padding: 8px 11px; border-radius: 8px; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.evidence-hover:hover .tip, .evidence-hover:focus .tip { display: block; }
+.exif-badge {
+  font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--accent-ink); text-transform: uppercase;
+}
+.exif-badge.none { color: var(--ink-faint); border-bottom: none; cursor: default; text-transform: none; font-weight: 400; }
+
+/* GPG badge -- visually distinct from the EXIF hover (stronger proof,
+   different treatment): a real pill with a live status dot, not just
+   a dashed-underline hover. Verification actually runs in-browser. */
+.gpg-badge {
+  position: relative; display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.03em;
+  padding: 2px 8px 2px 6px; border-radius: 999px; cursor: help;
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint);
+}
+.gpg-badge.good { background: var(--good-soft); border-color: var(--good); color: var(--good); }
+.gpg-badge.bad { background: var(--critical-soft); border-color: var(--critical); color: var(--critical); }
+.gpg-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
+.gpg-badge .tip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 10;
+  background: var(--ink); color: var(--ground); font-family: var(--mono); font-size: 11px;
+  padding: 9px 12px; border-radius: 8px; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.gpg-badge:hover .tip, .gpg-badge:focus .tip { display: block; }
+
+/* .freshness / .fr-dot / .fr-rel now live in shell-theme.css -- shared
+   with the root index.html page, not copy-pasted (this was the second
+   real use, which is exactly the line to dedup at). */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.photo { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.photo img { width: 100%; display: block; background: var(--surface-2); cursor: zoom-in; }
+.photo figcaption { padding: 10px 14px 13px; display: flex; flex-direction: column; gap: 5px; }
+.ft { font-family: var(--mono); font-weight: 700; font-size: 12.5px; color: var(--ink); }
+.fc { font-size: 12.5px; color: var(--ink-dim); }
+.fmeta { margin-top: 2px; min-height: 18px; }
+
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100;
+  display: none; align-items: center; justify-content: center; padding: 30px;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.lightbox .lb-close {
+  position: absolute; top: 20px; right: 24px; color: #fff; font-family: var(--mono);
+  font-size: 13px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px; padding: 6px 12px; cursor: pointer;
+}
+
+    .group-toolbar { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; }
+    .gt-label { color: var(--muted, #888); font-size: 0.85em; }
+    .gt-btn { background: transparent; border: 1px solid var(--border, #333); color: inherit; padding: 4px 10px; border-radius: 4px; cursor: pointer; font: inherit; font-size: 0.85em; }
+    .gt-btn.active { background: var(--accent, #0a0); color: #000; border-color: var(--accent, #0a0); }
+    .group-header { grid-column: 1 / -1; margin: 18px 0 4px; font-size: 0.95em; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted, #888); border-bottom: 1px solid var(--border, #333); padding-bottom: 4px; }
+    .group-header:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="brand" href="https://tcos.us" data-cross-site>&larr; Twin Cities Open Systems</a>
+    <a class="brand" href="/" style="margin-left:14px;">&larr; $HOST_SHORT</a>
+    <div class="toggles">
+      <div class="fontsize-toggle">
+        <span class="fs-label" tabindex="0">Aa</span>
+        <div class="fs-options">
+          <button class="fontsize-btn" data-size="s" type="button">S</button>
+          <button class="fontsize-btn" data-size="m" type="button">M</button>
+          <button class="fontsize-btn" data-size="l" type="button">L</button>
+          <button class="fontsize-btn" data-size="xl" type="button">XL</button>
+          <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+        </div>
+      </div>
+      <span class="tgl-sep"></span>
+      <button class="tgl-btn theme-btn" data-theme-choice="auto" type="button">Auto</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="light" type="button">Light</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="dark" type="button">Dark</button>
+    </div>
+  </div>
+
+  <p class="eyebrow">$HOST_SHORT &middot; $EYEBROW</p>
+  <h1>$TITLE</h1>
+  <p class="sub">$SUB</p>
+$STATS
+  <div class="credit">
+$CREDIT
+  </div>
+
+  <div class="freshness" id="freshness" data-generated="$GENERATED">
+    <span class="fr-dot"></span>
+    <span id="fr-text">last update: just now</span>
+    <span class="tgl-sep"></span>
+    <span>live on <span data-host></span></span>
+    <span class="tgl-sep"></span>
+    <span>source: <a href="$SOURCE_URL" target="_blank" rel="noopener">$SOURCE_LABEL</a></span>
+  </div>
+$GROUP_TOOLBAR
+  <div class="gallery">
+$FIGURES
+  </div>
+
+  <footer>Twin-Cities-Open-Systems &middot; <span data-host></span> &middot; $FOOTER</footer>
+</div>
+
+<div class="lightbox" id="lightbox"><button class="lb-close" type="button">&times; close</button><img id="lightbox-img" alt=""></div>
+
+<script src="$OPENPGP_SRC"></script>
+<script src="/shell-toggles.js"></script>
+<script src="/shell-freshness.js"></script>
+<script>
+
+(function () {
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lightbox-img");
+  function open(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lb.classList.add("open");
+  }
+  function close() {
+    lb.classList.remove("open");
+    lbImg.src = "";
+  }
+  document.querySelectorAll(".photo img").forEach(function (img) {
+    img.addEventListener("click", function () { open(img.src, img.alt); });
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(img.src, img.alt); }
+    });
+  });
+  lb.addEventListener("click", close);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") close();
+  });
+})();
+
+// Real, in-browser GPG verification -- runs openpgp.js against the
+// real embedded public key and each photo's actual detached
+// signature. Not asserted text: this is a live cryptographic check
+// executed in the viewer's own browser.
+(function () {
+  var PUBKEY_ARMORED = "";
+  var PUBKEY_ARMORED_SPENCER = "";
+  var SIGNATURES = {};
+
+  function b64ToUint8Array(b64) {
+    var bin = atob(b64);
+    var arr = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return arr;
+  }
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    var publicKey;
+    try {
+      publicKey = await openpgp.readKey({ armoredKey: PUBKEY_ARMORED });
+    } catch (e) {
+      document.querySelectorAll(".gpg-badge").forEach(function (b) {
+        b.classList.add("bad");
+        b.querySelector(".gpg-text").textContent = "key error";
+      });
+      return;
+    }
+
+    for (var photoName in SIGNATURES) {
+      (async function (name) {
+        var badge = document.querySelector('.gpg-badge[data-photo="' + name + '"]');
+        var img = document.getElementById("img-" + name);
+        if (!badge || !img) return;
+        try {
+          var bytes;
+          if (img.src.indexOf("data:") === 0) {
+            var b64 = img.src.substring(img.src.indexOf(",") + 1);
+            bytes = b64ToUint8Array(b64);
+          } else {
+            // large files are served, not inlined (data: URIs cap near 2 MB);
+            // verify the exact bytes the server sent, same as the inline path
+            bytes = new Uint8Array(await (await fetch(img.getAttribute("src"))).arrayBuffer());
+          }
+          var signature = await openpgp.readSignature({ armoredSignature: SIGNATURES[name] });
+          var message = await openpgp.createMessage({ binary: bytes });
+          var result = await openpgp.verify({ message: message, signature: signature, verificationKeys: publicKey });
+          var sig0 = result.signatures[0];
+          await sig0.verified;
+          badge.classList.add("good");
+          badge.querySelector(".gpg-text").textContent = "Lab verified";
+          var tip = document.createElement("span");
+          tip.className = "tip";
+          tip.innerHTML = "Good signature<br>Key: " + sig0.keyID.toHex() + "<br>Signer: $SIGNER_LABEL<br>Verified live in your browser";
+          badge.appendChild(tip);
+        } catch (e) {
+          badge.classList.add("bad");
+          badge.querySelector(".gpg-text").textContent = "GPG FAILED";
+          var tip = document.createElement("span");
+          tip.className = "tip";
+          tip.textContent = "Verification failed: " + e.message;
+          badge.appendChild(tip);
+        }
+      })(photoName);
+    }
+
+    // Second signer: Spencer Butler's own promotion attestation,
+    // verified the same real way -- fetches the actual served
+    // attestation file and its detached signature, checks both
+    // live against his real public key. Not the same key as the
+    // per-photo lab signatures above -- see the attestation's own
+    // text for why (content-signing-v1's lab/prod signing split).
+    var attestationBadge = document.getElementById("attestation-badge");
+    if (attestationBadge) {
+      try {
+        var attestationBytes = new Uint8Array(await (await fetch("promotion-attestation.txt")).arrayBuffer());
+        var attestationSig = await (await fetch("promotion-attestation.txt.asc")).text();
+        var spencerKey = await openpgp.readKey({ armoredKey: PUBKEY_ARMORED_SPENCER });
+        var aSignature = await openpgp.readSignature({ armoredSignature: attestationSig });
+        // Binary mode, matching how `gpg --detach-sign` actually signed
+        // the file (raw bytes, no OpenPGP text-mode line-ending
+        // canonicalization) -- same reason the photo verification above
+        // uses `binary:` instead of `text:`. Using `text:` here silently
+        // fails verification even though the signature is genuinely
+        // valid, because openpgp.js normalizes line endings for text-mode
+        // messages and that no longer matches what was actually signed.
+        var aMessage = await openpgp.createMessage({ binary: attestationBytes });
+        var aResult = await openpgp.verify({ message: aMessage, signature: aSignature, verificationKeys: spencerKey });
+        var aSig0 = aResult.signatures[0];
+        await aSig0.verified;
+        attestationBadge.classList.add("good");
+        attestationBadge.querySelector(".gpg-text").textContent = "Prod verified";
+        var aTip = document.createElement("span");
+        aTip.className = "tip";
+        aTip.innerHTML = "Good signature<br>Key: " + aSig0.keyID.toHex() + "<br>Signer: $ATTESTER_LABEL<br>Verified live in your browser";
+        attestationBadge.appendChild(aTip);
+      } catch (e) {
+        attestationBadge.classList.add("bad");
+        attestationBadge.querySelector(".gpg-text").textContent = "GPG FAILED";
+        var aTip2 = document.createElement("span");
+        aTip2.className = "tip";
+        aTip2.textContent = "Verification failed: " + e.message;
+        attestationBadge.appendChild(aTip2);
+      }
+    }
+  });
+})();
+
+(function () {
+  var TAG_LABELS = $TAG_LABELS_JSON;
+  function label(mode, val) {
+    if (mode === "tag") return TAG_LABELS[val] || val;
+    if (val === "reference") return "Reference images (no session date)";
+    var d = new Date(val + "T00:00:00");
+    return isNaN(d) ? val : d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var gallery = document.querySelector(".gallery");
+    if (!gallery) return;
+    var figures = Array.prototype.slice.call(gallery.querySelectorAll("figure.photo"));
+    var originalOrder = figures.slice();
+
+    function regroup(mode) {
+      gallery.querySelectorAll(".group-header").forEach(function (h) { h.remove(); });
+      if (mode === "none") {
+        originalOrder.forEach(function (fig) { gallery.appendChild(fig); });
+        return;
+      }
+      var attr = mode === "tag" ? "tag" : "date";
+      var seen = [];
+      var buckets = {};
+      originalOrder.forEach(function (fig) {
+        var key = fig.dataset[attr] || "unknown";
+        if (!buckets[key]) { buckets[key] = []; seen.push(key); }
+        buckets[key].push(fig);
+      });
+      seen.forEach(function (key) {
+        var header = document.createElement("div");
+        header.className = "group-header";
+        header.textContent = label(mode, key);
+        gallery.appendChild(header);
+        buckets[key].forEach(function (fig) { gallery.appendChild(fig); });
+      });
+    }
+
+    document.querySelectorAll(".gt-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".gt-btn").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        regroup(btn.dataset.group);
+      });
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
