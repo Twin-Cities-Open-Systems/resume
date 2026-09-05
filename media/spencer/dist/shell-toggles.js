@@ -1,20 +1,35 @@
 // Shared fontsize + theme toggle behavior, paired with shell-theme.css.
 // One real source, not pasted inline into every page.
+// Font-size: Gold's own block from .github/bin/render-review.py, verbatim --
+// including the 2026-08-30 force-collapse-after-click fix.
 (function () {
-  var KEY = "tcos-fontsize";
-  function apply(size) {
+  var FS_KEY = "tcos-fontsize";
+  function applyFontsize(size) {
     document.body.setAttribute("data-fontsize", size);
     document.querySelectorAll(".fontsize-btn").forEach(function (b) {
       b.classList.toggle("active", b.dataset.size === size);
     });
   }
-  document.addEventListener("DOMContentLoaded", function () {
-    apply(localStorage.getItem(KEY) || "m");
-    document.querySelectorAll(".fontsize-btn").forEach(function (b) {
-      b.addEventListener("click", function () {
-        localStorage.setItem(KEY, b.dataset.size);
-        apply(b.dataset.size);
-      });
+  var savedSize = "m";
+  try { savedSize = localStorage.getItem(FS_KEY) || "m"; } catch (e) {}
+  applyFontsize(savedSize);
+  document.querySelectorAll(".fontsize-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      try { localStorage.setItem(FS_KEY, b.dataset.size); } catch (e) {}
+      applyFontsize(b.dataset.size);
+      b.blur();
+      // Real fix, 2026-08-30: :hover alone keeps .fs-options expanded
+      // after a click, since the cursor is still sitting over the
+      // widget -- force-collapse it, then let normal hover/focus-within
+      // behavior resume once the cursor actually leaves.
+      var toggle = b.closest(".fontsize-toggle");
+      if (toggle) {
+        toggle.classList.add("fs-force-collapsed");
+        toggle.addEventListener("mouseleave", function onLeave() {
+          toggle.classList.remove("fs-force-collapsed");
+          toggle.removeEventListener("mouseleave", onLeave);
+        });
+      }
     });
   });
 })();
