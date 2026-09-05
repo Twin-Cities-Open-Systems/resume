@@ -274,3 +274,12 @@ python3 bin/render-blog.py --check
 # The hand-maintained pages carry the same Google tag (tcos-www#52) --
 # idempotent, so every build re-asserts it rather than trusting a paste.
 python3 bin/ensure-gtag.py "$OUTPUT_WEB_DIR/index.html" "$OUTPUT_WEB_DIR/blog-hub.html" "$OUTPUT_WEB_DIR/media-hub.html"
+
+# One public host per person: this oper's rendered posts also live on the
+# media site (spencer.media.tcos.us/posts/<slug>.html) and its root lists
+# galleries and posts together. Lab first, then promote (HEE_POLICY §17).
+for media_dir in media/*/dist; do
+    [ -f "$media_dir/index.html" ] || continue
+    oper="$(basename "$(dirname "$media_dir")")"
+    python3 media/bin/media-item.py root "$media_dir" --posts "$OUTPUT_WEB_DIR/blog_manifest.json" --oper "$oper" --posts-src "$OUTPUT_WEB_DIR"
+done
