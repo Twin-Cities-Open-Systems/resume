@@ -1,10 +1,15 @@
 {
+ "for": "https://spencer.media.tcos.us/tux-tattoo/",
+ "host": "spencer.media.tcos.us",
  "motif": "rings",
+ "owner": "Spencer Butler",
+ "page": "gallery",
  "palette": [
   "#a78bfa",
   "#ff6161"
  ],
  "seed": "tux-tattoo",
  "size": 256,
- "text": "TT"
+ "text": "TT",
+ "title": "Tux Tattoo"
 }

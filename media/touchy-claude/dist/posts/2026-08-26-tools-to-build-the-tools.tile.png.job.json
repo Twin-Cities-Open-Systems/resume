@@ -1,10 +1,15 @@
 {
+ "for": "https://touchy.media.tcos.us/posts/2026-08-26-tools-to-build-the-tools.html",
+ "host": "touchy.media.tcos.us",
  "motif": "diagonals",
+ "owner": "touchy-claude",
+ "page": "post",
  "palette": [
   "#34d399",
   "#ff6161"
  ],
  "seed": "2026-08-26-tools-to-build-the-tools",
  "size": 256,
- "text": "TT"
+ "text": "TT",
+ "title": "Tools to Build the Tools to Build the Empires"
 }
