@@ -155,6 +155,17 @@ def build(item_dir, network=True):
     canvas.paste(fitted, ((W - fitted.width) // 2, (H - fitted.height) // 2))
     og_file = item_dir / "og.jpg"
     canvas.save(og_file, "JPEG", quality=88, optimize=True, progressive=True)
+    # the org's standard metadata on the derived card, like every published
+    # file: provenance (from which source file), agent signature, branding
+    env = dict(os.environ)
+    if not env.get("HEE_BRANDING") and (Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml").is_file():
+        env["HEE_BRANDING"] = str(Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml")
+    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
+    subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
+                    "--job", str(card_path), "--source", str(og_src), "--kv", "kind=og-card 1200x630 letterboxed"], check=True, capture_output=True, env=env)
+    subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
+    if env.get("HEE_BRANDING"):
+        subprocess.run([str(HEE_EXIF), "brand", str(og_file), "--artist", spec.get("owner", "Twin Cities Open Systems")], check=True, capture_output=True, env=env)
     with Image.open(og_file) as im:
         og_w, og_h = im.size
     stats = ""
@@ -495,6 +506,20 @@ def audit(repo_root, env="lab"):
         missing = [t for t in NEED if f'property="{t}"' not in html_]
         if missing:
             print(f"🔴 CRITICAL audit: {page.relative_to(repo_root)} lacks {', '.join(missing)}"); worst = 2
+
+    # 2d. every generated image (tiles, cards) carries the org's provenance
+    # and branding in its metadata, like every other file we publish.
+    # Operator, 2026-09-06: "all of these og images have our standard
+    # exif, right?" -- they did not, and nothing had looked.
+    gen = sorted(list(repo_root.glob("media/*/dist/**/tile.png")) + list(repo_root.glob("media/*/dist/**/*.og.jpg"))
+                 + list(repo_root.glob("media/*/dist/*/og.jpg")) + [repo_root / "profiles" / s_ / "dist" / "resume.og.jpg" for s_ in served])
+    for img in gen:
+        if not img.is_file():
+            continue
+        r = subprocess.run(["exiftool", "-s3", "-XMP-dc:Description", "-XMP-dc:Publisher", str(img)], capture_output=True, text=True)
+        desc, publisher = (r.stdout.split("\n") + ["", ""])[:2]
+        if not desc.startswith("provenance:") or not publisher:
+            print(f"🔴 CRITICAL audit: {img.relative_to(repo_root)} lacks {'provenance' if not desc.startswith('provenance:') else ''}{' and ' if not desc.startswith('provenance:') and not publisher else ''}{'branding' if not publisher else ''} metadata"); worst = 2
 
     # 3. every blog URL a reader may hold
     former = {}
