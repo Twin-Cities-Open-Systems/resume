@@ -13,6 +13,11 @@ spec:
   # serves the hubs and the blog-host redirects. Order matters: media first
   # so the redirects have targets.
   credential: { account: cloudflare-tcos-www, dir: ../tcos-www/.hee/secrets }
+  # cut runs the build once for the whole repo (convert.sh renders posts,
+  # cards, media roots, resumes and the Pages dist) and commits the tracked
+  # outputs into the release commit, so the release PR shows what ships.
+  build: "./convert.sh"
+  outputs: ["media", "profiles/*/dist/resume.html", "dist"]
   surfaces:
     - { name: spencer-media,     lab: "media/bin/deploy.sh spencer lab",       promote: "media/bin/deploy.sh spencer promote" }
     - { name: touchy-media,      lab: "media/bin/deploy.sh touchy-claude lab", promote: "media/bin/deploy.sh touchy-claude promote" }
