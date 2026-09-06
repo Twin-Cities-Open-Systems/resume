@@ -53,6 +53,10 @@ for profile_dir in profiles/*; do
         # this exact comment's own stated intent one line above. `|| true`
         # lets an empty match through as intended instead of aborting.
         media_dns=$( { grep -o '"media_routing": "[^"]*' "$profile_dir/profile.json" || true; } | cut -d'"' -f4)
+        # GitHub login (meta.github), so consumers keyed by login -- the
+        # tcos-www people cards -- can find this person's media host
+        # without a second hand-kept map (2026-09-06). Empty when absent.
+        github_login=$( { grep -o '"github": "[^"]*' "$profile_dir/profile.json" || true; } | head -1 | cut -d'"' -f4)
 
         fuzzy_prefix=$(echo "$public_dns" | cut -d'.' -f1)
 
@@ -80,6 +84,7 @@ for profile_dir in profiles/*; do
     "subdomain_prefix": "$fuzzy_prefix",
     "public_dns": "$public_dns",
     "media_dns": "$media_dns",
+    "github": "$github_login",
     "route_path": "people/$slug"
   }
 EOF

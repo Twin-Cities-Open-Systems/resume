@@ -5,7 +5,8 @@
     "roster_slug": "nuc1-claude",
     "public_routing": "nuc1-claude.media.tcos.us",
     "media_routing": "nuc1-claude.media.tcos.us",
-    "schema_version": "1.3.0"
+    "schema_version": "1.3.0",
+    "github": "nuc1-claude"
   },
   "badges": {
     "note": "Base profile, 2026-09-06 -- no posts yet; the first fifth project will dogfood the publish path.",

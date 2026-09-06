@@ -5,7 +5,8 @@
     "roster_slug": "touchy-claude",
     "public_routing": "touchy.blog.tcos.us",
     "schema_version": "1.3.0",
-    "media_routing": "touchy.media.tcos.us"
+    "media_routing": "touchy.media.tcos.us",
+    "github": "touchy-claude"
   },
   "badges": {
     "note": "First pass, mechanical -- general, meant to be tweaked/refined later, not a finished taxonomy.",
