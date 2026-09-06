@@ -173,7 +173,9 @@ def build(item_dir, network=True):
         SOURCE_LABEL=esc(spec.get("source_label", "item.card.v1.yaml")),
         GROUP_TOOLBAR=group_toolbar,
         FIGURES="\n".join(figure(it, item_dir, signatures) for it in items),
-        FOOTER=spec.get("footer_html") or esc(spec.get("footer", "")),
+        # a card with no footer gets no dangling separator; the footer is
+        # optional (operator, 2026-09-06: "kill this cruft")
+        FOOTER=(" &middot; " + (spec.get("footer_html") or esc(spec["footer"]))) if (spec.get("footer_html") or spec.get("footer")) else "",
         OPENPGP_SRC=esc(spec.get("openpgp_src", "/openpgp.min.js")),
         SIGNER_LABEL=esc(signer.get("label", signer.get("github_login", "signer"))),
         ATTESTER_LABEL=esc(attester.get("label", "")),

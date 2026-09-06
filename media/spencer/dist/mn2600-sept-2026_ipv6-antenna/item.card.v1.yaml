@@ -41,7 +41,6 @@ spec:
   signer:
     github_login: touchy-claude
     label: "touchy-claude &lt;touchy-claude@tcos.us&gt; (lab signer)"
-  footer: "second real instance of the <oper>.media.tcos.us idea -- and the first one a machine built from a job file"
   tag_labels: { meme: "Meme", still: "Still", asset: "Cut-out" }
   items:
     - { file: bofh.gif, title: "BOTH → BOFH", caption: "Frame 1: BOTH. Frames 2-3: BOFH. You put your antenna in my IPv6.", tag: meme, date: "2026-09-05" }
