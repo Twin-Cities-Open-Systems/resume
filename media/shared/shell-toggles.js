@@ -92,3 +92,22 @@
     });
   });
 })();
+
+// SYNCED-FROM .github/bin/render-review.py (Gold).
+
+// Links that leave this host open in a new tab; same-site navigation stays
+// in place. Operator, 2026-09-06: "most links should open in a new tab".
+// Decided at load time from the real href, so authors never annotate.
+(function () {
+  function run() {
+    document.querySelectorAll("a[href]").forEach(function (a) {
+      var url;
+      try { url = new URL(a.getAttribute("href"), location.href); } catch (e) { return; }
+      if (url.protocol !== "http:" && url.protocol !== "https:") return;
+      if (url.hostname === location.hostname) return;
+      if (!a.target) a.target = "_blank";
+      a.rel = (a.rel ? a.rel + " " : "") + "noopener";
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
+})();
