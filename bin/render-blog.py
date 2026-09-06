@@ -91,6 +91,34 @@ def check_post_safety(md_path):
         sys.exit(f"❌ CRITICAL render-blog: {md_path}: publish-safety gate refused (hee filter scan rc={res.returncode}): {first.strip()[:160]}")
 
 
+def published_diff_html(src, rr):
+    """The Diff tab of a post is the change since it was first published --
+    not the working-tree diff against HEAD, which is empty for every
+    committed post. Operator, 2026-09-06: "make sure these changes show up
+    in the diff when there is a change after posting." History follows
+    renames (the numbered prefix was dropped 2026-09-05)."""
+    import html as _html
+    import subprocess
+    def git(*a):
+        return subprocess.run(["git", *a], capture_output=True, text=True).stdout
+    names = sorted({n for n in git("log", "--follow", "--name-only", "--format=", "--", str(src)).splitlines() if n})
+    hashes = git("log", "--follow", "--format=%H %cs", "--", str(src)).splitlines()
+    if len(hashes) < 2:
+        return '<p class="empty">No changes since first published.</p>'
+    first_sha, first_date = hashes[-1].split()
+    raw = git("diff", "-M", f"{first_sha}", "HEAD", "--", *names)
+    if not raw.strip():
+        return '<p class="empty">No changes since first published.</p>'
+    lines = [f'<p class="empty">Changes since first published ({first_date}); {len(hashes) - 1} revision(s) since.</p>']
+    out = []
+    for line in raw.splitlines():
+        esc = _html.escape(line)
+        cls = ("hdr" if line.startswith(("+++", "---")) else "hunk" if line.startswith("@@")
+               else "add" if line.startswith("+") else "del" if line.startswith("-") else "ctx")
+        out.append(f'<span class="dl {cls}">{esc}</span>')
+    return "".join(lines) + '<pre class="diff">' + "\n".join(out) + "</pre>"
+
+
 def load_renderer():
     if not RENDER.is_file():
         sys.exit(f"render-blog: {RENDER} not found -- check out Twin-Cities-Open-Systems/.github under ~/git "
@@ -145,6 +173,7 @@ def main(argv):
         out.parent.mkdir(parents=True, exist_ok=True)
         page = rr.render_file_page(
             repo, str(src),
+            diff_html=published_diff_html(src, rr),
             title=post["title"],
             status_class="browse", status_label="post",
             generated_iso=generated_iso,

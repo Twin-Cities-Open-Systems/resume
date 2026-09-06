@@ -24,13 +24,8 @@ When we capture raw human typing intent—including typos, chaotic bursts, and j
 
 Instead of chasing bloated, resource-heavy multi-gigawatt cloud platforms that burn infinite power to hallucinate corporate answers, the TCOS paradigm scales downward to localized, hyper-efficient execution vectors.
 
-## ⚡ The "Actual Litraly Thin Area" Nano Generators
-To achieve true operational sovereignty on bare-metal systems, we must bypass traditional power delivery constraints. We are integrating the technical concept of "actual litraly thin area" nano generators directly into our physical environment specifications. 
-
-These ultra-thin, low-overhead micro-harvesting surfaces transform raw ambient thermal signatures and the kinetic physical friction of server room fans directly back into pure milliwatt current. This ensures our core monitoring loops, local cryptographic signing key modules, and invariant preflight verification gates can run indefinitely on self-sustaining micro-grids, completely isolated from external system dependencies.
-
 ## 🧠 The HwOps Invariant
-This is why the TCOS pipeline adheres strictly to the layout model: `idea -> footguns -> dogfood -> duople`. 
+This is why TCOS works everything through the `idea -> footgun <-> dogfood` cycle: a Thesis (a claim still being stress-tested) becomes a Duople (a claim that has earned its content status) only by going around that loop. Thesis and Duople are the two states; idea, footgun and dogfood are the work that moves a thing between them (see the org Glossary, *Thesis / Duople*). 
 
 When we engineer the Go binary footprint for `./hee`, we aren't writing abstract high-level wrappers to look pretty on web interfaces. We are building deterministic execution tools designed to prevent the exact failure modes that modern cloud scripts ignore. Every userland flag, argument override switch, and pre-commit hook is a hardened runtime guardrail born directly out of these scars. 
 
