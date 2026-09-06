@@ -229,8 +229,13 @@ def root_init(media_dist, oper_name, media_host, blog_host=None, description=Non
         print(f"⚠️  WARNING  media-item root --init: {index} exists, not overwriting", file=sys.stderr)
         return 1
     short = media_host.replace(".tcos.us", "")
-    blog_line = (f'  <p class="eyebrow eyebrow-sub"><a href="https://{blog_host}" data-cross-site>'
-                 f'{blog_host.replace(".tcos.us", "")}</a></p>\n') if blog_host else ""
+    # The sub-line under the host is the operator's resume when the build
+    # has one (profiles/<oper>/dist/resume.html, staged as /resume.html on
+    # the media host). Never the blog host: it is a redirect now, and the
+    # first prod promote sent readers of the resume to the media root
+    # (operator, 2026-09-06: "remove old blog link, where is my resume?").
+    has_resume = (media_dist.parent.parent.parent / "profiles" / media_dist.parent.name / "dist" / "resume.html").is_file()
+    blog_line = '  <p class="eyebrow eyebrow-sub"><a href="/resume.html">resume</a></p>\n' if has_resume else ""
     if not description:
         # From the operator's own profile (title + role), never another
         # person's page text. Operator, 2026-09-06: the new roots carried
@@ -403,6 +408,21 @@ def audit(repo_root, env="lab"):
                 code, final = code_and_final(url); n += 1
                 if code != 200 or final.rstrip("/") != target:
                     print(f"🔴 CRITICAL audit: {url} -> {code} {final} (expected {target})"); worst = 2
+    # 4. the resume: on the media host, and every old blog URL for it lands there
+    for p in people:
+        media = p.get("media_dns")
+        if not media or not (repo_root / "profiles" / p["slug"] / "dist" / "resume.html").is_file():
+            continue
+        host = media.replace(".tcos.us", suffix)
+        code, final = code_and_final(f"https://{host}/resume.html"); n += 1
+        if code != 200:
+            print(f"🔴 CRITICAL audit: https://{host}/resume.html -> {code}"); worst = 2
+        if env == "prod":
+            for old_url in (f"https://{p['subdomain_prefix']}.blog{suffix}/resume-{p['slug']}.html",
+                            f"https://{p['subdomain_prefix']}.blog{suffix}/profiles/{p['slug']}/dist/resume.html"):
+                code, final = code_and_final(old_url); n += 1
+                if code != 200 or final.rstrip("/") not in (f"https://{host}/resume.html", f"https://{host}/resume"):
+                    print(f"🔴 CRITICAL audit: {old_url} -> {code} {final} (expected https://{host}/resume.html)"); worst = 2
     label = {0: "🟢 OK", 1: "🟡 WARNING", 2: "🔴 CRITICAL"}[worst]
     print(f"{label} media-item audit ({env}): {sum(1 for p in people if p.get('media_dns'))} media host(s), "
           f"{n} blog URL(s) probed, {len(list(repo_root.glob('media/*/dist/index.html')))} root(s) checked")

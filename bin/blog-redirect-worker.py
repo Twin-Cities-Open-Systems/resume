@@ -29,7 +29,10 @@ export default {
     if (m && MEDIA[m[1]]) {
       const target = "https://" + MEDIA[m[1]];
       const p = url.pathname.match(/^\\/profiles\\/[^/]+\\/blog\\/(?:\\d{3}-)?([^/]+?)(?:\\.md|\\.html)?$/);
-      return Response.redirect(p ? target + "/posts/" + p[1] + ".html" : target + "/", 301);
+      if (p) return Response.redirect(target + "/posts/" + p[1] + ".html", 301);
+      // the resume used to live here as /resume-<slug>.html and /profiles/<slug>/dist/resume.<ext>
+      const r = url.pathname.match(/^\\/(?:resume-[^/]+|profiles\\/[^/]+\\/dist\\/resume)\\.(html|pdf|md|txt)$/);
+      return Response.redirect(r ? target + "/resume." + r[1] : target + "/", 301);
     }
     // The hub hosts: media.tcos.us and blog.tcos.us are the index of every
     // operator, not the resume landing page. Lab does this in haproxy;

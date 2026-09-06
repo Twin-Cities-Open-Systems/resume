@@ -64,6 +64,11 @@ cp -r "$MEDIA_ROOT"/. "$STAGE/"
 rm -f "$STAGE/.assetsignore"
 cp "$MEDIA_ROOT/.assetsignore" "$STAGE/.assetsignore" 2>/dev/null || true
 find "$STAGE" -name __pycache__ -type d -exec rm -rf {} + 2>/dev/null || true
+# The operator's resume ships with the media host (/resume.html, .pdf, .md,
+# .txt) -- the blog host that used to serve it is a redirect now.
+for _ext in html pdf md txt; do
+  [ -f "$REPO_ROOT/profiles/$OPER/dist/resume.$_ext" ] && cp "$REPO_ROOT/profiles/$OPER/dist/resume.$_ext" "$STAGE/resume.$_ext"
+done
 
 # Gate: the stage must carry every post the build says this operator has.
 # A deploy from a checkout whose build outputs are incomplete would prune
