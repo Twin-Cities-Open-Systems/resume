@@ -337,7 +337,10 @@ def audit(repo_root, env="lab"):
     # 1. the hub
     hub = f"https://media{suffix}/people.json"
     try:
-        with urllib.request.urlopen(hub, timeout=8) as r:
+        # Cloudflare answers 403 to the default Python-urllib user agent on
+        # the Pages hosts (measured 2026-09-06: same URL, 200 with any
+        # other agent). Every request here names itself.
+        with urllib.request.urlopen(urllib.request.Request(hub, headers={"User-Agent": "media-item audit"}), timeout=8) as r:
             hub_people = json.loads(r.read().decode())
         hub_hosts = {p["media_dns"] for p in hub_people if p.get("media_dns")}
     except Exception as e:
@@ -399,7 +402,11 @@ def audit(repo_root, env="lab"):
             for ext in (".md", ".html"):
                 url = f"https://{prefix}.blog{suffix}/" + name[:-3] + ext
                 code, final = code_and_final(url); n += 1
-                if code != 200 or final.rstrip("/") != target:
+                # The media Workers serve assets with clean URLs: /posts/x.html
+                # answers 307 -> /posts/x, so the final URL a reader lands on
+                # is the target without its .html. Both forms are the target.
+                landed = final.rstrip("/")
+                if code != 200 or landed not in (target, target[:-5]):
                     print(f"🔴 CRITICAL audit: {url} -> {code} {final} (expected {target})"); worst = 2
     label = {0: "🟢 OK", 1: "🟡 WARNING", 2: "🔴 CRITICAL"}[worst]
     print(f"{label} media-item audit ({env}): {sum(1 for p in people if p.get('media_dns'))} media host(s), "

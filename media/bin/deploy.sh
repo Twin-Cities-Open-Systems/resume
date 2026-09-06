@@ -168,8 +168,15 @@ for card in "$MEDIA_ROOT"/*/item.card.v1.yaml "$MEDIA_ROOT"/tux-tattoo/index.htm
   d="$(basename "$(dirname "$card")")"; ITEM_PAGES="$ITEM_PAGES $d/index.html $d/exif.html"
 done
 for f in $ITEM_PAGES; do
-  prod=$(curl -sL "https://$MEDIA_HOST/$f" | md5sum | cut -d' ' -f1)
   lab=$(ssh pve "pct exec 103 -- curl -sL -H 'Host: $LAB_HOST' 'http://localhost/$f'" 2>/dev/null | md5sum | cut -d' ' -f1)
+  # The edge can still hand out the previous version for a short while
+  # after a deploy (index.html MISMATCH seconds after a Success line,
+  # identical a minute later; 2026-09-06). Bypass the cache and retry
+  # before calling it a mismatch.
+  prod=""; for _try in 1 2 3 4 5 6; do
+    prod=$(curl -sL -H 'Cache-Control: no-cache' "https://$MEDIA_HOST/$f?v=$STAMP-$_try" | md5sum | cut -d' ' -f1)
+    [ "$prod" = "$lab" ] && break; sleep 10
+  done
   if [ "$prod" = "$lab" ]; then
     echo "  $f: match"
   else
