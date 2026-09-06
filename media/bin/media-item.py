@@ -213,7 +213,7 @@ ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
 ROOT_TMPL = Path(__file__).resolve().parent.parent / "templates" / "root-index.html.tmpl"
 
 
-def root_init(media_dist, oper_name, media_host, blog_host=None, note="More coming here over time.", description=None):
+def root_init(media_dist, oper_name, media_host, blog_host=None, description=None):
     """Write a fresh root page for an operator from the shared template --
     the page spencer's was hand-written as, with name and hosts filled in.
     One host per person: <prefix>.media.tcos.us. Operator, 2026-09-06:
@@ -242,7 +242,7 @@ def root_init(media_dist, oper_name, media_host, blog_host=None, note="More comi
             description = f"{oper_name} at Twin Cities Open Systems -- posts, galleries and verified media."
     page = string.Template(ROOT_TMPL.read_text()).safe_substitute(
         OPER_NAME=esc(oper_name), MEDIA_HOST=media_host, MEDIA_SHORT=short, BLOG_LINE=blog_line, DESCRIPTION=esc(description),
-        LU_ISO=dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), NOTE=esc(note))
+        LU_ISO=dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
     index.write_text(page)
     print(f"[+] {index}: root for {oper_name} at https://{media_host}/")
     return 0

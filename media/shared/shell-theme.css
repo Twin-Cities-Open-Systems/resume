@@ -98,3 +98,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
 .fr-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex: none; }
 .freshness[data-stale="true"] .fr-dot { background: var(--warning); }
 .fr-rel { color: var(--ink-faint); }
+
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; }
+footer .mono { font-family: var(--mono); }
+footer a { color: var(--accent-ink); }
