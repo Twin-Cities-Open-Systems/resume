@@ -138,6 +138,23 @@ def build(item_dir, network=True):
     if og_name not in {it["file"] for it in items}:
         sys.exit(f"media-item: og_image {og_name!r} is not one of this item's files -- the preview must show the content itself")
     og_file = item_dir / og_name
+    # Social cards crop to ~1.91:1 (Facebook and X cut the top line off a
+    # 4:3 frame, measured 2026-09-06); Discord shows the whole thing. So the
+    # og:image is a 1200x630 JPEG with the frame letterboxed on the card's
+    # og_bg (default near-black), built here from the same file; the GIF
+    # stays the first item. og_bg: "#rrggbb" on the card to change the bars.
+    og_src = og_file
+    with Image.open(og_src) as im:
+        im.seek(0)
+        frame = im.convert("RGB")
+    W, H = 1200, 630
+    bg = spec.get("og_bg", "#0b0f0b").lstrip("#")
+    canvas = Image.new("RGB", (W, H), tuple(int(bg[i:i + 2], 16) for i in (0, 2, 4)))
+    scale = min(W / frame.width, H / frame.height)
+    fitted = frame.resize((max(1, round(frame.width * scale)), max(1, round(frame.height * scale))), Image.LANCZOS)
+    canvas.paste(fitted, ((W - fitted.width) // 2, (H - fitted.height) // 2))
+    og_file = item_dir / "og.jpg"
+    canvas.save(og_file, "JPEG", quality=88, optimize=True, progressive=True)
     with Image.open(og_file) as im:
         og_w, og_h = im.size
     stats = ""
@@ -182,10 +199,10 @@ def build(item_dir, network=True):
         TAG_LABELS_JSON=json.dumps(tags),
         GTAG=GTAG.replace("$", "$$"),
     )
-    index = Template((TEMPLATES / "item-index.html.tmpl").read_text()).substitute(values)
+    index = Template((TEMPLATES / "item-index.html.tmpl").read_text()).safe_substitute(values)
     index = index.replace("var SIGNATURES = {};", "var SIGNATURES = " + json.dumps(signatures) + ";")
     (item_dir / "index.html").write_text(index)
-    exif_page = Template((TEMPLATES / "item-exif.html.tmpl").read_text()).substitute(values)
+    exif_page = Template((TEMPLATES / "item-exif.html.tmpl").read_text()).safe_substitute(values)
     (item_dir / "exif.html").write_text(exif_page)
     print(f"[+] {item_dir / 'index.html'} ({len(items)} item(s), {len(signatures)} signed)")
 
