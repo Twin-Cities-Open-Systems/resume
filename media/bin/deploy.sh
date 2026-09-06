@@ -152,7 +152,23 @@ hee check all "$REPO_ROOT" >/dev/null 2>&1 || { echo "❌ CRITICAL promote: hee 
 if grep -rIl -E '^(<<<<<<< |=======$|>>>>>>> )' "$STAGE" --include='*.html' --include='*.js' --include='*.css' --include='*.json' 2>/dev/null | grep -q .; then
   echo "❌ CRITICAL promote: git conflict markers in the staged tree -- not promoting" >&2; exit 2
 fi
-echo "  hee check all: OK; staged tree: no conflict markers"
+# What SHIPS is the stage, so the stage is what gets checked: every image
+# in it carries the org branding, and every generated one (tile.png,
+# og.jpg, *.og.jpg) its provenance. Measured 2026-09-06: the tracked
+# resume card was stamped, the one rendered into the stage by an older
+# generator was not, and prod served the bare one.
+_bad=0
+while IFS= read -r _img; do
+  case "$_img" in */icons/*) continue ;; esac
+  _meta="$(exiftool -T -XMP-dc:Description -XMP-dc:Publisher "$_img" 2>/dev/null)"
+  _desc="${_meta%%	*}"; _pub="${_meta#*	}"
+  [ "$_pub" != "-" ] && [ -n "$_pub" ] || { echo "❌ CRITICAL promote: ${_img#"$STAGE"/} has no org branding metadata" >&2; _bad=1; }
+  case "${_img##*/}" in tile.png|og.jpg|*.og.jpg)
+    case "$_desc" in provenance:*) ;; *) echo "❌ CRITICAL promote: ${_img#"$STAGE"/} has no provenance metadata (is fleet-ops' tile generator current?)" >&2; _bad=1 ;; esac ;;
+  esac
+done < <(find "$STAGE" -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.gif' \))
+[ "$_bad" = 0 ] || exit 2
+echo "  hee check all: OK; staged tree: no conflict markers; every staged image branded, generated ones with provenance"
 # Who is deploying: the approved session signature (hee ver session
 # sig_tag), on the Cloudflare version and on the prod git tag. Operator,
 # 2026-09-06: "should be using the approved hee sig hash ... better than
