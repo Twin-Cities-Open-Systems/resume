@@ -12,11 +12,12 @@ metadata:
     inuid_null_reason: bootstrap
     created_utc: "2026-09-05T00:00:00Z"
 spec:
-  # People in this item have NOT yet approved publication. Operator,
-  # 2026-09-05 (resume#47): "waiting on humans in photo to approve, must
-  # wait". deploy.sh promote refuses while this is not "approved"; the
-  # image files stay off this public repo until then (lab has them).
-  consent: pending
+  # Both people in this item approved publication. Operator, 2026-09-06:
+  # "2nd human confirmed for the mn2600 post" (the first confirmed
+  # 2026-09-05). deploy.sh promote refuses while this is not "approved";
+  # resume#47 held the item as a draft until it was.
+  consent: approved
+  consent_recorded_utc: "2026-09-06T00:00:00Z"
   host: spencer.media.tcos.us
   owner: Spencer Butler
   title: "MN2600 · IPv6 vs. Antenna"
