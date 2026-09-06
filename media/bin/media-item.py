@@ -328,6 +328,24 @@ def audit(repo_root, env="lab"):
     import urllib.error
     repo_root = Path(repo_root).resolve()
     suffix = ".lab.tcos.us" if env == "lab" else ".tcos.us"
+    if env == "prod":
+        # Prod names resolve through public DNS, whatever the LAN resolver
+        # does. On kiosk ns1 REFUSES public names and the search list hands
+        # them to the crooked.tcos.us wildcard (Traefik default cert), which
+        # read as four dead media hosts on the first prod run (fleet-ops#399).
+        import socket
+        _real = socket.getaddrinfo
+        _cache = {}
+        def _public(host, port, family=0, type=0, proto=0, flags=0):
+            if isinstance(host, str) and host.endswith(".tcos.us") and not host.endswith(".lab.tcos.us"):
+                if host not in _cache:
+                    out = subprocess.run(["dig", "+short", "+time=3", "A", host + ".", "@1.1.1.1"], capture_output=True, text=True).stdout.split()
+                    _cache[host] = [a for a in out if a.replace(".", "").isdigit()]
+                if _cache[host]:
+                    return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", (ip, port)) for ip in _cache[host]]
+                raise socket.gaierror(f"{host}: no public A record (1.1.1.1)")
+            return _real(host, port, family, type, proto, flags)
+        socket.getaddrinfo = _public
     people = json.loads((repo_root / "dist" / "people.json").read_text())
     worst = 0
 
