@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BQK0DFRRZ7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // production only: *.lab.tcos.us, localhost and file:// load this but never report
+  if (/\.tcos\.us$/.test(location.hostname) && !/\.lab\.tcos\.us$/.test(location.hostname)) {
+    gtag('config', 'G-BQK0DFRRZ7');
+  }
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>claudesec-j1 &mdash; Media</title>
+<meta name="description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
+<meta property="og:site_name" content="TCOS Media">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://claudesec.media.tcos.us/">
+<meta property="og:title" content="claudesec-j1 — Media">
+<meta property="og:description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
+<meta property="og:image" content="https://claudesec.media.tcos.us/og-banner.jpg">
+<meta property="fb:app_id" content="1083442627963213">
+<link rel="canonical" href="https://claudesec.media.tcos.us/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="claudesec-j1 — Media">
+<meta name="twitter:description" content="Real photos, real EXIF, real GPG signatures, verified in your browser.">
+<meta name="twitter:image" content="https://claudesec.media.tcos.us/og-banner.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/shell-theme.css">
+<script>
+// Real gap, found 2026-08-28: this page had no pre-paint script at all
+// -- shell-toggles.js only applied the saved theme on DOMContentLoaded,
+// a real flash-of-wrong-theme every load (same class of fix already
+// made for tcos.us's own index.html).
+(function () {
+  try {
+    var t = localStorage.getItem("tcos-theme") || "auto";
+    if (t !== "auto") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
+<style>
+/* Page-specific only -- shared tokens/toggle styles live in shell-theme.css */
+.page { max-width: 700px; }
+.eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 2px; }
+.eyebrow a, .eyebrow .link-inert { color: inherit; text-decoration: none; }
+.eyebrow a:hover { text-decoration: underline; }
+.eyebrow.eyebrow-sub { color: var(--ink-faint); }
+h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 6px; color: var(--ink); }
+ul.items { list-style: none; padding: 0; margin: 24px 0; }
+ul.items li { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start; }
+ul.items img.item-icon { width: 32px; height: 32px; border-radius: 6px; flex: none; margin-top: 2px; }
+ul.items a { color: var(--accent-ink); text-decoration: none; font-weight: 700; font-family: var(--mono); }
+ul.items a:hover { text-decoration: underline; }
+ul.items p { color: var(--ink-dim); margin: 6px 0 0; }
+.note { color: var(--ink-faint); font-size: 13px; margin-top: 24px; }
+.note a, .note .link-inert { color: var(--accent-ink); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="brand" href="https://tcos.us/people" data-cross-site>&uarr; tcos.us/people</a>
+    <div class="toggles">
+      <div class="fontsize-toggle">
+        <span class="fs-label" tabindex="0">Aa</span>
+        <div class="fs-options">
+          <button class="fontsize-btn" data-size="s" type="button">S</button>
+          <button class="fontsize-btn" data-size="m" type="button">M</button>
+          <button class="fontsize-btn" data-size="l" type="button">L</button>
+          <button class="fontsize-btn" data-size="xl" type="button">XL</button>
+          <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+        </div>
+      </div>
+      <span class="tgl-sep"></span>
+      <button class="tgl-btn theme-btn" data-theme-choice="auto" type="button">Auto</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="light" type="button">Light</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="dark" type="button">Dark</button>
+    </div>
+  </div>
+
+  <p class="eyebrow"><a href="/">claudesec.media</a></p>
+  <h1>claudesec-j1</h1>
+  <div class="lu-row">
+    <div class="freshness" id="freshness">
+      <span class="fr-dot"></span><b>lu:</b> <time class="lu-iso" datetime="2026-09-06T01:47:52Z">2026-09-06T01:47:52Z</time> <span id="fr-text"></span>
+    </div>
+  </div>
+  <ul class="items">
+</ul>
+  <p class="note">More coming here over time.</p>
+
+  <footer>Twin-Cities-Open-Systems &middot; <span data-host></span></footer>
+</div>
+
+<script src="/shell-freshness.js"></script>
+<script src="/shell-toggles.js"></script>
+</body>
+</html>

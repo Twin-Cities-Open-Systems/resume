@@ -79,8 +79,9 @@ tar -C "$STAGE" -cf - --exclude=deploy.sh --exclude=__pycache__ --exclude=.asset
 # Prune: anything under posts/ or an item dir that the stage no longer has.
 # tar only adds; a renamed post (2026-09-05, the numbered prefix) left its
 # old file live at the old URL until removed by hand.
-( cd "$STAGE" && find posts -type f 2>/dev/null | sort ) > "$STAGE/.manifest"
-ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && find posts -type f 2>/dev/null | sort'" \
+# An operator with no posts yet has no posts/ dir -- that is not an error.
+( cd "$STAGE" && { find posts -type f 2>/dev/null || true; } | sort ) > "$STAGE/.manifest"
+ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find posts -type f 2>/dev/null || true; } | sort'" \
   | comm -13 "$STAGE/.manifest" - \
   | while read -r stale; do
       [ -n "$stale" ] || continue
