@@ -5,7 +5,9 @@
 (function () {
   var FS_KEY = "tcos-fontsize";
   function applyFontsize(size) {
+    document.documentElement.setAttribute("data-fontsize", size);
     document.body.setAttribute("data-fontsize", size);
+    if (window.tcosLayout) window.tcosLayout();
     document.querySelectorAll(".fontsize-btn").forEach(function (b) {
       b.classList.toggle("active", b.dataset.size === size);
     });
@@ -110,4 +112,25 @@
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
+})();
+
+// Layout tokens from the space actually available, in em -- phone, browser
+// zoom and XXL text all collapse the same way (SYNCED-FROM tcos-www site.js).
+(function () {
+  var COMPACT_EM = 44, NARROW_EM = 26;
+  function layout() {
+    var root = document.documentElement;
+    var px = parseFloat(getComputedStyle(root).fontSize) || 16;
+    var em = root.clientWidth / px;
+    var tokens = [];
+    if (em < COMPACT_EM) tokens.push("compact");
+    if (em < NARROW_EM) tokens.push("narrow");
+    root.setAttribute("data-layout", tokens.join(" ") || "wide");
+  }
+  window.tcosLayout = layout;
+  var q = new URLSearchParams(location.search).get("fs");
+  if (q && /^(s|m|l|xl|xxl)$/.test(q)) { try { localStorage.setItem("tcos-fontsize", q); } catch (e) {} document.documentElement.setAttribute("data-fontsize", q); }
+  layout();
+  window.addEventListener("resize", layout);
+  window.addEventListener("orientationchange", layout);
 })();
