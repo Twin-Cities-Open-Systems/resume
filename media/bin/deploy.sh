@@ -65,6 +65,27 @@ rm -f "$STAGE/.assetsignore"
 cp "$MEDIA_ROOT/.assetsignore" "$STAGE/.assetsignore" 2>/dev/null || true
 find "$STAGE" -name __pycache__ -type d -exec rm -rf {} + 2>/dev/null || true
 
+# Gate: the stage must carry every post the build says this operator has.
+# A deploy from a checkout whose build outputs are incomplete would prune
+# a live post (2026-09-06: /posts/2026-08-24-lessons-learned.html 404 on
+# lab between two deploys). Missing pages are a build problem; refuse.
+MANIFEST="$REPO_ROOT/dist/blog_manifest.json"
+if [ -f "$MANIFEST" ]; then
+  missing="$(python3 - "$MANIFEST" "$OPER" "$STAGE" <<'PYM'
+import json, os, sys
+manifest, oper, stage = sys.argv[1:4]
+for post in json.load(open(manifest)):
+    if post["path"].startswith(f"profiles/{oper}/") and post.get("html"):
+        if not os.path.isfile(os.path.join(stage, "posts", post["slug"] + ".html")):
+            print(post["slug"])
+PYM
+)"
+  if [ -n "$missing" ]; then
+    echo "❌ CRITICAL deploy: build says $OPER has posts the stage lacks -- run ./convert.sh first:" >&2
+    printf '  %s\n' $missing >&2; exit 2
+  fi
+fi
+
 echo "=== minifying our own JS (never the tracked source) ==="
 for js in "${OWN_JS[@]}"; do
   if [ -f "$STAGE/$js" ]; then
