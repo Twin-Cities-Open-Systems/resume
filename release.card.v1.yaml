@@ -1,0 +1,22 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: resume-release
+  labels: { domain: release, scope: resume, artifact: card }
+  annotations:
+    inuid: null
+    inuid_null_reason: bootstrap
+    created_utc: "2026-09-06T00:00:00Z"
+spec:
+  # hee release lab | cut | promote (human-execution-engine hee-release).
+  # Six surfaces: one media host per operator, and the Pages project that
+  # serves the hubs and the blog-host redirects. Order matters: media first
+  # so the redirects have targets.
+  credential: { account: cloudflare-tcos-www, dir: ../tcos-www/.hee/secrets }
+  surfaces:
+    - { name: spencer-media,     lab: "media/bin/deploy.sh spencer lab",       promote: "media/bin/deploy.sh spencer promote" }
+    - { name: touchy-media,      lab: "media/bin/deploy.sh touchy-claude lab", promote: "media/bin/deploy.sh touchy-claude promote" }
+    - { name: nuc1-claude-media, lab: "media/bin/deploy.sh nuc1-claude lab",   promote: "media/bin/deploy.sh nuc1-claude promote" }
+    - { name: claudeops-media,   lab: "media/bin/deploy.sh claudeops-j1 lab",  promote: "media/bin/deploy.sh claudeops-j1 promote" }
+    - { name: claudesec-media,   lab: "media/bin/deploy.sh claudesec-j1 lab",  promote: "media/bin/deploy.sh claudesec-j1 promote" }
+    - { name: resume-pages,      lab: "bin/deploy-pages.sh lab",               promote: "bin/deploy-pages.sh promote" }
