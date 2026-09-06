@@ -237,8 +237,9 @@ def icon_svg(name, kind="gallery"):
             continue
         f = ICON_DIR / f"{candidate}.svg"
         if f.is_file():
-            svg = " ".join(f.read_text().split())
-            return re.sub(r"<svg\s", '<svg class="item-icon" aria-hidden="true" ', svg, count=1)
+            # referenced, not inlined: Fluent color SVGs carry gradient ids
+            # that collide when several sit in one document
+            return f'<img class="item-icon" src="/icons/fluent/{candidate}.svg" alt="" width="36" height="36">'
         if candidate == name:
             print(f"⚠️  WARNING  media-item: no vendored icon {name!r}; using the {kind} default", file=sys.stderr)
     return ""
