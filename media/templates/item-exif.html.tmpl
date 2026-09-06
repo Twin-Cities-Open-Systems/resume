@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+$GTAG
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXIF Detail &mdash; $TITLE</title>
+<meta name="description" content="Real, complete exiftool output for every file in $TITLE, embedded at build time from the signed source.">
+<meta property="og:site_name" content="$HOST">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="$OG_URL_EXIF">
+<meta property="og:title" content="EXIF Detail — $TITLE">
+<meta property="og:description" content="Real, complete exiftool output for every file in $TITLE, embedded at build time from the signed source.">
+<meta property="og:image" content="$OG_IMAGE">
+<meta property="og:image:alt" content="$OG_IMAGE_ALT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EXIF Detail — $TITLE">
+<meta name="twitter:description" content="Real, complete exiftool output for every file in $TITLE.">
+<meta name="twitter:image" content="$OG_IMAGE">
+<link rel="canonical" href="$OG_URL_EXIF">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/shell-theme.css">
+<style>
+.page { max-width: 820px; }
+.eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+h1 { font-family: var(--mono); font-size: clamp(24px, 4.5vw, 34px); margin: 8px 0 6px; color: var(--ink); }
+.note {
+  margin: 16px 0 24px; padding: 12px 16px; border-radius: 10px;
+  background: var(--surface-2); border: 1px solid var(--line);
+  font-size: 13px; color: var(--ink-dim); line-height: 1.55;
+}
+.note a { color: var(--accent-ink); }
+table.exif { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; }
+table.exif tr { border-bottom: 1px solid var(--line); }
+table.exif tr:last-child { border-bottom: none; }
+table.exif td { padding: 7px 10px; vertical-align: top; }
+table.exif td.k { color: var(--ink-faint); white-space: nowrap; width: 220px; }
+table.exif td.v { color: var(--ink); word-break: break-word; }
+table.exif tr:hover { background: var(--surface-2); }
+.missing { padding: 30px; text-align: center; color: var(--ink-dim); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="brand" href="https://tcos.us" data-cross-site>&larr; Twin Cities Open Systems</a>
+    <a class="brand" href="/" style="margin-left:14px;">&larr; $HOST_SHORT</a>
+    <a class="brand" href="/$SLUG/" style="margin-left:14px;">&larr; $TITLE</a>
+    <div class="toggles">
+      <div class="fontsize-toggle">
+        <span class="fs-label" tabindex="0">Aa</span>
+        <div class="fs-options">
+          <button class="fontsize-btn" data-size="s" type="button">S</button>
+          <button class="fontsize-btn" data-size="m" type="button">M</button>
+          <button class="fontsize-btn" data-size="l" type="button">L</button>
+          <button class="fontsize-btn" data-size="xl" type="button">XL</button>
+          <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+        </div>
+      </div>
+      <span class="tgl-sep"></span>
+      <button class="tgl-btn theme-btn" data-theme-choice="auto" type="button">Auto</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="light" type="button">Light</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="dark" type="button">Dark</button>
+    </div>
+  </div>
+
+  <p class="eyebrow">$HOST_SHORT &middot; $EYEBROW &middot; exif detail</p>
+  <h1 id="photo-title">EXIF Detail</h1>
+
+  <div class="note" id="note">
+    Real, complete <code>exiftool</code> output for this photo, every non-blank
+    field &mdash; embedded at build time from the actual signed source file, not
+    re-derived in your browser. A handful of fields tied to the local copy used
+    for extraction (file paths, local access/modify timestamps, permissions) are
+    excluded as noise; everything else, including binary-blob placeholders
+    (ICC profile curves, embedded thumbnail), is shown as <code>exiftool</code>
+    itself reported it.
+  </div>
+
+  <div id="exif-container">
+    <div class="missing">Loading&hellip;</div>
+  </div>
+</div>
+
+<script>
+var EXIF_DATA = {};
+</script>
+<script src="/shell-toggles.js"></script>
+<script>
+(function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get("id");
+    var container = document.getElementById("exif-container");
+    var titleEl = document.getElementById("photo-title");
+
+    if (!id || !EXIF_DATA[id]) {
+      container.innerHTML = '<div class="missing">No photo specified (or unknown id). Go back to <a href="/$SLUG/">$TITLE</a> and click a photo\'s EXIF badge.</div>';
+      return;
+    }
+
+    var data = EXIF_DATA[id];
+    titleEl.textContent = "EXIF Detail — " + id;
+    document.title = "EXIF: " + id + " — $TITLE";
+
+    var rows = Object.keys(data).sort().map(function (k) {
+      return "<tr><td class=\"k\">" + escapeHtml(k) + "</td><td class=\"v\">" + escapeHtml(String(data[k])) + "</td></tr>";
+    }).join("");
+    container.innerHTML = '<table class="exif"><tbody>' + rows + "</tbody></table>";
+  });
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+    });
+  }
+})();
+</script>
+</body>
+</html>

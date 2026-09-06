@@ -21,8 +21,8 @@
 # vendored, already minified upstream, and is never re-minified here.
 #
 # Usage:
-#   ./deploy.sh lab        -- build (incl. minify) + sync to lab only
-#   ./deploy.sh promote    -- build the same way, sync lab AGAIN (so
+#   media/spencer/deploy.sh lab      -- build (incl. minify) + sync to lab only
+#   media/spencer/deploy.sh promote  -- build the same way, sync lab AGAIN (so
 #                              what you approved on lab is exactly what
 #                              ships), then push to prod, then verify
 #                              lab == prod byte-for-byte
@@ -31,7 +31,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MEDIA_ROOT="$(dirname "$SCRIPT_DIR")"
+MEDIA_ROOT="$SCRIPT_DIR/dist"
 OWN_JS=("shell-toggles.js" "shell-freshness.js")
 
 cmd="${1:-}"
@@ -43,7 +43,7 @@ fi
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 cp -r "$MEDIA_ROOT"/. "$STAGE/"
-rm -f "$STAGE/tux-tattoo/deploy.sh" "$STAGE/.assetsignore"
+rm -f "$STAGE/.assetsignore"
 cp "$MEDIA_ROOT/.assetsignore" "$STAGE/.assetsignore" 2>/dev/null || true
 find "$STAGE" -name __pycache__ -type d -exec rm -rf {} + 2>/dev/null || true
 
@@ -64,6 +64,15 @@ if [ "$cmd" = "lab" ]; then
   exit 0
 fi
 
+# Consent gate: an item whose card does not say consent: approved never
+# reaches prod. Operator, 2026-09-05 (resume#47): images of people wait
+# for the people. Lab is the review surface; this is the only gate.
+for card in "$MEDIA_ROOT"/*/item.card.v1.yaml; do
+  [ -f "$card" ] || continue
+  if grep -Eq '^\s*consent:' "$card" && ! grep -Eq '^\s*consent:\s*approved\s*$' "$card"; then
+    echo "❌ CRITICAL $(basename "$(dirname "$card")"): consent is not 'approved' in its card -- not promoting" >&2; exit 2
+  fi
+done
 echo "=== promoting: deploying the exact same (already-synced) bytes to prod ==="
 : "${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN (or run this via hee-cred)}"
 : "${CLOUDFLARE_ACCOUNT_ID:?Set CLOUDFLARE_ACCOUNT_ID}"
@@ -72,7 +81,14 @@ cd "$STAGE"
 npx --yes wrangler@4.86.0 deploy --name tcos-media --assets . --compatibility-date=2026-08-20
 
 echo "=== verifying lab == prod ==="
-for f in index.html tux-tattoo/index.html tux-tattoo/exif.html; do
+# every item's two pages, not a hand-kept list -- a new item is one more
+# directory with an item.card.v1.yaml, nothing to remember here
+ITEM_PAGES="index.html"
+for card in "$MEDIA_ROOT"/*/item.card.v1.yaml "$MEDIA_ROOT"/tux-tattoo/index.html; do
+  [ -f "$card" ] || continue
+  d="$(basename "$(dirname "$card")")"; ITEM_PAGES="$ITEM_PAGES $d/index.html $d/exif.html"
+done
+for f in $ITEM_PAGES; do
   prod=$(curl -sL "https://spencer.media.tcos.us/$f" | md5sum | cut -d' ' -f1)
   lab=$(ssh pve "pct exec 103 -- curl -sL -H 'Host: spencer.media.lab.tcos.us' 'http://localhost/$f'" 2>/dev/null | md5sum | cut -d' ' -f1)
   if [ "$prod" = "$lab" ]; then
