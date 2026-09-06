@@ -500,8 +500,6 @@ def audit(repo_root, env="lab"):
     served = [p_["slug"] for p_ in people if p_.get("media_dns")]
     resumes = [repo_root / "profiles" / s_ / "dist" / "resume.html" for s_ in served]
     for page in sorted(list(repo_root.glob("media/*/dist/**/*.html")) + [r for r in resumes if r.is_file()]):
-        if page.name == "exif.html":
-            continue
         html_ = page.read_text(errors="replace")
         missing = [t for t in NEED if f'property="{t}"' not in html_]
         if missing:
