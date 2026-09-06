@@ -103,12 +103,30 @@ for card in "$MEDIA_ROOT"/*/item.card.v1.yaml; do
     echo "❌ CRITICAL $(basename "$(dirname "$card")"): consent is not 'approved' in its card -- not promoting" >&2; exit 2
   fi
 done
+# Gates before anything reaches prod (incident tcos-www#59, 2026-09-06):
+# the repo passes hee check all, and no staged page carries git conflict
+# markers. A 200 with "<<<<<<<" in it is a broken page, not a deploy.
+echo "=== gates ==="
+hee check all "$REPO_ROOT" >/dev/null 2>&1 || { echo "❌ CRITICAL promote: hee check all fails on $REPO_ROOT -- not promoting" >&2; exit 2; }
+if grep -rIl -E '^(<<<<<<< |=======$|>>>>>>> )' "$STAGE" --include='*.html' --include='*.js' --include='*.css' --include='*.json' 2>/dev/null | grep -q .; then
+  echo "❌ CRITICAL promote: git conflict markers in the staged tree -- not promoting" >&2; exit 2
+fi
+echo "  hee check all: OK; staged tree: no conflict markers"
+# Who is deploying: the approved session signature (hee ver session
+# sig_tag), on the Cloudflare version and on the prod git tag. Operator,
+# 2026-09-06: "should be using the approved hee sig hash ... better than
+# more PATs". One shared token; every deploy still names its session.
+SIG="$(hee ver session --tag 2>/dev/null || hee ver session 2>/dev/null | awk '/sig_tag|rc_tag/{print $2; exit}')"
+[ -n "$SIG" ] || { echo "❌ CRITICAL promote: no session signature from hee ver session -- not promoting" >&2; exit 2; }
+SRC_SHA="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
+STAMP="$(date -u +%Y%m%dT%H%MZ)"
 echo "=== promoting: deploying the exact same (already-synced) bytes to prod ==="
 : "${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN (or run this via hee-cred)}"
 : "${CLOUDFLARE_ACCOUNT_ID:?Set CLOUDFLARE_ACCOUNT_ID}"
 
 cd "$STAGE"
-npx --yes wrangler@4.86.0 deploy --name "$WORKER" --assets . --compatibility-date=2026-08-20
+npx --yes wrangler@4.86.0 deploy --name "$WORKER" --assets . --compatibility-date=2026-08-20 \
+  --message "hee:$SIG $OPER media src=$SRC_SHA lab-verified" --tag "${SIG%%_*}"
 
 echo "=== verifying lab == prod ==="
 # every item's two pages, not a hand-kept list -- a new item is one more
@@ -127,3 +145,17 @@ for f in $ITEM_PAGES; do
     echo "  $f: MISMATCH (prod=$prod lab=$lab)" >&2
   fi
 done
+
+# The promotion record: an annotated, GPG-signed tag on the exact source
+# commit, prod/<site>/<stamp>, message = what went where and who. Tags
+# name commits; labels name intent. Signed by whoever runs promote
+# (HEE_POLICY 17).
+TAG="prod/${PREFIX}-media/${STAMP}"
+git -C "$REPO_ROOT" tag -s "$TAG" -m "prod promotion: ${MEDIA_HOST}
+worker: ${WORKER}
+source: ${SRC_SHA}
+session: ${SIG}
+lab: https://${LAB_HOST}/ verified byte-for-byte before promote" "$SRC_SHA" \
+  && git -C "$REPO_ROOT" push -q origin "refs/tags/$TAG" \
+  && echo "🟢 OK promoted: tag $TAG (session $SIG)" \
+  || echo "⚠️ WARNING promote: deployed, but the prod tag could not be created/pushed -- record it by hand" >&2
