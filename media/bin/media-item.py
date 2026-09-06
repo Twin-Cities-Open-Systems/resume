@@ -213,7 +213,7 @@ ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
 ROOT_TMPL = Path(__file__).resolve().parent.parent / "templates" / "root-index.html.tmpl"
 
 
-def root_init(media_dist, oper_name, media_host, blog_host=None, note="More coming here over time."):
+def root_init(media_dist, oper_name, media_host, blog_host=None, note="More coming here over time.", description=None):
     """Write a fresh root page for an operator from the shared template --
     the page spencer's was hand-written as, with name and hosts filled in.
     One host per person: <prefix>.media.tcos.us. Operator, 2026-09-06:
@@ -229,8 +229,19 @@ def root_init(media_dist, oper_name, media_host, blog_host=None, note="More comi
     short = media_host.replace(".tcos.us", "")
     blog_line = (f'  <p class="eyebrow eyebrow-sub"><a href="https://{blog_host}" data-cross-site>'
                  f'{blog_host.replace(".tcos.us", "")}</a></p>\n') if blog_host else ""
+    if not description:
+        # From the operator's own profile (title + role), never another
+        # person's page text. Operator, 2026-09-06: the new roots carried
+        # spencer's tattoo-page description verbatim.
+        prof = media_dist.parent.parent.parent / "profiles" / media_dist.parent.name / "profile.json"
+        try:
+            pj = json.loads(prof.read_text())
+            title = pj["language_profiles"]["payloads"]["professional"]["title"]
+            description = f"{title} at Twin Cities Open Systems -- posts, galleries and verified media."
+        except Exception:
+            description = f"{oper_name} at Twin Cities Open Systems -- posts, galleries and verified media."
     page = string.Template(ROOT_TMPL.read_text()).safe_substitute(
-        OPER_NAME=esc(oper_name), MEDIA_HOST=media_host, MEDIA_SHORT=short, BLOG_LINE=blog_line,
+        OPER_NAME=esc(oper_name), MEDIA_HOST=media_host, MEDIA_SHORT=short, BLOG_LINE=blog_line, DESCRIPTION=esc(description),
         LU_ISO=dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), NOTE=esc(note))
     index.write_text(page)
     print(f"[+] {index}: root for {oper_name} at https://{media_host}/")
@@ -335,6 +346,21 @@ def audit(repo_root, env="lab"):
         for href in expected:
             if f'href="{href}"' not in index:
                 print(f"🟡 WARNING audit: {oper}: {href} exists but the root does not list it"); worst = max(worst, 1)
+
+    # 2b. every root's og:description is its own, and og:title names the operator
+    descs = {}
+    for root_index in sorted(repo_root.glob("media/*/dist/index.html")):
+        oper = root_index.parent.parent.name; html_ = root_index.read_text()
+        m1 = re.search(r'<meta property="og:description" content="([^"]*)"', html_)
+        m2 = re.search(r'<meta property="og:title" content="([^"]*)"', html_)
+        d = m1.group(1) if m1 else ""
+        descs.setdefault(d, []).append(oper)
+        name = json.loads((repo_root / "profiles" / oper / "profile.json").read_text())["meta"]["entity"]
+        if not m2 or name.split()[0].lower() not in m2.group(1).lower():
+            print(f"🟡 WARNING audit: {oper}: og:title does not name the operator: {m2.group(1) if m2 else '(none)'}"); worst = max(worst, 1)
+    for d, opers in descs.items():
+        if len(opers) > 1:
+            print(f"🟡 WARNING audit: same og:description on {', '.join(opers)}: {d[:70]!r}"); worst = max(worst, 1)
 
     # 3. every blog URL a reader may hold
     former = {}
