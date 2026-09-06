@@ -17,6 +17,7 @@ spec:
   # 2026-09-05). deploy.sh promote refuses while this is not "approved";
   # resume#47 held the item as a draft until it was.
   consent: approved
+  tile: { text: "26" }
   consent_recorded_utc: "2026-09-06T00:00:00Z"
   host: spencer.media.tcos.us
   owner: Spencer Butler

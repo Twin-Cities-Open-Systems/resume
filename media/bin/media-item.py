@@ -200,7 +200,7 @@ def build(item_dir, network=True):
     # the media root lists every item; add this one if it is not there
     root = item_dir.parent / "index.html"
     if root.is_file() and f'href="/{slug}"' not in root.read_text():
-        li = (f'    <li>\n      {icon_for_card(card, "gallery")}\n      <div>\n'
+        li = (f'    <li>\n      {tile_for_card(card, item_dir, "gallery")}\n      <div>\n'
               f'        <a href="/{esc(slug)}">{esc(spec["title"])}</a>\n        <p>{esc(spec["description"])}</p>\n      </div>\n    </li>\n')
         r = root.read_text()
         r = r.replace("  </ul>\n  <p class=\"note\">", li + "  </ul>\n  <p class=\"note\">", 1)
@@ -215,39 +215,58 @@ ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
 ROOT_TMPL = Path(__file__).resolve().parent.parent / "templates" / "root-index.html.tmpl"
 
 
-# Card icons: Fluent Emoji, color style (Microsoft, MIT; vendored at a
-# pinned commit under media/shared/icons/fluent/, LICENSE and SOURCE beside
-# them), inlined SVG. Chosen from the item's `topic` label, then its kind; a
-# card may say `icon: <name>` (the file's name) to override. Operator,
-# 2026-09-06: "open source icons besides just the tux ... match to some
-# group relevant, or something we can automate", then on a line-icon set:
-# "those are drab and same as text. need colors, modern". An unknown name
-# falls back to the kind's icon and says so, never to a broken image.
-ICON_DIR = Path(__file__).resolve().parent.parent / "shared" / "icons" / "fluent"
-ICON_BY_TOPIC = {"meme": "party_popper", "tattoo": "paintbrush", "photo": "camera", "photos": "camera",
-                 "video": "clapper_board", "audio": "musical_notes", "music": "musical_notes", "code": "laptop",
-                 "talk": "microphone", "book": "open_book", "hardware": "wrench", "gif": "film_frames",
-                 "linux": "penguin"}
-ICON_BY_KIND = {"gallery": "framed_picture", "post": "memo", "resume": "page_facing_up"}
+# Card tiles: rendered by the org's own meme-factory `tile` generator
+# (fleet-ops/tools/meme-factory/tile/tile.py): a two-color gradient, one
+# motif, a monogram -- deterministic from the card, no icon set. Operator,
+# 2026-09-06: "just make our own with the meme-factory", after two
+# open-source sets ("drab", emoji). Palette from the topic label, motif
+# from the kind, monogram from the title; a card may set
+#   tile: { text: "26", palette: ember, motif: rings }
+# to override any of the three. Missing generator -> WARNING, no tile.
+TILE_PY = Path(os.environ.get("MEME_FACTORY_TILE", Path.home() / "git/fleet-ops/tools/meme-factory/tile/tile.py"))
+PALETTE_BY_TOPIC = {"meme": "ember", "tattoo": "violet", "photo": "ocean", "photos": "ocean", "video": "sunset",
+                    "audio": "coral", "music": "coral", "code": "teal", "talk": "mint", "book": "lime",
+                    "hardware": "teal", "gif": "ember", "linux": "lime"}
+MOTIF_BY_KIND = {"gallery": "rings", "post": "diagonals", "resume": "grid"}
+PALETTE_NAMES = ["ember", "violet", "lime", "sunset", "ocean", "mint", "coral", "teal"]
 
 
-def icon_svg(name, kind="gallery"):
-    for candidate in (name, ICON_BY_KIND.get(kind, "framed_picture")):
-        if not candidate:
-            continue
-        f = ICON_DIR / f"{candidate}.svg"
-        if f.is_file():
-            # referenced, not inlined: Fluent color SVGs carry gradient ids
-            # that collide when several sit in one document
-            return f'<img class="item-icon" src="/icons/fluent/{candidate}.svg" alt="" width="36" height="36">'
-        if candidate == name:
-            print(f"⚠️  WARNING  media-item: no vendored icon {name!r}; using the {kind} default", file=sys.stderr)
+def monogram(title):
+    words = [w for w in re.split(r"[^A-Za-z0-9]+", title) if w]
+    return ("".join(w[0] for w in words[:2]) or title[:2]).upper()
+
+
+def tile_png(out_png, *, text, palette, motif, seed):
+    """Render one tile with meme-factory; returns the served path or ''."""
+    if not TILE_PY.is_file():
+        print(f"⚠️  WARNING  media-item: meme-factory tile generator not found at {TILE_PY}; cards get no tile", file=sys.stderr)
+        return False
+    import hashlib, tempfile
+    job = {"output": str(out_png), "size": 256, "text": text, "seed": seed, "motif": motif}
+    sys.path.insert(0, str(TILE_PY.parent))
+    import importlib; tile = importlib.import_module("tile")
+    job["palette"] = tile.PALETTES.get(palette) or tile.PALETTES["lime"]
+    tile.render_job(job)
+    return True
+
+
+def tile_for_card(card, item_dir, kind="gallery"):
+    spec = card.get("spec", {}); labels = (card.get("metadata") or {}).get("labels") or {}
+    t = spec.get("tile") or {}
+    text = t.get("text") or monogram(spec.get("title", item_dir.name))
+    palette = t.get("palette") or PALETTE_BY_TOPIC.get(str(labels.get("topic", "")).lower(), "lime")
+    motif = t.get("motif") or MOTIF_BY_KIND.get(kind, "rings")
+    if tile_png(item_dir / "tile.png", text=text, palette=palette, motif=motif, seed=item_dir.name):
+        return f'<img class="item-icon" src="/{item_dir.name}/tile.png" alt="" width="40" height="40">'
     return ""
 
 
-def icon_for_card(card, kind="gallery"):
-    spec = card.get("spec", {}); labels = (card.get("metadata") or {}).get("labels") or {}
-    return icon_svg(spec.get("icon") or ICON_BY_TOPIC.get(str(labels.get("topic", "")).lower()), kind)
+def tile_for_post(posts_dir, slug, title):
+    import hashlib
+    palette = PALETTE_NAMES[int(hashlib.sha256(slug.encode()).hexdigest(), 16) % len(PALETTE_NAMES)]
+    if tile_png(posts_dir / f"{slug}.tile.png", text=monogram(title), palette=palette, motif="diagonals", seed=slug):
+        return f'<img class="item-icon" src="/posts/{slug}.tile.png" alt="" width="40" height="40">'
+    return ""
 
 
 def root_init(media_dist, oper_name, media_host, blog_host=None, description=None):
@@ -301,7 +320,7 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
         card = yaml.safe_load(card_path.read_text()); spec = card["spec"]
         slug = card_path.parent.name
         when = spec.get("date") or max((it.get("date", "") for it in spec.get("items", [])), default="")
-        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"], icon_for_card(card, "gallery")))  # trailing slash: busybox httpd does not redirect a bare dir
+        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"], tile_for_card(card, card_path.parent, "gallery")))  # trailing slash: busybox httpd does not redirect a bare dir
     if posts_manifest and oper:
         posts_dir = media_dist / "posts"; posts_dir.mkdir(exist_ok=True)
         for post in json.loads(Path(posts_manifest).read_text()):
@@ -313,7 +332,7 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
             dst = posts_dir / (post["slug"] + ".html")
             dst.write_bytes(src.read_bytes())
             rows.append((post["date"], "post", f"/posts/{post['slug']}.html", post["title"],
-                         f"Blog post, {post['date']}.", icon_svg(None, "post")))
+                         f"Blog post, {post['date']}.", tile_for_post(posts_dir, post["slug"], post["title"])))
     rows.sort(key=lambda r: r[0], reverse=True)
     li = "".join(
         f'    <li data-kind="{esc(kind)}">\n      {icon}\n      <div>\n'
