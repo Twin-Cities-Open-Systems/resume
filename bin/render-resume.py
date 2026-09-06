@@ -63,9 +63,13 @@ def main(argv: list[str]) -> int:
     else:
         print(f"  WARN: meme-factory tile generator not at {TILE_PY}; resume ships with no og:image", file=sys.stderr)
 
-    m = re.search(r"<p>(.*?)</p>", body, re.S)   # the first paragraph, never the heading
-    first_para = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else ""
-    description = (first_para[:150] + "…") if len(first_para) > 150 else (first_para or f"{entity}'s resume.")
+    # the description is the person's title from their own profile, never
+    # the resume's first paragraph (that is the contact block)
+    try:
+        role = profile["language_profiles"]["payloads"]["professional"]["title"]
+        description = f"{entity}, {role} -- resume: work history, contracts and contact, at Twin Cities Open Systems."
+    except KeyError:
+        description = f"{entity}'s resume at Twin Cities Open Systems."
     page = rr.render_file_page(
         str(REPO), str(src.relative_to(REPO)) if src.is_relative_to(REPO) else str(src),
         title=title, status_class="browse", status_label="resume",
