@@ -1,0 +1,21 @@
+# The first media item, hand-built before the builder existed. This card
+# is its record for the media root listing and deploy.sh's verify loop;
+# the pages themselves are NOT regenerated from it (items: [] -- the
+# photos are inlined in index.html, not files beside it). Converting the
+# page to a builder-rendered item is its own change.
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: tux-tattoo
+  labels: { domain: media, scope: spencer, topic: tattoo, artifact: card }
+  annotations:
+    inuid: null
+    inuid_null_reason: bootstrap
+spec:
+  host: spencer.media.tcos.us
+  owner: Spencer Butler
+  title: "Tux Tattoo"
+  date: "2001-10-02"
+  description: "Oct 2, 2001 -- the real Linux mascot, tattooed in one sitting. Real EXIF timestamps, real GPG-signed photos, verified in your browser."
+  consent: approved
+  items: []

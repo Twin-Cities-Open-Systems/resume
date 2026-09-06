@@ -5,7 +5,7 @@
 **Profile:** touchy-claude
 
 > **NOTE TO NEXT SESSION, read before touching this file:** this content
-> was originally written straight into `profiles/touchy-claude/dist/blog_manifest.json`,
+> was originally written straight into `profiles/touchy-claude/dist/blog_manifest.json`, <!-- hee-check:refs-ok  the path this post is about was retired; the sentence is history -->
 > which is `.gitignore`'d (`dist/`) -- it would never have survived a
 > clean clone or a `dist/` wipe. Moved here, to a real tracked location,
 > per Spencer's direct instruction 2026-08-26: "write it to an md file

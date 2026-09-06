@@ -23,6 +23,7 @@
 import importlib.util
 import json
 import os
+import re
 import sys as _sys
 import subprocess
 import sys
@@ -46,6 +47,48 @@ def gtag_snippet():
     except ImportError:
         print("⚠️  WARNING hee_gtag not importable -- posts ship without the Google tag", file=sys.stderr); return ""
     return hee_gtag.snippet_or_empty()
+
+
+TITLE_MAX = 120
+
+
+def check_post_title(md_path):
+    """A post is published only if its first non-empty line is a real H1
+    title of sane length. Operator, 2026-09-05, on a post whose "title" was
+    a pasted paragraph: "this needs a proper markdown title. we should
+    reject markdown for pages we publish to media. this title is
+    ridiculous." Refuse, with the file and the offending line, rather
+    than publish it -- convert.sh stops on this exit."""
+    for line in md_path.read_text().splitlines():
+        if not line.strip():
+            continue
+        m = re.match(r"^#\s+(\S.*)$", line)
+        if not m:
+            sys.exit(f"❌ CRITICAL render-blog: {md_path}: first line is not an H1 title (`# Title`): {line[:80]!r}")
+        if len(m.group(1)) > TITLE_MAX:
+            sys.exit(f"❌ CRITICAL render-blog: {md_path}: title is {len(m.group(1))} chars, max {TITLE_MAX}: {m.group(1)[:80]!r}…")
+        return m.group(1)
+    sys.exit(f"❌ CRITICAL render-blog: {md_path}: empty post")
+
+
+def check_post_safety(md_path):
+    """The mandatory publish-safety gate, per
+    contracts/publish-sanitization-v1.contract.yaml: every post goes
+    through `hee filter scan` (tcos-audit's ruleset) before it renders.
+    Findings refuse the post, CRITICAL; a scanner that cannot run also
+    refuses (fail-closed), never a silent skip. Operator, 2026-09-05,
+    on learning nothing scanned a post: "make sure our ci/cd pipeline
+    is auditing everything for all, continuously"."""
+    import shutil
+    import subprocess
+    hee = shutil.which("hee") or os.path.expanduser("~/git/human-execution-engine/hee")
+    if not os.path.exists(hee):
+        sys.exit(f"❌ CRITICAL render-blog: {md_path}: `hee` not found -- cannot run the publish-safety gate, refusing to publish")
+    res = subprocess.run([hee, "filter", "scan"], stdin=md_path.open("rb"), capture_output=True, text=True)
+    if res.returncode != 0:
+        detail = (res.stderr or res.stdout).strip().splitlines()
+        first = next((l for l in detail if l.strip()), "no detail")
+        sys.exit(f"❌ CRITICAL render-blog: {md_path}: publish-safety gate refused (hee filter scan rc={res.returncode}): {first.strip()[:160]}")
 
 
 def load_renderer():
@@ -94,6 +137,8 @@ def main(argv):
     produced = []
     for post in posts:
         src = Path(post["path"])                       # profiles/<slug>/blog/<post>.md
+        post["title"] = check_post_title(src)          # gate 1: a real title
+        check_post_safety(src)                         # gate 2: hee filter scan, fail-closed
         slug = src.parts[1]
         host = people.get(slug, {}).get("public_dns") or "blog.tcos.us"
         out = DIST / src.with_suffix(".html")
@@ -114,6 +159,10 @@ def main(argv):
         post["html"] = str(out.relative_to(DIST))
         produced.append(out)
         print(f"  [+] {out}")
+    # newest first, by the post's own date -- never by filename. Operator,
+    # 2026-09-05: "I also hate the numbered prefix, let's kill that and
+    # certainly not require it." The number was only ever a sort key.
+    posts.sort(key=lambda p: (p.get("date", ""), p["slug"]), reverse=True)
     MANIFEST.write_text(json.dumps(posts, indent=0).replace("\n{", "{") + "\n")
     print(f"  [i] {len(produced)} post(s) rendered through {RENDER}")
     if "--check" in argv:
