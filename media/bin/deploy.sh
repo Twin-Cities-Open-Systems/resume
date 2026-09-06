@@ -182,11 +182,9 @@ done
 # name commits; labels name intent. Signed by whoever runs promote
 # (HEE_POLICY 17).
 TAG="prod/${PREFIX}-media/${STAMP}"
-git -C "$REPO_ROOT" tag -s "$TAG" -m "prod promotion: ${MEDIA_HOST}
+( cd "$REPO_ROOT" && hee git tag "$TAG" -m "prod promotion: ${MEDIA_HOST}
 worker: ${WORKER}
 source: ${SRC_SHA}
 session: ${SIG}
-lab: https://${LAB_HOST}/ verified byte-for-byte before promote" "$SRC_SHA" \
-  && git -C "$REPO_ROOT" push -q origin "refs/tags/$TAG" \
-  && echo "🟢 OK promoted: tag $TAG (session $SIG)" \
-  || echo "⚠️ WARNING promote: deployed, but the prod tag could not be created/pushed -- record it by hand" >&2
+lab: https://${LAB_HOST}/ verified byte-for-byte before promote" "$SRC_SHA" --yes --push ) \
+  || echo "⚠️ WARNING promote: deployed, but the prod tag could not be created/pushed -- hee git tag $TAG -m ... $SRC_SHA --yes --push" >&2
