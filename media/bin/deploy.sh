@@ -176,7 +176,8 @@ echo "  hee check all: OK; staged tree: no conflict markers; every staged image 
 SIG="$(hee ver session --tag 2>/dev/null || hee ver session 2>/dev/null | awk '/sig_tag|rc_tag/{print $2; exit}')"
 [ -n "$SIG" ] || { echo "❌ CRITICAL promote: no session signature from hee ver session -- not promoting" >&2; exit 2; }
 SRC_SHA="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
-STAMP="$(date -u +%Y%m%dT%H%MZ)"
+# prod/<surface>/<version> under hee release (RELEASE_VERSION); a bare promote gets a timestamp
+STAMP="${RELEASE_VERSION:-$(date -u +%Y%m%dT%H%MZ)}"
 echo "=== promoting: deploying the exact same (already-synced) bytes to prod ==="
 # wrangler needs Node >= 20; on a shell with system Node 18 it prints one
 # line and exits 1, which a Success|rror grep swallowed (2026-09-06).

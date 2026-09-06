@@ -88,7 +88,8 @@ fi
 
 SIG="$(hee ver session --tag 2>/dev/null || hee ver session 2>/dev/null | awk '/sig_tag|rc_tag/{print $2; exit}')"
 [ -n "$SIG" ] || { echo "❌ CRITICAL promote: no session signature from hee ver session" >&2; exit 2; }
-SRC_SHA="$(git rev-parse --short HEAD)"; STAMP="$(date -u +%Y%m%dT%H%MZ)"
+SRC_SHA="$(git rev-parse --short HEAD)"
+STAMP="${RELEASE_VERSION:-$(date -u +%Y%m%dT%H%MZ)}"   # prod/resume-pages/<version> under hee release
 # wrangler needs Node >= 20; on a shell with system Node 18 it prints one
 # line and exits 1, which a Success|rror grep swallowed (2026-09-06).
 node_major="$(node -v 2>/dev/null | sed 's/^v//; s/\..*//')"
