@@ -1,9 +1,9 @@
 {
  "for": "https://touchy.media.tcos.us/posts/2026-08-26-publishing-the-thing-that-publishes-this.html",
  "host": "touchy.media.tcos.us",
- "kind": "post",
  "motif": "diagonals",
  "owner": "touchy-claude",
+ "page": "post",
  "palette": [
   "#38bdf8",
   "#ff6161"

@@ -163,7 +163,7 @@ def build(item_dir, network=True):
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
     subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
                     "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
-                    "--kv", f"og_for=https://{host}/{slug}/", "--kv", "kind=gallery", "--kv", f"owner={spec.get('owner', '')}",
+                    "--kv", f"og_for=https://{host}/{slug}/", "--kv", "page=gallery", "--kv", f"owner={spec.get('owner', '')}",
                     "--kv", f"title={spec['title'].replace(';', ',')}", "--kv", f"host={host}"], check=True, capture_output=True, env=env)
     subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
     if env.get("HEE_BRANDING"):
@@ -282,14 +282,14 @@ def tile_png(out_png, *, text, palette, motif, seed, extra=None):
     return True
 
 
-def tile_for_card(card, item_dir, kind="gallery"):
+def tile_for_card(card, item_dir, page="gallery"):
     spec = card.get("spec", {}); labels = (card.get("metadata") or {}).get("labels") or {}
     t = spec.get("tile") or {}
     text = t.get("text") or monogram(spec.get("title", item_dir.name))
     palette = t.get("palette") or PALETTE_BY_TOPIC.get(str(labels.get("topic", "")).lower(), "lime")
-    motif = t.get("motif") or MOTIF_BY_KIND.get(kind, "rings")
+    motif = t.get("motif") or MOTIF_BY_KIND.get(page, "rings")
     host = spec.get("host", "")
-    extra = {"for": f"https://{host}/{item_dir.name}/" if host else "", "kind": kind, "owner": spec.get("owner", ""), "title": spec.get("title", ""), "host": host}
+    extra = {"for": f"https://{host}/{item_dir.name}/" if host else "", "page": page, "owner": spec.get("owner", ""), "title": spec.get("title", ""), "host": host}
     if tile_png(item_dir / "tile.png", text=text, palette=palette, motif=motif, seed=item_dir.name, extra={k: v for k, v in extra.items() if v}):
         return f'<img class="item-icon" src="/{item_dir.name}/tile.png" alt="" width="40" height="40">'
     return ""
@@ -298,7 +298,7 @@ def tile_for_card(card, item_dir, kind="gallery"):
 def tile_for_post(posts_dir, slug, title, host="", owner=""):
     import hashlib
     palette = PALETTE_NAMES[int(hashlib.sha256(slug.encode()).hexdigest(), 16) % len(PALETTE_NAMES)]
-    extra = {k: v for k, v in {"for": f"https://{host}/posts/{slug}.html" if host else "", "kind": "post", "owner": owner, "title": title, "host": host}.items() if v}
+    extra = {k: v for k, v in {"for": f"https://{host}/posts/{slug}.html" if host else "", "page": "post", "owner": owner, "title": title, "host": host}.items() if v}
     if tile_png(posts_dir / f"{slug}.tile.png", text=monogram(title), palette=palette, motif="diagonals", seed=slug, extra=extra):
         return f'<img class="item-icon" src="/posts/{slug}.tile.png" alt="" width="40" height="40">'
     return ""
@@ -380,7 +380,7 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
                          f"Blog post, {post['date']}.", tile_for_post(posts_dir, post["slug"], post["title"], host=root_host, owner=root_owner)))
     rows.sort(key=lambda r: r[0], reverse=True)
     li = "".join(
-        f'    <li data-kind="{esc(kind)}">\n      {icon}\n      <div>\n'
+        f'    <li data-page="{esc(kind)}">\n      {icon}\n      <div>\n'
         f'        <a href="{esc(href)}">{esc(title)}</a>\n        <p><span class="mono">{esc(when)} &middot; {esc(kind)}</span> &mdash; {esc(desc)}</p>\n      </div>\n    </li>\n'
         for when, kind, href, title, desc, icon in rows)
     index = media_dist / "index.html"

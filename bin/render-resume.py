@@ -64,7 +64,7 @@ def main(argv: list[str]) -> int:
         tile.render_job({"output": str(card), "card": True, "palette": tile.PALETTES["teal"],
                          "seed": f"{slug}-resume", "title": entity, "subtitle": "(resume)", "tagline": role,
                          "eyebrow": media_host, "text": "".join(w[0] for w in words[:2]).upper(),
-                         "for": f"https://{media_host}/resume.html", "kind": "resume", "owner": entity, "host": media_host})
+                         "for": f"https://{media_host}/resume.html", "page": "resume", "owner": entity, "host": media_host})
         card_url = f"https://{media_host}/resume.og.jpg"
     else:
         print(f"  WARN: meme-factory tile generator not at {TILE_PY}; resume ships with no og:image", file=sys.stderr)

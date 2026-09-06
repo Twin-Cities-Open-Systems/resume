@@ -1,9 +1,9 @@
 {
  "for": "https://spencer.media.tcos.us/mn2600-sept-2026_ipv6-antenna/",
  "host": "spencer.media.tcos.us",
- "kind": "gallery",
  "motif": "rings",
  "owner": "Spencer Butler",
+ "page": "gallery",
  "palette": [
   "#ff7a1a",
   "#ff6161"

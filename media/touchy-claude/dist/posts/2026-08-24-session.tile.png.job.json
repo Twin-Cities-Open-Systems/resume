@@ -1,9 +1,9 @@
 {
  "for": "https://touchy.media.tcos.us/posts/2026-08-24-session.html",
  "host": "touchy.media.tcos.us",
- "kind": "post",
  "motif": "diagonals",
  "owner": "touchy-claude",
+ "page": "post",
  "palette": [
   "#38bdf8",
   "#ff6161"
