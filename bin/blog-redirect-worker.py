@@ -35,12 +35,20 @@ export default {
       return Response.redirect(r ? target + "/resume." + r[1] : target + "/", 301);
     }
     // The hub hosts: media.tcos.us and blog.tcos.us are the index of every
-    // operator, not the resume landing page. Lab does this in haproxy;
-    // prod fell through to index.html ("Loading...") until 2026-09-06.
-    if ((url.hostname === "media.tcos.us" || url.hostname === "blog.tcos.us") &&
-        (url.pathname === "/" || url.pathname === "/index.html")) {
-      const page = url.hostname === "media.tcos.us" ? "/media-hub.html" : "/blog-hub.html";
-      return env.ASSETS.fetch(new Request(new URL(page, url).toString(), request));
+    // operator, nothing else. "/" serves the hub page under its clean name
+    // (asking for /media-hub.html made the assets layer answer 308 to
+    // /media-hub -- the first prod deploy did that). Any other path that
+    // is not the hub's own data or static assets goes back to "/": the
+    // resume app's catch-all used to answer 200 "Loading..." for
+    // media.tcos.us/people (2026-09-06).
+    if (url.hostname === "media.tcos.us" || url.hostname === "blog.tcos.us") {
+      const hub = url.hostname === "media.tcos.us" ? "/media-hub" : "/blog-hub";
+      const path = url.pathname;
+      if (path === "/" || path === "/index.html" || path === hub || path === hub + ".html") {
+        return env.ASSETS.fetch(new Request(new URL(hub, url).toString(), request));
+      }
+      const keep = ["/people.json", "/manifest.json", "/favicon.ico", "/assets/", "/badges/", "/icons/"];
+      if (!keep.some((k) => path.startsWith(k))) return Response.redirect(url.origin + "/", 301);
     }
     return env.ASSETS.fetch(request);
   },

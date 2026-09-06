@@ -13,7 +13,26 @@ export default {
     if (m && MEDIA[m[1]]) {
       const target = "https://" + MEDIA[m[1]];
       const p = url.pathname.match(/^\/profiles\/[^/]+\/blog\/(?:\d{3}-)?([^/]+?)(?:\.md|\.html)?$/);
-      return Response.redirect(p ? target + "/posts/" + p[1] + ".html" : target + "/", 301);
+      if (p) return Response.redirect(target + "/posts/" + p[1] + ".html", 301);
+      // the resume used to live here as /resume-<slug>.html and /profiles/<slug>/dist/resume.<ext>
+      const r = url.pathname.match(/^\/(?:resume-[^/]+|profiles\/[^/]+\/dist\/resume)\.(html|pdf|md|txt)$/);
+      return Response.redirect(r ? target + "/resume." + r[1] : target + "/", 301);
+    }
+    // The hub hosts: media.tcos.us and blog.tcos.us are the index of every
+    // operator, nothing else. "/" serves the hub page under its clean name
+    // (asking for /media-hub.html made the assets layer answer 308 to
+    // /media-hub -- the first prod deploy did that). Any other path that
+    // is not the hub's own data or static assets goes back to "/": the
+    // resume app's catch-all used to answer 200 "Loading..." for
+    // media.tcos.us/people (2026-09-06).
+    if (url.hostname === "media.tcos.us" || url.hostname === "blog.tcos.us") {
+      const hub = url.hostname === "media.tcos.us" ? "/media-hub" : "/blog-hub";
+      const path = url.pathname;
+      if (path === "/" || path === "/index.html" || path === hub || path === hub + ".html") {
+        return env.ASSETS.fetch(new Request(new URL(hub, url).toString(), request));
+      }
+      const keep = ["/people.json", "/manifest.json", "/favicon.ico", "/assets/", "/badges/", "/icons/"];
+      if (!keep.some((k) => path.startsWith(k))) return Response.redirect(url.origin + "/", 301);
     }
     return env.ASSETS.fetch(request);
   },
