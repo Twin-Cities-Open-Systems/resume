@@ -350,6 +350,9 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
                 print(f"⚠️  WARNING  media-item root: rendered post missing, skipped: {src}", file=sys.stderr); continue
             dst = posts_dir / (post["slug"] + ".html")
             dst.write_bytes(src.read_bytes())
+            card = src.with_suffix(".og.jpg")   # the post's social preview, rendered by render-blog
+            if card.is_file():
+                (posts_dir / (post["slug"] + ".og.jpg")).write_bytes(card.read_bytes())
             rows.append((post["date"], "post", f"/posts/{post['slug']}.html", post["title"],
                          f"Blog post, {post['date']}.", tile_for_post(posts_dir, post["slug"], post["title"])))
     rows.sort(key=lambda r: r[0], reverse=True)
