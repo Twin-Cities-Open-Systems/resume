@@ -42,10 +42,11 @@ def main(argv: list[str]) -> int:
     slug, src, out = argv[0], Path(argv[1]), Path(argv[2])
     rb = load("render_blog", REPO / "bin" / "render-blog.py")
     rr = rb.load_renderer()
-    people = rb.people_by_slug()
     profile = json.loads((REPO / "profiles" / slug / "profile.json").read_text())
     entity = profile["meta"]["entity"]
-    media_host = people.get(slug, {}).get("media_dns") or people.get(slug, {}).get("public_dns") or "media.tcos.us"
+    # from the profile, the SSoT -- never dist/people.json, which convert.sh
+    # is still writing when this runs inside its loop (worktree build, 2026-09-06)
+    media_host = profile["meta"].get("media_routing") or "media.tcos.us"
     title = f"{entity} Resume"
 
     body = subprocess.run(["pandoc", str(src), "-f", "markdown+autolink_bare_uris", "-t", "html5"],
