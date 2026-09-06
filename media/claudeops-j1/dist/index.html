@@ -8,7 +8,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   // production only: *.lab.tcos.us, localhost and file:// load this but never report
-  if (/\.tcos\.us$/.test(location.hostname) && !/\.lab\.tcos\.us$/.test(location.hostname)) {
+  if (/(^|\.)tcos\.us$/.test(location.hostname) && !/(^|\.)lab\.tcos\.us$/.test(location.hostname)) {
     gtag('config', 'G-BQK0DFRRZ7');
   }
 </script>
@@ -91,7 +91,7 @@ ul.items p { color: var(--ink-dim); margin: 6px 0 0; }
   <h1>claudeops-j1</h1>
   <div class="lu-row">
     <div class="freshness" id="freshness">
-      <span class="fr-dot"></span><b>lu:</b> <time class="lu-iso" datetime="2026-09-06T05:21:02Z">2026-09-06T05:21:02Z</time> <span id="fr-text"></span>
+      <span class="fr-dot"></span><b>lu:</b> <time class="lu-iso" datetime="2026-09-06T05:28:17Z">2026-09-06T05:28:17Z</time> <span id="fr-text"></span>
     </div>
   </div>
   <ul class="items">
