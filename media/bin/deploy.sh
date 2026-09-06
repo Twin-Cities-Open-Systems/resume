@@ -142,8 +142,13 @@ SIG="$(hee ver session --tag 2>/dev/null || hee ver session 2>/dev/null | awk '/
 SRC_SHA="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
 STAMP="$(date -u +%Y%m%dT%H%MZ)"
 echo "=== promoting: deploying the exact same (already-synced) bytes to prod ==="
-: "${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN (or run this via hee-cred)}"
-: "${CLOUDFLARE_ACCOUNT_ID:?Set CLOUDFLARE_ACCOUNT_ID}"
+# hee cred -exec injects the secret as HEE_CRED_PASS (hee-cred ENV_VAR); map
+# it, and derive the account id from the token like tcos-www/deploy.sh does.
+CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-${HEE_CRED_PASS:-}}"; export CLOUDFLARE_API_TOKEN
+: "${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN (run via hee cred -pass cloudflare-tcos-www -dir ~/git/tcos-www/.hee/secrets -exec)}"
+CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" https://api.cloudflare.com/client/v4/accounts | python3 -c 'import sys,json; print(json.load(sys.stdin)["result"][0]["id"])')}"
+export CLOUDFLARE_ACCOUNT_ID
+: "${CLOUDFLARE_ACCOUNT_ID:?could not derive CLOUDFLARE_ACCOUNT_ID from the token}"
 
 cd "$STAGE"
 npx --yes wrangler@4.86.0 deploy --name "$WORKER" --assets . --compatibility-date=2026-08-20 \
