@@ -182,6 +182,7 @@ def main(argv):
             site_name=host,
             active_tab="pretty",
             github_url=f"https://github.com/{rr.GITHUB_ORG}/resume/blob/main/{src}",
+            label_url="/",  # the chip goes to the media root, where every post is listed
             extra_head=gtag,
         )
         out.write_text(page, encoding="utf-8")
