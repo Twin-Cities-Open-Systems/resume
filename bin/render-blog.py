@@ -160,7 +160,8 @@ def post_card(out_html, title, date, host, slug):
         entity = host
     tile.render_job({"output": str(out), "card": True, "palette": palette, "seed": slug,
                      "title": title, "subtitle": f"({entity})", "tagline": f"post · {date}",
-                     "eyebrow": host, "text": mono})
+                     "eyebrow": host, "text": mono,
+                     "for": f"https://{host}/posts/{slug}.html", "kind": "post", "owner": entity, "host": host})
     return out
 
 

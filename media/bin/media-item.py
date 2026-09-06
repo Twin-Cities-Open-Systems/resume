@@ -162,7 +162,9 @@ def build(item_dir, network=True):
         env["HEE_BRANDING"] = str(Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml")
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
     subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
-                    "--job", str(card_path), "--source", str(og_src), "--kv", "kind=og-card 1200x630 letterboxed"], check=True, capture_output=True, env=env)
+                    "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
+                    "--kv", f"og_for=https://{host}/{slug}/", "--kv", "kind=gallery", "--kv", f"owner={spec.get('owner', '')}",
+                    "--kv", f"title={spec['title'].replace(';', ',')}", "--kv", f"host={host}"], check=True, capture_output=True, env=env)
     subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
     if env.get("HEE_BRANDING"):
         subprocess.run([str(HEE_EXIF), "brand", str(og_file), "--artist", spec.get("owner", "Twin Cities Open Systems")], check=True, capture_output=True, env=env)
@@ -266,13 +268,13 @@ def monogram(title):
     return ("".join(w[0] for w in words[:2]) or title[:2]).upper()
 
 
-def tile_png(out_png, *, text, palette, motif, seed):
+def tile_png(out_png, *, text, palette, motif, seed, extra=None):
     """Render one tile with meme-factory; returns the served path or ''."""
     if not TILE_PY.is_file():
         print(f"⚠️  WARNING  media-item: meme-factory tile generator not found at {TILE_PY}; cards get no tile", file=sys.stderr)
         return False
     import hashlib, tempfile
-    job = {"output": str(out_png), "size": 256, "text": text, "seed": seed, "motif": motif}
+    job = {"output": str(out_png), "size": 256, "text": text, "seed": seed, "motif": motif, **(extra or {})}
     sys.path.insert(0, str(TILE_PY.parent))
     import importlib; tile = importlib.import_module("tile")
     job["palette"] = tile.PALETTES.get(palette) or tile.PALETTES["lime"]
@@ -286,15 +288,18 @@ def tile_for_card(card, item_dir, kind="gallery"):
     text = t.get("text") or monogram(spec.get("title", item_dir.name))
     palette = t.get("palette") or PALETTE_BY_TOPIC.get(str(labels.get("topic", "")).lower(), "lime")
     motif = t.get("motif") or MOTIF_BY_KIND.get(kind, "rings")
-    if tile_png(item_dir / "tile.png", text=text, palette=palette, motif=motif, seed=item_dir.name):
+    host = spec.get("host", "")
+    extra = {"for": f"https://{host}/{item_dir.name}/" if host else "", "kind": kind, "owner": spec.get("owner", ""), "title": spec.get("title", ""), "host": host}
+    if tile_png(item_dir / "tile.png", text=text, palette=palette, motif=motif, seed=item_dir.name, extra={k: v for k, v in extra.items() if v}):
         return f'<img class="item-icon" src="/{item_dir.name}/tile.png" alt="" width="40" height="40">'
     return ""
 
 
-def tile_for_post(posts_dir, slug, title):
+def tile_for_post(posts_dir, slug, title, host="", owner=""):
     import hashlib
     palette = PALETTE_NAMES[int(hashlib.sha256(slug.encode()).hexdigest(), 16) % len(PALETTE_NAMES)]
-    if tile_png(posts_dir / f"{slug}.tile.png", text=monogram(title), palette=palette, motif="diagonals", seed=slug):
+    extra = {k: v for k, v in {"for": f"https://{host}/posts/{slug}.html" if host else "", "kind": "post", "owner": owner, "title": title, "host": host}.items() if v}
+    if tile_png(posts_dir / f"{slug}.tile.png", text=monogram(title), palette=palette, motif="diagonals", seed=slug, extra=extra):
         return f'<img class="item-icon" src="/posts/{slug}.tile.png" alt="" width="40" height="40">'
     return ""
 
@@ -346,6 +351,13 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
     the root page; everything around it stays hand-written."""
     media_dist = Path(media_dist).resolve()
     rows = []
+    _root_html = (media_dist / "index.html").read_text() if (media_dist / "index.html").is_file() else ""
+    _m = re.search(r'<meta property="og:url" content="https://([^/"]+)/', _root_html)
+    root_host = _m.group(1) if _m else ""
+    try:
+        root_owner = json.loads((media_dist.parent.parent.parent / "profiles" / media_dist.parent.name / "profile.json").read_text())["meta"]["entity"]
+    except Exception:  # noqa: BLE001
+        root_owner = ""
     for card_path in sorted(media_dist.glob("*/item.card.v1.yaml")):
         card = yaml.safe_load(card_path.read_text()); spec = card["spec"]
         slug = card_path.parent.name
@@ -365,7 +377,7 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
             if card.is_file():
                 (posts_dir / (post["slug"] + ".og.jpg")).write_bytes(card.read_bytes())
             rows.append((post["date"], "post", f"/posts/{post['slug']}.html", post["title"],
-                         f"Blog post, {post['date']}.", tile_for_post(posts_dir, post["slug"], post["title"])))
+                         f"Blog post, {post['date']}.", tile_for_post(posts_dir, post["slug"], post["title"], host=root_host, owner=root_owner)))
     rows.sort(key=lambda r: r[0], reverse=True)
     li = "".join(
         f'    <li data-kind="{esc(kind)}">\n      {icon}\n      <div>\n'
