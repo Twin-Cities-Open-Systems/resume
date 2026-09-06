@@ -64,6 +64,11 @@ cp -r "$MEDIA_ROOT"/. "$STAGE/"
 rm -f "$STAGE/.assetsignore"
 cp "$MEDIA_ROOT/.assetsignore" "$STAGE/.assetsignore" 2>/dev/null || true
 find "$STAGE" -name __pycache__ -type d -exec rm -rf {} + 2>/dev/null || true
+# Every staged page names the source commit in its footer (commit <sha>
+# linked to GitHub). Substituted here, on the stage only, so lab and prod
+# carry the same bytes and the tracked source keeps the placeholder.
+_full="$(git -C "$REPO_ROOT" rev-parse HEAD)"; _short="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
+find "$STAGE" -name '*.html' -exec sed -i "s|\$COMMIT_SHORT|$_short|g; s|\$COMMIT|$_full|g" {} +
 # The operator's resume ships with the media host (/resume.html, .pdf, .md,
 # .txt) -- the blog host that used to serve it is a redirect now.
 for _ext in html pdf md txt; do
