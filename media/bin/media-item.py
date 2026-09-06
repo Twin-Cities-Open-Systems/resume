@@ -529,7 +529,7 @@ def audit(repo_root, env="lab"):
                       + list(repo_root.glob("media/shared/*.jpg")) + list(repo_root.glob("media/shared/*.png"))
                       + [repo_root / "profiles" / s_ / "dist" / "resume.og.jpg" for s_ in served]))
     for img in imgs:
-        if not img.is_file() or "/icons/" in str(img):
+        if not img.is_file():
             continue
         # -T prints "-" for an absent tag, so the columns never shift (-s3 drops it)
         r = subprocess.run(["exiftool", "-T", "-XMP-dc:Description", "-XMP-dc:Publisher", str(img)], capture_output=True, text=True)
