@@ -142,6 +142,10 @@ SIG="$(hee ver session --tag 2>/dev/null || hee ver session 2>/dev/null | awk '/
 SRC_SHA="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
 STAMP="$(date -u +%Y%m%dT%H%MZ)"
 echo "=== promoting: deploying the exact same (already-synced) bytes to prod ==="
+# wrangler needs Node >= 20; on a shell with system Node 18 it prints one
+# line and exits 1, which a Success|rror grep swallowed (2026-09-06).
+node_major="$(node -v 2>/dev/null | sed 's/^v//; s/\..*//')"
+[ "${node_major:-0}" -ge 20 ] || { echo "❌ CRITICAL deploy: Node >= 20 required, found $(node -v 2>/dev/null || echo none) -- nvm install 20 (dotfiles' bashrc sources nvm)" >&2; exit 2; }
 # hee cred -exec injects the secret as HEE_CRED_PASS (hee-cred ENV_VAR); map
 # it, and derive the account id from the token like tcos-www/deploy.sh does.
 CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-${HEE_CRED_PASS:-}}"; export CLOUDFLARE_API_TOKEN
@@ -152,7 +156,8 @@ export CLOUDFLARE_ACCOUNT_ID
 
 cd "$STAGE"
 npx --yes wrangler@4.86.0 deploy --name "$WORKER" --assets . --compatibility-date=2026-08-20 \
-  --message "hee:$SIG $OPER media src=$SRC_SHA lab-verified" --tag "${SIG%%_*}"
+  --message "hee:$SIG $OPER media src=$SRC_SHA lab-verified" --tag "${SIG%%_*}" \
+  || { echo "❌ CRITICAL promote: wrangler deploy failed -- nothing verified, nothing tagged" >&2; exit 2; }
 
 echo "=== verifying lab == prod ==="
 # every item's two pages, not a hand-kept list -- a new item is one more
