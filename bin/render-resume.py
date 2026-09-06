@@ -56,9 +56,13 @@ def main(argv: list[str]) -> int:
         sys.path.insert(0, str(TILE_PY.parent)); tile = importlib.import_module("tile")
         words = [w for w in re.split(r"[^A-Za-z0-9]+", entity) if w]
         card = out.with_suffix(".og.jpg")
-        tile.render_job({"output": str(card), "card": True, "palette": tile.PALETTES["teal"], "motif": "grid",
-                         "seed": f"{slug}-resume", "title": f"{entity} · Resume",
-                         "eyebrow": f"{media_host} · resume", "text": "".join(w[0] for w in words[:2]).upper()})
+        try:
+            role = profile["language_profiles"]["payloads"]["professional"]["title"]
+        except KeyError:
+            role = "resume"
+        tile.render_job({"output": str(card), "card": True, "palette": tile.PALETTES["teal"],
+                         "seed": f"{slug}-resume", "title": entity, "subtitle": "(resume)", "tagline": role,
+                         "eyebrow": media_host, "text": "".join(w[0] for w in words[:2]).upper()})
         card_url = f"https://{media_host}/resume.og.jpg"
     else:
         print(f"  WARN: meme-factory tile generator not at {TILE_PY}; resume ships with no og:image", file=sys.stderr)

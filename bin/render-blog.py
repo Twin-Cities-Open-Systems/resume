@@ -154,8 +154,13 @@ def post_card(out_html, title, date, host, slug):
     mono = ("".join(w[0] for w in words[:2]) or slug[:2]).upper()
     palette = tile.PALETTES[PALETTE_NAMES[int(hashlib.sha256(slug.encode()).hexdigest(), 16) % len(PALETTE_NAMES)]]
     out = out_html.with_suffix(".og.jpg")
-    tile.render_job({"output": str(out), "card": True, "palette": palette, "motif": "diagonals", "seed": slug,
-                     "title": title, "eyebrow": f"{host} · {date}", "text": mono})
+    try:
+        entity = json.loads((Path("profiles") / out.parts[-3] / "profile.json").read_text())["meta"]["entity"]
+    except Exception:  # noqa: BLE001
+        entity = host
+    tile.render_job({"output": str(out), "card": True, "palette": palette, "seed": slug,
+                     "title": title, "subtitle": f"({entity})", "tagline": f"post · {date}",
+                     "eyebrow": host, "text": mono})
     return out
 
 
