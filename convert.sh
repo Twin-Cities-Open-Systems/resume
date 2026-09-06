@@ -172,7 +172,7 @@ EOF
             cp "${REAL_RESUME_SOURCES[$slug]}" "$OUTPUT_WEB_DIR/${REAL_RESUME_SOURCES[$slug]}"
 
             if command -v pandoc >/dev/null 2>&1; then
-                pandoc -s "$profile_dir/dist/resume.md" -t html5 \
+                pandoc -s "$profile_dir/dist/resume.md" -f markdown+autolink_bare_uris -t html5 \
                     --metadata pagetitle="${entity} Resume" \
                     -H resume-theme.html \
                     -o "$profile_dir/dist/resume.html" 2>/dev/null
