@@ -38,9 +38,18 @@ if [ "$cmd" = promote ]; then
   fi
 fi
 
-echo "=== build (convert.sh -> dist/, blog-redirect-worker -> dist/_worker.js) ==="
-LOG="$(mktemp)"; trap 'rm -f "$LOG"' EXIT
-./convert.sh >"$LOG" 2>&1 || { echo "❌ CRITICAL build: convert.sh failed -- last lines:" >&2; tail -15 "$LOG" >&2; exit 2; }
+# Build in a throwaway worktree of HEAD, never in the checkout: convert.sh
+# rewrites 18 tracked files (dist/*.html, posts, profiles/*/dist/resume.*),
+# so building here left the operator's tree dirty after every promote and
+# the next promote refused (2026-09-06). The checkout stays exactly as it
+# was; what ships is what the commit builds to.
+BUILD="$(mktemp -d)"; LOG="$(mktemp)"
+cleanup() { git worktree remove --force "$BUILD" >/dev/null 2>&1 || rm -rf "$BUILD"; rm -f "$LOG" "$LOG.mjs"; }
+trap cleanup EXIT
+git worktree add -q --detach "$BUILD" HEAD
+echo "=== build (worktree of $(git rev-parse --short HEAD): convert.sh -> dist/, blog-redirect-worker -> dist/_worker.js) ==="
+( cd "$BUILD" && ./convert.sh ) >"$LOG" 2>&1 || { echo "❌ CRITICAL build: convert.sh failed -- last lines:" >&2; tail -15 "$LOG" >&2; exit 2; }
+cd "$BUILD"
 [ -s dist/_worker.js ] || { echo "❌ CRITICAL build: dist/_worker.js missing -- the blog->media redirect would not ship" >&2; exit 2; }
 [ -s dist/people.json ] || { echo "❌ CRITICAL build: dist/people.json missing -- the hubs would be empty" >&2; exit 2; }
 
@@ -58,7 +67,7 @@ cp dist/_worker.js "$LOG.mjs" && node --check "$LOG.mjs" 2>/dev/null && rm -f "$
 echo "  hee check all: OK; no conflict markers; tag on the three hubs; worker parses"
 
 if [ "$cmd" = lab ]; then
-  make -C "$HOME/git/.github" lab-blog >/dev/null
+  make -C "$HOME/git/.github" RESUME="$BUILD" lab-blog >/dev/null
   echo "=== audit (lab) ==="
   python3 media/bin/media-item.py audit || true
   echo "=== lab updated -- review https://blog.lab.tcos.us and https://media.lab.tcos.us, then bin/deploy-pages.sh promote ==="
@@ -94,6 +103,7 @@ python3 media/bin/media-item.py audit --prod || bad=1
 [ "$bad" = 0 ] || { echo "❌ CRITICAL promote: prod verification failed -- fix forward or redeploy the previous commit" >&2; exit 2; }
 
 TAG="prod/resume-pages/$STAMP"
+cd "$HERE"
 hee git tag "$TAG" -m "prod promotion: blog.tcos.us, media.tcos.us, *.blog.tcos.us
 pages project: $PROJECT
 source: $SRC_SHA
