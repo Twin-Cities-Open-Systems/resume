@@ -116,7 +116,7 @@ echo "  hee check all: OK; staged tree: no conflict markers"
 # sig_tag), on the Cloudflare version and on the prod git tag. Operator,
 # 2026-09-06: "should be using the approved hee sig hash ... better than
 # more PATs". One shared token; every deploy still names its session.
-SIG="$(hee ver session --signature 2>/dev/null || hee ver session 2>/dev/null | awk '/sig_tag|rc_tag/{print $2; exit}')"
+SIG="$(hee ver session --tag 2>/dev/null || hee ver session 2>/dev/null | awk '/sig_tag|rc_tag/{print $2; exit}')"
 [ -n "$SIG" ] || { echo "❌ CRITICAL promote: no session signature from hee ver session -- not promoting" >&2; exit 2; }
 SRC_SHA="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
 STAMP="$(date -u +%Y%m%dT%H%MZ)"
