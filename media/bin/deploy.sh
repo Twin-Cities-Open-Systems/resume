@@ -69,9 +69,19 @@ find "$STAGE" -name __pycache__ -type d -exec rm -rf {} + 2>/dev/null || true
 # carry the same bytes and the tracked source keeps the placeholder.
 _full="$(git -C "$REPO_ROOT" rev-parse HEAD)"; _short="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
 find "$STAGE" -name '*.html' -exec sed -i "s|\$COMMIT_SHORT|$_short|g; s|\$COMMIT|$_full|g" {} +
+# The resume is rendered here from its source so the stage never carries a
+# stale page (its tracked copy is a build output, refreshed by the same
+# call): Gold page, Open Graph set, its own card.
+# Rendered INTO the stage: rendering onto the tracked copy left the tree
+# dirty after every deploy (its lu: timestamp moves). The tracked copy is
+# refreshed by convert.sh at build time, which is what the audit reads.
+if [ -f "$REPO_ROOT/profiles/$OPER/dist/resume.md" ]; then
+  ( cd "$REPO_ROOT" && python3 bin/render-resume.py "$OPER" "profiles/$OPER/dist/resume.md" "$STAGE/resume.html" >/dev/null ) \
+    || { echo "❌ CRITICAL deploy: render-resume failed for $OPER" >&2; exit 2; }
+fi
 # The operator's resume ships with the media host (/resume.html, .pdf, .md,
 # .txt) -- the blog host that used to serve it is a redirect now.
-for _ext in html pdf md txt; do
+for _ext in pdf md txt; do   # html and og.jpg were just rendered into the stage
   [ -f "$REPO_ROOT/profiles/$OPER/dist/resume.$_ext" ] && cp "$REPO_ROOT/profiles/$OPER/dist/resume.$_ext" "$STAGE/resume.$_ext"
 done
 

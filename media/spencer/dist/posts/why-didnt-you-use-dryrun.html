@@ -8,7 +8,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   // production only: *.lab.tcos.us, localhost and file:// load this but never report
-  if (/\.tcos\.us$/.test(location.hostname) && !/\.lab\.tcos\.us$/.test(location.hostname)) {
+  if (/(^|\.)tcos\.us$/.test(location.hostname) && !/(^|\.)lab\.tcos\.us$/.test(location.hostname)) {
     gtag('config', 'G-BQK0DFRRZ7');
   }
 </script>
@@ -27,7 +27,12 @@
 <meta property="og:description" content="HwOps Log: Why Didn't You Use The Dry Run Option? -- spencer's blog, 2026-08-19.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://spencer.blog.tcos.us/profiles/spencer/blog/why-didnt-you-use-dryrun.html">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://spencer.media.tcos.us/posts/why-didnt-you-use-dryrun.og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HwOps Log: Why Didn&#x27;t You Use The Dry Run Option?">
+<meta name="twitter:image" content="https://spencer.media.tcos.us/posts/why-didnt-you-use-dryrun.og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="HwOps Log: Why Didn't You Use The Dry Run Option? -- spencer's blog, 2026-08-19.">
 <link rel="canonical" href="https://spencer.blog.tcos.us/profiles/spencer/blog/why-didnt-you-use-dryrun.html">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -69,59 +74,67 @@
   --good-soft: #163019; --warning-soft: #332309; --critical-soft: #3a1414;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--ground); color: var(--ink); font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-size: 14.5px; line-height: 1.55; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-size: 0.9062rem; line-height: 1.55; }
 .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 22px 60px; }
 .site-bar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--line); }
-.site-logo { display: flex; align-items: center; gap: 7px; font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
-.site-logo .mark { color: var(--accent); font-size: 15px; }
+.site-logo { display: flex; align-items: center; gap: 7px; font-family: "JetBrains Mono", monospace; font-size: 0.8125rem; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.site-logo .mark { color: var(--accent); font-size: 0.9375rem; }
 .site-logo:hover { color: var(--accent-ink); }
 .fontsize-toggle { display: flex; align-items: center; gap: 6px; }
-.fontsize-toggle .fs-label { font-family: ui-monospace, monospace; font-size: 10px; color: var(--ink-faint); cursor: default; user-select: none; }
+.fontsize-toggle .fs-label { font-family: ui-monospace, monospace; font-size: 0.625rem; color: var(--ink-faint); cursor: default; user-select: none; }
 .fontsize-toggle .fs-options { display: flex; align-items: center; gap: 4px; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .18s ease, opacity .12s ease; }
 .fontsize-toggle:hover .fs-options, .fontsize-toggle:focus-within .fs-options { max-width: 200px; opacity: 1; }
 .fontsize-toggle.fs-force-collapsed .fs-options { max-width: 0 !important; opacity: 0 !important; }
-.fontsize-btn { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint); font-family: ui-monospace, monospace; font-size: 10.5px; font-weight: 700; width: 22px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; }
+.fontsize-btn { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint); font-family: ui-monospace, monospace; font-size: 0.6562rem; font-weight: 700; width: 22px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; }
 .fontsize-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
-body[data-fontsize="s"] { zoom: 0.875; }
-body[data-fontsize="m"] { zoom: 1; }
-body[data-fontsize="l"] { zoom: 1.125; }
-body[data-fontsize="xl"] { zoom: 1.25; }
-body[data-fontsize="xxl"] { zoom: 1.375; }
+/* Text size scales the ROOT (text is in rem), never body zoom -- the same
+   mechanism as tcos-www; the layout script below measures the viewport in
+   em, so a bigger text size collapses the layout like a narrower screen. */
+html[data-fontsize="s"] { font-size: 87.5%; }
+html[data-fontsize="m"] { font-size: 100%; }
+html[data-fontsize="l"] { font-size: 112.5%; }
+html[data-fontsize="xl"] { font-size: 125%; }
+html[data-fontsize="xxl"] { font-size: 137.5%; }
+html[data-layout~="compact"] .wrap { padding: 16px 12px 40px; }
+html[data-layout~="compact"] .lu-row { flex-direction: column; gap: 2px; }
+html[data-layout~="compact"] .toggles-row { flex-wrap: wrap; }
+html[data-layout~="compact"] .tabs { overflow-x: auto; }
+html[data-layout~="compact"] pre, html[data-layout~="compact"] table { max-width: 100%; overflow-x: auto; }
 .theme-toggle { display: flex; align-items: center; gap: 4px; margin-right: 12px; }
-.theme-toggle span { font-family: ui-monospace, monospace; font-size: 10px; color: var(--ink-faint); margin-right: 2px; }
-.theme-btn { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint); font-family: ui-monospace, monospace; font-size: 9.5px; font-weight: 700; padding: 0 7px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; text-transform: uppercase; }
+.theme-toggle span { font-family: ui-monospace, monospace; font-size: 0.625rem; color: var(--ink-faint); margin-right: 2px; }
+.theme-btn { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint); font-family: ui-monospace, monospace; font-size: 0.5938rem; font-weight: 700; padding: 0 7px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; text-transform: uppercase; }
 .theme-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
 .toggles-row { display: flex; align-items: center; }
-.eyebrow { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
-h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; font-family: "JetBrains Mono", monospace; word-break: break-all; }
-.meta { color: var(--ink-faint); font-size: 12.5px; margin: 0 0 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; row-gap: 4px; }
-.lu-row { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--ink-faint); margin: 0 0 18px; }
+.eyebrow { font-family: "JetBrains Mono", monospace; font-size: 0.7188rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+h1 { font-size: 1.25rem; font-weight: 600; margin: 0 0 4px; font-family: "JetBrains Mono", monospace; word-break: break-all; }
+.meta { color: var(--ink-faint); font-size: 0.7812rem; margin: 0 0 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; row-gap: 4px; }
+.lu-row { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: "JetBrains Mono", monospace; font-size: 0.7188rem; color: var(--ink-faint); margin: 0 0 18px; }
 .lu-row b { color: var(--ink-dim); font-weight: 600; }
-.chip { display: inline-flex; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-family: "JetBrains Mono", monospace; font-weight: 600; margin-right: 6px; }
+.chip { display: inline-flex; padding: 2px 8px; border-radius: 20px; font-size: 0.6875rem; font-family: "JetBrains Mono", monospace; font-weight: 600; margin-right: 6px; }
 .chip.new { background: var(--good-soft); color: var(--good); }
 .chip.mod { background: var(--warning-soft); color: var(--warning); }
 .chip.browse { background: var(--accent-soft); color: var(--accent-ink); }
 .tabs { display: flex; gap: 4px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
-.tab { font-family: "JetBrains Mono", monospace; font-size: 12.5px; padding: 9px 16px; cursor: pointer; color: var(--ink-faint); border-bottom: 2px solid transparent; user-select: none; }
+.tab { font-family: "JetBrains Mono", monospace; font-size: 0.7812rem; padding: 9px 16px; cursor: pointer; color: var(--ink-faint); border-bottom: 2px solid transparent; user-select: none; }
 .tab.active { color: var(--accent-ink); border-bottom-color: var(--accent); }
 .panel { display: none; }
 .panel.active { display: block; }
 .empty { color: var(--ink-faint); font-style: italic; padding: 20px; }
-pre.diff { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 0; overflow-x: auto; font-size: 12.5px; margin: 0; }
+pre.diff { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 0; overflow-x: auto; font-size: 0.7812rem; margin: 0; }
 .dl { display: block; padding: 1px 16px; font-family: "JetBrains Mono", monospace; white-space: pre; }
 .dl.add { background: var(--good-soft); color: color-mix(in srgb, var(--good) 70%, var(--ink)); }
 .dl.del { background: var(--critical-soft); color: color-mix(in srgb, var(--critical) 70%, var(--ink)); }
 .dl.hdr { color: var(--ink-faint); font-weight: 600; }
 .dl.hunk { color: var(--accent-ink); background: var(--accent-soft); }
 .dl.ctx { color: var(--ink-dim); }
-.highlight { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; font-size: 12.5px; line-height: 1.5; }
+.highlight { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; font-size: 0.7812rem; line-height: 1.5; }
 .highlight pre { margin: 0; font-family: "JetBrains Mono", monospace; }
 
 /* "Normal git markdown style" -- github-flavored-markdown proportions and
    spacing (headers with a bottom rule, tight list spacing, fenced code
    blocks that reuse the real pygments highlight above), themed to this
    site's own palette rather than GitHub's colors. */
-.prose { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 24px 32px; max-width: 80ch; font-size: 14.5px; line-height: 1.6; }
+.prose { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 24px 32px; max-width: 80ch; font-size: 0.9062rem; line-height: 1.6; }
 .prose > *:first-child { margin-top: 0; }
 .prose h1, .prose h2, .prose h3, .prose h4 { color: var(--ink); font-weight: 600; margin: 24px 0 16px; }
 .prose h1 { font-size: 1.7em; padding-bottom: 0.3em; border-bottom: 1px solid var(--line); }
@@ -402,7 +415,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 :root[data-theme="dark"] .highlight .vi { color: #268bd2 } /* Name.Variable.Instance */
 :root[data-theme="dark"] .highlight .vm { color: #268bd2 } /* Name.Variable.Magic */
 :root[data-theme="dark"] .highlight .il { color: #2aa198 } /* Literal.Number.Integer.Long */
-.back { display: inline-block; margin-top: 20px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-dim); text-decoration: none; }
+.back { display: inline-block; margin-top: 20px; font-family: "JetBrains Mono", monospace; font-size: 0.75rem; color: var(--ink-dim); text-decoration: none; }
 
 /* GitHub-style hover-card on owner/repo#123 references -- real data via
    a live fetch() to api.github.com on hover, not embedded at generation
@@ -417,18 +430,18 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   width: 320px; max-width: calc(100vw - 24px);
   background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-  padding: 12px 14px; font-size: 12.5px; color: var(--ink-dim);
+  padding: 12px 14px; font-size: 0.7812rem; color: var(--ink-dim);
 }
 .xref-card.show { display: block; }
-.xref-card .xc-repo { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-faint); margin-bottom: 4px; }
-.xref-card .xc-title { color: var(--ink); font-weight: 600; font-size: 13.5px; margin-bottom: 6px; line-height: 1.35; }
-.xref-card .xc-state { display: inline-flex; align-items: center; gap: 5px; font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-right: 6px; }
+.xref-card .xc-repo { font-family: "JetBrains Mono", monospace; font-size: 0.6875rem; color: var(--ink-faint); margin-bottom: 4px; }
+.xref-card .xc-title { color: var(--ink); font-weight: 600; font-size: 0.8438rem; margin-bottom: 6px; line-height: 1.35; }
+.xref-card .xc-state { display: inline-flex; align-items: center; gap: 5px; font-family: "JetBrains Mono", monospace; font-size: 0.6875rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-right: 6px; }
 .xref-card .xc-state.open { background: var(--good-soft); color: var(--good); }
 .xref-card .xc-state.closed { background: var(--critical-soft); color: var(--critical); }
 .xref-card .xc-state.merged { background: var(--accent-soft); color: var(--accent-ink); }
 .xref-card .xc-labels { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
-.xref-card .xc-label { font-size: 10.5px; font-family: "JetBrains Mono", monospace; padding: 1px 7px; border-radius: 20px; font-weight: 600; }
-.xref-card .xc-meta { margin-top: 8px; font-size: 11px; color: var(--ink-faint); }
+.xref-card .xc-label { font-size: 0.6562rem; font-family: "JetBrains Mono", monospace; padding: 1px 7px; border-radius: 20px; font-weight: 600; }
+.xref-card .xc-meta { margin-top: 8px; font-size: 0.6875rem; color: var(--ink-faint); }
 .xref-card .xc-err { color: var(--ink-faint); font-style: italic; }
 .back:hover { color: var(--accent-ink); }
 </style>
@@ -456,12 +469,12 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       </div>
     </div>
   </div>
-  <p class="eyebrow">resume &middot; post</p>
-  <h1>profiles/spencer/blog/why-didnt-you-use-dryrun.md</h1>
-  <p class="meta"><span class="chip browse">post</span></p>
+  <p class="eyebrow"><a href="https://github.com/Twin-Cities-Open-Systems/resume">resume</a> &middot; post</p>
+  <h1><a href="https://github.com/Twin-Cities-Open-Systems/resume/blob/main/profiles/spencer/blog/why-didnt-you-use-dryrun.md">profiles/spencer/blog/why-didnt-you-use-dryrun.md</a></h1>
+  <p class="meta"><a class="chip browse" href="/">post</a></p>
   <div class="lu-row">
-    <span><b>lu:</b> <time class="lu-iso" datetime="2026-09-06T04:10:01Z">2026-09-06T04:10:01Z</time> &middot; <span class="lu-human"></span> &middot; <span class="lu-delta"></span></span>
-    <span><b>commit:</b> <a href="https://github.com/Twin-Cities-Open-Systems/resume/commit/eadbe1a5ccaf5cd7b1c6e91e8deb59f3e5338374">eadbe1a</a></span>
+    <span><b>lu:</b> <time class="lu-iso" datetime="2026-09-06T09:39:26Z">2026-09-06T09:39:26Z</time> &middot; <span class="lu-human"></span> &middot; <span class="lu-delta"></span></span>
+    <span><b>commit:</b> <a href="https://github.com/Twin-Cities-Open-Systems/resume/commit/f70dfc9c9567fc1659c8d8c987bd72562f29b931">f70dfc9</a></span>
     <span><b>license:</b> <a href="https://github.com/Twin-Cities-Open-Systems/.github/blob/main/LICENSE">GPL-3.0</a> (org-wide; this repo carries no LICENSE)</span>
   </div>
 
@@ -528,7 +541,9 @@ document.querySelectorAll(".tab").forEach(function (t) {
 (function () {
   var FS_KEY = "tcos-fontsize";
   function applyFontsize(size) {
+    document.documentElement.setAttribute("data-fontsize", size);
     document.body.setAttribute("data-fontsize", size);
+    if (window.tcosLayout) window.tcosLayout();
     document.querySelectorAll(".fontsize-btn").forEach(function (b) {
       b.classList.toggle("active", b.dataset.size === size);
     });
@@ -730,6 +745,44 @@ document.querySelectorAll(".tab").forEach(function (t) {
   });
   card.addEventListener("mouseenter", function () { clearTimeout(hideTimer); });
   card.addEventListener("mouseleave", function () { card.classList.remove("show"); });
+})();
+
+// Links that leave this host open in a new tab; same-site navigation stays
+// in place. Operator, 2026-09-06: "most links should open in a new tab".
+// Decided at load time from the real href, so authors never annotate.
+(function () {
+  function run() {
+    document.querySelectorAll("a[href]").forEach(function (a) {
+      var url;
+      try { url = new URL(a.getAttribute("href"), location.href); } catch (e) { return; }
+      if (url.protocol !== "http:" && url.protocol !== "https:") return;
+      if (url.hostname === location.hostname) return;
+      if (!a.target) a.target = "_blank";
+      a.rel = (a.rel ? a.rel + " " : "") + "noopener";
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
+})();
+
+// Layout tokens from the space actually available, in em -- phone, browser
+// zoom and XXL text all collapse the same way (SYNCED-FROM tcos-www site.js).
+(function () {
+  var COMPACT_EM = 44, NARROW_EM = 26;
+  function layout() {
+    var root = document.documentElement;
+    var px = parseFloat(getComputedStyle(root).fontSize) || 16;
+    var em = root.clientWidth / px;
+    var tokens = [];
+    if (em < COMPACT_EM) tokens.push("compact");
+    if (em < NARROW_EM) tokens.push("narrow");
+    root.setAttribute("data-layout", tokens.join(" ") || "wide");
+  }
+  window.tcosLayout = layout;
+  var q = new URLSearchParams(location.search).get("fs");
+  if (q && /^(s|m|l|xl|xxl)$/.test(q)) { try { localStorage.setItem("tcos-fontsize", q); } catch (e) {} document.documentElement.setAttribute("data-fontsize", q); }
+  layout();
+  window.addEventListener("resize", layout);
+  window.addEventListener("orientationchange", layout);
 })();
 </script>
 </body>

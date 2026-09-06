@@ -177,10 +177,9 @@ EOF
             cp "${REAL_RESUME_SOURCES[$slug]}" "$OUTPUT_WEB_DIR/${REAL_RESUME_SOURCES[$slug]}"
 
             if command -v pandoc >/dev/null 2>&1; then
-                pandoc -s "$profile_dir/dist/resume.md" -f markdown+autolink_bare_uris -t html5 \
-                    --metadata pagetitle="${entity} Resume" \
-                    -H resume-theme.html \
-                    -o "$profile_dir/dist/resume.html" 2>/dev/null
+                # Gold page + full Open Graph + its own card (2026-09-06:
+                # the standalone pandoc page had a <title> and nothing else)
+                python3 bin/render-resume.py "$slug" "$profile_dir/dist/resume.md" "$profile_dir/dist/resume.html"
                 if command -v wkhtmltopdf >/dev/null 2>&1; then
                     pandoc -s "$profile_dir/dist/resume.md" \
                         --metadata pagetitle="${entity} Resume" \

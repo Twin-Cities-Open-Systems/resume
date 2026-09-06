@@ -61,6 +61,13 @@ fi
 for f in dist/index.html dist/blog-hub.html dist/media-hub.html; do
   grep -q 'gtag/js?id=G-' "$f" || { echo "❌ CRITICAL deploy: $f has no Google tag -- stopping" >&2; exit 2; }
 done
+# Every page Pages serves carries the Open Graph set (2026-09-06 sweep:
+# two stale pages at the dist root had a <title> and nothing else).
+for page in $(find dist -name '*.html' | sort); do
+  for t in og:title og:description og:url; do
+    grep -q "property=\"$t\"" "$page" || { echo "❌ CRITICAL deploy: $page has no $t -- every served page carries the Open Graph set" >&2; exit 2; }
+  done
+done
 # the worker is an ES module (export default), so --check it as one
 cp dist/_worker.js "$LOG.mjs" && node --check "$LOG.mjs" 2>/dev/null && rm -f "$LOG.mjs" \
   || { echo "❌ CRITICAL deploy: dist/_worker.js does not parse" >&2; rm -f "$LOG.mjs"; exit 2; }

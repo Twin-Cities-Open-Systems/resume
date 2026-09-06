@@ -138,6 +138,34 @@ def build(item_dir, network=True):
     if og_name not in {it["file"] for it in items}:
         sys.exit(f"media-item: og_image {og_name!r} is not one of this item's files -- the preview must show the content itself")
     og_file = item_dir / og_name
+    # Social cards crop to ~1.91:1 (Facebook and X cut the top line off a
+    # 4:3 frame, measured 2026-09-06); Discord shows the whole thing. So the
+    # og:image is a 1200x630 JPEG with the frame letterboxed on the card's
+    # og_bg (default near-black), built here from the same file; the GIF
+    # stays the first item. og_bg: "#rrggbb" on the card to change the bars.
+    og_src = og_file
+    with Image.open(og_src) as im:
+        im.seek(0)
+        frame = im.convert("RGB")
+    W, H = 1200, 630
+    bg = spec.get("og_bg", "#0b0f0b").lstrip("#")
+    canvas = Image.new("RGB", (W, H), tuple(int(bg[i:i + 2], 16) for i in (0, 2, 4)))
+    scale = min(W / frame.width, H / frame.height)
+    fitted = frame.resize((max(1, round(frame.width * scale)), max(1, round(frame.height * scale))), Image.LANCZOS)
+    canvas.paste(fitted, ((W - fitted.width) // 2, (H - fitted.height) // 2))
+    og_file = item_dir / "og.jpg"
+    canvas.save(og_file, "JPEG", quality=88, optimize=True, progressive=True)
+    # the org's standard metadata on the derived card, like every published
+    # file: provenance (from which source file), agent signature, branding
+    env = dict(os.environ)
+    if not env.get("HEE_BRANDING") and (Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml").is_file():
+        env["HEE_BRANDING"] = str(Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml")
+    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
+    subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
+                    "--job", str(card_path), "--source", str(og_src), "--kv", "kind=og-card 1200x630 letterboxed"], check=True, capture_output=True, env=env)
+    subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
+    if env.get("HEE_BRANDING"):
+        subprocess.run([str(HEE_EXIF), "brand", str(og_file), "--artist", spec.get("owner", "Twin Cities Open Systems")], check=True, capture_output=True, env=env)
     with Image.open(og_file) as im:
         og_w, og_h = im.size
     stats = ""
@@ -182,10 +210,10 @@ def build(item_dir, network=True):
         TAG_LABELS_JSON=json.dumps(tags),
         GTAG=GTAG.replace("$", "$$"),
     )
-    index = Template((TEMPLATES / "item-index.html.tmpl").read_text()).substitute(values)
+    index = Template((TEMPLATES / "item-index.html.tmpl").read_text()).safe_substitute(values)
     index = index.replace("var SIGNATURES = {};", "var SIGNATURES = " + json.dumps(signatures) + ";")
     (item_dir / "index.html").write_text(index)
-    exif_page = Template((TEMPLATES / "item-exif.html.tmpl").read_text()).substitute(values)
+    exif_page = Template((TEMPLATES / "item-exif.html.tmpl").read_text()).safe_substitute(values)
     (item_dir / "exif.html").write_text(exif_page)
     print(f"[+] {item_dir / 'index.html'} ({len(items)} item(s), {len(signatures)} signed)")
 
@@ -199,8 +227,10 @@ def build(item_dir, network=True):
 
     # the media root lists every item; add this one if it is not there
     root = item_dir.parent / "index.html"
-    if root.is_file() and f'href="/{slug}"' not in root.read_text():
-        li = (f'    <li>\n      <img class="item-icon" src="/icons/favicon-32.png" alt="">\n      <div>\n'
+    # the root lists it as href="/<slug>/" (busybox needs the slash); both
+    # forms count, or every rebuild appended a duplicate card (2026-09-06)
+    if root.is_file() and f'href="/{slug}/"' not in root.read_text() and f'href="/{slug}"' not in root.read_text():
+        li = (f'    <li>\n      {tile_for_card(card, item_dir, "gallery")}\n      <div>\n'
               f'        <a href="/{esc(slug)}">{esc(spec["title"])}</a>\n        <p>{esc(spec["description"])}</p>\n      </div>\n    </li>\n')
         r = root.read_text()
         r = r.replace("  </ul>\n  <p class=\"note\">", li + "  </ul>\n  <p class=\"note\">", 1)
@@ -213,6 +243,60 @@ ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
 
 
 ROOT_TMPL = Path(__file__).resolve().parent.parent / "templates" / "root-index.html.tmpl"
+
+
+# Card tiles: rendered by the org's own meme-factory `tile` generator
+# (fleet-ops/tools/meme-factory/tile/tile.py): a two-color gradient, one
+# motif, a monogram -- deterministic from the card, no icon set. Operator,
+# 2026-09-06: "just make our own with the meme-factory", after two
+# open-source sets ("drab", emoji). Palette from the topic label, motif
+# from the kind, monogram from the title; a card may set
+#   tile: { text: "26", palette: ember, motif: rings }
+# to override any of the three. Missing generator -> WARNING, no tile.
+TILE_PY = Path(os.environ.get("MEME_FACTORY_TILE", Path.home() / "git/fleet-ops/tools/meme-factory/tile/tile.py"))
+PALETTE_BY_TOPIC = {"meme": "ember", "tattoo": "violet", "photo": "ocean", "photos": "ocean", "video": "sunset",
+                    "audio": "coral", "music": "coral", "code": "teal", "talk": "mint", "book": "lime",
+                    "hardware": "teal", "gif": "ember", "linux": "lime"}
+MOTIF_BY_KIND = {"gallery": "rings", "post": "diagonals", "resume": "grid"}
+PALETTE_NAMES = ["ember", "violet", "lime", "sunset", "ocean", "mint", "coral", "teal"]
+
+
+def monogram(title):
+    words = [w for w in re.split(r"[^A-Za-z0-9]+", title) if w]
+    return ("".join(w[0] for w in words[:2]) or title[:2]).upper()
+
+
+def tile_png(out_png, *, text, palette, motif, seed):
+    """Render one tile with meme-factory; returns the served path or ''."""
+    if not TILE_PY.is_file():
+        print(f"⚠️  WARNING  media-item: meme-factory tile generator not found at {TILE_PY}; cards get no tile", file=sys.stderr)
+        return False
+    import hashlib, tempfile
+    job = {"output": str(out_png), "size": 256, "text": text, "seed": seed, "motif": motif}
+    sys.path.insert(0, str(TILE_PY.parent))
+    import importlib; tile = importlib.import_module("tile")
+    job["palette"] = tile.PALETTES.get(palette) or tile.PALETTES["lime"]
+    tile.render_job(job)
+    return True
+
+
+def tile_for_card(card, item_dir, kind="gallery"):
+    spec = card.get("spec", {}); labels = (card.get("metadata") or {}).get("labels") or {}
+    t = spec.get("tile") or {}
+    text = t.get("text") or monogram(spec.get("title", item_dir.name))
+    palette = t.get("palette") or PALETTE_BY_TOPIC.get(str(labels.get("topic", "")).lower(), "lime")
+    motif = t.get("motif") or MOTIF_BY_KIND.get(kind, "rings")
+    if tile_png(item_dir / "tile.png", text=text, palette=palette, motif=motif, seed=item_dir.name):
+        return f'<img class="item-icon" src="/{item_dir.name}/tile.png" alt="" width="40" height="40">'
+    return ""
+
+
+def tile_for_post(posts_dir, slug, title):
+    import hashlib
+    palette = PALETTE_NAMES[int(hashlib.sha256(slug.encode()).hexdigest(), 16) % len(PALETTE_NAMES)]
+    if tile_png(posts_dir / f"{slug}.tile.png", text=monogram(title), palette=palette, motif="diagonals", seed=slug):
+        return f'<img class="item-icon" src="/posts/{slug}.tile.png" alt="" width="40" height="40">'
+    return ""
 
 
 def root_init(media_dist, oper_name, media_host, blog_host=None, description=None):
@@ -263,10 +347,10 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
     media_dist = Path(media_dist).resolve()
     rows = []
     for card_path in sorted(media_dist.glob("*/item.card.v1.yaml")):
-        spec = yaml.safe_load(card_path.read_text())["spec"]
+        card = yaml.safe_load(card_path.read_text()); spec = card["spec"]
         slug = card_path.parent.name
         when = spec.get("date") or max((it.get("date", "") for it in spec.get("items", [])), default="")
-        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"]))  # trailing slash: busybox httpd does not redirect a bare dir
+        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"], tile_for_card(card, card_path.parent, "gallery")))  # trailing slash: busybox httpd does not redirect a bare dir
     if posts_manifest and oper:
         posts_dir = media_dist / "posts"; posts_dir.mkdir(exist_ok=True)
         for post in json.loads(Path(posts_manifest).read_text()):
@@ -277,13 +361,16 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
                 print(f"⚠️  WARNING  media-item root: rendered post missing, skipped: {src}", file=sys.stderr); continue
             dst = posts_dir / (post["slug"] + ".html")
             dst.write_bytes(src.read_bytes())
+            card = src.with_suffix(".og.jpg")   # the post's social preview, rendered by render-blog
+            if card.is_file():
+                (posts_dir / (post["slug"] + ".og.jpg")).write_bytes(card.read_bytes())
             rows.append((post["date"], "post", f"/posts/{post['slug']}.html", post["title"],
-                         f"Blog post, {post['date']}."))
+                         f"Blog post, {post['date']}.", tile_for_post(posts_dir, post["slug"], post["title"])))
     rows.sort(key=lambda r: r[0], reverse=True)
     li = "".join(
-        f'    <li data-kind="{esc(kind)}">\n      <img class="item-icon" src="/icons/favicon-32.png" alt="">\n      <div>\n'
+        f'    <li data-kind="{esc(kind)}">\n      {icon}\n      <div>\n'
         f'        <a href="{esc(href)}">{esc(title)}</a>\n        <p><span class="mono">{esc(when)} &middot; {esc(kind)}</span> &mdash; {esc(desc)}</p>\n      </div>\n    </li>\n'
-        for when, kind, href, title, desc in rows)
+        for when, kind, href, title, desc, icon in rows)
     index = media_dist / "index.html"
     s = index.read_text()
     m = ITEMS_RE.search(s)
@@ -404,6 +491,45 @@ def audit(repo_root, env="lab"):
     for d, opers in descs.items():
         if len(opers) > 1:
             print(f"🟡 WARNING audit: same og:description on {', '.join(opers)}: {d[:70]!r}"); worst = max(worst, 1)
+
+    # 2c. every page a media host serves carries the Open Graph set. The
+    # resume shipped with a <title> and nothing else (2026-09-06, operator:
+    # "how did that slip through?") because nothing looked. Static check on
+    # the tracked pages, so it fails before a deploy, not after.
+    NEED = ("og:title", "og:description", "og:url", "og:image")
+    served = [p_["slug"] for p_ in people if p_.get("media_dns")]
+    resumes = [repo_root / "profiles" / s_ / "dist" / "resume.html" for s_ in served]
+    for page in sorted(list(repo_root.glob("media/*/dist/**/*.html")) + [r for r in resumes if r.is_file()]):
+        html_ = page.read_text(errors="replace")
+        missing = [t for t in NEED if f'property="{t}"' not in html_]
+        if missing:
+            print(f"🔴 CRITICAL audit: {page.relative_to(repo_root)} lacks {', '.join(missing)}"); worst = 2
+
+    # 2d. every generated image (tiles, cards) carries the org's provenance
+    # and branding in its metadata, like every other file we publish.
+    # Operator, 2026-09-06: "all of these og images have our standard
+    # exif, right?" -- they did not, and nothing had looked.
+    # Generated images (tiles, cards) must carry provenance; every image a
+    # media host serves -- authored ones included, like og-banner.jpg --
+    # must carry the org branding. The shared tree is checked once.
+    generated = re.compile(r"(^|/)(tile\.png|og\.jpg|[^/]+\.og\.jpg)$")
+    imgs = sorted(set(list(repo_root.glob("media/*/dist/**/*.png")) + list(repo_root.glob("media/*/dist/**/*.jpg"))
+                      + list(repo_root.glob("media/shared/*.jpg")) + list(repo_root.glob("media/shared/*.png"))
+                      + [repo_root / "profiles" / s_ / "dist" / "resume.og.jpg" for s_ in served]))
+    for img in imgs:
+        if not img.is_file() or "/icons/" in str(img):
+            continue
+        # -T prints "-" for an absent tag, so the columns never shift (-s3 drops it)
+        r = subprocess.run(["exiftool", "-T", "-XMP-dc:Description", "-XMP-dc:Publisher", str(img)], capture_output=True, text=True)
+        cols = (r.stdout.strip().split("\t") + ["-", "-"])[:2]
+        desc, publisher = [("" if c == "-" else c) for c in cols]
+        missing = []
+        if generated.search(str(img)) and not desc.startswith("provenance:"):
+            missing.append("provenance")
+        if not publisher:
+            missing.append("branding")
+        if missing:
+            print(f"🔴 CRITICAL audit: {img.relative_to(repo_root)} lacks {' and '.join(missing)} metadata"); worst = 2
 
     # 3. every blog URL a reader may hold
     former = {}

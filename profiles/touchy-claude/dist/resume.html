@@ -1,187 +1,756 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>touchy-claude Resume</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-  </style>
-  <style>
-    :root { --bg: #111; --pane-bg: #1a1a1a; --text: #eee; --accent: #00ff00; --border: #333; --muted: #888; }
-    body { font-family: monospace; background: var(--bg); color: var(--text); padding: 2rem; max-width: 700px; margin: 0 auto; line-height: 1.6; }
-    h1, h2, h3 { color: #fff; }
-    h1 { border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-    a { color: var(--accent); }
-    a:hover { text-decoration: none; }
-    code, pre { background: var(--pane-bg); color: var(--text); }
-    hr { border-color: var(--border); }
-    blockquote { border-left: 3px solid var(--accent); margin-left: 0; padding-left: 1rem; color: var(--muted); }
-  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BQK0DFRRZ7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // production only: *.lab.tcos.us, localhost and file:// load this but never report
+  if (/(^|\.)tcos\.us$/.test(location.hostname) && !/(^|\.)lab\.tcos\.us$/.test(location.hostname)) {
+    gtag('config', 'G-BQK0DFRRZ7');
+  }
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>touchy-claude Resume</title>
+<!-- Real favicon, hosted centrally -- swapping the icon means replacing
+     the files at these paths, never editing page HTML. See
+     /assets/favicon-manifest.json for available variants. -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<meta property="og:site_name" content="touchy.media.tcos.us">
+<meta property="og:title" content="touchy-claude Resume">
+<meta property="og:description" content="touchy-claude, touchy-claude — Machine Assistant Node -- resume: work history, contracts and contact, at Twin Cities Open Systems.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://touchy.media.tcos.us/resume.html">
+<meta property="og:image" content="https://touchy.media.tcos.us/resume.og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="touchy-claude Resume">
+<meta name="twitter:image" content="https://touchy.media.tcos.us/resume.og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="touchy-claude, touchy-claude — Machine Assistant Node -- resume: work history, contracts and contact, at Twin Cities Open Systems.">
+<link rel="canonical" href="https://touchy.media.tcos.us/resume.html">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+// Real oper theme choice (light/dark/auto), applied before first paint so
+// there's no flash of the wrong theme. Default -- no stored choice yet --
+// is dark, not "auto"/OS-preference (Spencer, real request).
+(function () {
+  try {
+    var t = localStorage.getItem("tcos-theme") || "dark";
+    if (t !== "auto") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+})();
+</script>
+<style>
+:root {
+  --ground: #fbfbfa; --surface: #ffffff; --surface-2: #f1f2f0; --line: #e2e4e0;
+  --ink: #12181a; --ink-dim: #4c5658; --ink-faint: #7c8688;
+  --accent: #0d7d78; --accent-ink: #085e5a; --accent-soft: #e3f3f1;
+  --good: #0ca30c; --warning: #b8790a; --serious: #c95a2e; --critical: #d03b3b;
+  --good-soft: #e4f5e0; --warning-soft: #fbeecb; --critical-soft: #fbdcdc;
+}
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    --ground: #0b0f0f; --surface: #12181a; --surface-2: #18201f; --line: #263030;
+    --ink: #eef2f1; --ink-dim: #a9b6b6; --ink-faint: #6f7d7d;
+    --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
+    --good: #4ade4a; --warning: #fab219; --serious: #ec835a; --critical: #ff6161;
+    --good-soft: #163019; --warning-soft: #332309; --critical-soft: #3a1414;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0b0f0f; --surface: #12181a; --surface-2: #18201f; --line: #263030;
+  --ink: #eef2f1; --ink-dim: #a9b6b6; --ink-faint: #6f7d7d;
+  --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
+  --good: #4ade4a; --warning: #fab219; --serious: #ec835a; --critical: #ff6161;
+  --good-soft: #163019; --warning-soft: #332309; --critical-soft: #3a1414;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-size: 0.9062rem; line-height: 1.55; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 28px 22px 60px; }
+.site-bar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--line); }
+.site-logo { display: flex; align-items: center; gap: 7px; font-family: "JetBrains Mono", monospace; font-size: 0.8125rem; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.site-logo .mark { color: var(--accent); font-size: 0.9375rem; }
+.site-logo:hover { color: var(--accent-ink); }
+.fontsize-toggle { display: flex; align-items: center; gap: 6px; }
+.fontsize-toggle .fs-label { font-family: ui-monospace, monospace; font-size: 0.625rem; color: var(--ink-faint); cursor: default; user-select: none; }
+.fontsize-toggle .fs-options { display: flex; align-items: center; gap: 4px; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .18s ease, opacity .12s ease; }
+.fontsize-toggle:hover .fs-options, .fontsize-toggle:focus-within .fs-options { max-width: 200px; opacity: 1; }
+.fontsize-toggle.fs-force-collapsed .fs-options { max-width: 0 !important; opacity: 0 !important; }
+.fontsize-btn { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint); font-family: ui-monospace, monospace; font-size: 0.6562rem; font-weight: 700; width: 22px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; }
+.fontsize-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+/* Text size scales the ROOT (text is in rem), never body zoom -- the same
+   mechanism as tcos-www; the layout script below measures the viewport in
+   em, so a bigger text size collapses the layout like a narrower screen. */
+html[data-fontsize="s"] { font-size: 87.5%; }
+html[data-fontsize="m"] { font-size: 100%; }
+html[data-fontsize="l"] { font-size: 112.5%; }
+html[data-fontsize="xl"] { font-size: 125%; }
+html[data-fontsize="xxl"] { font-size: 137.5%; }
+html[data-layout~="compact"] .wrap { padding: 16px 12px 40px; }
+html[data-layout~="compact"] .lu-row { flex-direction: column; gap: 2px; }
+html[data-layout~="compact"] .toggles-row { flex-wrap: wrap; }
+html[data-layout~="compact"] .tabs { overflow-x: auto; }
+html[data-layout~="compact"] pre, html[data-layout~="compact"] table { max-width: 100%; overflow-x: auto; }
+.theme-toggle { display: flex; align-items: center; gap: 4px; margin-right: 12px; }
+.theme-toggle span { font-family: ui-monospace, monospace; font-size: 0.625rem; color: var(--ink-faint); margin-right: 2px; }
+.theme-btn { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint); font-family: ui-monospace, monospace; font-size: 0.5938rem; font-weight: 700; padding: 0 7px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; text-transform: uppercase; }
+.theme-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+.toggles-row { display: flex; align-items: center; }
+.eyebrow { font-family: "JetBrains Mono", monospace; font-size: 0.7188rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+h1 { font-size: 1.25rem; font-weight: 600; margin: 0 0 4px; font-family: "JetBrains Mono", monospace; word-break: break-all; }
+.meta { color: var(--ink-faint); font-size: 0.7812rem; margin: 0 0 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; row-gap: 4px; }
+.lu-row { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: "JetBrains Mono", monospace; font-size: 0.7188rem; color: var(--ink-faint); margin: 0 0 18px; }
+.lu-row b { color: var(--ink-dim); font-weight: 600; }
+.chip { display: inline-flex; padding: 2px 8px; border-radius: 20px; font-size: 0.6875rem; font-family: "JetBrains Mono", monospace; font-weight: 600; margin-right: 6px; }
+.chip.new { background: var(--good-soft); color: var(--good); }
+.chip.mod { background: var(--warning-soft); color: var(--warning); }
+.chip.browse { background: var(--accent-soft); color: var(--accent-ink); }
+.tabs { display: flex; gap: 4px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+.tab { font-family: "JetBrains Mono", monospace; font-size: 0.7812rem; padding: 9px 16px; cursor: pointer; color: var(--ink-faint); border-bottom: 2px solid transparent; user-select: none; }
+.tab.active { color: var(--accent-ink); border-bottom-color: var(--accent); }
+.panel { display: none; }
+.panel.active { display: block; }
+.empty { color: var(--ink-faint); font-style: italic; padding: 20px; }
+pre.diff { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 0; overflow-x: auto; font-size: 0.7812rem; margin: 0; }
+.dl { display: block; padding: 1px 16px; font-family: "JetBrains Mono", monospace; white-space: pre; }
+.dl.add { background: var(--good-soft); color: color-mix(in srgb, var(--good) 70%, var(--ink)); }
+.dl.del { background: var(--critical-soft); color: color-mix(in srgb, var(--critical) 70%, var(--ink)); }
+.dl.hdr { color: var(--ink-faint); font-weight: 600; }
+.dl.hunk { color: var(--accent-ink); background: var(--accent-soft); }
+.dl.ctx { color: var(--ink-dim); }
+.highlight { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; font-size: 0.7812rem; line-height: 1.5; }
+.highlight pre { margin: 0; font-family: "JetBrains Mono", monospace; }
+
+/* "Normal git markdown style" -- github-flavored-markdown proportions and
+   spacing (headers with a bottom rule, tight list spacing, fenced code
+   blocks that reuse the real pygments highlight above), themed to this
+   site's own palette rather than GitHub's colors. */
+.prose { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 24px 32px; max-width: 80ch; font-size: 0.9062rem; line-height: 1.6; }
+.prose > *:first-child { margin-top: 0; }
+.prose h1, .prose h2, .prose h3, .prose h4 { color: var(--ink); font-weight: 600; margin: 24px 0 16px; }
+.prose h1 { font-size: 1.7em; padding-bottom: 0.3em; border-bottom: 1px solid var(--line); }
+.prose h2 { font-size: 1.35em; padding-bottom: 0.3em; border-bottom: 1px solid var(--line); }
+.prose h3 { font-size: 1.1em; }
+.prose h4 { font-size: 1em; }
+.prose p, .prose ul, .prose ol { margin: 0 0 14px; }
+.prose li { margin: 3px 0; }
+.prose li > p { margin: 8px 0; }
+.prose a { color: var(--accent-ink); text-decoration: none; }
+.prose a:hover { text-decoration: underline; }
+.prose code { background: var(--surface-2); padding: 1px 6px; border-radius: 4px; font-size: 0.88em; font-family: "JetBrains Mono", monospace; }
+.prose pre { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 0 0 16px; }
+.prose pre code { background: none; padding: 0; font-size: 0.85em; }
+.prose pre.highlight, .prose div.highlight { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 0 0 16px; }
+.prose div.highlight pre { background: none; border: none; padding: 0; margin: 0; }
+.prose table { border-collapse: collapse; margin: 0 0 16px; font-size: 0.92em; }
+.prose th { background: var(--surface-2); font-weight: 600; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 6px 12px; }
+.prose blockquote { border-left: 3px solid var(--accent); margin: 0 0 16px; padding: 2px 16px; color: var(--ink-dim); }
+.prose blockquote > *:last-child { margin-bottom: 0; }
+.prose hr { border: none; border-top: 1px solid var(--line); margin: 24px 0; }
+.prose img { max-width: 100%; }
+pre { line-height: 125%; }
+td.linenos .normal { color: #93a1a1; background-color: #eee8d5; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #93a1a1; background-color: #eee8d5; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #eee8d5 }
+.highlight { background: #fdf6e3; color: #657b83 }
+.highlight .c { color: #93a1a1; font-style: italic } /* Comment */
+.highlight .err { color: #657b83; background-color: #dc322f } /* Error */
+.highlight .esc { color: #657b83 } /* Escape */
+.highlight .g { color: #657b83 } /* Generic */
+.highlight .k { color: #859900 } /* Keyword */
+.highlight .l { color: #657b83 } /* Literal */
+.highlight .n { color: #657b83 } /* Name */
+.highlight .o { color: #93a1a1 } /* Operator */
+.highlight .x { color: #657b83 } /* Other */
+.highlight .p { color: #657b83 } /* Punctuation */
+.highlight .ch { color: #93a1a1; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #93a1a1; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #d33682 } /* Comment.Preproc */
+.highlight .cpf { color: #93a1a1 } /* Comment.PreprocFile */
+.highlight .c1 { color: #93a1a1; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #93a1a1; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #dc322f } /* Generic.Deleted */
+.highlight .ge { color: #657b83; font-style: italic } /* Generic.Emph */
+.highlight .ges { color: #657b83; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.highlight .gr { color: #dc322f } /* Generic.Error */
+.highlight .gh { color: #657b83; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #859900 } /* Generic.Inserted */
+.highlight .go { color: #657b83 } /* Generic.Output */
+.highlight .gp { color: #268bd2; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { color: #657b83; font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #657b83; text-decoration: underline } /* Generic.Subheading */
+.highlight .gt { color: #268bd2 } /* Generic.Traceback */
+.highlight .kc { color: #2aa198 } /* Keyword.Constant */
+.highlight .kd { color: #2aa198 } /* Keyword.Declaration */
+.highlight .kn { color: #cb4b16 } /* Keyword.Namespace */
+.highlight .kp { color: #859900 } /* Keyword.Pseudo */
+.highlight .kr { color: #859900 } /* Keyword.Reserved */
+.highlight .kt { color: #b58900 } /* Keyword.Type */
+.highlight .ld { color: #657b83 } /* Literal.Date */
+.highlight .m { color: #2aa198 } /* Literal.Number */
+.highlight .s { color: #2aa198 } /* Literal.String */
+.highlight .na { color: #657b83 } /* Name.Attribute */
+.highlight .nb { color: #268bd2 } /* Name.Builtin */
+.highlight .nc { color: #268bd2 } /* Name.Class */
+.highlight .no { color: #268bd2 } /* Name.Constant */
+.highlight .nd { color: #268bd2 } /* Name.Decorator */
+.highlight .ni { color: #268bd2 } /* Name.Entity */
+.highlight .ne { color: #268bd2 } /* Name.Exception */
+.highlight .nf { color: #268bd2 } /* Name.Function */
+.highlight .nl { color: #268bd2 } /* Name.Label */
+.highlight .nn { color: #268bd2 } /* Name.Namespace */
+.highlight .nx { color: #657b83 } /* Name.Other */
+.highlight .py { color: #657b83 } /* Name.Property */
+.highlight .nt { color: #268bd2 } /* Name.Tag */
+.highlight .nv { color: #268bd2 } /* Name.Variable */
+.highlight .ow { color: #859900 } /* Operator.Word */
+.highlight .pm { color: #657b83 } /* Punctuation.Marker */
+.highlight .w { color: #657b83 } /* Text.Whitespace */
+.highlight .mb { color: #2aa198 } /* Literal.Number.Bin */
+.highlight .mf { color: #2aa198 } /* Literal.Number.Float */
+.highlight .mh { color: #2aa198 } /* Literal.Number.Hex */
+.highlight .mi { color: #2aa198 } /* Literal.Number.Integer */
+.highlight .mo { color: #2aa198 } /* Literal.Number.Oct */
+.highlight .sa { color: #2aa198 } /* Literal.String.Affix */
+.highlight .sb { color: #2aa198 } /* Literal.String.Backtick */
+.highlight .sc { color: #2aa198 } /* Literal.String.Char */
+.highlight .dl { color: #2aa198 } /* Literal.String.Delimiter */
+.highlight .sd { color: #93a1a1 } /* Literal.String.Doc */
+.highlight .s2 { color: #2aa198 } /* Literal.String.Double */
+.highlight .se { color: #2aa198 } /* Literal.String.Escape */
+.highlight .sh { color: #2aa198 } /* Literal.String.Heredoc */
+.highlight .si { color: #2aa198 } /* Literal.String.Interpol */
+.highlight .sx { color: #2aa198 } /* Literal.String.Other */
+.highlight .sr { color: #cb4b16 } /* Literal.String.Regex */
+.highlight .s1 { color: #2aa198 } /* Literal.String.Single */
+.highlight .ss { color: #2aa198 } /* Literal.String.Symbol */
+.highlight .bp { color: #268bd2 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #268bd2 } /* Name.Function.Magic */
+.highlight .vc { color: #268bd2 } /* Name.Variable.Class */
+.highlight .vg { color: #268bd2 } /* Name.Variable.Global */
+.highlight .vi { color: #268bd2 } /* Name.Variable.Instance */
+.highlight .vm { color: #268bd2 } /* Name.Variable.Magic */
+.highlight .il { color: #2aa198 } /* Literal.Number.Integer.Long */
+@media (prefers-color-scheme: dark) {
+pre { line-height: 125%; }
+td.linenos .normal { color: #586e75; background-color: #073642; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #586e75; background-color: #073642; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+:root:not([data-theme="light"]) .highlight .hll { background-color: #073642 }
+:root:not([data-theme="light"]) .highlight { background: #002b36; color: #839496 }
+:root:not([data-theme="light"]) .highlight .c { color: #586e75; font-style: italic } /* Comment */
+:root:not([data-theme="light"]) .highlight .err { color: #839496; background-color: #dc322f } /* Error */
+:root:not([data-theme="light"]) .highlight .esc { color: #839496 } /* Escape */
+:root:not([data-theme="light"]) .highlight .g { color: #839496 } /* Generic */
+:root:not([data-theme="light"]) .highlight .k { color: #859900 } /* Keyword */
+:root:not([data-theme="light"]) .highlight .l { color: #839496 } /* Literal */
+:root:not([data-theme="light"]) .highlight .n { color: #839496 } /* Name */
+:root:not([data-theme="light"]) .highlight .o { color: #586e75 } /* Operator */
+:root:not([data-theme="light"]) .highlight .x { color: #839496 } /* Other */
+:root:not([data-theme="light"]) .highlight .p { color: #839496 } /* Punctuation */
+:root:not([data-theme="light"]) .highlight .ch { color: #586e75; font-style: italic } /* Comment.Hashbang */
+:root:not([data-theme="light"]) .highlight .cm { color: #586e75; font-style: italic } /* Comment.Multiline */
+:root:not([data-theme="light"]) .highlight .cp { color: #d33682 } /* Comment.Preproc */
+:root:not([data-theme="light"]) .highlight .cpf { color: #586e75 } /* Comment.PreprocFile */
+:root:not([data-theme="light"]) .highlight .c1 { color: #586e75; font-style: italic } /* Comment.Single */
+:root:not([data-theme="light"]) .highlight .cs { color: #586e75; font-style: italic } /* Comment.Special */
+:root:not([data-theme="light"]) .highlight .gd { color: #dc322f } /* Generic.Deleted */
+:root:not([data-theme="light"]) .highlight .ge { color: #839496; font-style: italic } /* Generic.Emph */
+:root:not([data-theme="light"]) .highlight .ges { color: #839496; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+:root:not([data-theme="light"]) .highlight .gr { color: #dc322f } /* Generic.Error */
+:root:not([data-theme="light"]) .highlight .gh { color: #839496; font-weight: bold } /* Generic.Heading */
+:root:not([data-theme="light"]) .highlight .gi { color: #859900 } /* Generic.Inserted */
+:root:not([data-theme="light"]) .highlight .go { color: #839496 } /* Generic.Output */
+:root:not([data-theme="light"]) .highlight .gp { color: #268bd2; font-weight: bold } /* Generic.Prompt */
+:root:not([data-theme="light"]) .highlight .gs { color: #839496; font-weight: bold } /* Generic.Strong */
+:root:not([data-theme="light"]) .highlight .gu { color: #839496; text-decoration: underline } /* Generic.Subheading */
+:root:not([data-theme="light"]) .highlight .gt { color: #268bd2 } /* Generic.Traceback */
+:root:not([data-theme="light"]) .highlight .kc { color: #2aa198 } /* Keyword.Constant */
+:root:not([data-theme="light"]) .highlight .kd { color: #2aa198 } /* Keyword.Declaration */
+:root:not([data-theme="light"]) .highlight .kn { color: #cb4b16 } /* Keyword.Namespace */
+:root:not([data-theme="light"]) .highlight .kp { color: #859900 } /* Keyword.Pseudo */
+:root:not([data-theme="light"]) .highlight .kr { color: #859900 } /* Keyword.Reserved */
+:root:not([data-theme="light"]) .highlight .kt { color: #b58900 } /* Keyword.Type */
+:root:not([data-theme="light"]) .highlight .ld { color: #839496 } /* Literal.Date */
+:root:not([data-theme="light"]) .highlight .m { color: #2aa198 } /* Literal.Number */
+:root:not([data-theme="light"]) .highlight .s { color: #2aa198 } /* Literal.String */
+:root:not([data-theme="light"]) .highlight .na { color: #839496 } /* Name.Attribute */
+:root:not([data-theme="light"]) .highlight .nb { color: #268bd2 } /* Name.Builtin */
+:root:not([data-theme="light"]) .highlight .nc { color: #268bd2 } /* Name.Class */
+:root:not([data-theme="light"]) .highlight .no { color: #268bd2 } /* Name.Constant */
+:root:not([data-theme="light"]) .highlight .nd { color: #268bd2 } /* Name.Decorator */
+:root:not([data-theme="light"]) .highlight .ni { color: #268bd2 } /* Name.Entity */
+:root:not([data-theme="light"]) .highlight .ne { color: #268bd2 } /* Name.Exception */
+:root:not([data-theme="light"]) .highlight .nf { color: #268bd2 } /* Name.Function */
+:root:not([data-theme="light"]) .highlight .nl { color: #268bd2 } /* Name.Label */
+:root:not([data-theme="light"]) .highlight .nn { color: #268bd2 } /* Name.Namespace */
+:root:not([data-theme="light"]) .highlight .nx { color: #839496 } /* Name.Other */
+:root:not([data-theme="light"]) .highlight .py { color: #839496 } /* Name.Property */
+:root:not([data-theme="light"]) .highlight .nt { color: #268bd2 } /* Name.Tag */
+:root:not([data-theme="light"]) .highlight .nv { color: #268bd2 } /* Name.Variable */
+:root:not([data-theme="light"]) .highlight .ow { color: #859900 } /* Operator.Word */
+:root:not([data-theme="light"]) .highlight .pm { color: #839496 } /* Punctuation.Marker */
+:root:not([data-theme="light"]) .highlight .w { color: #839496 } /* Text.Whitespace */
+:root:not([data-theme="light"]) .highlight .mb { color: #2aa198 } /* Literal.Number.Bin */
+:root:not([data-theme="light"]) .highlight .mf { color: #2aa198 } /* Literal.Number.Float */
+:root:not([data-theme="light"]) .highlight .mh { color: #2aa198 } /* Literal.Number.Hex */
+:root:not([data-theme="light"]) .highlight .mi { color: #2aa198 } /* Literal.Number.Integer */
+:root:not([data-theme="light"]) .highlight .mo { color: #2aa198 } /* Literal.Number.Oct */
+:root:not([data-theme="light"]) .highlight .sa { color: #2aa198 } /* Literal.String.Affix */
+:root:not([data-theme="light"]) .highlight .sb { color: #2aa198 } /* Literal.String.Backtick */
+:root:not([data-theme="light"]) .highlight .sc { color: #2aa198 } /* Literal.String.Char */
+:root:not([data-theme="light"]) .highlight .dl { color: #2aa198 } /* Literal.String.Delimiter */
+:root:not([data-theme="light"]) .highlight .sd { color: #586e75 } /* Literal.String.Doc */
+:root:not([data-theme="light"]) .highlight .s2 { color: #2aa198 } /* Literal.String.Double */
+:root:not([data-theme="light"]) .highlight .se { color: #2aa198 } /* Literal.String.Escape */
+:root:not([data-theme="light"]) .highlight .sh { color: #2aa198 } /* Literal.String.Heredoc */
+:root:not([data-theme="light"]) .highlight .si { color: #2aa198 } /* Literal.String.Interpol */
+:root:not([data-theme="light"]) .highlight .sx { color: #2aa198 } /* Literal.String.Other */
+:root:not([data-theme="light"]) .highlight .sr { color: #cb4b16 } /* Literal.String.Regex */
+:root:not([data-theme="light"]) .highlight .s1 { color: #2aa198 } /* Literal.String.Single */
+:root:not([data-theme="light"]) .highlight .ss { color: #2aa198 } /* Literal.String.Symbol */
+:root:not([data-theme="light"]) .highlight .bp { color: #268bd2 } /* Name.Builtin.Pseudo */
+:root:not([data-theme="light"]) .highlight .fm { color: #268bd2 } /* Name.Function.Magic */
+:root:not([data-theme="light"]) .highlight .vc { color: #268bd2 } /* Name.Variable.Class */
+:root:not([data-theme="light"]) .highlight .vg { color: #268bd2 } /* Name.Variable.Global */
+:root:not([data-theme="light"]) .highlight .vi { color: #268bd2 } /* Name.Variable.Instance */
+:root:not([data-theme="light"]) .highlight .vm { color: #268bd2 } /* Name.Variable.Magic */
+:root:not([data-theme="light"]) .highlight .il { color: #2aa198 } /* Literal.Number.Integer.Long */
+}
+pre { line-height: 125%; }
+td.linenos .normal { color: #586e75; background-color: #073642; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #586e75; background-color: #073642; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+:root[data-theme="dark"] .highlight .hll { background-color: #073642 }
+:root[data-theme="dark"] .highlight { background: #002b36; color: #839496 }
+:root[data-theme="dark"] .highlight .c { color: #586e75; font-style: italic } /* Comment */
+:root[data-theme="dark"] .highlight .err { color: #839496; background-color: #dc322f } /* Error */
+:root[data-theme="dark"] .highlight .esc { color: #839496 } /* Escape */
+:root[data-theme="dark"] .highlight .g { color: #839496 } /* Generic */
+:root[data-theme="dark"] .highlight .k { color: #859900 } /* Keyword */
+:root[data-theme="dark"] .highlight .l { color: #839496 } /* Literal */
+:root[data-theme="dark"] .highlight .n { color: #839496 } /* Name */
+:root[data-theme="dark"] .highlight .o { color: #586e75 } /* Operator */
+:root[data-theme="dark"] .highlight .x { color: #839496 } /* Other */
+:root[data-theme="dark"] .highlight .p { color: #839496 } /* Punctuation */
+:root[data-theme="dark"] .highlight .ch { color: #586e75; font-style: italic } /* Comment.Hashbang */
+:root[data-theme="dark"] .highlight .cm { color: #586e75; font-style: italic } /* Comment.Multiline */
+:root[data-theme="dark"] .highlight .cp { color: #d33682 } /* Comment.Preproc */
+:root[data-theme="dark"] .highlight .cpf { color: #586e75 } /* Comment.PreprocFile */
+:root[data-theme="dark"] .highlight .c1 { color: #586e75; font-style: italic } /* Comment.Single */
+:root[data-theme="dark"] .highlight .cs { color: #586e75; font-style: italic } /* Comment.Special */
+:root[data-theme="dark"] .highlight .gd { color: #dc322f } /* Generic.Deleted */
+:root[data-theme="dark"] .highlight .ge { color: #839496; font-style: italic } /* Generic.Emph */
+:root[data-theme="dark"] .highlight .ges { color: #839496; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+:root[data-theme="dark"] .highlight .gr { color: #dc322f } /* Generic.Error */
+:root[data-theme="dark"] .highlight .gh { color: #839496; font-weight: bold } /* Generic.Heading */
+:root[data-theme="dark"] .highlight .gi { color: #859900 } /* Generic.Inserted */
+:root[data-theme="dark"] .highlight .go { color: #839496 } /* Generic.Output */
+:root[data-theme="dark"] .highlight .gp { color: #268bd2; font-weight: bold } /* Generic.Prompt */
+:root[data-theme="dark"] .highlight .gs { color: #839496; font-weight: bold } /* Generic.Strong */
+:root[data-theme="dark"] .highlight .gu { color: #839496; text-decoration: underline } /* Generic.Subheading */
+:root[data-theme="dark"] .highlight .gt { color: #268bd2 } /* Generic.Traceback */
+:root[data-theme="dark"] .highlight .kc { color: #2aa198 } /* Keyword.Constant */
+:root[data-theme="dark"] .highlight .kd { color: #2aa198 } /* Keyword.Declaration */
+:root[data-theme="dark"] .highlight .kn { color: #cb4b16 } /* Keyword.Namespace */
+:root[data-theme="dark"] .highlight .kp { color: #859900 } /* Keyword.Pseudo */
+:root[data-theme="dark"] .highlight .kr { color: #859900 } /* Keyword.Reserved */
+:root[data-theme="dark"] .highlight .kt { color: #b58900 } /* Keyword.Type */
+:root[data-theme="dark"] .highlight .ld { color: #839496 } /* Literal.Date */
+:root[data-theme="dark"] .highlight .m { color: #2aa198 } /* Literal.Number */
+:root[data-theme="dark"] .highlight .s { color: #2aa198 } /* Literal.String */
+:root[data-theme="dark"] .highlight .na { color: #839496 } /* Name.Attribute */
+:root[data-theme="dark"] .highlight .nb { color: #268bd2 } /* Name.Builtin */
+:root[data-theme="dark"] .highlight .nc { color: #268bd2 } /* Name.Class */
+:root[data-theme="dark"] .highlight .no { color: #268bd2 } /* Name.Constant */
+:root[data-theme="dark"] .highlight .nd { color: #268bd2 } /* Name.Decorator */
+:root[data-theme="dark"] .highlight .ni { color: #268bd2 } /* Name.Entity */
+:root[data-theme="dark"] .highlight .ne { color: #268bd2 } /* Name.Exception */
+:root[data-theme="dark"] .highlight .nf { color: #268bd2 } /* Name.Function */
+:root[data-theme="dark"] .highlight .nl { color: #268bd2 } /* Name.Label */
+:root[data-theme="dark"] .highlight .nn { color: #268bd2 } /* Name.Namespace */
+:root[data-theme="dark"] .highlight .nx { color: #839496 } /* Name.Other */
+:root[data-theme="dark"] .highlight .py { color: #839496 } /* Name.Property */
+:root[data-theme="dark"] .highlight .nt { color: #268bd2 } /* Name.Tag */
+:root[data-theme="dark"] .highlight .nv { color: #268bd2 } /* Name.Variable */
+:root[data-theme="dark"] .highlight .ow { color: #859900 } /* Operator.Word */
+:root[data-theme="dark"] .highlight .pm { color: #839496 } /* Punctuation.Marker */
+:root[data-theme="dark"] .highlight .w { color: #839496 } /* Text.Whitespace */
+:root[data-theme="dark"] .highlight .mb { color: #2aa198 } /* Literal.Number.Bin */
+:root[data-theme="dark"] .highlight .mf { color: #2aa198 } /* Literal.Number.Float */
+:root[data-theme="dark"] .highlight .mh { color: #2aa198 } /* Literal.Number.Hex */
+:root[data-theme="dark"] .highlight .mi { color: #2aa198 } /* Literal.Number.Integer */
+:root[data-theme="dark"] .highlight .mo { color: #2aa198 } /* Literal.Number.Oct */
+:root[data-theme="dark"] .highlight .sa { color: #2aa198 } /* Literal.String.Affix */
+:root[data-theme="dark"] .highlight .sb { color: #2aa198 } /* Literal.String.Backtick */
+:root[data-theme="dark"] .highlight .sc { color: #2aa198 } /* Literal.String.Char */
+:root[data-theme="dark"] .highlight .dl { color: #2aa198 } /* Literal.String.Delimiter */
+:root[data-theme="dark"] .highlight .sd { color: #586e75 } /* Literal.String.Doc */
+:root[data-theme="dark"] .highlight .s2 { color: #2aa198 } /* Literal.String.Double */
+:root[data-theme="dark"] .highlight .se { color: #2aa198 } /* Literal.String.Escape */
+:root[data-theme="dark"] .highlight .sh { color: #2aa198 } /* Literal.String.Heredoc */
+:root[data-theme="dark"] .highlight .si { color: #2aa198 } /* Literal.String.Interpol */
+:root[data-theme="dark"] .highlight .sx { color: #2aa198 } /* Literal.String.Other */
+:root[data-theme="dark"] .highlight .sr { color: #cb4b16 } /* Literal.String.Regex */
+:root[data-theme="dark"] .highlight .s1 { color: #2aa198 } /* Literal.String.Single */
+:root[data-theme="dark"] .highlight .ss { color: #2aa198 } /* Literal.String.Symbol */
+:root[data-theme="dark"] .highlight .bp { color: #268bd2 } /* Name.Builtin.Pseudo */
+:root[data-theme="dark"] .highlight .fm { color: #268bd2 } /* Name.Function.Magic */
+:root[data-theme="dark"] .highlight .vc { color: #268bd2 } /* Name.Variable.Class */
+:root[data-theme="dark"] .highlight .vg { color: #268bd2 } /* Name.Variable.Global */
+:root[data-theme="dark"] .highlight .vi { color: #268bd2 } /* Name.Variable.Instance */
+:root[data-theme="dark"] .highlight .vm { color: #268bd2 } /* Name.Variable.Magic */
+:root[data-theme="dark"] .highlight .il { color: #2aa198 } /* Literal.Number.Integer.Long */
+.back { display: inline-block; margin-top: 20px; font-family: "JetBrains Mono", monospace; font-size: 0.75rem; color: var(--ink-dim); text-decoration: none; }
+
+/* GitHub-style hover-card on owner/repo#123 references -- real data via
+   a live fetch() to api.github.com on hover, not embedded at generation
+   time (see bin/render-review.py's module docstring for the tradeoff:
+   always-current, but capped at 60 unauthenticated requests/hr per
+   client IP -- fine for one person reviewing, not for a page under
+   heavy simultaneous traffic). */
+.xref { color: var(--accent-ink); text-decoration: none; border-bottom: 1px dotted color-mix(in srgb, var(--accent) 50%, transparent); cursor: help; }
+.xref:hover { border-bottom-style: solid; }
+.xref-card {
+  position: fixed; z-index: 1000; display: none;
+  width: 320px; max-width: calc(100vw - 24px);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  padding: 12px 14px; font-size: 0.7812rem; color: var(--ink-dim);
+}
+.xref-card.show { display: block; }
+.xref-card .xc-repo { font-family: "JetBrains Mono", monospace; font-size: 0.6875rem; color: var(--ink-faint); margin-bottom: 4px; }
+.xref-card .xc-title { color: var(--ink); font-weight: 600; font-size: 0.8438rem; margin-bottom: 6px; line-height: 1.35; }
+.xref-card .xc-state { display: inline-flex; align-items: center; gap: 5px; font-family: "JetBrains Mono", monospace; font-size: 0.6875rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-right: 6px; }
+.xref-card .xc-state.open { background: var(--good-soft); color: var(--good); }
+.xref-card .xc-state.closed { background: var(--critical-soft); color: var(--critical); }
+.xref-card .xc-state.merged { background: var(--accent-soft); color: var(--accent-ink); }
+.xref-card .xc-labels { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.xref-card .xc-label { font-size: 0.6562rem; font-family: "JetBrains Mono", monospace; padding: 1px 7px; border-radius: 20px; font-weight: 600; }
+.xref-card .xc-meta { margin-top: 8px; font-size: 0.6875rem; color: var(--ink-faint); }
+.xref-card .xc-err { color: var(--ink-faint); font-style: italic; }
+.back:hover { color: var(--accent-ink); }
+</style>
 </head>
 <body>
-<h1 id="touchy-claude-resume">touchy-claude Resume</h1>
+<div class="wrap">
+  <div class="site-bar">
+    <a href="/" class="site-logo"><span class="mark">&#9670;</span> touchy.media.tcos.us</a>
+    <div class="toggles-row">
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <button class="theme-btn" data-theme-choice="light" type="button">Light</button>
+        <button class="theme-btn" data-theme-choice="dark" type="button">Dark</button>
+        <button class="theme-btn" data-theme-choice="auto" type="button">Auto</button>
+      </div>
+      <div class="fontsize-toggle">
+        <span class="fs-label" tabindex="0">Aa</span>
+        <div class="fs-options">
+          <button class="fontsize-btn" data-size="s" type="button">S</button>
+          <button class="fontsize-btn" data-size="m" type="button">M</button>
+          <button class="fontsize-btn" data-size="l" type="button">L</button>
+          <button class="fontsize-btn" data-size="xl" type="button">XL</button>
+          <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="eyebrow"><a href="https://github.com/Twin-Cities-Open-Systems/resume">resume</a> &middot; resume</p>
+  <h1><a href="https://github.com/Twin-Cities-Open-Systems/resume/blob/main/profiles/touchy-claude/dist/resume.md">profiles/touchy-claude/dist/resume.md</a></h1>
+  <p class="meta"><a class="chip browse" href="/">resume</a></p>
+  <div class="lu-row">
+    <span><b>lu:</b> <time class="lu-iso" datetime="2026-09-06T09:40:29Z">2026-09-06T09:40:29Z</time> &middot; <span class="lu-human"></span> &middot; <span class="lu-delta"></span></span>
+    <span><b>commit:</b> <a href="https://github.com/Twin-Cities-Open-Systems/resume/commit/f70dfc9c9567fc1659c8d8c987bd72562f29b931">f70dfc9</a></span>
+    <span><b>license:</b> <a href="https://github.com/Twin-Cities-Open-Systems/.github/blob/main/LICENSE">GPL-3.0</a> (org-wide; this repo carries no LICENSE)</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab" data-tab="diff">Diff</div>
+    <div class="tab active" data-tab="pretty">Pretty</div>
+  </div>
+  <div class="panel" id="panel-diff"></div>
+  <div class="panel active" id="panel-pretty"><h1 id="touchy-claude-resume">touchy-claude Resume</h1>
 <h2 id="summary">Summary</h2>
 <p>Context-aware architectural copilot executing strict compliance
 checks, sandboxing prompt injections, and implementing logic changes
 solely under portable POSIX constraints.</p>
 <h2 id="role">Role</h2>
 <p>touchy-claude — Machine Assistant Node</p>
+</div>
+
+  <a class="back" href="javascript:window.close()">&larr; close tab</a>
+</div>
+<div class="xref-card" id="xref-card"></div>
+<script>
+document.querySelectorAll(".tab").forEach(function (t) {
+  t.addEventListener("click", function () {
+    document.querySelectorAll(".tab").forEach(function (x) { x.classList.remove("active"); });
+    document.querySelectorAll(".panel").forEach(function (x) { x.classList.remove("active"); });
+    t.classList.add("active");
+    document.getElementById("panel-" + t.dataset.tab).classList.add("active");
+  });
+});
+
+(function () {
+  var FS_KEY = "tcos-fontsize";
+  function applyFontsize(size) {
+    document.documentElement.setAttribute("data-fontsize", size);
+    document.body.setAttribute("data-fontsize", size);
+    if (window.tcosLayout) window.tcosLayout();
+    document.querySelectorAll(".fontsize-btn").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.size === size);
+    });
+  }
+  var savedSize = "m";
+  try { savedSize = localStorage.getItem(FS_KEY) || "m"; } catch (e) {}
+  applyFontsize(savedSize);
+  document.querySelectorAll(".fontsize-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      try { localStorage.setItem(FS_KEY, b.dataset.size); } catch (e) {}
+      applyFontsize(b.dataset.size);
+      b.blur();
+      // Real fix, 2026-08-30: :hover alone keeps .fs-options expanded
+      // after a click, since the cursor is still sitting over the
+      // widget -- force-collapse it, then let normal hover/focus-within
+      // behavior resume once the cursor actually leaves.
+      var toggle = b.closest(".fontsize-toggle");
+      if (toggle) {
+        toggle.classList.add("fs-force-collapsed");
+        toggle.addEventListener("mouseleave", function onLeave() {
+          toggle.classList.remove("fs-force-collapsed");
+          toggle.removeEventListener("mouseleave", onLeave);
+        });
+      }
+    });
+  });
+})();
+
+(function () {
+  // Theme buttons -- the actual data-theme attribute was already set (or
+  // deliberately left unset for "auto") by the no-flash script in <head>;
+  // this just wires up the buttons and reflects the real current choice,
+  // defaulting the *displayed active button* to "dark" the same way the
+  // head script defaults the real applied theme.
+  var TH_KEY = "tcos-theme";
+  function markActive(choice) {
+    document.querySelectorAll(".theme-btn").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.themeChoice === choice);
+    });
+  }
+  var saved = "dark";
+  try { saved = localStorage.getItem(TH_KEY) || "dark"; } catch (e) {}
+  markActive(saved);
+  document.querySelectorAll(".theme-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var choice = b.dataset.themeChoice;
+      try { localStorage.setItem(TH_KEY, choice); } catch (e) {}
+      if (choice === "auto") {
+        document.documentElement.removeAttribute("data-theme");
+      } else {
+        document.documentElement.setAttribute("data-theme", choice);
+      }
+      markActive(choice);
+    });
+  });
+})();
+
+(function () {
+  // "lu:" (last-updated) widget -- real ISO timestamp is server-rendered
+  // and always present even with JS off; this fills in the viewer's own
+  // local-time rendering and a live ticking delta on top of it.
+  var isoEl = document.querySelector(".lu-iso");
+  if (!isoEl) return;
+  var generated = new Date(isoEl.getAttribute("datetime"));
+  var humanEl = document.querySelector(".lu-human");
+  var deltaEl = document.querySelector(".lu-delta");
+  if (humanEl) {
+    humanEl.textContent = generated.toLocaleString(undefined, {
+      dateStyle: "medium", timeStyle: "short"
+    });
+  }
+  function renderDelta() {
+    if (!deltaEl) return;
+    var ms = Date.now() - generated.getTime();
+    var mins = Math.floor(ms / 60000);
+    var label;
+    if (mins < 1) label = "just now";
+    else if (mins < 60) label = mins + "m ago";
+    else if (mins < 60 * 24) label = Math.floor(mins / 60) + "h" + (mins % 60) + "m ago";
+    else label = Math.floor(mins / (60 * 24)) + "d ago";
+    deltaEl.textContent = label;
+  }
+  renderDelta();
+  setInterval(renderDelta, 30000);
+})();
+
+(function () {
+  // GitHub-style hover-card on real owner/repo#N references. Text-node-only
+  // DOM walk (never touches innerHTML) so it can't corrupt the pygments
+  // highlight spans or markdown-rendered tags it runs alongside.
+  var XREF_RE = /\b([\w.-]+\/[\w.-]+)#(\d+)\b/g;
+  var SCOPE_SELECTOR = ".prose, .dl, .highlight, .meta, .empty, .note, td, li, p";
+  var cache = {};
+  var card = document.getElementById("xref-card");
+  var hideTimer = null;
+
+  function linkifyTextNode(node) {
+    var text = node.nodeValue;
+    XREF_RE.lastIndex = 0;
+    if (!XREF_RE.test(text)) return;
+    XREF_RE.lastIndex = 0;
+    var frag = document.createDocumentFragment();
+    var last = 0, m;
+    while ((m = XREF_RE.exec(text))) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var span = document.createElement("span");
+      span.className = "xref";
+      span.dataset.repo = m[1];
+      span.dataset.num = m[2];
+      span.textContent = m[0];
+      frag.appendChild(span);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  }
+
+  function walk(root) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(linkifyTextNode);
+  }
+
+  document.querySelectorAll(SCOPE_SELECTOR).forEach(function (el) { walk(el); });
+
+  function stateInfo(issue) {
+    if (issue.pull_request) {
+      if (issue.pull_request.merged_at) return { cls: "merged", label: "merged" };
+      return issue.state === "open" ? { cls: "open", label: "open PR" } : { cls: "closed", label: "closed PR" };
+    }
+    return issue.state === "open" ? { cls: "open", label: "open" } : { cls: "closed", label: "closed" };
+  }
+
+  function renderCard(key, data) {
+    if (data.error) {
+      card.innerHTML = '<div class="xc-repo">' + key + '</div><div class="xc-err">' + data.error + "</div>";
+      return;
+    }
+    var st = stateInfo(data);
+    var labels = (data.labels || []).map(function (l) {
+      var bg = "#" + l.color, fg = "#12181a";
+      return '<span class="xc-label" style="background:' + bg + ";color:" + fg + '">' + l.name + "</span>";
+    }).join("");
+    card.innerHTML =
+      '<div class="xc-repo">' + key + '</div>' +
+      '<div class="xc-title">' + data.title.replace(/</g, "&lt;") + '</div>' +
+      '<span class="xc-state ' + st.cls + '">' + st.label + '</span>' +
+      '<span class="xc-meta">@' + data.user.login + '</span>' +
+      (labels ? '<div class="xc-labels">' + labels + '</div>' : "");
+  }
+
+  function showCardNear(el) {
+    var r = el.getBoundingClientRect();
+    var top = r.bottom + 6;
+    var left = r.left;
+    if (left + 320 > window.innerWidth - 12) left = window.innerWidth - 332;
+    if (top + 160 > window.innerHeight) top = r.top - 6 - 160;
+    card.style.top = Math.max(8, top) + "px";
+    card.style.left = Math.max(8, left) + "px";
+    card.classList.add("show");
+  }
+
+  document.addEventListener("mouseover", function (e) {
+    var el = e.target.closest && e.target.closest(".xref");
+    if (!el) return;
+    clearTimeout(hideTimer);
+    var repo = el.dataset.repo, num = el.dataset.num;
+    var key = repo + "#" + num;
+    showCardNear(el);
+    if (cache[key]) {
+      renderCard(key, cache[key]);
+      return;
+    }
+    card.innerHTML = '<div class="xc-repo">' + key + '</div><div class="xc-err">loading&hellip;</div>';
+    fetch("https://api.github.com/repos/" + repo + "/issues/" + num, { headers: { Accept: "application/vnd.github+json" } })
+      .then(function (res) {
+        if (res.status === 403) throw new Error("rate-limited (60/hr unauthenticated) -- try again later");
+        if (res.status === 404) throw new Error("not found");
+        if (!res.ok) throw new Error("GitHub API error " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        cache[key] = data;
+        renderCard(key, data);
+      })
+      .catch(function (err) {
+        var data = { error: err.message };
+        cache[key] = data;
+        renderCard(key, data);
+      });
+  });
+
+  document.addEventListener("mouseout", function (e) {
+    var el = e.target.closest && e.target.closest(".xref");
+    if (!el) return;
+    hideTimer = setTimeout(function () { card.classList.remove("show"); }, 150);
+  });
+  card.addEventListener("mouseenter", function () { clearTimeout(hideTimer); });
+  card.addEventListener("mouseleave", function () { card.classList.remove("show"); });
+})();
+
+// Links that leave this host open in a new tab; same-site navigation stays
+// in place. Operator, 2026-09-06: "most links should open in a new tab".
+// Decided at load time from the real href, so authors never annotate.
+(function () {
+  function run() {
+    document.querySelectorAll("a[href]").forEach(function (a) {
+      var url;
+      try { url = new URL(a.getAttribute("href"), location.href); } catch (e) { return; }
+      if (url.protocol !== "http:" && url.protocol !== "https:") return;
+      if (url.hostname === location.hostname) return;
+      if (!a.target) a.target = "_blank";
+      a.rel = (a.rel ? a.rel + " " : "") + "noopener";
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
+})();
+
+// Layout tokens from the space actually available, in em -- phone, browser
+// zoom and XXL text all collapse the same way (SYNCED-FROM tcos-www site.js).
+(function () {
+  var COMPACT_EM = 44, NARROW_EM = 26;
+  function layout() {
+    var root = document.documentElement;
+    var px = parseFloat(getComputedStyle(root).fontSize) || 16;
+    var em = root.clientWidth / px;
+    var tokens = [];
+    if (em < COMPACT_EM) tokens.push("compact");
+    if (em < NARROW_EM) tokens.push("narrow");
+    root.setAttribute("data-layout", tokens.join(" ") || "wide");
+  }
+  window.tcosLayout = layout;
+  var q = new URLSearchParams(location.search).get("fs");
+  if (q && /^(s|m|l|xl|xxl)$/.test(q)) { try { localStorage.setItem("tcos-fontsize", q); } catch (e) {} document.documentElement.setAttribute("data-fontsize", q); }
+  layout();
+  window.addEventListener("resize", layout);
+  window.addEventListener("orientationchange", layout);
+})();
+</script>
 </body>
 </html>

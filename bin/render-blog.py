@@ -134,6 +134,36 @@ def load_renderer():
     return mod
 
 
+TILE_PY = Path(os.environ.get("MEME_FACTORY_TILE", Path.home() / "git/fleet-ops/tools/meme-factory/tile/tile.py"))
+PALETTE_NAMES = ["ember", "violet", "lime", "sunset", "ocean", "mint", "coral", "teal"]
+
+
+def post_card(out_html, title, date, host, slug):
+    """The post's social preview (og:image): a 1200x630 card from the org's
+    own meme-factory tile generator -- palette by slug, monogram from the
+    title, eyebrow host + date. Beside the html as <name>.og.jpg, so the
+    media root copies it with the post. Every post, now and future
+    (operator, 2026-09-06). Missing generator: WARNING, page ships with
+    no og:image, never a dead URL."""
+    if not TILE_PY.is_file():
+        print(f"  WARN: meme-factory tile generator not at {TILE_PY}; {slug} gets no og:image", file=sys.stderr)
+        return None
+    import hashlib, importlib
+    sys.path.insert(0, str(TILE_PY.parent)); tile = importlib.import_module("tile")
+    words = [w for w in re.split(r"[^A-Za-z0-9]+", title) if w]
+    mono = ("".join(w[0] for w in words[:2]) or slug[:2]).upper()
+    palette = tile.PALETTES[PALETTE_NAMES[int(hashlib.sha256(slug.encode()).hexdigest(), 16) % len(PALETTE_NAMES)]]
+    out = out_html.with_suffix(".og.jpg")
+    try:
+        entity = json.loads((Path("profiles") / out.parts[-3] / "profile.json").read_text())["meta"]["entity"]
+    except Exception:  # noqa: BLE001
+        entity = host
+    tile.render_job({"output": str(out), "card": True, "palette": palette, "seed": slug,
+                     "title": title, "subtitle": f"({entity})", "tagline": f"post · {date}",
+                     "eyebrow": host, "text": mono})
+    return out
+
+
 def people_by_slug():
     return {p["slug"]: p for p in json.loads((DIST / "people.json").read_text())}
 
@@ -169,8 +199,10 @@ def main(argv):
         check_post_safety(src)                         # gate 2: hee filter scan, fail-closed
         slug = src.parts[1]
         host = people.get(slug, {}).get("public_dns") or "blog.tcos.us"
+        media_host = people.get(slug, {}).get("media_dns") or host
         out = DIST / src.with_suffix(".html")
         out.parent.mkdir(parents=True, exist_ok=True)
+        card = post_card(out, post["title"], post["date"], media_host, post["slug"])
         page = rr.render_file_page(
             repo, str(src),
             diff_html=published_diff_html(src, rr),
@@ -183,6 +215,7 @@ def main(argv):
             active_tab="pretty",
             github_url=f"https://github.com/{rr.GITHUB_ORG}/resume/blob/main/{src}",
             label_url="/",  # the chip goes to the media root, where every post is listed
+            og_image=(f"https://{media_host}/posts/{post['slug']}.og.jpg" if card else None), og_image_alt=post["title"],
             extra_head=gtag,
         )
         out.write_text(page, encoding="utf-8")

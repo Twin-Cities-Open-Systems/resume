@@ -1,0 +1,10 @@
+{
+ "motif": "diagonals",
+ "palette": [
+  "#38bdf8",
+  "#ff6161"
+ ],
+ "seed": "callsign-hunt",
+ "size": 256,
+ "text": "HL"
+}
