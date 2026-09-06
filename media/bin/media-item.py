@@ -215,27 +215,29 @@ ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
 ROOT_TMPL = Path(__file__).resolve().parent.parent / "templates" / "root-index.html.tmpl"
 
 
-# Card icons: Lucide (ISC, vendored at a pinned release under
-# media/shared/icons/lucide/, LICENSE beside them), inlined so they take the
-# theme's currentColor. Chosen from the item's `topic` label, then its kind;
-# a card may say `icon: <lucide-name>` to override. Operator, 2026-09-06:
-# "open source icons besides just the tux ... match to some group relevant,
-# or something we can automate". An unknown name falls back to the kind's
-# icon and says so, never to a broken image.
-LUCIDE_DIR = Path(__file__).resolve().parent.parent / "shared" / "icons" / "lucide"
-ICON_BY_TOPIC = {"meme": "party-popper", "tattoo": "pen-tool", "photo": "camera", "photos": "camera",
-                 "video": "clapperboard", "audio": "music", "music": "music", "code": "code", "talk": "mic",
-                 "book": "book-open", "hardware": "wrench", "gif": "image-play"}
-ICON_BY_KIND = {"gallery": "images", "post": "file-text", "resume": "file-badge"}
+# Card icons: Fluent Emoji, color style (Microsoft, MIT; vendored at a
+# pinned commit under media/shared/icons/fluent/, LICENSE and SOURCE beside
+# them), inlined SVG. Chosen from the item's `topic` label, then its kind; a
+# card may say `icon: <name>` (the file's name) to override. Operator,
+# 2026-09-06: "open source icons besides just the tux ... match to some
+# group relevant, or something we can automate", then on a line-icon set:
+# "those are drab and same as text. need colors, modern". An unknown name
+# falls back to the kind's icon and says so, never to a broken image.
+ICON_DIR = Path(__file__).resolve().parent.parent / "shared" / "icons" / "fluent"
+ICON_BY_TOPIC = {"meme": "party_popper", "tattoo": "paintbrush", "photo": "camera", "photos": "camera",
+                 "video": "clapper_board", "audio": "musical_notes", "music": "musical_notes", "code": "laptop",
+                 "talk": "microphone", "book": "open_book", "hardware": "wrench", "gif": "film_frames",
+                 "linux": "penguin"}
+ICON_BY_KIND = {"gallery": "framed_picture", "post": "memo", "resume": "page_facing_up"}
 
 
 def icon_svg(name, kind="gallery"):
-    for candidate in (name, ICON_BY_KIND.get(kind, "images")):
+    for candidate in (name, ICON_BY_KIND.get(kind, "framed_picture")):
         if not candidate:
             continue
-        f = LUCIDE_DIR / f"{candidate}.svg"
+        f = ICON_DIR / f"{candidate}.svg"
         if f.is_file():
-            svg = " ".join(f.read_text().split())  # one line; Lucide ships it pretty-printed
+            svg = " ".join(f.read_text().split())
             return re.sub(r"<svg\s", '<svg class="item-icon" aria-hidden="true" ', svg, count=1)
         if candidate == name:
             print(f"⚠️  WARNING  media-item: no vendored icon {name!r}; using the {kind} default", file=sys.stderr)
