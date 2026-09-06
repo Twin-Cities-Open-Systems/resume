@@ -12,7 +12,7 @@ export default {
     const m = url.hostname.match(/^([a-z0-9-]+)\.blog\.tcos\.us$/);
     if (m && MEDIA[m[1]]) {
       const target = "https://" + MEDIA[m[1]];
-      const p = url.pathname.match(/^\/profiles\/[^/]+\/blog\/(?:\d+-)?([^/]+?)(?:\.md|\.html)?$/);
+      const p = url.pathname.match(/^\/profiles\/[^/]+\/blog\/(?:\d{3}-)?([^/]+?)(?:\.md|\.html)?$/);
       return Response.redirect(p ? target + "/posts/" + p[1] + ".html" : target + "/", 301);
     }
     return env.ASSETS.fetch(request);

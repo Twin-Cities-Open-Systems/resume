@@ -9,8 +9,8 @@ worker: hostnames that map get redirected, everything else is served from
 the static assets exactly as before.
 
 Post URLs: /profiles/<oper>/blog/[NNN-]<slug>.(md|html) -> /posts/<slug>.html
-(the numbered prefix was dropped 2026-09-05; stripping ^\\d+- covers every
-old name without a list). Anything else on a blog host -> the media root.
+(the numbered prefix was dropped 2026-09-05; stripping ^\\d{3}- covers every
+old name without a list -- exactly three digits, date-named slugs keep their year). Anything else on a blog host -> the media root.
 
 Input: dist/people.json (subdomain_prefix, media_dns). A person with no
 media_dns keeps a working blog host -- no redirect is emitted for them.
@@ -28,7 +28,7 @@ export default {
     const m = url.hostname.match(/^([a-z0-9-]+)\\.blog\\.tcos\\.us$/);
     if (m && MEDIA[m[1]]) {
       const target = "https://" + MEDIA[m[1]];
-      const p = url.pathname.match(/^\\/profiles\\/[^/]+\\/blog\\/(?:\\d+-)?([^/]+?)(?:\\.md|\\.html)?$/);
+      const p = url.pathname.match(/^\\/profiles\\/[^/]+\\/blog\\/(?:\\d{3}-)?([^/]+?)(?:\\.md|\\.html)?$/);
       return Response.redirect(p ? target + "/posts/" + p[1] + ".html" : target + "/", 301);
     }
     return env.ASSETS.fetch(request);

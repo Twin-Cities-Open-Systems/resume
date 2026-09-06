@@ -248,7 +248,7 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
         spec = yaml.safe_load(card_path.read_text())["spec"]
         slug = card_path.parent.name
         when = spec.get("date") or max((it.get("date", "") for it in spec.get("items", [])), default="")
-        rows.append((when, "gallery", f"/{slug}", spec["title"], spec["description"]))
+        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"]))  # trailing slash: busybox httpd does not redirect a bare dir
     if posts_manifest and oper:
         posts_dir = media_dist / "posts"; posts_dir.mkdir(exist_ok=True)
         for post in json.loads(Path(posts_manifest).read_text()):
@@ -276,7 +276,100 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
     return 0
 
 
+def audit(repo_root, env="lab"):
+    """Is every page indexed somewhere, and does every old blog URL land?
+    Operator, 2026-09-06: "make sure all of redirects are correct from blog
+    to media and there are no 404s and our audit tool is smart enough to
+    notice when a page is not indexed somewhere. media.tcos.us should be
+    the index of all the subs."
+      1. every operator with media_dns is listed by the media hub's data
+         (people.json on the hub host) and answers 200;
+      2. every post and gallery under media/<oper>/dist is linked from that
+         operator's root page;
+      3. every post URL a reader may hold -- current name, every former
+         (numbered) name, .md and .html -- on <prefix>.blog.<env> 301s to
+         the media host and the target answers 200.
+    Nagios exit: 0 OK, 1 WARNING (unlisted), 2 CRITICAL (404/bad redirect)."""
+    import subprocess
+    import urllib.request
+    import urllib.error
+    repo_root = Path(repo_root).resolve()
+    suffix = ".lab.tcos.us" if env == "lab" else ".tcos.us"
+    people = json.loads((repo_root / "dist" / "people.json").read_text())
+    worst = 0
+
+    def code_and_final(url):
+        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "media-item audit"})
+        try:
+            with urllib.request.urlopen(req, timeout=8) as r:
+                return r.status, r.geturl()
+        except urllib.error.HTTPError as e:
+            return e.code, url
+        except Exception as e:
+            return None, str(e)[:60]
+
+    # 1. the hub
+    hub = f"https://media{suffix}/people.json"
+    try:
+        with urllib.request.urlopen(hub, timeout=8) as r:
+            hub_people = json.loads(r.read().decode())
+        hub_hosts = {p["media_dns"] for p in hub_people if p.get("media_dns")}
+    except Exception as e:
+        print(f"🔴 CRITICAL audit: media hub data unreachable: {hub} ({e})"); hub_hosts = set(); worst = 2
+    for p in people:
+        if not p.get("media_dns"):
+            continue
+        host = p["media_dns"].replace(".tcos.us", suffix)
+        code, _ = code_and_final(f"https://{host}/")
+        if code != 200:
+            print(f"🔴 CRITICAL audit: {host}/ -> {code}"); worst = 2
+        if p["media_dns"] not in hub_hosts:
+            print(f"🟡 WARNING audit: {p['media_dns']} is not in the media hub's index"); worst = max(worst, 1)
+
+    # 2. every page indexed on its root
+    for root_index in sorted(repo_root.glob("media/*/dist/index.html")):
+        oper_dir = root_index.parent; oper = oper_dir.parent.name
+        index = root_index.read_text()
+        expected = [f"/posts/{f.name}" for f in sorted((oper_dir / "posts").glob("*.html"))]
+        expected += [f"/{c.parent.name}/" for c in sorted(oper_dir.glob("*/item.card.v1.yaml"))]
+        for href in expected:
+            if f'href="{href}"' not in index:
+                print(f"🟡 WARNING audit: {oper}: {href} exists but the root does not list it"); worst = max(worst, 1)
+
+    # 3. every blog URL a reader may hold
+    former = {}
+    log = subprocess.run(["git", "log", "--diff-filter=R", "--name-status", "--format=", "-M", "--", "profiles/*/blog/*.md"],
+                         cwd=repo_root, capture_output=True, text=True).stdout
+    for line in log.splitlines():
+        parts = line.split("\t")
+        if len(parts) == 3 and parts[0].startswith("R"):
+            former.setdefault(parts[2], set()).add(parts[1])
+    prefix_of = {p["slug"]: (p["subdomain_prefix"], p.get("media_dns")) for p in people}
+    manifest = json.loads((repo_root / "dist" / "blog_manifest.json").read_text())
+    n = 0
+    for post in manifest:
+        oper = post["path"].split("/")[1]
+        prefix, media = prefix_of.get(oper, (None, None))
+        if not media:
+            continue
+        names = {post["path"]} | former.get(post["path"], set())
+        target = f"https://{media.replace('.tcos.us', suffix)}/posts/{post['slug']}.html"
+        for name in sorted(names):
+            for ext in (".md", ".html"):
+                url = f"https://{prefix}.blog{suffix}/" + name[:-3] + ext
+                code, final = code_and_final(url); n += 1
+                if code != 200 or final.rstrip("/") != target:
+                    print(f"🔴 CRITICAL audit: {url} -> {code} {final} (expected {target})"); worst = 2
+    label = {0: "🟢 OK", 1: "🟡 WARNING", 2: "🔴 CRITICAL"}[worst]
+    print(f"{label} media-item audit ({env}): {sum(1 for p in people if p.get('media_dns'))} media host(s), "
+          f"{n} blog URL(s) probed, {len(list(repo_root.glob('media/*/dist/index.html')))} root(s) checked")
+    return worst
+
+
 def main(argv):
+    if argv and argv[0] == "audit":
+        env = "prod" if "--prod" in argv else "lab"
+        return audit(Path(__file__).resolve().parent.parent.parent, env)
     if len(argv) >= 2 and argv[0] == "root":
         flags = [a for a in argv[2:] if a == "--init"]
         rest = [a for a in argv[2:] if a != "--init"]
@@ -287,7 +380,7 @@ def main(argv):
             return root_init(argv[1], opts["--name"], opts["--host"], opts.get("--blog-host"))
         return root(argv[1], opts.get("--posts"), opts.get("--oper"), opts.get("--posts-src"))
     if len(argv) < 2 or argv[0] != "build":
-        print(__doc__ or "usage: media-item.py build <item-dir> [--no-network] | root <media-dist> [--init --name N --host H]"); return 2
+        print(__doc__ or "usage: media-item.py build <item-dir> [--no-network] | root <media-dist> [--init --name N --host H] | audit [--prod]"); return 2
     return build(argv[1], network="--no-network" not in argv)
 
 
