@@ -68,7 +68,12 @@ find "$STAGE" -name __pycache__ -type d -exec rm -rf {} + 2>/dev/null || true
 # linked to GitHub). Substituted here, on the stage only, so lab and prod
 # carry the same bytes and the tracked source keeps the placeholder.
 _full="$(git -C "$REPO_ROOT" rev-parse HEAD)"; _short="$(git -C "$REPO_ROOT" rev-parse --short HEAD)"
-find "$STAGE" -name '*.html' -exec sed -i "s|\$COMMIT_SHORT|$_short|g; s|\$COMMIT|$_full|g" {} +
+# The release beside the commit: RELEASE_VERSION under hee release promote
+# (exactly the tag), else git describe (v1.0.0-3-gabc on lab, honest about
+# being ahead), else "unreleased". The link always points at the tag part.
+_rel="${RELEASE_VERSION:-$(git -C "$REPO_ROOT" describe --tags --match 'v*' 2>/dev/null || echo unreleased)}"
+_rel_tag="${_rel%%-*}"
+find "$STAGE" -name '*.html' -exec sed -i "s|\$RELEASE_TAG|$_rel_tag|g; s|\$RELEASE|$_rel|g; s|\$COMMIT_SHORT|$_short|g; s|\$COMMIT|$_full|g" {} +
 # The resume is rendered here from its source so the stage never carries a
 # stale page (its tracked copy is a build output, refreshed by the same
 # call): Gold page, Open Graph set, its own card.
