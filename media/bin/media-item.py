@@ -511,15 +511,27 @@ def audit(repo_root, env="lab"):
     # and branding in its metadata, like every other file we publish.
     # Operator, 2026-09-06: "all of these og images have our standard
     # exif, right?" -- they did not, and nothing had looked.
-    gen = sorted(list(repo_root.glob("media/*/dist/**/tile.png")) + list(repo_root.glob("media/*/dist/**/*.og.jpg"))
-                 + list(repo_root.glob("media/*/dist/*/og.jpg")) + [repo_root / "profiles" / s_ / "dist" / "resume.og.jpg" for s_ in served])
-    for img in gen:
-        if not img.is_file():
+    # Generated images (tiles, cards) must carry provenance; every image a
+    # media host serves -- authored ones included, like og-banner.jpg --
+    # must carry the org branding. The shared tree is checked once.
+    generated = re.compile(r"(^|/)(tile\.png|og\.jpg|[^/]+\.og\.jpg)$")
+    imgs = sorted(set(list(repo_root.glob("media/*/dist/**/*.png")) + list(repo_root.glob("media/*/dist/**/*.jpg"))
+                      + list(repo_root.glob("media/shared/*.jpg")) + list(repo_root.glob("media/shared/*.png"))
+                      + [repo_root / "profiles" / s_ / "dist" / "resume.og.jpg" for s_ in served]))
+    for img in imgs:
+        if not img.is_file() or "/icons/" in str(img):
             continue
-        r = subprocess.run(["exiftool", "-s3", "-XMP-dc:Description", "-XMP-dc:Publisher", str(img)], capture_output=True, text=True)
-        desc, publisher = (r.stdout.split("\n") + ["", ""])[:2]
-        if not desc.startswith("provenance:") or not publisher:
-            print(f"🔴 CRITICAL audit: {img.relative_to(repo_root)} lacks {'provenance' if not desc.startswith('provenance:') else ''}{' and ' if not desc.startswith('provenance:') and not publisher else ''}{'branding' if not publisher else ''} metadata"); worst = 2
+        # -T prints "-" for an absent tag, so the columns never shift (-s3 drops it)
+        r = subprocess.run(["exiftool", "-T", "-XMP-dc:Description", "-XMP-dc:Publisher", str(img)], capture_output=True, text=True)
+        cols = (r.stdout.strip().split("\t") + ["-", "-"])[:2]
+        desc, publisher = [("" if c == "-" else c) for c in cols]
+        missing = []
+        if generated.search(str(img)) and not desc.startswith("provenance:"):
+            missing.append("provenance")
+        if not publisher:
+            missing.append("branding")
+        if missing:
+            print(f"🔴 CRITICAL audit: {img.relative_to(repo_root)} lacks {' and '.join(missing)} metadata"); worst = 2
 
     # 3. every blog URL a reader may hold
     former = {}
