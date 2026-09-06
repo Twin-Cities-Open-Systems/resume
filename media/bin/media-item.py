@@ -200,7 +200,7 @@ def build(item_dir, network=True):
     # the media root lists every item; add this one if it is not there
     root = item_dir.parent / "index.html"
     if root.is_file() and f'href="/{slug}"' not in root.read_text():
-        li = (f'    <li>\n      <img class="item-icon" src="/icons/favicon-32.png" alt="">\n      <div>\n'
+        li = (f'    <li>\n      {icon_for_card(card, "gallery")}\n      <div>\n'
               f'        <a href="/{esc(slug)}">{esc(spec["title"])}</a>\n        <p>{esc(spec["description"])}</p>\n      </div>\n    </li>\n')
         r = root.read_text()
         r = r.replace("  </ul>\n  <p class=\"note\">", li + "  </ul>\n  <p class=\"note\">", 1)
@@ -213,6 +213,38 @@ ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
 
 
 ROOT_TMPL = Path(__file__).resolve().parent.parent / "templates" / "root-index.html.tmpl"
+
+
+# Card icons: Lucide (ISC, vendored at a pinned release under
+# media/shared/icons/lucide/, LICENSE beside them), inlined so they take the
+# theme's currentColor. Chosen from the item's `topic` label, then its kind;
+# a card may say `icon: <lucide-name>` to override. Operator, 2026-09-06:
+# "open source icons besides just the tux ... match to some group relevant,
+# or something we can automate". An unknown name falls back to the kind's
+# icon and says so, never to a broken image.
+LUCIDE_DIR = Path(__file__).resolve().parent.parent / "shared" / "icons" / "lucide"
+ICON_BY_TOPIC = {"meme": "party-popper", "tattoo": "pen-tool", "photo": "camera", "photos": "camera",
+                 "video": "clapperboard", "audio": "music", "music": "music", "code": "code", "talk": "mic",
+                 "book": "book-open", "hardware": "wrench", "gif": "image-play"}
+ICON_BY_KIND = {"gallery": "images", "post": "file-text", "resume": "file-badge"}
+
+
+def icon_svg(name, kind="gallery"):
+    for candidate in (name, ICON_BY_KIND.get(kind, "images")):
+        if not candidate:
+            continue
+        f = LUCIDE_DIR / f"{candidate}.svg"
+        if f.is_file():
+            svg = " ".join(f.read_text().split())  # one line; Lucide ships it pretty-printed
+            return re.sub(r"<svg\s", '<svg class="item-icon" aria-hidden="true" ', svg, count=1)
+        if candidate == name:
+            print(f"⚠️  WARNING  media-item: no vendored icon {name!r}; using the {kind} default", file=sys.stderr)
+    return ""
+
+
+def icon_for_card(card, kind="gallery"):
+    spec = card.get("spec", {}); labels = (card.get("metadata") or {}).get("labels") or {}
+    return icon_svg(spec.get("icon") or ICON_BY_TOPIC.get(str(labels.get("topic", "")).lower()), kind)
 
 
 def root_init(media_dist, oper_name, media_host, blog_host=None, description=None):
@@ -263,10 +295,10 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
     media_dist = Path(media_dist).resolve()
     rows = []
     for card_path in sorted(media_dist.glob("*/item.card.v1.yaml")):
-        spec = yaml.safe_load(card_path.read_text())["spec"]
+        card = yaml.safe_load(card_path.read_text()); spec = card["spec"]
         slug = card_path.parent.name
         when = spec.get("date") or max((it.get("date", "") for it in spec.get("items", [])), default="")
-        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"]))  # trailing slash: busybox httpd does not redirect a bare dir
+        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"], icon_for_card(card, "gallery")))  # trailing slash: busybox httpd does not redirect a bare dir
     if posts_manifest and oper:
         posts_dir = media_dist / "posts"; posts_dir.mkdir(exist_ok=True)
         for post in json.loads(Path(posts_manifest).read_text()):
@@ -278,12 +310,12 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
             dst = posts_dir / (post["slug"] + ".html")
             dst.write_bytes(src.read_bytes())
             rows.append((post["date"], "post", f"/posts/{post['slug']}.html", post["title"],
-                         f"Blog post, {post['date']}."))
+                         f"Blog post, {post['date']}.", icon_svg(None, "post")))
     rows.sort(key=lambda r: r[0], reverse=True)
     li = "".join(
-        f'    <li data-kind="{esc(kind)}">\n      <img class="item-icon" src="/icons/favicon-32.png" alt="">\n      <div>\n'
+        f'    <li data-kind="{esc(kind)}">\n      {icon}\n      <div>\n'
         f'        <a href="{esc(href)}">{esc(title)}</a>\n        <p><span class="mono">{esc(when)} &middot; {esc(kind)}</span> &mdash; {esc(desc)}</p>\n      </div>\n    </li>\n'
-        for when, kind, href, title, desc in rows)
+        for when, kind, href, title, desc, icon in rows)
     index = media_dist / "index.html"
     s = index.read_text()
     m = ITEMS_RE.search(s)
