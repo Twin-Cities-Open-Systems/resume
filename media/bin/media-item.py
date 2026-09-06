@@ -481,6 +481,21 @@ def audit(repo_root, env="lab"):
         if len(opers) > 1:
             print(f"🟡 WARNING audit: same og:description on {', '.join(opers)}: {d[:70]!r}"); worst = max(worst, 1)
 
+    # 2c. every page a media host serves carries the Open Graph set. The
+    # resume shipped with a <title> and nothing else (2026-09-06, operator:
+    # "how did that slip through?") because nothing looked. Static check on
+    # the tracked pages, so it fails before a deploy, not after.
+    NEED = ("og:title", "og:description", "og:url", "og:image")
+    served = [p_["slug"] for p_ in people if p_.get("media_dns")]
+    resumes = [repo_root / "profiles" / s_ / "dist" / "resume.html" for s_ in served]
+    for page in sorted(list(repo_root.glob("media/*/dist/**/*.html")) + [r for r in resumes if r.is_file()]):
+        if page.name == "exif.html":
+            continue
+        html_ = page.read_text(errors="replace")
+        missing = [t for t in NEED if f'property="{t}"' not in html_]
+        if missing:
+            print(f"🔴 CRITICAL audit: {page.relative_to(repo_root)} lacks {', '.join(missing)}"); worst = 2
+
     # 3. every blog URL a reader may hold
     former = {}
     log = subprocess.run(["git", "log", "--diff-filter=R", "--name-status", "--format=", "-M", "--", "profiles/*/blog/*.md"],

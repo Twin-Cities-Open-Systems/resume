@@ -71,7 +71,7 @@ _full="$(git -C "$REPO_ROOT" rev-parse HEAD)"; _short="$(git -C "$REPO_ROOT" rev
 find "$STAGE" -name '*.html' -exec sed -i "s|\$COMMIT_SHORT|$_short|g; s|\$COMMIT|$_full|g" {} +
 # The operator's resume ships with the media host (/resume.html, .pdf, .md,
 # .txt) -- the blog host that used to serve it is a redirect now.
-for _ext in html pdf md txt; do
+for _ext in html og.jpg pdf md txt; do
   [ -f "$REPO_ROOT/profiles/$OPER/dist/resume.$_ext" ] && cp "$REPO_ROOT/profiles/$OPER/dist/resume.$_ext" "$STAGE/resume.$_ext"
 done
 
