@@ -282,7 +282,22 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
     m = ITEMS_RE.search(s)
     if not m:
         sys.exit(f"media-item root: no <ul class=\"items\"> block in {index}")
-    index.write_text(s[:m.start()] + m.group(1) + li + m.group(3) + s[m.end():])
+    new_s = s[:m.start()] + m.group(1) + li + m.group(3) + s[m.end():]
+    # lu: this page's last-updated. It was a hand-set stamp the deploy never
+    # touched, so it read 2026-08-26 under a listing rewritten daily
+    # (operator, 2026-09-06: "lu: is wrong"). The builder owns it now: when
+    # the listing changes, or the stamp is older than the newest item, lu is
+    # the build time. Unchanged content keeps its stamp.
+    import datetime as dt
+    lu_re = re.compile(r'(<time class="lu-iso" datetime=")([^"]*)(">)([^<]*)(</time>)')
+    lm = lu_re.search(new_s)
+    newest = max((r[0] for r in rows), default="")
+    if lm:
+        old_lu = lm.group(2)
+        if new_s != s or (newest and old_lu[:10] < newest[:10]):
+            now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            new_s = lu_re.sub(lambda mm: f"{mm.group(1)}{now}{mm.group(3)}{now}{mm.group(5)}", new_s, count=1)
+    index.write_text(new_s)
     print(f"[+] {index}: {sum(1 for r in rows if r[1]=='gallery')} gallery(ies), {sum(1 for r in rows if r[1]=='post')} post(s)")
     return 0
 
