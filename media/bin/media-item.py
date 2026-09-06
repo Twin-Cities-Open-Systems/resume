@@ -216,7 +216,9 @@ def build(item_dir, network=True):
 
     # the media root lists every item; add this one if it is not there
     root = item_dir.parent / "index.html"
-    if root.is_file() and f'href="/{slug}"' not in root.read_text():
+    # the root lists it as href="/<slug>/" (busybox needs the slash); both
+    # forms count, or every rebuild appended a duplicate card (2026-09-06)
+    if root.is_file() and f'href="/{slug}/"' not in root.read_text() and f'href="/{slug}"' not in root.read_text():
         li = (f'    <li>\n      {tile_for_card(card, item_dir, "gallery")}\n      <div>\n'
               f'        <a href="/{esc(slug)}">{esc(spec["title"])}</a>\n        <p>{esc(spec["description"])}</p>\n      </div>\n    </li>\n')
         r = root.read_text()
