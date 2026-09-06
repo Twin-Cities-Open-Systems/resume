@@ -210,6 +210,33 @@ def build(item_dir, network=True):
 ITEMS_RE = re.compile(r'(  <ul class="items">\n)(.*?)(  </ul>\n)', re.S)
 
 
+ROOT_TMPL = Path(__file__).resolve().parent.parent / "templates" / "root-index.html.tmpl"
+
+
+def root_init(media_dist, oper_name, media_host, blog_host=None, note="More coming here over time."):
+    """Write a fresh root page for an operator from the shared template --
+    the page spencer's was hand-written as, with name and hosts filled in.
+    One host per person: <prefix>.media.tcos.us. Operator, 2026-09-06:
+    "make sure the new ones are added (will be just the base with no blogs
+    yet)"."""
+    import datetime as dt
+    import string
+    media_dist = Path(media_dist).resolve(); media_dist.mkdir(parents=True, exist_ok=True)
+    index = media_dist / "index.html"
+    if index.exists():
+        print(f"⚠️  WARNING  media-item root --init: {index} exists, not overwriting", file=sys.stderr)
+        return 1
+    short = media_host.replace(".tcos.us", "")
+    blog_line = (f'  <p class="eyebrow eyebrow-sub"><a href="https://{blog_host}" data-cross-site>'
+                 f'{blog_host.replace(".tcos.us", "")}</a></p>\n') if blog_host else ""
+    page = string.Template(ROOT_TMPL.read_text()).safe_substitute(
+        OPER_NAME=esc(oper_name), MEDIA_HOST=media_host, MEDIA_SHORT=short, BLOG_LINE=blog_line,
+        LU_ISO=dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), NOTE=esc(note))
+    index.write_text(page)
+    print(f"[+] {index}: root for {oper_name} at https://{media_host}/")
+    return 0
+
+
 def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
     """The media root lists galleries (every item.card.v1.yaml below it, by
     date) and this oper's blog posts, copied in from the rendered Gold
@@ -251,10 +278,16 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
 
 def main(argv):
     if len(argv) >= 2 and argv[0] == "root":
-        opts = dict(zip(argv[2::2], argv[3::2]))
+        flags = [a for a in argv[2:] if a == "--init"]
+        rest = [a for a in argv[2:] if a != "--init"]
+        opts = dict(zip(rest[0::2], rest[1::2]))
+        if flags:
+            if not (opts.get("--name") and opts.get("--host")):
+                sys.exit("usage: media-item.py root <media-dist> --init --name NAME --host <prefix>.media.tcos.us [--blog-host HOST]")
+            return root_init(argv[1], opts["--name"], opts["--host"], opts.get("--blog-host"))
         return root(argv[1], opts.get("--posts"), opts.get("--oper"), opts.get("--posts-src"))
     if len(argv) < 2 or argv[0] != "build":
-        print(__doc__ or "usage: media-item.py build <item-dir> [--no-network]"); return 2
+        print(__doc__ or "usage: media-item.py build <item-dir> [--no-network] | root <media-dist> [--init --name N --host H]"); return 2
     return build(argv[1], network="--no-network" not in argv)
 
 

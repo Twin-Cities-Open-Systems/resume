@@ -275,6 +275,10 @@ python3 bin/render-blog.py --check
 # idempotent, so every build re-asserts it rather than trusting a paste.
 python3 bin/ensure-gtag.py "$OUTPUT_WEB_DIR/index.html" "$OUTPUT_WEB_DIR/blog-hub.html" "$OUTPUT_WEB_DIR/media-hub.html"
 
+# The prod blog hosts become redirects to each person's media host; Pages
+# can only see the hostname from a worker, so one is generated here.
+python3 bin/blog-redirect-worker.py "$OUTPUT_WEB_DIR/people.json" "$OUTPUT_WEB_DIR/_worker.js"
+
 # One public host per person: this oper's rendered posts also live on the
 # media site (spencer.media.tcos.us/posts/<slug>.html) and its root lists
 # galleries and posts together. Lab first, then promote (HEE_POLICY §17).
