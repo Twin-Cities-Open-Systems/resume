@@ -94,11 +94,9 @@ python3 media/bin/media-item.py audit --prod || bad=1
 [ "$bad" = 0 ] || { echo "❌ CRITICAL promote: prod verification failed -- fix forward or redeploy the previous commit" >&2; exit 2; }
 
 TAG="prod/resume-pages/$STAMP"
-git tag -s "$TAG" -m "prod promotion: blog.tcos.us, media.tcos.us, *.blog.tcos.us
+hee git tag "$TAG" -m "prod promotion: blog.tcos.us, media.tcos.us, *.blog.tcos.us
 pages project: $PROJECT
 source: $SRC_SHA
 session: $SIG
-verified: hubs 200, media-item audit --prod OK" "$SRC_SHA" \
-  && git push -q origin "refs/tags/$TAG" \
-  && echo "🟢 OK promoted: tag $TAG (session $SIG)" \
-  || { echo "⚠️ WARNING promote: deployed and verified, but the prod tag could not be created/pushed -- record it by hand" >&2; }
+verified: hubs 200, media-item audit --prod OK" "$SRC_SHA" --yes --push \
+  || { echo "⚠️ WARNING promote: deployed and verified, but the prod tag could not be created/pushed -- hee git tag $TAG -m ... $SRC_SHA --yes --push" >&2; }
