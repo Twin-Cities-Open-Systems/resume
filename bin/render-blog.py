@@ -71,6 +71,26 @@ def check_post_title(md_path):
     sys.exit(f"❌ CRITICAL render-blog: {md_path}: empty post")
 
 
+def check_post_safety(md_path):
+    """The mandatory publish-safety gate, per
+    contracts/publish-sanitization-v1.contract.yaml: every post goes
+    through `hee filter scan` (tcos-audit's ruleset) before it renders.
+    Findings refuse the post, CRITICAL; a scanner that cannot run also
+    refuses (fail-closed), never a silent skip. Operator, 2026-09-05,
+    on learning nothing scanned a post: "make sure our ci/cd pipeline
+    is auditing everything for all, continuously"."""
+    import shutil
+    import subprocess
+    hee = shutil.which("hee") or os.path.expanduser("~/git/human-execution-engine/hee")
+    if not os.path.exists(hee):
+        sys.exit(f"❌ CRITICAL render-blog: {md_path}: `hee` not found -- cannot run the publish-safety gate, refusing to publish")
+    res = subprocess.run([hee, "filter", "scan"], stdin=md_path.open("rb"), capture_output=True, text=True)
+    if res.returncode != 0:
+        detail = (res.stderr or res.stdout).strip().splitlines()
+        first = next((l for l in detail if l.strip()), "no detail")
+        sys.exit(f"❌ CRITICAL render-blog: {md_path}: publish-safety gate refused (hee filter scan rc={res.returncode}): {first.strip()[:160]}")
+
+
 def load_renderer():
     if not RENDER.is_file():
         sys.exit(f"render-blog: {RENDER} not found -- check out Twin-Cities-Open-Systems/.github under ~/git "
@@ -117,7 +137,8 @@ def main(argv):
     produced = []
     for post in posts:
         src = Path(post["path"])                       # profiles/<slug>/blog/<post>.md
-        post["title"] = check_post_title(src)          # the gate; also the one true title
+        post["title"] = check_post_title(src)          # gate 1: a real title
+        check_post_safety(src)                         # gate 2: hee filter scan, fail-closed
         slug = src.parts[1]
         host = people.get(slug, {}).get("public_dns") or "blog.tcos.us"
         out = DIST / src.with_suffix(".html")

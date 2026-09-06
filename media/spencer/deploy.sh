@@ -58,6 +58,17 @@ done
 echo "=== syncing lab (pve container 107) ==="
 tar -C "$STAGE" -cf - --exclude=deploy.sh --exclude=__pycache__ --exclude=.assetsignore . \
   | ssh pve "pct exec 107 -- tar -C /www/spencer-media -xf -"
+# Prune: anything under posts/ or an item dir that the stage no longer has.
+# tar only adds; a renamed post (2026-09-05, the numbered prefix) left its
+# old file live at the old URL until removed by hand.
+( cd "$STAGE" && find posts -type f 2>/dev/null | sort ) > "$STAGE/.manifest"
+ssh pve "pct exec 107 -- sh -c 'cd /www/spencer-media && find posts -type f 2>/dev/null | sort'" \
+  | comm -13 "$STAGE/.manifest" - \
+  | while read -r stale; do
+      [ -n "$stale" ] || continue
+      echo "  prune: $stale (no longer in the build)"
+      ssh pve "pct exec 107 -- rm -f -- '/www/spencer-media/$stale'"
+    done
 
 if [ "$cmd" = "lab" ]; then
   echo "=== lab updated. review at https://spencer.media.lab.tcos.us -- run './deploy.sh promote' when approved ==="
