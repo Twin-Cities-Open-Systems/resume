@@ -1,4 +1,4 @@
-# HwOps Log: Why Didn't You Use The Dry Run Option?
+# HWOps Log: Why Didn't You Use The Dry Run Option?
 **Date:** 2026-08-19  
 **Author:** Spencer Butler  
 **Tag:** HWOps For Life  
