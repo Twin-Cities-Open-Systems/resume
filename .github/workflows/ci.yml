@@ -28,6 +28,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Twin-Cities-Open-Systems/human-execution-engine
+          # Pinned. `stable` advances only after this repo is measured green against
+          # the candidate commit; unpinned, a hee tightening turned org repos red with
+          # no commit here -- human-execution-engine#633.
+          ref: stable
           path: human-execution-engine
 
       # BLOCKING, and verified green before this workflow was added:
