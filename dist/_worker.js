@@ -16,7 +16,13 @@ export default {
       if (p) return Response.redirect(target + "/posts/" + p[1] + ".html", 301);
       // the resume used to live here as /resume-<slug>.html and /profiles/<slug>/dist/resume.<ext>
       const r = url.pathname.match(/^\/(?:resume-[^/]+|profiles\/[^/]+\/dist\/resume)\.(html|pdf|md|txt)$/);
-      return Response.redirect(r ? target + "/resume." + r[1] : target + "/", 301);
+      if (r) return Response.redirect(target + "/resume." + r[1], 301);
+      // A top-level page (/lg-webos, /lg-webos.html) is a post now: the two
+      // hand-built standalone pages became profiles/<oper>/blog/*.md on
+      // 2026-09-10. Lost 2026-09-05..10 behind the catch-all below. /index is the root.
+      const s = url.pathname.match(/^\/([^/.]+)(?:\.html)?$/);
+      if (s && s[1] !== "index") return Response.redirect(target + "/posts/" + s[1] + ".html", 301);
+      return Response.redirect(target + "/", 301);
     }
     // The hub hosts: media.tcos.us and blog.tcos.us are the index of every
     // operator, nothing else. "/" serves the hub page under its clean name

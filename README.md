@@ -30,6 +30,9 @@ that duplication was a real bug here once (`spencer.media.tcos.us`
 hardcoded in two separate files, already drifting), fixed by making
 this the one real place it's declared.
 
+How a post, item or resume gets from here to a host, and the release
+steps: `docs/PUBLISHING.md`.
+
 Two real category-level hubs list every operator with one --
 `blog.tcos.us` and `media.tcos.us`, live on the lab clone
 ([blog.lab.tcos.us](https://blog.lab.tcos.us/) /
