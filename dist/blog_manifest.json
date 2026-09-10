@@ -1,4 +1,18 @@
 [{
+"slug": "lg-webos",
+"date": "2026-08-30",
+"title": "Rooting a TV Into Submission",
+"raw_fallback": "(see full post)",
+"path": "profiles/spencer/blog/lg-webos.md",
+"html": "profiles/spencer/blog/lg-webos.html"
+},{
+"slug": "eos-2026-08-30",
+"date": "2026-08-30",
+"title": "End of Session, Long Version",
+"raw_fallback": "(see full post)",
+"path": "profiles/spencer/blog/eos-2026-08-30.md",
+"html": "profiles/spencer/blog/eos-2026-08-30.html"
+},{
 "slug": "chat-mach-dude-kthxbai",
 "date": "2026-08-30",
 "title": "chat-mach-dude, put this show on this device now, kthxbai",
@@ -50,7 +64,7 @@
 },{
 "slug": "why-didnt-you-use-dryrun",
 "date": "2026-08-19",
-"title": "HwOps Log: Why Didn't You Use The Dry Run Option?",
+"title": "HWOps Log: Why Didn't You Use The Dry Run Option?",
 "raw_fallback": "(see full post)",
 "path": "profiles/spencer/blog/why-didnt-you-use-dryrun.md",
 "html": "profiles/spencer/blog/why-didnt-you-use-dryrun.html"

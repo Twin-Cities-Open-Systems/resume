@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Nothing since the last release._
 
+## [1.1.0] - 2026-09-10
+
+### Added
+
+- 2026-09-10 **blog**: the two standalone pages are posts now; standalone-pages/ removed; publishing guide ([#83](https://github.com/Twin-Cities-Open-Systems/resume/pull/83))
+- 2026-09-06 **release**: cut builds the whole repo into the release commit (hee#594) ([#80](https://github.com/Twin-Cities-Open-Systems/resume/pull/80))
+- 2026-09-06 **media**: release beside commit in every root and item footer -- the tag on prod, describe-with-distance on lab ([#79](https://github.com/Twin-Cities-Open-Systems/resume/pull/79))
+
+### Changed
+
+- 2026-09-08 **hee-check**: pin the hee checkout to `stable` ([#82](https://github.com/Twin-Cities-Open-Systems/resume/pull/82))
+
+### Other
+
+- 2026-09-07 easter egg HWOps For Life! ([#81](https://github.com/Twin-Cities-Open-Systems/resume/pull/81))
+
 ## [1.0.0] - 2026-09-06
 
 ### Added

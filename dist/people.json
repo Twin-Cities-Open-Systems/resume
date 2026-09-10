@@ -5,6 +5,7 @@
     "subdomain_prefix": "intern-j2",
     "public_dns": "intern-j2.blog.tcos.us",
     "media_dns": "",
+    "github": "",
     "route_path": "people/claude-intern-j2"
   }
 ,
@@ -14,6 +15,7 @@
     "subdomain_prefix": "claudeops",
     "public_dns": "claudeops.media.tcos.us",
     "media_dns": "claudeops.media.tcos.us",
+    "github": "claudeops-j1",
     "route_path": "people/claudeops-j1"
   }
 ,
@@ -23,6 +25,7 @@
     "subdomain_prefix": "claudesec",
     "public_dns": "claudesec.media.tcos.us",
     "media_dns": "claudesec.media.tcos.us",
+    "github": "claudesec-j1",
     "route_path": "people/claudesec-j1"
   }
 ,
@@ -32,6 +35,7 @@
     "subdomain_prefix": "nuc1-claude",
     "public_dns": "nuc1-claude.media.tcos.us",
     "media_dns": "nuc1-claude.media.tcos.us",
+    "github": "nuc1-claude",
     "route_path": "people/nuc1-claude"
   }
 ,
@@ -41,6 +45,7 @@
     "subdomain_prefix": "spencer",
     "public_dns": "spencer.blog.tcos.us",
     "media_dns": "spencer.media.tcos.us",
+    "github": "spencerbutler",
     "route_path": "people/spencer"
   }
 ,
@@ -50,6 +55,7 @@
     "subdomain_prefix": "touchy",
     "public_dns": "touchy.blog.tcos.us",
     "media_dns": "touchy.media.tcos.us",
+    "github": "touchy-claude",
     "route_path": "people/touchy-claude"
   }
 
