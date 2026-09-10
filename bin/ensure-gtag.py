@@ -16,13 +16,13 @@ import re
 import sys
 
 sys.path.insert(0, os.path.join(os.environ.get("HEE_REPO_DIR", os.path.expanduser("~/git/human-execution-engine")), "library", "py"))
-import hee_gtag  # noqa: E402
+import hee_gtag
 
 # The whole block: the comment, the async loader line (which ends in
 # </script> itself -- a lazy .*?</script> stopped there and left the
 # inline script behind on every run; caught by the idempotency check),
 # then the inline script through its own </script>, plus one newline.
-BLOCK_RE = re.compile(r"<!-- Google tag \(gtag\.js\) -->\n<script async[^\n]*</script>\n<script>\n.*?\n</script>\n", re.S)
+BLOCK_RE = re.compile(r"<!-- Google tag \(gtag\.js\) -->\n<script async[^\n]*</script>\n<script>\n.*?\n</script>\n", re.DOTALL)
 
 
 def main(files):
@@ -31,7 +31,8 @@ def main(files):
         return 1
     rc = 0
     for f in files:
-        s = open(f, encoding="utf-8").read()
+        with open(f, encoding="utf-8") as fh:
+            s = fh.read()
         had = BLOCK_RE.search(s)
         s2 = BLOCK_RE.sub("", s, count=1) if had else s
         m = re.search(r"<head[^>]*>\n?", s2)
@@ -39,7 +40,8 @@ def main(files):
             print(f"❌ CRITICAL {f}: no <head>"); rc = 2; continue
         s2 = s2[:m.end()] + snip + "\n" + s2[m.end():]
         if s2 != s:
-            open(f, "w", encoding="utf-8").write(s2)
+            with open(f, "w", encoding="utf-8") as fh:
+                fh.write(s2)
             print(f"[+] {f}: Google tag {'replaced' if had else 'added'} after <head>")
         else:
             print(f"[=] {f}: Google tag already present")

@@ -160,7 +160,7 @@ def build(item_dir, network=True):
     env = dict(os.environ)
     if not env.get("HEE_BRANDING") and (Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml").is_file():
         env["HEE_BRANDING"] = str(Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml")
-    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
+    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, check=False).stdout.strip() or "unknown"
     subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
                     "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
                     "--kv", f"og_for=https://{host}/{slug}/", "--kv", "page=gallery", "--kv", f"owner={spec.get('owner', '')}",
@@ -192,26 +192,26 @@ def build(item_dir, network=True):
     generated = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     signer = spec.get("signer", {})
     attester = spec.get("attester", {})
-    values = dict(
-        TITLE=esc(spec["title"]), OWNER=esc(spec.get("owner", "")), DESCRIPTION=esc(spec["description"]),
-        HOST=esc(host), HOST_SHORT=esc(host_short), SLUG=esc(slug), OG_URL=esc(url), OG_URL_EXIF=esc(url + "exif.html"),
-        OG_IMAGE=esc(f"https://{host}/{slug}/{og_file.name}"), OG_IMAGE_ALT=esc(spec.get("og_image_alt", spec["title"])),
-        OG_IMAGE_W=og_w, OG_IMAGE_H=og_h,
-        EYEBROW=esc(spec.get("eyebrow", spec["title"].lower())), SUB=spec.get("sub_html") or esc(spec.get("sub", spec["description"])),
-        STATS=stats, CREDIT=credit_html, GENERATED=generated,
-        SOURCE_URL=esc(spec.get("source_url", f"https://github.com/Twin-Cities-Open-Systems/resume/blob/main/media/{host.split('.')[0]}/dist/{slug}/item.card.v1.yaml")),
-        SOURCE_LABEL=esc(spec.get("source_label", "item.card.v1.yaml")),
-        GROUP_TOOLBAR=group_toolbar,
-        FIGURES="\n".join(figure(it, item_dir, signatures) for it in items),
+    values = {
+        "TITLE": esc(spec["title"]), "OWNER": esc(spec.get("owner", "")), "DESCRIPTION": esc(spec["description"]),
+        "HOST": esc(host), "HOST_SHORT": esc(host_short), "SLUG": esc(slug), "OG_URL": esc(url), "OG_URL_EXIF": esc(url + "exif.html"),
+        "OG_IMAGE": esc(f"https://{host}/{slug}/{og_file.name}"), "OG_IMAGE_ALT": esc(spec.get("og_image_alt", spec["title"])),
+        "OG_IMAGE_W": og_w, "OG_IMAGE_H": og_h,
+        "EYEBROW": esc(spec.get("eyebrow", spec["title"].lower())), "SUB": spec.get("sub_html") or esc(spec.get("sub", spec["description"])),
+        "STATS": stats, "CREDIT": credit_html, "GENERATED": generated,
+        "SOURCE_URL": esc(spec.get("source_url", f"https://github.com/Twin-Cities-Open-Systems/resume/blob/main/media/{host.split('.')[0]}/dist/{slug}/item.card.v1.yaml")),
+        "SOURCE_LABEL": esc(spec.get("source_label", "item.card.v1.yaml")),
+        "GROUP_TOOLBAR": group_toolbar,
+        "FIGURES": "\n".join(figure(it, item_dir, signatures) for it in items),
         # a card with no footer gets no dangling separator; the footer is
         # optional (operator, 2026-09-06: "kill this cruft")
-        FOOTER=(" &middot; " + (spec.get("footer_html") or esc(spec["footer"]))) if (spec.get("footer_html") or spec.get("footer")) else "",
-        OPENPGP_SRC=esc(spec.get("openpgp_src", "/openpgp.min.js")),
-        SIGNER_LABEL=esc(signer.get("label", signer.get("github_login", "signer"))),
-        ATTESTER_LABEL=esc(attester.get("label", "")),
-        TAG_LABELS_JSON=json.dumps(tags),
-        GTAG=GTAG.replace("$", "$$"),
-    )
+        "FOOTER": (" &middot; " + (spec.get("footer_html") or esc(spec["footer"]))) if (spec.get("footer_html") or spec.get("footer")) else "",
+        "OPENPGP_SRC": esc(spec.get("openpgp_src", "/openpgp.min.js")),
+        "SIGNER_LABEL": esc(signer.get("label", signer.get("github_login", "signer"))),
+        "ATTESTER_LABEL": esc(attester.get("label", "")),
+        "TAG_LABELS_JSON": json.dumps(tags),
+        "GTAG": GTAG.replace("$", "$$"),
+    }
     index = Template((TEMPLATES / "item-index.html.tmpl").read_text()).safe_substitute(values)
     index = index.replace("var SIGNATURES = {};", "var SIGNATURES = " + json.dumps(signatures) + ";")
     (item_dir / "index.html").write_text(index)
@@ -276,7 +276,9 @@ def tile_png(out_png, *, text, palette, motif, seed, extra=None):
     import hashlib, tempfile
     job = {"output": str(out_png), "size": 256, "text": text, "seed": seed, "motif": motif, **(extra or {})}
     sys.path.insert(0, str(TILE_PY.parent))
-    import importlib; tile = importlib.import_module("tile")
+    import importlib
+
+    tile = importlib.import_module("tile")
     job["palette"] = tile.PALETTES.get(palette) or tile.PALETTES["lime"]
     tile.render_job(job)
     return True
@@ -334,7 +336,7 @@ def root_init(media_dist, oper_name, media_host, blog_host=None, description=Non
             pj = json.loads(prof.read_text())
             title = pj["language_profiles"]["payloads"]["professional"]["title"]
             description = f"{title} at Twin Cities Open Systems -- posts, galleries and verified media."
-        except Exception:
+        except (OSError, KeyError, TypeError, ValueError):
             description = f"{oper_name} at Twin Cities Open Systems -- posts, galleries and verified media."
     page = string.Template(ROOT_TMPL.read_text()).safe_substitute(
         OPER_NAME=esc(oper_name), MEDIA_HOST=media_host, MEDIA_SHORT=short, BLOG_LINE=blog_line, DESCRIPTION=esc(description),
@@ -438,7 +440,7 @@ def audit(repo_root, env="lab"):
         def _public(host, port, family=0, type=0, proto=0, flags=0):
             if isinstance(host, str) and host.endswith(".tcos.us") and not host.endswith(".lab.tcos.us"):
                 if host not in _cache:
-                    out = subprocess.run(["dig", "+short", "+time=3", "A", host + ".", "@1.1.1.1"], capture_output=True, text=True).stdout.split()
+                    out = subprocess.run(["dig", "+short", "+time=3", "A", host + ".", "@1.1.1.1"], capture_output=True, text=True, check=False).stdout.split()
                     _cache[host] = [a for a in out if a.replace(".", "").isdigit()]
                 if _cache[host]:
                     return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", (ip, port)) for ip in _cache[host]]
@@ -455,7 +457,7 @@ def audit(repo_root, env="lab"):
                 return r.status, r.geturl()
         except urllib.error.HTTPError as e:
             return e.code, url
-        except Exception as e:
+        except (OSError, ValueError) as e:   # URLError, socket and ssl errors are OSError
             return None, str(e)[:60]
 
     # 1. the hub
@@ -467,7 +469,7 @@ def audit(repo_root, env="lab"):
         with urllib.request.urlopen(urllib.request.Request(hub, headers={"User-Agent": "media-item audit"}), timeout=8) as r:
             hub_people = json.loads(r.read().decode())
         hub_hosts = {p["media_dns"] for p in hub_people if p.get("media_dns")}
-    except Exception as e:
+    except (OSError, ValueError, KeyError, TypeError) as e:
         print(f"🔴 CRITICAL audit: media hub data unreachable: {hub} ({e})"); hub_hosts = set(); worst = 2
     for p in people:
         if not p.get("media_dns"):
@@ -532,7 +534,7 @@ def audit(repo_root, env="lab"):
         if not img.is_file():
             continue
         # -T prints "-" for an absent tag, so the columns never shift (-s3 drops it)
-        r = subprocess.run(["exiftool", "-T", "-XMP-dc:Description", "-XMP-dc:Publisher", str(img)], capture_output=True, text=True)
+        r = subprocess.run(["exiftool", "-T", "-XMP-dc:Description", "-XMP-dc:Publisher", str(img)], capture_output=True, text=True, check=False)
         cols = (r.stdout.strip().split("\t") + ["-", "-"])[:2]
         desc, publisher = [("" if c == "-" else c) for c in cols]
         missing = []
@@ -546,7 +548,7 @@ def audit(repo_root, env="lab"):
     # 3. every blog URL a reader may hold
     former = {}
     log = subprocess.run(["git", "log", "--diff-filter=R", "--name-status", "--format=", "-M", "--", "profiles/*/blog/*.md"],
-                         cwd=repo_root, capture_output=True, text=True).stdout
+                         cwd=repo_root, capture_output=True, text=True, check=False).stdout
     for line in log.splitlines():
         parts = line.split("\t")
         if len(parts) == 3 and parts[0].startswith("R"):

@@ -24,9 +24,9 @@ import importlib.util
 import json
 import os
 import re
-import sys as _sys
 import subprocess
 import sys
+import sys as _sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -84,7 +84,7 @@ def check_post_safety(md_path):
     hee = shutil.which("hee") or os.path.expanduser("~/git/human-execution-engine/hee")
     if not os.path.exists(hee):
         sys.exit(f"❌ CRITICAL render-blog: {md_path}: `hee` not found -- cannot run the publish-safety gate, refusing to publish")
-    res = subprocess.run([hee, "filter", "scan"], stdin=md_path.open("rb"), capture_output=True, text=True)
+    res = subprocess.run([hee, "filter", "scan"], stdin=md_path.open("rb"), capture_output=True, text=True, check=False)
     if res.returncode != 0:
         detail = (res.stderr or res.stdout).strip().splitlines()
         first = next((l for l in detail if l.strip()), "no detail")
@@ -100,7 +100,7 @@ def published_diff_html(src, rr):
     import html as _html
     import subprocess
     def git(*a):
-        return subprocess.run(["git", *a], capture_output=True, text=True).stdout
+        return subprocess.run(["git", *a], capture_output=True, text=True, check=False).stdout
     names = sorted({n for n in git("log", "--follow", "--name-only", "--format=", "--", str(src)).splitlines() if n})
     hashes = git("log", "--follow", "--format=%H %cs", "--", str(src)).splitlines()
     if len(hashes) < 2:
@@ -148,7 +148,8 @@ def post_card(out_html, title, date, host, slug):
     if not TILE_PY.is_file():
         print(f"  WARN: meme-factory tile generator not at {TILE_PY}; {slug} gets no og:image", file=sys.stderr)
         return None
-    import hashlib, importlib
+    import hashlib
+    import importlib
     sys.path.insert(0, str(TILE_PY.parent)); tile = importlib.import_module("tile")
     words = [w for w in re.split(r"[^A-Za-z0-9]+", title) if w]
     mono = ("".join(w[0] for w in words[:2]) or slug[:2]).upper()
@@ -191,7 +192,7 @@ def main(argv):
     people = people_by_slug()
     posts = json.loads(MANIFEST.read_text())
     generated_iso = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-    repo = str(Path(".").resolve())
+    repo = str(Path.cwd())
     gtag = gtag_snippet()
     produced = []
     for post in posts:
@@ -230,7 +231,7 @@ def main(argv):
     MANIFEST.write_text(json.dumps(posts, indent=0).replace("\n{", "{") + "\n")
     print(f"  [i] {len(produced)} post(s) rendered through {RENDER}")
     if "--check" in argv:
-        r = subprocess.run([sys.executable, str(CHECK), *map(str, produced)])
+        r = subprocess.run([sys.executable, str(CHECK), *map(str, produced)], check=False)
         return r.returncode
     return 0
 

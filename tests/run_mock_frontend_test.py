@@ -4,10 +4,10 @@
 # Script Type: Portable Python3 Userland Verification Utility
 # Invariant: Enforces strict data contract validation across schema mappings
 # ==============================================================================
+import json
 import os
 import sys
-import json
-import re
+
 
 def execute_simulation_pass():
     profile_path = "profiles/spencer/profile.json"
@@ -24,8 +24,8 @@ def execute_simulation_pass():
             profile_data = json.load(f)
         with open(manifest_path, "r") as f:
             manifest_data = json.load(f)
-    except Exception as e:
-        print(f"[-] Schema Failure: Parsing error encountered -> {str(e)}")
+    except (OSError, ValueError) as e:
+        print(f"[-] Schema Failure: Parsing error encountered -> {e!s}")
         sys.exit(1)
 
     print("[+] Core profiles parsed cleanly. Verifying specific language mode bindings...")

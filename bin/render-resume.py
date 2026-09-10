@@ -14,7 +14,6 @@
 # media host serves; this is what makes the resume pass it.
 from __future__ import annotations
 
-import hashlib
 import importlib
 import json
 import os
@@ -24,7 +23,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import importlib.util  # noqa: E402
+import importlib.util
 
 REPO = Path(__file__).resolve().parent.parent
 TILE_PY = Path(os.environ.get("MEME_FACTORY_TILE", Path.home() / "git/fleet-ops/tools/meme-factory/tile/tile.py"))

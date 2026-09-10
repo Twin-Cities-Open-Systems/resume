@@ -63,9 +63,11 @@ export default {
 
 
 def main(people_path, out_path):
-    people = json.load(open(people_path))
+    with open(people_path) as f:
+        people = json.load(f)
     mapping = {p["subdomain_prefix"]: p["media_dns"] for p in people if p.get("media_dns")}
-    open(out_path, "w").write(WORKER % {"map": json.dumps(mapping, indent=2)})
+    with open(out_path, "w") as f:
+        f.write(WORKER % {"map": json.dumps(mapping, indent=2)})
     print(f"[+] {out_path}: {len(mapping)} blog host(s) redirect to media: {', '.join(sorted(mapping))}")
     return 0
 
