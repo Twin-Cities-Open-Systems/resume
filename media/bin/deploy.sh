@@ -132,7 +132,7 @@ ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find posts -type f 2>/dev/null 
   | while read -r stale; do
       [ -n "$stale" ] || continue
       echo "  prune: $stale (no longer in the build)"
-      ssh pve "pct exec 107 -- rm -f -- '$WWW_DIR/$stale'"
+      ssh -n pve "pct exec 107 -- rm -f -- '$WWW_DIR/$stale'"
     done
 
 if [ "$cmd" = "lab" ]; then
