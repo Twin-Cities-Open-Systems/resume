@@ -10,7 +10,7 @@ npx serve dist -l 8080 &
 SERVER_PID=$!
 
 # Ensure the background asset server gracefully terminates on script exit
-trap "kill ${SERVER_PID}" EXIT
+trap 'kill "$SERVER_PID"' EXIT
 
 echo "=== Step 3: Tunneling Directly to spencer.blog.tcos.us ==="
 # Creating an immediate Cloudflare quick-tunnel to bypass your permission limits

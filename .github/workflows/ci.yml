@@ -46,15 +46,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # REPORTING ONLY on first landing. shellcheck is not installed on the
+      # Enforcing since 2026-09-10: the tree is shellcheck-clean (resume#85).
+      # History: REPORTING ONLY on first landing. shellcheck was not installed on the
       # authoring host, so it could not be verified green beforehand, and
       # rule 16 forbids adding a check that is red on day one.
       # FLIP CONDITION: if the first run on main is green, remove
       # continue-on-error. If it is red, fix or scope it -- do not leave
       # this line here indefinitely.
       - name: shellcheck
-        continue-on-error: true
-        run: |
+          run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
           find . -name '*.sh' -o -name '*.bash' | grep -v '/\.git/' | xargs -r shellcheck
 

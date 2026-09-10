@@ -107,7 +107,7 @@ PYM
 )"
   if [ -n "$missing" ]; then
     echo "❌ CRITICAL deploy: build says $OPER has posts the stage lacks -- run ./convert.sh first:" >&2
-    printf '  %s\n' $missing >&2; exit 2
+    printf '%s\n' "$missing" | sed 's/^/  /' >&2; exit 2
   fi
 fi
 
@@ -120,6 +120,8 @@ for js in "${OWN_JS[@]}"; do
 done
 
 echo "=== syncing lab (pve container 107) ==="
+# $WWW_DIR is meant to expand here, not on pve
+# shellcheck disable=SC2029
 tar -C "$STAGE" -cf - --exclude=deploy.sh --exclude=__pycache__ --exclude=.assetsignore . \
   | ssh pve "pct exec 107 -- sh -c 'mkdir -p $WWW_DIR && tar -C $WWW_DIR -xf -'"
 # Prune: anything under posts/ or an item dir that the stage no longer has.
@@ -127,6 +129,8 @@ tar -C "$STAGE" -cf - --exclude=deploy.sh --exclude=__pycache__ --exclude=.asset
 # old file live at the old URL until removed by hand.
 # An operator with no posts yet has no posts/ dir -- that is not an error.
 ( cd "$STAGE" && { find posts -type f 2>/dev/null || true; } | sort ) > "$STAGE/.manifest"
+# $WWW_DIR is meant to expand here, not on pve
+# shellcheck disable=SC2029
 ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find posts -type f 2>/dev/null || true; } | sort'" \
   | comm -13 "$STAGE/.manifest" - \
   | while read -r stale; do
@@ -167,7 +171,7 @@ while IFS= read -r _img; do
   case "$_img" in */icons/*) continue ;; esac
   _meta="$(exiftool -T -XMP-dc:Description -XMP-dc:Publisher "$_img" 2>/dev/null)"
   _desc="${_meta%%	*}"; _pub="${_meta#*	}"
-  [ "$_pub" != "-" ] && [ -n "$_pub" ] || { echo "❌ CRITICAL promote: ${_img#"$STAGE"/} has no org branding metadata" >&2; _bad=1; }
+  if [ "$_pub" = "-" ] || [ -z "$_pub" ]; then echo "❌ CRITICAL promote: ${_img#"$STAGE"/} has no org branding metadata" >&2; _bad=1; fi
   case "${_img##*/}" in tile.png|og.jpg|*.og.jpg)
     case "$_desc" in provenance:*) ;; *) echo "❌ CRITICAL promote: ${_img#"$STAGE"/} has no provenance metadata (is fleet-ops' tile generator current?)" >&2; _bad=1 ;; esac ;;
   esac
@@ -210,6 +214,8 @@ for card in "$MEDIA_ROOT"/*/item.card.v1.yaml "$MEDIA_ROOT"/tux-tattoo/index.htm
   d="$(basename "$(dirname "$card")")"; ITEM_PAGES="$ITEM_PAGES $d/index.html $d/exif.html"
 done
 for f in $ITEM_PAGES; do
+  # $LAB_HOST and $f are meant to expand here, not on pve
+  # shellcheck disable=SC2029
   lab=$(ssh pve "pct exec 103 -- curl -sL -H 'Host: $LAB_HOST' 'http://localhost/$f'" 2>/dev/null | md5sum | cut -d' ' -f1)
   # The edge can still hand out the previous version for a short while
   # after a deploy (index.html MISMATCH seconds after a Success line,

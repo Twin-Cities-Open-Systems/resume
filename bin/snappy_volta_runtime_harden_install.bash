@@ -2,6 +2,8 @@
 
 # Install the Volta binary controller framework
 curl https://get.volta.sh | bash
+# the user's own rc, not a file this repo ships
+# shellcheck disable=SC1090
 source ~/.bashrc
 
 # Lock down the Node v22 runtime dependency globally across the host

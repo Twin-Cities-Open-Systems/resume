@@ -74,8 +74,11 @@ for img in $(find dist -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.gif
   [ -n "$(exiftool -s3 -XMP-dc:Publisher "$img" 2>/dev/null)" ] || { echo "❌ CRITICAL deploy: $img has no org branding metadata -- hee exif brand $img" >&2; exit 2; }
 done
 # the worker is an ES module (export default), so --check it as one
-cp dist/_worker.js "$LOG.mjs" && node --check "$LOG.mjs" 2>/dev/null && rm -f "$LOG.mjs" \
-  || { echo "❌ CRITICAL deploy: dist/_worker.js does not parse" >&2; rm -f "$LOG.mjs"; exit 2; }
+cp dist/_worker.js "$LOG.mjs"
+if ! node --check "$LOG.mjs" 2>/dev/null; then
+  echo "❌ CRITICAL deploy: dist/_worker.js does not parse" >&2; rm -f "$LOG.mjs"; exit 2
+fi
+rm -f "$LOG.mjs"
 echo "  hee check all: OK; no conflict markers; tag on the three hubs; worker parses"
 
 if [ "$cmd" = lab ]; then
