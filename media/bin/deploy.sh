@@ -101,7 +101,8 @@ import json, os, sys
 manifest, oper, stage = sys.argv[1:4]
 for post in json.load(open(manifest)):
     if post["path"].startswith(f"profiles/{oper}/") and post.get("html"):
-        if not os.path.isfile(os.path.join(stage, "posts", post["slug"] + ".html")):
+        kind_dir = "blog" if post.get("kind", "post") == "post" else post["kind"]
+        if not os.path.isfile(os.path.join(stage, kind_dir, post["slug"], "index.html")):
             print(post["slug"])
 PYM
 )"
@@ -110,6 +111,16 @@ PYM
     printf '  %s\n' $missing >&2; exit 2
   fi
 fi
+
+# Old URLs keep landing (prod: Workers assets read _redirects; lab: the same
+# rules by hand in fleet-ops haproxy). /posts/<slug>.html -> /blog/<slug>/,
+# and every gallery by its old bare name -> /gallery/<name>/. Explicit per
+# item, never a catch-all: /blog/, /thesis/, /resume must not match.
+{
+  echo "/posts/:slug.html /blog/:slug/ 301"
+  echo "/posts/:slug /blog/:slug/ 301"
+  for g in "$STAGE"/gallery/*/; do n=$(basename "$g"); echo "/$n/* /gallery/$n/:splat 301"; echo "/$n /gallery/$n/ 301"; done
+} > "$STAGE/_redirects"
 
 echo "=== minifying our own JS (never the tracked source) ==="
 for js in "${OWN_JS[@]}"; do
@@ -126,8 +137,8 @@ tar -C "$STAGE" -cf - --exclude=deploy.sh --exclude=__pycache__ --exclude=.asset
 # tar only adds; a renamed post (2026-09-05, the numbered prefix) left its
 # old file live at the old URL until removed by hand.
 # An operator with no posts yet has no posts/ dir -- that is not an error.
-( cd "$STAGE" && { find posts -type f 2>/dev/null || true; } | sort ) > "$STAGE/.manifest"
-ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find posts -type f 2>/dev/null || true; } | sort'" \
+( cd "$STAGE" && { find blog thesis gallery posts -type f 2>/dev/null || true; } | sort ) > "$STAGE/.manifest"
+ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find blog thesis gallery posts -type f 2>/dev/null || true; } | sort'" \
   | comm -13 "$STAGE/.manifest" - \
   | while read -r stale; do
       [ -n "$stale" ] || continue
@@ -143,7 +154,7 @@ fi
 # Consent gate: an item whose card does not say consent: approved never
 # reaches prod. Operator, 2026-09-05 (resume#47): images of people wait
 # for the people. Lab is the review surface; this is the only gate.
-for card in "$MEDIA_ROOT"/*/item.card.v1.yaml; do
+for card in "$MEDIA_ROOT"/gallery/*/item.card.v1.yaml; do
   [ -f "$card" ] || continue
   if grep -Eq '^\s*consent:' "$card" && ! grep -Eq '^\s*consent:\s*approved\s*$' "$card"; then
     echo "❌ CRITICAL $(basename "$(dirname "$card")"): consent is not 'approved' in its card -- not promoting" >&2; exit 2

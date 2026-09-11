@@ -163,7 +163,7 @@ def build(item_dir, network=True):
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
     subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
                     "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
-                    "--kv", f"og_for=https://{host}/{slug}/", "--kv", "page=gallery", "--kv", f"owner={spec.get('owner', '')}",
+                    "--kv", f"og_for=https://{host}/gallery/{slug}/", "--kv", "page=gallery", "--kv", f"owner={spec.get('owner', '')}",
                     "--kv", f"title={spec['title'].replace(';', ',')}", "--kv", f"host={host}"], check=True, capture_output=True, env=env)
     subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
     if env.get("HEE_BRANDING"):
@@ -199,7 +199,7 @@ def build(item_dir, network=True):
         OG_IMAGE_W=og_w, OG_IMAGE_H=og_h,
         EYEBROW=esc(spec.get("eyebrow", spec["title"].lower())), SUB=spec.get("sub_html") or esc(spec.get("sub", spec["description"])),
         STATS=stats, CREDIT=credit_html, GENERATED=generated,
-        SOURCE_URL=esc(spec.get("source_url", f"https://github.com/Twin-Cities-Open-Systems/resume/blob/main/media/{host.split('.')[0]}/dist/{slug}/item.card.v1.yaml")),
+        SOURCE_URL=esc(spec.get("source_url", f"https://github.com/Twin-Cities-Open-Systems/resume/blob/main/media/{host.split('.')[0]}/dist/gallery/{slug}/item.card.v1.yaml")),
         SOURCE_LABEL=esc(spec.get("source_label", "item.card.v1.yaml")),
         GROUP_TOOLBAR=group_toolbar,
         FIGURES="\n".join(figure(it, item_dir, signatures) for it in items),
@@ -295,12 +295,12 @@ def tile_for_card(card, item_dir, page="gallery"):
     return ""
 
 
-def tile_for_post(posts_dir, slug, title, host="", owner=""):
+def tile_for_post(page_dir, slug, title, host="", owner="", kind_dir="blog"):
     import hashlib
     palette = PALETTE_NAMES[int(hashlib.sha256(slug.encode()).hexdigest(), 16) % len(PALETTE_NAMES)]
-    extra = {k: v for k, v in {"for": f"https://{host}/posts/{slug}.html" if host else "", "page": "post", "owner": owner, "title": title, "host": host}.items() if v}
-    if tile_png(posts_dir / f"{slug}.tile.png", text=monogram(title), palette=palette, motif="diagonals", seed=slug, extra=extra):
-        return f'<img class="item-icon" src="/posts/{slug}.tile.png" alt="" width="40" height="40">'
+    extra = {k: v for k, v in {"for": f"https://{host}/{kind_dir}/{slug}/" if host else "", "page": "post", "owner": owner, "title": title, "host": host}.items() if v}
+    if tile_png(page_dir / "tile.png", text=monogram(title), palette=palette, motif="diagonals", seed=slug, extra=extra):
+        return f'<img class="item-icon" src="/{kind_dir}/{slug}/tile.png" alt="" width="40" height="40">'
     return ""
 
 
@@ -358,26 +358,30 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
         root_owner = json.loads((media_dist.parent.parent.parent / "profiles" / media_dist.parent.name / "profile.json").read_text())["meta"]["entity"]
     except Exception:  # noqa: BLE001
         root_owner = ""
-    for card_path in sorted(media_dist.glob("*/item.card.v1.yaml")):
+    for card_path in sorted(media_dist.glob("gallery/*/item.card.v1.yaml")):
         card = yaml.safe_load(card_path.read_text()); spec = card["spec"]
         slug = card_path.parent.name
         when = spec.get("date") or max((it.get("date", "") for it in spec.get("items", [])), default="")
-        rows.append((when, "gallery", f"/{slug}/", spec["title"], spec["description"], tile_for_card(card, card_path.parent, "gallery")))  # trailing slash: busybox httpd does not redirect a bare dir
+        rows.append((when, "gallery", f"/gallery/{slug}/", spec["title"], spec["description"], tile_for_card(card, card_path.parent, "gallery")))  # trailing slash: busybox httpd does not redirect a bare dir
     if posts_manifest and oper:
-        posts_dir = media_dist / "posts"; posts_dir.mkdir(exist_ok=True)
+        # URL kinds, not tags (operator, 2026-09-11): every rendered page lives in
+        # its own directory under its kind -- /blog/<slug>/, /thesis/<slug>/ --
+        # with index.html, og.jpg and tile.png beside it, like a gallery.
         for post in json.loads(Path(posts_manifest).read_text()):
             if not post["path"].startswith(f"profiles/{oper}/") or not post.get("html"):
                 continue
             src = Path(posts_src or ".") / post["html"]
             if not src.is_file():
-                print(f"⚠️  WARNING  media-item root: rendered post missing, skipped: {src}", file=sys.stderr); continue
-            dst = posts_dir / (post["slug"] + ".html")
-            dst.write_bytes(src.read_bytes())
-            card = src.with_suffix(".og.jpg")   # the post's social preview, rendered by render-blog
+                print(f"⚠️  WARNING  media-item root: rendered page missing, skipped: {src}", file=sys.stderr); continue
+            kind = post.get("kind", "post"); kind_dir = "blog" if kind == "post" else kind
+            page_dir = media_dist / kind_dir / post["slug"]; page_dir.mkdir(parents=True, exist_ok=True)
+            (page_dir / "index.html").write_bytes(src.read_bytes())
+            card = src.with_suffix(".og.jpg")   # the page's social preview, rendered by render-blog
             if card.is_file():
-                (posts_dir / (post["slug"] + ".og.jpg")).write_bytes(card.read_bytes())
-            rows.append((post["date"], "post", f"/posts/{post['slug']}.html", post["title"],
-                         f"Blog post, {post['date']}.", tile_for_post(posts_dir, post["slug"], post["title"], host=root_host, owner=root_owner)))
+                (page_dir / "og.jpg").write_bytes(card.read_bytes())
+            label = {"post": "Blog post", "thesis": "Thesis"}.get(kind, kind.capitalize())
+            rows.append((post["date"], kind, f"/{kind_dir}/{post['slug']}/", post["title"],
+                         f"{label}, {post['date']}.", tile_for_post(page_dir, post["slug"], post["title"], host=root_host, owner=root_owner, kind_dir=kind_dir)))
     rows.sort(key=lambda r: r[0], reverse=True)
     li = "".join(
         f'    <li data-page="{esc(kind)}">\n      {icon}\n      <div>\n'
@@ -483,8 +487,8 @@ def audit(repo_root, env="lab"):
     for root_index in sorted(repo_root.glob("media/*/dist/index.html")):
         oper_dir = root_index.parent; oper = oper_dir.parent.name
         index = root_index.read_text()
-        expected = [f"/posts/{f.name}" for f in sorted((oper_dir / "posts").glob("*.html"))]
-        expected += [f"/{c.parent.name}/" for c in sorted(oper_dir.glob("*/item.card.v1.yaml"))]
+        expected = [f"/{k}/{d.name}/" for k in ("blog", "thesis") for d in sorted((oper_dir / k).glob("*/")) if (d / "index.html").is_file()]
+        expected += [f"/gallery/{c.parent.name}/" for c in sorted(oper_dir.glob("gallery/*/item.card.v1.yaml"))]
         for href in expected:
             if f'href="{href}"' not in index:
                 print(f"🟡 WARNING audit: {oper}: {href} exists but the root does not list it"); worst = max(worst, 1)
@@ -560,7 +564,7 @@ def audit(repo_root, env="lab"):
         if not media:
             continue
         names = {post["path"]} | former.get(post["path"], set())
-        target = f"https://{media.replace('.tcos.us', suffix)}/posts/{post['slug']}.html"
+        target = f"https://{media.replace('.tcos.us', suffix)}/{'blog' if post.get('kind', 'post') == 'post' else post['kind']}/{post['slug']}/"
         for name in sorted(names):
             for ext in (".md", ".html"):
                 url = f"https://{prefix}.blog{suffix}/" + name[:-3] + ext
@@ -568,8 +572,8 @@ def audit(repo_root, env="lab"):
                 # The media Workers serve assets with clean URLs: /posts/x.html
                 # answers 307 -> /posts/x, so the final URL a reader lands on
                 # is the target without its .html. Both forms are the target.
-                landed = final.rstrip("/")
-                if code != 200 or landed not in (target, target[:-5]):
+                landed = final.rstrip("/") + "/"
+                if code != 200 or landed != target:
                     print(f"🔴 CRITICAL audit: {url} -> {code} {final} (expected {target})"); worst = 2
     # 4. the resume: on the media host, and every old blog URL for it lands there
     for p in people:

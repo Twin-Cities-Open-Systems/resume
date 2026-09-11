@@ -217,8 +217,10 @@ for profile_dir in profiles/*; do
     [ -f "$profile_dir/profile.json" ] || continue
     slug=$(grep -o '"roster_slug": "[^"]*' "$profile_dir/profile.json" | cut -d'"' -f4)
     [ -d "$profile_dir/blog" ] || continue
-    for post_file in "$profile_dir"/blog/*.md; do
+    for post_file in "$profile_dir"/blog/*.md "$profile_dir"/thesis/*.md; do
         [ -f "$post_file" ] || continue
+        # URL kinds, not tags (operator, 2026-09-11): blog/ renders under /blog/<slug>/, thesis/ under /thesis/<slug>/
+        kind=$(basename "$(dirname "$post_file")"); [ "$kind" = blog ] && kind=post; [ "$kind" = thesis ] && kind=thesis
         post_slug=$(basename "$post_file" .md)
         title=$(sed -n '1s/^#*[[:space:]]*//p' "$post_file")
         # Real bug, found live building this exact fix: a post with no
@@ -250,7 +252,7 @@ for profile_dir in profiles/*; do
         # expected in real prose) would otherwise break the generated
         # source rather than just being real, safely-escaped JSON data.
         POST_SLUG="$post_slug" POST_DATE="$date" POST_TITLE="$title" \
-        POST_PATH="profiles/$slug/blog/$(basename "$post_file")" \
+        POST_PATH="profiles/$slug/$(basename "$(dirname "$post_file")")/$(basename "$post_file")" POST_KIND="$kind" \
         python3 -c "
 import json, os
 print(json.dumps({
@@ -258,6 +260,7 @@ print(json.dumps({
     'date': os.environ['POST_DATE'],
     'title': os.environ['POST_TITLE'],
     'raw_fallback': '(see full post)',
+    'kind': os.environ['POST_KIND'],
     'path': os.environ['POST_PATH'],
 }), end='')
 " >> "$OUTPUT_WEB_DIR/blog_manifest.json"
