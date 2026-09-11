@@ -116,5 +116,5 @@ operational commands down to physical wires.
 
 ---
 
-[^rms] [raw RMS thesis](https://github.com/Twin-Cities-Open-Systems/human-execution-engine/blob/main/hee/docs/rms-lisp-to-replace-yaml.md)
-[^awk] [raw hee-mail-ingress](https://github.com/Twin-Cities-Open-Systems/human-execution-engine/blob/main/hee/docs/hee-mail-ingress.sh.md)
+[^rms]: [raw RMS thesis](https://github.com/Twin-Cities-Open-Systems/human-execution-engine/blob/main/hee/docs/rms-lisp-to-replace-yaml.md)
+[^awk]: [raw hee-mail-ingress](https://github.com/Twin-Cities-Open-Systems/human-execution-engine/blob/main/hee/docs/hee-mail-ingress.sh.md)
