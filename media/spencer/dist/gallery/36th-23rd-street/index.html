@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BQK0DFRRZ7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // production only: *.lab.tcos.us, localhost and file:// load this but never report
+  if (/(^|\.)tcos\.us$$/.test(location.hostname) && !/(^|\.)lab\.tcos\.us$$/.test(location.hostname)) {
+    gtag('config', 'G-BQK0DFRRZ7');
+  }
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>36th 23rd street</title>
+<meta name="description" content="A red public payphone standing in a residential yard in Minneapolis, documented with Samsung Galaxy A53 5G.">
+<meta property="og:site_name" content="spencer.media.tcos.us">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://spencer.media.tcos.us/36th-23rd-street/">
+<meta property="og:title" content="36th 23rd street — Spencer Butler">
+<meta property="og:description" content="A red public payphone standing in a residential yard in Minneapolis, documented with Samsung Galaxy A53 5G.">
+<meta property="og:image" content="https://spencer.media.tcos.us/36th-23rd-street/og.jpg">
+<meta property="og:image:alt" content="Red public payphone booth with &#x27;Phone&#x27; sign, showing red handset on armored cord and coin slot">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="36th 23rd street — Spencer Butler">
+<meta name="twitter:description" content="A red public payphone standing in a residential yard in Minneapolis, documented with Samsung Galaxy A53 5G.">
+<meta name="twitter:image" content="https://spencer.media.tcos.us/36th-23rd-street/og.jpg">
+<link rel="canonical" href="https://spencer.media.tcos.us/36th-23rd-street/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/shell-theme.css">
+<style>
+.eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 6px; }
+.sub { color: var(--ink-dim); max-width: 60ch; }
+.stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0 4px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; }
+.stat .n { font-family: var(--mono); font-weight: 700; font-size: 20px; color: var(--accent-ink); }
+.stat .l { font-size: 11.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.04em; }
+.credit {
+  margin: 20px 0 4px; padding: 16px 20px; border-radius: 12px;
+  background: var(--accent-soft); border: 2px solid var(--accent);
+}
+.credit .headline { font-family: var(--mono); font-weight: 700; font-size: 16px; color: var(--accent-ink); display: block; margin-bottom: 4px; }
+.credit .headline a { color: var(--accent-ink); text-decoration: underline; }
+.credit .sub { font-size: 13.5px; color: var(--ink); }
+.credit a { color: var(--accent-ink); font-weight: 600; }
+.credit .note { display: block; margin-top: 8px; color: var(--ink-dim); font-size: 12.5px; }
+.evidence-hover { position: relative; border-bottom: 1px dashed var(--ink-faint); cursor: help; }
+.evidence-hover .tip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 10;
+  background: var(--ink); color: var(--ground); font-family: var(--mono); font-size: 11.5px;
+  padding: 8px 11px; border-radius: 8px; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.evidence-hover:hover .tip, .evidence-hover:focus .tip { display: block; }
+.exif-badge {
+  font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--accent-ink); text-transform: uppercase;
+}
+.exif-badge.none { color: var(--ink-faint); border-bottom: none; cursor: default; text-transform: none; font-weight: 400; }
+
+/* GPG badge -- visually distinct from the EXIF hover (stronger proof,
+   different treatment): a real pill with a live status dot, not just
+   a dashed-underline hover. Verification actually runs in-browser. */
+.gpg-badge {
+  position: relative; display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.03em;
+  padding: 2px 8px 2px 6px; border-radius: 999px; cursor: help;
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint);
+}
+.gpg-badge.good { background: var(--good-soft); border-color: var(--good); color: var(--good); }
+.gpg-badge.bad { background: var(--critical-soft); border-color: var(--critical); color: var(--critical); }
+.gpg-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
+.gpg-badge .tip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 10;
+  background: var(--ink); color: var(--ground); font-family: var(--mono); font-size: 11px;
+  padding: 9px 12px; border-radius: 8px; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.gpg-badge:hover .tip, .gpg-badge:focus .tip { display: block; }
+
+/* .freshness / .fr-dot / .fr-rel now live in shell-theme.css -- shared
+   with the root index.html page, not copy-pasted (this was the second
+   real use, which is exactly the line to dedup at). */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.photo { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.photo img { width: 100%; display: block; background: var(--surface-2); cursor: zoom-in; }
+.photo figcaption { padding: 10px 14px 13px; display: flex; flex-direction: column; gap: 5px; }
+.ft { font-family: var(--mono); font-weight: 700; font-size: 12.5px; color: var(--ink); }
+.fc { font-size: 12.5px; color: var(--ink-dim); }
+.fmeta { margin-top: 2px; min-height: 18px; }
+
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100;
+  display: none; align-items: center; justify-content: center; padding: 30px;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.lightbox .lb-close {
+  position: absolute; top: 20px; right: 24px; color: #fff; font-family: var(--mono);
+  font-size: 13px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px; padding: 6px 12px; cursor: pointer;
+}
+
+    .group-toolbar { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; }
+    .gt-label { color: var(--muted, #888); font-size: 0.85em; }
+    .gt-btn { background: transparent; border: 1px solid var(--border, #333); color: inherit; padding: 4px 10px; border-radius: 4px; cursor: pointer; font: inherit; font-size: 0.85em; }
+    .gt-btn.active { background: var(--accent, #0a0); color: #000; border-color: var(--accent, #0a0); }
+    .group-header { grid-column: 1 / -1; margin: 18px 0 4px; font-size: 0.95em; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted, #888); border-bottom: 1px solid var(--border, #333); padding-bottom: 4px; }
+    .group-header:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="brand" href="https://tcos.us/people" data-cross-site>&uarr; tcos.us/people</a>
+    <a class="brand" href="/" style="margin-left:14px;">&larr; spencer.media</a>
+    <div class="toggles">
+      <div class="fontsize-toggle">
+        <span class="fs-label" tabindex="0">Aa</span>
+        <div class="fs-options">
+          <button class="fontsize-btn" data-size="s" type="button">S</button>
+          <button class="fontsize-btn" data-size="m" type="button">M</button>
+          <button class="fontsize-btn" data-size="l" type="button">L</button>
+          <button class="fontsize-btn" data-size="xl" type="button">XL</button>
+          <button class="fontsize-btn" data-size="xxl" type="button">XXL</button>
+        </div>
+      </div>
+      <span class="tgl-sep"></span>
+      <button class="tgl-btn theme-btn" data-theme-choice="auto" type="button">Auto</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="light" type="button">Light</button>
+      <button class="tgl-btn theme-btn" data-theme-choice="dark" type="button">Dark</button>
+    </div>
+  </div>
+
+  <p class="eyebrow">spencer.media &middot; payphone · minneapolis · sept 2026</p>
+  <h1>36th 23rd street</h1>
+  <p class="sub">A red public payphone standing in a front yard in Minneapolis, photographed 2026-09-10. The booth sits on a weathered black post; the photoelectric control on top is marked JL-404C and 0823. Location metadata was removed before publishing.</p>
+  <div class="stat-row">
+    <div class="stat"><div class="n">4</div><div class="l">photos</div></div>
+    <div class="stat"><div class="n">1</div><div class="l">payphone</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">GPS tags published</div></div>
+  </div>
+
+  <div class="credit">
+    <span class="headline">Publisher: <a href="https://tcos.us" target="_blank" rel="noopener">Twin Cities Open Systems</a> &middot; Copyright &copy; 2026 Twin Cities Open Systems - Operations, LLC</span>
+    <span class="note">Photos: Spencer Butler, Samsung Galaxy A53 5G, 2026-09-10. GPS location removed from every published file.</span>
+    <span class="note">Card drafted by media-hand (a pve agent) and reviewed by touchy-claude; 2 corrections before publishing.</span>
+
+  </div>
+
+  <div class="freshness" id="freshness" data-generated="2026-09-11T16:03:03Z">
+    <span class="fr-dot"></span>
+    <span id="fr-text">last update: just now</span>
+    <span class="tgl-sep"></span>
+    <span>live on <span data-host></span></span>
+    <span class="tgl-sep"></span>
+    <span>source: <a href="https://github.com/Twin-Cities-Open-Systems/resume/blob/main/media/spencer/dist/gallery/36th-23rd-street/item.card.v1.yaml" target="_blank" rel="noopener">item.card.v1.yaml</a></span>
+  </div>
+
+  <div class="gallery">
+    <figure class="photo" data-tag="photo" data-date="2026-09-10">
+      <img id="img-36th-street-phone-mpls-1" src="36th-street-phone-mpls-1.jpg" alt="Close-up: the booth" loading="lazy" tabindex="0">
+      <figcaption>
+        <span class="ft">Close-up: the booth</span>
+        <span class="fc">Red booth showing the &#x27;Phone&#x27; sign, red handset on armored cord, and coin slot detail.</span>
+        <span class="fmeta"><a class="evidence-hover exif-badge" tabindex="0" href="exif.html?id=36th-street-phone-mpls-1" target="_blank" rel="noopener">EXIF: real, embedded</a></span>
+        <span class="fmeta"><span class="gpg-badge" data-photo="36th-street-phone-mpls-1" tabindex="0"><span class="gpg-dot"></span><span class="gpg-text">verifying…</span></span></span>
+      </figcaption>
+    </figure>
+    <figure class="photo" data-tag="photo" data-date="2026-09-10">
+      <img id="img-36th-street-phone-mpls-2" src="36th-street-phone-mpls-2.jpg" alt="Control unit: JL-404C" loading="lazy" tabindex="0">
+      <figcaption>
+        <span class="ft">Control unit: JL-404C</span>
+        <span class="fc">Photoelectric control mounted on the black post, marked JL-404C and 0823.</span>
+        <span class="fmeta"><a class="evidence-hover exif-badge" tabindex="0" href="exif.html?id=36th-street-phone-mpls-2" target="_blank" rel="noopener">EXIF: real, embedded</a></span>
+        <span class="fmeta"><span class="gpg-badge" data-photo="36th-street-phone-mpls-2" tabindex="0"><span class="gpg-dot"></span><span class="gpg-text">verifying…</span></span></span>
+      </figcaption>
+    </figure>
+    <figure class="photo" data-tag="photo" data-date="2026-09-10">
+      <img id="img-36th-street-phone-mpls-3" src="36th-street-phone-mpls-3.jpg" alt="Full scene from the sidewalk" loading="lazy" tabindex="0">
+      <figcaption>
+        <span class="ft">Full scene from the sidewalk</span>
+        <span class="fc">The payphone booth standing in the front yard beside the house, surrounded by grass and trees.</span>
+        <span class="fmeta"><a class="evidence-hover exif-badge" tabindex="0" href="exif.html?id=36th-street-phone-mpls-3" target="_blank" rel="noopener">EXIF: real, embedded</a></span>
+        <span class="fmeta"><span class="gpg-badge" data-photo="36th-street-phone-mpls-3" tabindex="0"><span class="gpg-dot"></span><span class="gpg-text">verifying…</span></span></span>
+      </figcaption>
+    </figure>
+    <figure class="photo" data-tag="photo" data-date="2026-09-10">
+      <img id="img-36th-street-phone-mpls-4" src="36th-street-phone-mpls-4.jpg" alt="The post and booth" loading="lazy" tabindex="0">
+      <figcaption>
+        <span class="ft">The post and booth</span>
+        <span class="fc">Mid-range view of the red booth mounted on its weathered black post, with the house and vegetation visible.</span>
+        <span class="fmeta"><a class="evidence-hover exif-badge" tabindex="0" href="exif.html?id=36th-street-phone-mpls-4" target="_blank" rel="noopener">EXIF: real, embedded</a></span>
+        <span class="fmeta"><span class="gpg-badge" data-photo="36th-street-phone-mpls-4" tabindex="0"><span class="gpg-dot"></span><span class="gpg-text">verifying…</span></span></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <footer>Twin-Cities-Open-Systems &middot; <span data-host></span> &middot; commit <a href="https://github.com/Twin-Cities-Open-Systems/resume/commit/$COMMIT">$COMMIT_SHORT</a> &middot; release <a href="https://github.com/Twin-Cities-Open-Systems/resume/releases/tag/$RELEASE_TAG">$RELEASE</a></footer>
+</div>
+
+<div class="lightbox" id="lightbox"><button class="lb-close" type="button">&times; close</button><img id="lightbox-img" alt=""></div>
+
+<script src="/openpgp.min.js"></script>
+<script src="/shell-toggles.js"></script>
+<script src="/shell-freshness.js"></script>
+<script>
+
+(function () {
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lightbox-img");
+  function open(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lb.classList.add("open");
+  }
+  function close() {
+    lb.classList.remove("open");
+    lbImg.src = "";
+  }
+  document.querySelectorAll(".photo img").forEach(function (img) {
+    img.addEventListener("click", function () { open(img.src, img.alt); });
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(img.src, img.alt); }
+    });
+  });
+  lb.addEventListener("click", close);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") close();
+  });
+})();
+
+// Real, in-browser GPG verification -- runs openpgp.js against the
+// real embedded public key and each photo's actual detached
+// signature. Not asserted text: this is a live cryptographic check
+// executed in the viewer's own browser.
+(function () {
+  var PUBKEY_ARMORED = "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmDMEan6BHhYJKwYBBAHaRw8BAQdArrL28CL6ThrANhP/Yk/HQerqT0wUzj7zLTzl\nfxbdkeq0JXRvdWNoeS1jbGF1ZGUgPHRvdWNoeS1jbGF1ZGVAdGNvcy51cz6ImQQT\nFgoAQRYhBGpY/kfviQDED5EfpqImjf8gYjGIBQJqfoEeAhsjBQkDwmcABQsJCAcC\nAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJEKImjf8gYjGIP94A/2JJavySZCjdUxPt\nH8jzy/JChCLCTtU7Vy8pBq0E8+GRAP9g/39rjMWHIkcVcoZin10gt/bGUMAsVCKa\nwCAI0rnNCrg4BGp+gR4SCisGAQQBl1UBBQEBB0DOVxsi4lwxCB6DbEwYSwQlsVTo\nai9ynIhRPE6tjq4VAAMBCAeIfgQYFgoAJhYhBGpY/kfviQDED5EfpqImjf8gYjGI\nBQJqfoEeAhsMBQkDwmcAAAoJEKImjf8gYjGIXkQA/R8QcqtKPj0PPsXvNMY1WNCy\ny9rBcXa5GI/k2JxW9f0zAP9U4b/YUnzJZAixVROnGC6GEefD7t0u5yrk8txIFlY7\nAg==\n=XPjG\n-----END PGP PUBLIC KEY BLOCK-----\n";
+  var PUBKEY_ARMORED_SPENCER = "";
+  var SIGNATURES = {"36th-street-phone-mpls-1": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCaqQmNAAKCRCiJo3/IGIx\niCCQAP9imLgEO2u/of8IyT5NpdzK7ju5DGFaw3snV56X6jgrmgD/fHvcjwEoAU4m\ncS5OftF56JBbugd7EY+PDS3OHq0tgA8=\n=+cIZ\n-----END PGP SIGNATURE-----\n", "36th-street-phone-mpls-2": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCaqQmNAAKCRCiJo3/IGIx\niPq3AQDL8WcEwt5iGsaqjx4Y8l3mP3/EEH0eqt8XNXZqrJxxXwEAmzGk24JxPoyw\nIdznG3bjbb8sZ7CHNKf4j2idFg74vw0=\n=0QKw\n-----END PGP SIGNATURE-----\n", "36th-street-phone-mpls-3": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCaqQmNAAKCRCiJo3/IGIx\niFvGAQDorGEe8L6pPlbmpV47DK8KkI1DCQ+nJUrRdlsFRAWL9QD/TV5C1lZcxTQw\n8q/KpSYq1HntSA1EkSk/GdidfyFnzA8=\n=QnZX\n-----END PGP SIGNATURE-----\n", "36th-street-phone-mpls-4": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQRqWP5H74kAxA+RH6aiJo3/IGIxiAUCaqQmNAAKCRCiJo3/IGIx\niLvLAPoCWIDljY6WJ7402DXJO+iXZR5ddwtGvNDPmN/l3MppFAEAwGXe95TBKdpO\nLBQ++xWC9GI9n8oZ6lhS9YfUY3Tl7AA=\n=3jZo\n-----END PGP SIGNATURE-----\n"};
+
+  function b64ToUint8Array(b64) {
+    var bin = atob(b64);
+    var arr = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return arr;
+  }
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    var publicKey;
+    try {
+      publicKey = await openpgp.readKey({ armoredKey: PUBKEY_ARMORED });
+    } catch (e) {
+      document.querySelectorAll(".gpg-badge").forEach(function (b) {
+        b.classList.add("bad");
+        b.querySelector(".gpg-text").textContent = "key error";
+      });
+      return;
+    }
+
+    for (var photoName in SIGNATURES) {
+      (async function (name) {
+        var badge = document.querySelector('.gpg-badge[data-photo="' + name + '"]');
+        var img = document.getElementById("img-" + name);
+        if (!badge || !img) return;
+        try {
+          var bytes;
+          if (img.src.indexOf("data:") === 0) {
+            var b64 = img.src.substring(img.src.indexOf(",") + 1);
+            bytes = b64ToUint8Array(b64);
+          } else {
+            // large files are served, not inlined (data: URIs cap near 2 MB);
+            // verify the exact bytes the server sent, same as the inline path
+            bytes = new Uint8Array(await (await fetch(img.getAttribute("src"))).arrayBuffer());
+          }
+          var signature = await openpgp.readSignature({ armoredSignature: SIGNATURES[name] });
+          var message = await openpgp.createMessage({ binary: bytes });
+          var result = await openpgp.verify({ message: message, signature: signature, verificationKeys: publicKey });
+          var sig0 = result.signatures[0];
+          await sig0.verified;
+          badge.classList.add("good");
+          badge.querySelector(".gpg-text").textContent = "Lab verified";
+          var tip = document.createElement("span");
+          tip.className = "tip";
+          tip.innerHTML = "Good signature<br>Key: " + sig0.keyID.toHex() + "<br>Signer: touchy-claude &amp;lt;touchy-claude@tcos.us&amp;gt; (lab signer)<br>Verified live in your browser";
+          badge.appendChild(tip);
+        } catch (e) {
+          badge.classList.add("bad");
+          badge.querySelector(".gpg-text").textContent = "GPG FAILED";
+          var tip = document.createElement("span");
+          tip.className = "tip";
+          tip.textContent = "Verification failed: " + e.message;
+          badge.appendChild(tip);
+        }
+      })(photoName);
+    }
+
+    // Second signer: Spencer Butler's own promotion attestation,
+    // verified the same real way -- fetches the actual served
+    // attestation file and its detached signature, checks both
+    // live against his real public key. Not the same key as the
+    // per-photo lab signatures above -- see the attestation's own
+    // text for why (content-signing-v1's lab/prod signing split).
+    var attestationBadge = document.getElementById("attestation-badge");
+    if (attestationBadge) {
+      try {
+        var attestationBytes = new Uint8Array(await (await fetch("promotion-attestation.txt")).arrayBuffer());
+        var attestationSig = await (await fetch("promotion-attestation.txt.asc")).text();
+        var spencerKey = await openpgp.readKey({ armoredKey: PUBKEY_ARMORED_SPENCER });
+        var aSignature = await openpgp.readSignature({ armoredSignature: attestationSig });
+        // Binary mode, matching how `gpg --detach-sign` actually signed
+        // the file (raw bytes, no OpenPGP text-mode line-ending
+        // canonicalization) -- same reason the photo verification above
+        // uses `binary:` instead of `text:`. Using `text:` here silently
+        // fails verification even though the signature is genuinely
+        // valid, because openpgp.js normalizes line endings for text-mode
+        // messages and that no longer matches what was actually signed.
+        var aMessage = await openpgp.createMessage({ binary: attestationBytes });
+        var aResult = await openpgp.verify({ message: aMessage, signature: aSignature, verificationKeys: spencerKey });
+        var aSig0 = aResult.signatures[0];
+        await aSig0.verified;
+        attestationBadge.classList.add("good");
+        attestationBadge.querySelector(".gpg-text").textContent = "Prod verified";
+        var aTip = document.createElement("span");
+        aTip.className = "tip";
+        aTip.innerHTML = "Good signature<br>Key: " + aSig0.keyID.toHex() + "<br>Signer: <br>Verified live in your browser";
+        attestationBadge.appendChild(aTip);
+      } catch (e) {
+        attestationBadge.classList.add("bad");
+        attestationBadge.querySelector(".gpg-text").textContent = "GPG FAILED";
+        var aTip2 = document.createElement("span");
+        aTip2.className = "tip";
+        aTip2.textContent = "Verification failed: " + e.message;
+        attestationBadge.appendChild(aTip2);
+      }
+    }
+  });
+})();
+
+(function () {
+  var TAG_LABELS = {"photo": "Photo"};
+  function label(mode, val) {
+    if (mode === "tag") return TAG_LABELS[val] || val;
+    if (val === "reference") return "Reference images (no session date)";
+    var d = new Date(val + "T00:00:00");
+    return isNaN(d) ? val : d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var gallery = document.querySelector(".gallery");
+    if (!gallery) return;
+    var figures = Array.prototype.slice.call(gallery.querySelectorAll("figure.photo"));
+    var originalOrder = figures.slice();
+
+    function regroup(mode) {
+      gallery.querySelectorAll(".group-header").forEach(function (h) { h.remove(); });
+      if (mode === "none") {
+        originalOrder.forEach(function (fig) { gallery.appendChild(fig); });
+        return;
+      }
+      var attr = mode === "tag" ? "tag" : "date";
+      var seen = [];
+      var buckets = {};
+      originalOrder.forEach(function (fig) {
+        var key = fig.dataset[attr] || "unknown";
+        if (!buckets[key]) { buckets[key] = []; seen.push(key); }
+        buckets[key].push(fig);
+      });
+      seen.forEach(function (key) {
+        var header = document.createElement("div");
+        header.className = "group-header";
+        header.textContent = label(mode, key);
+        gallery.appendChild(header);
+        buckets[key].forEach(function (fig) { gallery.appendChild(fig); });
+      });
+    }
+
+    document.querySelectorAll(".gt-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".gt-btn").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        regroup(btn.dataset.group);
+      });
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

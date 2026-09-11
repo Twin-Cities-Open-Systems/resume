@@ -1,0 +1,70 @@
+# The operator's payphone gallery, 2026-09-11. Card drafted by media-hand
+# (fleet-ops job gallery-36th-23rd-street), corrected by the dispatcher.
+# consent: no person appears in any of the four photos (checked by the
+# dispatcher); the operator submitted them for publication.
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: 36th-23rd-street
+  labels:
+    domain: media
+    scope: spencer
+    topic: payphone
+    artifact: card
+  annotations:
+    inuid: null
+    inuid_null_reason: bootstrap
+    created_utc: '2026-09-11T00:00:00Z'
+spec:
+  consent: approved
+  host: spencer.media.tcos.us
+  owner: Spencer Butler
+  title: 36th 23rd street
+  date: '2026-09-10'
+  eyebrow: payphone · minneapolis · sept 2026
+  description: A red public payphone standing in a residential yard in Minneapolis, documented with Samsung Galaxy A53 5G.
+  sub_html: A red public payphone standing in a front yard in Minneapolis, photographed 2026-09-10. The booth sits on a weathered
+    black post; the photoelectric control on top is marked JL-404C and 0823. Location metadata was removed before publishing.
+  og_image: 36th-street-phone-mpls-1.jpg
+  og_image_alt: Red public payphone booth with 'Phone' sign, showing red handset on armored cord and coin slot
+  tag_labels:
+    photo: Photo
+  items:
+  - file: 36th-street-phone-mpls-1.jpg
+    title: 'Close-up: the booth'
+    caption: Red booth showing the 'Phone' sign, red handset on armored cord, and coin slot detail.
+    tag: photo
+    date: '2026-09-10'
+  - file: 36th-street-phone-mpls-2.jpg
+    title: 'Control unit: JL-404C'
+    caption: Photoelectric control mounted on the black post, marked JL-404C and 0823.
+    tag: photo
+    date: '2026-09-10'
+  - file: 36th-street-phone-mpls-3.jpg
+    title: Full scene from the sidewalk
+    caption: The payphone booth standing in the front yard beside the house, surrounded by grass and trees.
+    tag: photo
+    date: '2026-09-10'
+  - file: 36th-street-phone-mpls-4.jpg
+    title: The post and booth
+    caption: Mid-range view of the red booth mounted on its weathered black post, with the house and vegetation visible.
+    tag: photo
+    date: '2026-09-10'
+  tile:
+    text: '36'
+  credit:
+    headline_html: 'Publisher: <a href="https://tcos.us" target="_blank" rel="noopener">Twin Cities Open Systems</a> &middot;
+      Copyright &copy; 2026 Twin Cities Open Systems - Operations, LLC'
+    notes:
+    - 'Photos: Spencer Butler, Samsung Galaxy A53 5G, 2026-09-10. GPS location removed from every published file.'
+    - Card drafted by media-hand (a pve agent) and reviewed by touchy-claude; 2 corrections before publishing.
+  signer:
+    github_login: touchy-claude
+    label: touchy-claude &lt;touchy-claude@tcos.us&gt; (lab signer)
+  stats:
+  - n: '4'
+    l: photos
+  - n: '1'
+    l: payphone
+  - n: '0'
+    l: GPS tags published
