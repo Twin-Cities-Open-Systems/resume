@@ -1,0 +1,19 @@
+id: '0003'
+created_at: '2026-09-11T16:08:27Z'
+description: 'deploy.sh stages the whole media build tree (cp -r media/<oper>/dist/.
+  STAGE), so ignored leftovers from an older layout ship: a checkout built before
+  #86 kept 8 ignored files in media/spencer/dist/posts, and a deploy from it put posts/
+  back on lab (ct107, cleaned 2026-09-11, archive /root/legacy-media-layout-20260911T160021Z.tgz);
+  a promote from such a checkout would push them to prod. The lab prune also never
+  removes old bare item dirs, only blog/thesis/gallery/posts files. Stage only what
+  the current build owns, and prune legacy dirs.'
+status: open
+stage: idea
+stage_history:
+- stage: idea
+  at: '2026-09-11T16:08:27Z'
+source: found 2026-09-11 during the v1.2.0 release prep; operator's checkout showed
+  the stale posts/ build
+tags:
+- release
+- footgun
