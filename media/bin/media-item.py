@@ -25,6 +25,7 @@
 #   media/bin/media-item.py build <item-dir>        # <item-dir>/item.card.v1.yaml -> index.html + exif.html
 #   media/bin/media-item.py build <item-dir> --no-network   # skip regen-pubkey (offline check)
 #   media/bin/media-item.py kit <item-dir>          # spec.kit -> watermark, avatar, banner PNGs, stamped and signed
+#   media/bin/media-item.py sign <item-dir> [--key K]   # re-sign every item file with spec.signer.gpg_key, rebuild the pages
 #   media/bin/media-item.py root <media-dist> [--posts MANIFEST --oper SLUG --posts-src DIR]
 #       regenerate the media root's <ul class="items"> from every item card
 #       under <media-dist>, plus this oper's blog posts (copied into
@@ -96,7 +97,7 @@ def figure(item, item_dir, signatures):
     </figure>'''
 
 
-def build(item_dir, network=True):
+def build(item_dir, network=True, regen_og=True):
     item_dir = Path(item_dir).resolve()
     card_path = item_dir / "item.card.v1.yaml"
     if not card_path.is_file():
@@ -157,40 +158,44 @@ def build(item_dir, network=True):
     # og:image is a 1200x630 JPEG with the frame letterboxed on the card's
     # og_bg (default near-black), built here from the same file; the GIF
     # stays the first item. og_bg: "#rrggbb" on the card to change the bars.
-    og_src = og_file
-    with Image.open(og_src) as im:
-        im.seek(0)
-        frame = ImageOps.exif_transpose(im).convert("RGB")   # the card shows the photo upright, whatever its flag
-    W, H = 1200, 630
-    bg = spec.get("og_bg", "#0b0f0b").lstrip("#")
-    canvas = Image.new("RGB", (W, H), tuple(int(bg[i:i + 2], 16) for i in (0, 2, 4)))
-    scale = min(W / frame.width, H / frame.height)
-    fitted = frame.resize((max(1, round(frame.width * scale)), max(1, round(frame.height * scale))), Image.LANCZOS)
-    canvas.paste(fitted, ((W - fitted.width) // 2, (H - fitted.height) // 2))
+    # sign rebuilds the pages around new signatures and leaves the og card as it is,
+    # so the signer needs neither the owner's branding card nor a new og render
+    if regen_og or not (item_dir / "og.jpg").is_file():
+        og_src = og_file
+        with Image.open(og_src) as im:
+            im.seek(0)
+            frame = ImageOps.exif_transpose(im).convert("RGB")   # the card shows the photo upright, whatever its flag
+        W, H = 1200, 630
+        bg = spec.get("og_bg", "#0b0f0b").lstrip("#")
+        canvas = Image.new("RGB", (W, H), tuple(int(bg[i:i + 2], 16) for i in (0, 2, 4)))
+        scale = min(W / frame.width, H / frame.height)
+        fitted = frame.resize((max(1, round(frame.width * scale)), max(1, round(frame.height * scale))), Image.LANCZOS)
+        canvas.paste(fitted, ((W - fitted.width) // 2, (H - fitted.height) // 2))
+        og_file = item_dir / "og.jpg"
+        canvas.save(og_file, "JPEG", quality=88, optimize=True, progressive=True)
+        # the org's standard metadata on the derived card, like every published
+        # file: provenance (from which source file), agent signature, branding
+        env = dict(os.environ)
+        if not env.get("HEE_BRANDING") and (Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml").is_file():
+            env["HEE_BRANDING"] = str(Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml")
+        # A personal item stamps its og card with its own identity, the card's
+        # kit.branding (or top-level branding). The page's Google tag still comes
+        # from the org card, since the page lives on the org's host.
+        own = spec.get("branding") or (spec.get("kit") or {}).get("branding")
+        if own:
+            own = os.path.expanduser(own)
+            if not Path(own).is_file():
+                sys.exit(f"media-item: branding card {own} not found -- a personal item must not fall back to the org's card")
+            env["HEE_BRANDING"] = own
+        commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
+        subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
+                        "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
+                        "--kv", f"og_for=https://{host}/gallery/{slug}/", "--kv", "page=gallery", "--kv", f"owner={spec.get('owner', '')}",
+                        "--kv", f"title={spec['title'].replace(';', ',')}", "--kv", f"host={host}"], check=True, capture_output=True, env=env)
+        subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
+        if env.get("HEE_BRANDING"):
+            subprocess.run([str(HEE_EXIF), "brand", str(og_file), "--artist", spec.get("owner", "Twin Cities Open Systems")], check=True, capture_output=True, env=env)
     og_file = item_dir / "og.jpg"
-    canvas.save(og_file, "JPEG", quality=88, optimize=True, progressive=True)
-    # the org's standard metadata on the derived card, like every published
-    # file: provenance (from which source file), agent signature, branding
-    env = dict(os.environ)
-    if not env.get("HEE_BRANDING") and (Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml").is_file():
-        env["HEE_BRANDING"] = str(Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml")
-    # A personal item stamps its og card with its own identity, the card's
-    # kit.branding (or top-level branding). The page's Google tag still comes
-    # from the org card, since the page lives on the org's host.
-    own = spec.get("branding") or (spec.get("kit") or {}).get("branding")
-    if own:
-        own = os.path.expanduser(own)
-        if not Path(own).is_file():
-            sys.exit(f"media-item: branding card {own} not found -- a personal item must not fall back to the org's card")
-        env["HEE_BRANDING"] = own
-    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
-    subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
-                    "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
-                    "--kv", f"og_for=https://{host}/gallery/{slug}/", "--kv", "page=gallery", "--kv", f"owner={spec.get('owner', '')}",
-                    "--kv", f"title={spec['title'].replace(';', ',')}", "--kv", f"host={host}"], check=True, capture_output=True, env=env)
-    subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
-    if env.get("HEE_BRANDING"):
-        subprocess.run([str(HEE_EXIF), "brand", str(og_file), "--artist", spec.get("owner", "Twin Cities Open Systems")], check=True, capture_output=True, env=env)
     with Image.open(og_file) as im:
         og_w, og_h = im.size
     stats = ""
@@ -883,6 +888,9 @@ def kit(item_dir):
             sys.exit(f"media-item kit: branding card {branding} not found -- a personal kit must not fall back to the org's card")
         env["HEE_BRANDING"] = branding
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=item_dir).stdout.strip() or "unknown"
+    key = (spec.get("signer") or {}).get("gpg_key")
+    if key:
+        _require_secret_key(key)
     worst = 0
     for slot, name in k["outputs"].items():
         discs.used = {}
@@ -910,11 +918,58 @@ def kit(item_dir):
             "--kv", f"owner={spec.get('owner', '')}", "--kv", f"page=https://{spec['host']}/gallery/{item_dir.name}/")
         run("sign", str(out))
         run("brand", str(out), "--artist", spec.get("owner", ""), "--force")
-        run("embed-sig", str(out))
-        run("gpg-sign", str(out))
+        run("embed-sig", str(out), *(["--key", key] if key else []))
+        run("gpg-sign", str(out), *(["--key", key] if key else []))
         v = subprocess.run([str(HEE_EXIF), "verify", str(out)], capture_output=True, text=True, env=env)
         worst = max(worst, 0 if v.returncode == 0 else 2)
         print(f"{'🟢 OK' if v.returncode == 0 else '🔴 CRITICAL'}  kit {slot}: provenance, signature, branding, embedded and detached GPG -- verify exit {v.returncode}")
+    return worst
+
+
+def _fingerprint(key):
+    r = subprocess.run(["gpg", "--batch", "--with-colons", "--fingerprint", key], capture_output=True, text=True)
+    fprs = [ln.split(":")[9] for ln in r.stdout.splitlines() if ln.startswith("fpr:")]
+    return fprs[0] if r.returncode == 0 and fprs else ""
+
+
+def _require_secret_key(key):
+    r = subprocess.run(["gpg", "--batch", "--list-secret-keys", key], capture_output=True, text=True)
+    if r.returncode != 0:
+        home = os.environ.get("GNUPGHOME", "~/.gnupg")
+        sys.exit(f"🔴 CRITICAL media-item: no secret key for {key} in {home} -- run this where that key lives; nothing was changed")
+
+
+def sign(item_dir, key_override=None):
+    """Re-sign an item's files with the card's signer key, then rebuild its pages.
+
+    Operator, 2026-09-11, on resume#98: "make sure I sign this with my
+    inspspector gpg key". The key is spec.signer.gpg_key; spec.signer.github_login
+    is where the page fetches the public half to verify in the browser. Refuses
+    before touching anything when the secret key is not in this keyring.
+    """
+    item_dir = Path(item_dir).resolve()
+    card = yaml.safe_load((item_dir / "item.card.v1.yaml").read_text()); spec = card["spec"]
+    key = key_override or (spec.get("signer") or {}).get("gpg_key")
+    if not key:
+        sys.exit("media-item sign: the card has no spec.signer.gpg_key and no --key was given")
+    _require_secret_key(key)
+    want = _fingerprint(key)
+    worst = 0
+    for it in spec["items"]:
+        f = item_dir / it["file"]
+        asc = f.with_name(f.name + ".asc")
+        if asc.exists():
+            asc.unlink()
+        subprocess.run([str(HEE_EXIF), "embed-sig", "--key", key, str(f)], check=True, capture_output=True, text=True)
+        subprocess.run([str(HEE_EXIF), "gpg-sign", "--key", key, str(f)], check=True, capture_output=True, text=True)
+        got = subprocess.run(["exiftool", "-config", str(HEE_EXIF.parent.parent.parent / "library" / "exiftool" / "hee-xmp.config"),
+                              "-s3", "-XMP-hee:LabSigner", str(f)], capture_output=True, text=True).stdout.strip()
+        v = subprocess.run([str(HEE_EXIF), "verify", str(f)], capture_output=True, text=True)
+        ok = v.returncode == 0 and (not got or not want or got.upper() == want.upper())
+        worst = max(worst, 0 if ok else 2)
+        print(f"{'🟢 OK' if ok else '🔴 CRITICAL'}  sign {it['file']}: embedded and detached signature by {want or key}"
+              f"{'' if not got else ', LabSigner ' + got} -- verify exit {v.returncode}")
+    build(item_dir, network=True, regen_og=False)
     return worst
 
 
@@ -933,6 +988,9 @@ def main(argv):
         return root(argv[1], opts.get("--posts"), opts.get("--oper"), opts.get("--posts-src"))
     if len(argv) >= 2 and argv[0] == "kit":
         return kit(argv[1])
+    if len(argv) >= 2 and argv[0] == "sign":
+        key = argv[argv.index("--key") + 1] if "--key" in argv[2:] else None
+        return sign(argv[1], key)
     if len(argv) < 2 or argv[0] != "build":
         print(__doc__ or "usage: media-item.py build <item-dir> [--no-network] | root <media-dist> [--init --name N --host H] | audit [--prod]"); return 2
     return build(argv[1], network="--no-network" not in argv)

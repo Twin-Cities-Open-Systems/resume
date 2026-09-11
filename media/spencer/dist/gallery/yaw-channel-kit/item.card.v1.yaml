@@ -56,8 +56,10 @@ spec:
     - 'Made with media-item kit (resume) and MT-logo-render, which draws the discs and Morse dots. Lettering: DejaVu, URW base35.'
     - Generated images; no person appears in them.
   signer:
-    github_login: touchy-claude
-    label: touchy-claude &lt;touchy-claude@tcos.us&gt; (lab signer)
+    # Operator, 2026-09-11, on resume#98: "make sure I sign this with my inspspector gpg key".
+    github_login: spencerbutler
+    gpg_key: 2D990922FB9DCAB3EE405C710C2E2A08D47F2A2B
+    label: Spencer Butler &lt;inspector@tcos.us&gt;
   stats:
   - n: '3'
     l: images
