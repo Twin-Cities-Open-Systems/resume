@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Nothing since the last release._
 
+## [1.2.0] - 2026-09-11
+
+### Added
+
+- 2026-09-11 **thesis**: left-of-capex -- placed for the operator to edit ([#85](https://github.com/Twin-Cities-Open-Systems/resume/pull/85))
+- 2026-09-11 **media**: URL kinds, not tags -- /blog/<slug>/, /gallery/<item>/, /thesis/<slug>/; galleries move under gallery/; theses render; old URLs redirect (_redirects on prod) ([#86](https://github.com/Twin-Cities-Open-Systems/resume/pull/86))
+- 2026-09-10 **blog**: the two standalone pages are posts now; standalone-pages/ removed; publishing guide ([#83](https://github.com/Twin-Cities-Open-Systems/resume/pull/83))
+- 2026-09-06 **release**: cut builds the whole repo into the release commit (hee#594) ([#80](https://github.com/Twin-Cities-Open-Systems/resume/pull/80))
+- 2026-09-06 **media**: release beside commit in every root and item footer -- the tag on prod, describe-with-distance on lab ([#79](https://github.com/Twin-Cities-Open-Systems/resume/pull/79))
+
+### Fixed
+
+- 2026-09-11 **deploy**: the lab prune sorts and compares in byte order on both sides -- it pruned live gallery files and exited 1 ([#88](https://github.com/Twin-Cities-Open-Systems/resume/pull/88))
+
+### Changed
+
+- 2026-09-10 **release**: v1.1.0 ([#84](https://github.com/Twin-Cities-Open-Systems/resume/pull/84))
+- 2026-09-08 **hee-check**: pin the hee checkout to `stable` ([#82](https://github.com/Twin-Cities-Open-Systems/resume/pull/82))
+
+### Other
+
+- 2026-09-07 easter egg HWOps For Life! ([#81](https://github.com/Twin-Cities-Open-Systems/resume/pull/81))
+
 ## [1.1.0] - 2026-09-10
 
 ### Added
