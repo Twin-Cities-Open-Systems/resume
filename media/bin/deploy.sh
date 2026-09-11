@@ -137,9 +137,13 @@ tar -C "$STAGE" -cf - --exclude=deploy.sh --exclude=__pycache__ --exclude=.asset
 # tar only adds; a renamed post (2026-09-05, the numbered prefix) left its
 # old file live at the old URL until removed by hand.
 # An operator with no posts yet has no posts/ dir -- that is not an error.
-( cd "$STAGE" && { find blog thesis gallery posts -type f 2>/dev/null || true; } | sort ) > "$STAGE/.manifest"
-ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find blog thesis gallery posts -type f 2>/dev/null || true; } | sort'" \
-  | comm -13 "$STAGE/.manifest" - \
+# Both lists sort in byte order, and comm compares in byte order. kiosk's sort
+# (en_US.UTF-8) and ct107's busybox sort put bofh-still.jpg and bofh.gif in
+# opposite orders; comm then called live files stale, pruned three real
+# gallery files from lab, and exited 1 under pipefail (2026-09-11).
+( cd "$STAGE" && { find blog thesis gallery posts -type f 2>/dev/null || true; } | LC_ALL=C sort ) > "$STAGE/.manifest"
+ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find blog thesis gallery posts -type f 2>/dev/null || true; } | LC_ALL=C sort'" \
+  | LC_ALL=C comm -13 "$STAGE/.manifest" - \
   | while read -r stale; do
       [ -n "$stale" ] || continue
       echo "  prune: $stale (no longer in the build)"
