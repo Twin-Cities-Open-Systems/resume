@@ -13,7 +13,7 @@ export default {
     if (m && MEDIA[m[1]]) {
       const target = "https://" + MEDIA[m[1]];
       const p = url.pathname.match(/^\/profiles\/[^/]+\/blog\/(?:\d{3}-)?([^/]+?)(?:\.md|\.html)?$/);
-      if (p) return Response.redirect(target + "/posts/" + p[1] + ".html", 301);
+      if (p) return Response.redirect(target + "/blog/" + p[1] + "/", 301);
       // the resume used to live here as /resume-<slug>.html and /profiles/<slug>/dist/resume.<ext>
       const r = url.pathname.match(/^\/(?:resume-[^/]+|profiles\/[^/]+\/dist\/resume)\.(html|pdf|md|txt)$/);
       if (r) return Response.redirect(target + "/resume." + r[1], 301);
@@ -21,7 +21,7 @@ export default {
       // hand-built standalone pages became profiles/<oper>/blog/*.md on
       // 2026-09-10. Lost 2026-09-05..10 behind the catch-all below. /index is the root.
       const s = url.pathname.match(/^\/([^/.]+)(?:\.html)?$/);
-      if (s && s[1] !== "index") return Response.redirect(target + "/posts/" + s[1] + ".html", 301);
+      if (s && s[1] !== "index") return Response.redirect(target + "/blog/" + s[1] + "/", 301);
       return Response.redirect(target + "/", 301);
     }
     // The hub hosts: media.tcos.us and blog.tcos.us are the index of every
