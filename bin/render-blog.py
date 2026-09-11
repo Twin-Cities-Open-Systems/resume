@@ -212,8 +212,9 @@ def main(argv):
             status_class="browse", status_label="post",
             generated_iso=generated_iso,
             og_description=f"{post['title']} -- {slug}'s blog, {post['date']}.",
-            og_url=f"https://{host}/{out.relative_to(DIST)}",
-            site_name=host,
+            # the page's home is the media host now; the blog host only redirects (deprecated, 2026-09-11)
+            og_url=f"https://{media_host}/{'blog' if post.get('kind', 'post') == 'post' else post['kind']}/{post['slug']}/",
+            site_name=media_host,
             active_tab="pretty",
             github_url=f"https://github.com/{rr.GITHUB_ORG}/resume/blob/main/{src}",
             label_url="/",  # the chip goes to the media root, where every post is listed
