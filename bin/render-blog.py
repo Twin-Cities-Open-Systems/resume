@@ -138,7 +138,8 @@ TILE_PY = Path(os.environ.get("MEME_FACTORY_TILE", Path.home() / "git/fleet-ops/
 PALETTE_NAMES = ["ember", "violet", "lime", "sunset", "ocean", "mint", "coral", "teal"]
 
 
-def post_card(out_html, title, date, host, slug):
+def post_card(out_html, title, date, host, slug, kind="post"):
+    kind_dir = 'blog' if kind == 'post' else kind
     """The post's social preview (og:image): a 1200x630 card from the org's
     own meme-factory tile generator -- palette by slug, monogram from the
     title, eyebrow host + date. Beside the html as <name>.og.jpg, so the
@@ -161,7 +162,7 @@ def post_card(out_html, title, date, host, slug):
     tile.render_job({"output": str(out), "card": True, "palette": palette, "seed": slug,
                      "title": title, "subtitle": f"({entity})", "tagline": f"post · {date}",
                      "eyebrow": host, "text": mono,
-                     "for": f"https://{host}/posts/{slug}.html", "page": "post", "owner": entity, "host": host})
+                     "for": f"https://{host}/{kind_dir}/{slug}/", "page": kind, "owner": entity, "host": host})
     return out
 
 
@@ -203,7 +204,7 @@ def main(argv):
         media_host = people.get(slug, {}).get("media_dns") or host
         out = DIST / src.with_suffix(".html")
         out.parent.mkdir(parents=True, exist_ok=True)
-        card = post_card(out, post["title"], post["date"], media_host, post["slug"])
+        card = post_card(out, post["title"], post["date"], media_host, post["slug"], kind=post.get("kind", "post"))
         page = rr.render_file_page(
             repo, str(src),
             diff_html=published_diff_html(src, rr),
@@ -216,7 +217,7 @@ def main(argv):
             active_tab="pretty",
             github_url=f"https://github.com/{rr.GITHUB_ORG}/resume/blob/main/{src}",
             label_url="/",  # the chip goes to the media root, where every post is listed
-            og_image=(f"https://{media_host}/posts/{post['slug']}.og.jpg" if card else None), og_image_alt=post["title"],
+            og_image=(f"https://{media_host}/{'blog' if post.get('kind', 'post') == 'post' else post['kind']}/{post['slug']}/og.jpg" if card else None), og_image_alt=post["title"],
             extra_head=gtag,
         )
         out.write_text(page, encoding="utf-8")
