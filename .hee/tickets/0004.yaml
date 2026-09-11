@@ -1,0 +1,19 @@
+id: '0004'
+created_at: '2026-09-11T16:30:12Z'
+description: 'Since #86 no blog or thesis page is in a release commit: kind pages
+  live under media/<oper>/dist/{blog,thesis}/, which .gitignore''s dist/ rule hides,
+  and hee release -cut stages outputs with git add -u (tracked files only). So the
+  release PR cannot show the pages that ship, and promote needs a local ./convert.sh
+  first -- which dirties tracked outputs (resume.*, tiles) that promote refuses, so
+  the working order is build, restore tracked outputs, promote (measured at v1.2.0,
+  2026-09-11). Either track the kind pages (gitignore exception plus forced add at
+  cut) or have promote build from the release commit.'
+status: open
+stage: idea
+stage_history:
+- stage: idea
+  at: '2026-09-11T16:30:12Z'
+source: found 2026-09-11 preparing the v1.2.0 promote
+tags:
+- release
+- footgun
