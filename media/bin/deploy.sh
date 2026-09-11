@@ -116,11 +116,32 @@ fi
 # rules by hand in fleet-ops haproxy). /posts/<slug>.html -> /blog/<slug>/,
 # and every gallery by its old bare name -> /gallery/<name>/. Explicit per
 # item, never a catch-all: /blog/, /thesis/, /resume must not match.
+# One explicit line per known post and per gallery. Two placeholder rules
+# broke prod on 2026-09-11 (v1.2.0):
+#   - "/posts/:slug.html" never matches: a placeholder cannot share a path
+#     segment with a literal, so "/posts/:slug" caught x.html and sent it to
+#     /blog/x.html/ (404);
+#   - an operator with no galleries left the glob "gallery/*/" literal, which
+#     wrote "/* /gallery/*/" -- every URL on touchy.media.tcos.us 301'd to itself.
 {
-  echo "/posts/:slug.html /blog/:slug/ 301"
-  echo "/posts/:slug /blog/:slug/ 301"
-  for g in "$STAGE"/gallery/*/; do n=$(basename "$g"); echo "/$n/* /gallery/$n/:splat 301"; echo "/$n /gallery/$n/ 301"; done
+  if [ -f "$MANIFEST" ]; then
+    python3 - "$MANIFEST" "$OPER" <<'PYR'
+import json, sys
+manifest, oper = sys.argv[1:3]
+for post in json.load(open(manifest)):
+    if post["path"].startswith(f"profiles/{oper}/") and post.get("html") and post.get("kind", "post") == "post":
+        print(f"/posts/{post['slug']}.html /blog/{post['slug']}/ 301")
+        print(f"/posts/{post['slug']} /blog/{post['slug']}/ 301")
+PYR
+  fi
+  for g in "$STAGE"/gallery/*/; do
+    [ -d "$g" ] || continue   # no galleries: the glob stays literal
+    n=$(basename "$g"); echo "/$n/* /gallery/$n/:splat 301"; echo "/$n /gallery/$n/ 301"
+  done
 } > "$STAGE/_redirects"
+if grep -q '\*' "$STAGE/_redirects" && grep -Eq '^/\*|/gallery/\*' "$STAGE/_redirects"; then
+  echo "❌ CRITICAL deploy: _redirects carries a catch-all -- refusing to stage it" >&2; exit 2
+fi
 
 echo "=== minifying our own JS (never the tracked source) ==="
 for js in "${OWN_JS[@]}"; do
