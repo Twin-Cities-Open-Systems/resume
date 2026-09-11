@@ -42,7 +42,7 @@ from pathlib import Path
 from string import Template
 
 import yaml
-from PIL import Image
+from PIL import Image, ImageOps
 
 HERE = Path(__file__).resolve().parent
 # The org's Google tag, one source for every generator (hee_gtag in
@@ -109,7 +109,7 @@ def build(item_dir, network=True):
         print(f"⚠️  WARNING  {slug}: consent is {spec['consent']!r} -- build for lab review only; deploy.sh promote will refuse")
     host = spec["host"]                                  # e.g. spencer.media.tcos.us
     host_short = host.split(".tcos.us")[0]              # spencer.media
-    url = f"https://{host}/{slug}/"
+    url = f"https://{host}/gallery/{slug}/"   # items live under their kind since resume#86
     items = spec["items"]
     stems = {}
     for it in items:
@@ -122,6 +122,19 @@ def build(item_dir, network=True):
         if st in stems:
             sys.exit(f"media-item: {it['file']} and {stems[st]} share the stem {st!r}; rename one")
         stems[st] = it["file"]
+        # A photo stored sideways with an EXIF rotate flag looks right in a
+        # browser and wrong everywhere that ignores the flag (the og card,
+        # link previews, some viewers). Straighten the pixels BEFORE signing:
+        # rotating a signed file breaks its signature. Operator, 2026-09-11,
+        # on 36th 23rd street: "in future we want correct photo orientation".
+        try:
+            with Image.open(item_dir / it["file"]) as _im:
+                _orient = _im.getexif().get(0x0112, 1)
+        except Exception:  # noqa: BLE001 -- not an image this check can read
+            _orient = 1
+        if _orient not in (0, 1):
+            print(f"⚠️  WARNING  {slug}: {it['file']} is stored rotated (EXIF Orientation {_orient}) -- "
+                  "rotate the pixels and reset Orientation to 1 before signing (exiftool can't; e.g. PIL ImageOps.exif_transpose)")
 
     # signatures: <file>.asc beside each file, as hee-exif gpg-sign writes them
     signatures = {}
@@ -146,7 +159,7 @@ def build(item_dir, network=True):
     og_src = og_file
     with Image.open(og_src) as im:
         im.seek(0)
-        frame = im.convert("RGB")
+        frame = ImageOps.exif_transpose(im).convert("RGB")   # the card shows the photo upright, whatever its flag
     W, H = 1200, 630
     bg = spec.get("og_bg", "#0b0f0b").lstrip("#")
     canvas = Image.new("RGB", (W, H), tuple(int(bg[i:i + 2], 16) for i in (0, 2, 4)))
@@ -195,7 +208,7 @@ def build(item_dir, network=True):
     values = dict(
         TITLE=esc(spec["title"]), OWNER=esc(spec.get("owner", "")), DESCRIPTION=esc(spec["description"]),
         HOST=esc(host), HOST_SHORT=esc(host_short), SLUG=esc(slug), OG_URL=esc(url), OG_URL_EXIF=esc(url + "exif.html"),
-        OG_IMAGE=esc(f"https://{host}/{slug}/{og_file.name}"), OG_IMAGE_ALT=esc(spec.get("og_image_alt", spec["title"])),
+        OG_IMAGE=esc(f"https://{host}/gallery/{slug}/{og_file.name}"), OG_IMAGE_ALT=esc(spec.get("og_image_alt", spec["title"])),
         OG_IMAGE_W=og_w, OG_IMAGE_H=og_h,
         EYEBROW=esc(spec.get("eyebrow", spec["title"].lower())), SUB=spec.get("sub_html") or esc(spec.get("sub", spec["description"])),
         STATS=stats, CREDIT=credit_html, GENERATED=generated,
