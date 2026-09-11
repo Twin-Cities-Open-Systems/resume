@@ -763,6 +763,31 @@ def _kit_avatar(k, discs):
     return out.convert("RGB")
 
 
+NATO = {"A": "ALFA", "B": "BRAVO", "C": "CHARLIE", "D": "DELTA", "E": "ECHO", "F": "FOXTROT", "G": "GOLF", "H": "HOTEL",
+        "I": "INDIA", "J": "JULIETT", "K": "KILO", "L": "LIMA", "M": "MIKE", "N": "NOVEMBER", "O": "OSCAR", "P": "PAPA",
+        "Q": "QUEBEC", "R": "ROMEO", "S": "SIERRA", "T": "TANGO", "U": "UNIFORM", "V": "VICTOR", "W": "WHISKEY",
+        "X": "X-RAY", "Y": "YANKEE", "Z": "ZULU", "0": "ZERO", "1": "ONE", "2": "TWO", "3": "THREE", "4": "FOUR",
+        "5": "FIVE", "6": "SIX", "7": "SEVEN", "8": "EIGHT", "9": "NINER"}
+
+
+def morse_unicode(text):
+    """Morse as text: U+2212 minus for a dah, U+00B7 middle dot for a dit, a space between letters, " / " between words."""
+    return " / ".join(" ".join(MORSE[ch].replace("-", "\u2212").replace(".", "\u00b7") for ch in word) for word in text.upper().split())
+
+
+def nato(text):
+    """The NATO phonetic spelling, the YaW! brand's other wordplay: YAW is YANKEE ALFA WHISKEY."""
+    return " / ".join(" ".join(NATO[ch] for ch in word) for word in text.upper().split())
+
+
+def _morse_caption(img, text, y, color):
+    from PIL import ImageDraw
+    d = ImageDraw.Draw(img)
+    line = f"{nato(text)}   {morse_unicode(text)}"
+    f = _font("mono", 26); l, t, r, b = f.getbbox(line)
+    d.text(((img.width - (r - l)) // 2 - l, y), line, font=f, fill=_rgb(color, 200))
+
+
 def _morse_row(img, discs, text, y, color, unit):
     from PIL import ImageDraw
     d = ImageDraw.Draw(img)
@@ -813,6 +838,9 @@ def _kit_banner(k, discs):
     _morse_row(img, discs, k.get("morse", "YAW 73"), SY - 90, pal["accent"], 22)
     # the second row carries the professional half; operator, 2026-09-11: "the morse code for tcos is ... this might be a cool use of mt-logo"
     _morse_row(img, discs, k.get("morse_bottom", k.get("morse", "YAW 73")), SY + SH + 68, pal["hazard"], 22)
+    # operator, 2026-09-11: "lots of morse code and nato phoentic word play ... all part of the yaw brand"
+    _morse_caption(img, k.get("morse", "YAW 73"), SY - 150, pal["dim"])
+    _morse_caption(img, k.get("morse_bottom", k.get("morse", "YAW 73")), SY + SH + 112, pal["dim"])
     d = ImageDraw.Draw(img)
     d.text((SX + 40, SY + 12), k["prompt"], font=_font("mono", 36), fill=_rgb(pal["accent"]))
     mark = _fit(_ransom(k["wordmark"], 300, pal), 760, 262)
