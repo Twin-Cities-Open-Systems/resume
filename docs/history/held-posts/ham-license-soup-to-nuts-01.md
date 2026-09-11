@@ -51,11 +51,11 @@ I am using a tool to sort assignable call signs into four groups by the license 
 
 **Group B**, needs Advanced: 2x2 starting with K, N or W (two letters, a digit, two letters: KA0XY shape).
 
-**Group C**, needs General: 1x3 (one of K, N or W, a digit, three letters: K0XYZ shape).
+**Group C**, open to Technician and General: 1x3 (one of K, N or W, a digit, three letters: K0XYZ shape).
 
 **Group D**, open to any class: 2x3 (two letters, a digit, three letters: KA0XYZ shape).
 
-If I pass Technician and stop there, only Group D is open to me: A needs Amateur Extra, B needs Advanced and C needs General. I will not know which group is reachable until I know my final license class. That is why the license exam is step one: it gates everything that follows.
+If I pass Technician and stop there, Groups C and D are open to me: A needs Amateur Extra and B needs Advanced. I will not know which group is reachable until I know my final license class. That is why the license exam is step one: it gates everything that follows.
 
 ### The candidate pool
 
