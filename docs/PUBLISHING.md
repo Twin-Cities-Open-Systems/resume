@@ -40,13 +40,54 @@ the release commit, where the release PR shows what ships.
 ## Lab, then prod
 
     hee release -lab -repos resume            # builds (convert.sh), pushes every surface to lab
-    # review at https://<oper>.media.lab.tcos.us/posts/<slug>.html
+    # review at https://<oper>.media.lab.tcos.us/blog/<slug>/ (a post) or /thesis/<slug>/ (a thesis)
     hee release -cut -repos resume -yes       # release commit + PR; approving and merging it is the sign-off
     hee release -promote -repos resume -yes   # prod, tags, GitHub Release; runs under hee cred (cloudflare-tcos-www)
 
 The surfaces and their commands are `release.card.v1.yaml`. Promote is the
 operator's act. Nothing deploys on merge: a merged `.md` is on no host until
 `-lab` runs.
+
+## Worked example: publishing a thesis, start to finish
+
+The operator's thesis `profiles/spencer/thesis/left-of-capex.md` (resume
+pull request 85), from a merged pull request to prod. Nothing publishes on
+merge; each step below is a deliberate act, and each one says what to look at
+before the next.
+
+1. **Merge the pull request.** The thesis is on `main` and on no host yet.
+2. **Pull and put it on lab.** From any directory:
+
+       git -C ~/git/resume pull --ff-only
+       hee release -lab -repos resume
+
+   `-lab` runs `convert.sh` and pushes every surface to lab through
+   `media/bin/deploy.sh`. It refuses a stale checkout rather than pruning live
+   pages, so a refusal means pull first.
+3. **Read it on lab, as a reader will.**
+   https://spencer.media.lab.tcos.us/thesis/left-of-capex/ -- check the title,
+   the date line (the date comes from line 2 of the file; anything else falls
+   back to the file's mtime), that no pasted prompt or raw math source shows,
+   and that every link opens. Fix in a new pull request and repeat from step 1.
+4. **Cut the release.**
+
+       hee release -status -repos resume
+       hee release -cut -repos resume -yes
+
+   `-status` shows what main holds beyond the last release; `-cut` builds
+   everything into one release commit and opens its pull request. Approving
+   and merging that pull request is the sign-off: the release PR's diff is
+   exactly what ships.
+5. **Promote.** The operator's act:
+
+       hee release -promote -repos resume -yes
+
+   It deploys every surface from the release commit, tags
+   `prod/<surface>/<version>` and the version, and publishes the GitHub
+   Release. The gates below run first.
+6. **Read it on prod.** https://spencer.media.tcos.us/thesis/left-of-capex/
+   -- and the old-style links redirect, from the `_redirects` file the stage
+   carries.
 
 ## Gates on the way (`media/bin/deploy.sh`)
 
