@@ -559,6 +559,12 @@ def audit(repo_root, env="lab"):
     manifest = json.loads((repo_root / "dist" / "blog_manifest.json").read_text())
     n = 0
     for post in manifest:
+        # Blog hosts are deprecated (operator, 2026-09-11: "blog is deprecated ...
+        # should redirect to media, and will be removed in future"). Only posts
+        # ever lived there, so only posts have old blog URLs to keep landing; a
+        # thesis was born on the media host and has none.
+        if post.get("kind", "post") != "post":
+            continue
         oper = post["path"].split("/")[1]
         prefix, media = prefix_of.get(oper, (None, None))
         if not media:
