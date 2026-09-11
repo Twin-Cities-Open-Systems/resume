@@ -157,7 +157,7 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
 
   </div>
 
-  <div class="freshness" id="freshness" data-generated="2026-09-11T17:00:55Z">
+  <div class="freshness" id="freshness" data-generated="2026-09-11T21:13:48Z">
     <span class="fr-dot"></span>
     <span id="fr-text">last update: just now</span>
     <span class="tgl-sep"></span>
@@ -297,7 +297,7 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
           badge.querySelector(".gpg-text").textContent = "Lab verified";
           var tip = document.createElement("span");
           tip.className = "tip";
-          tip.innerHTML = "Good signature<br>Key: " + sig0.keyID.toHex() + "<br>Signer: touchy-claude &amp;lt;touchy-claude@tcos.us&amp;gt; (lab signer)<br>Verified live in your browser";
+          tip.innerHTML = "Good signature<br>Key: " + sig0.keyID.toHex() + "<br>Signer: touchy-claude &lt;touchy-claude@tcos.us&gt; (lab signer)<br>Verified live in your browser";
           badge.appendChild(tip);
         } catch (e) {
           badge.classList.add("bad");

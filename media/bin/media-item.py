@@ -235,8 +235,8 @@ def build(item_dir, network=True, regen_og=True):
         # optional (operator, 2026-09-06: "kill this cruft")
         FOOTER=(" &middot; " + (spec.get("footer_html") or esc(spec["footer"]))) if (spec.get("footer_html") or spec.get("footer")) else "",
         OPENPGP_SRC=esc(spec.get("openpgp_src", "/openpgp.min.js")),
-        SIGNER_LABEL=esc(signer.get("label", signer.get("github_login", "signer"))),
-        ATTESTER_LABEL=esc(attester.get("label", "")),
+        SIGNER_LABEL=esc(html.unescape(signer.get("label", signer.get("github_login", "signer")))),
+        ATTESTER_LABEL=esc(html.unescape(attester.get("label", ""))),
         TAG_LABELS_JSON=json.dumps(tags),
         GTAG=GTAG.replace("$", "$$"),
     )
