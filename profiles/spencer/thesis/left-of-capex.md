@@ -57,16 +57,20 @@ YAML parser on your fleet, assume a conservative memory baseline of 30 MB per no
 For your target scale of 132,000 nodes (wild number for fun), the aggregate memory
 overhead strictly dedicated to parsing configuration text is:
 
-$$\text{Total Memory} = 132,000 \times 30\text{ MB} = 3,960,000\text{ MB} \approx 3.96\text{ TB of RAM}$$
+```text
+Total Memory = 132,000 × 30 MB = 3,960,000 MB ≈ 3.96 TB of RAM
+```
 
 By utilizing your low-abstraction approach (assuming an execution window memory
 ceiling of 2 MB per node for the primitive processing chain), the aggregate
 memory footprint across the identical fleet scale is:
 
-$$\text{Total Memory} = 132,000 \times 2\text{ MB} = 264,000\text{ MB} \approx 264\text{ GB of RAM}$$
+```text
+Total Memory = 132,000 × 2 MB = 264,000 MB ≈ 264 GB of RAM
+```
 
 This represents an absolute theoretical memory saving of 3.696 TB of global RAM
-($3.96\text{ TB} - 0.264\text{ TB}$) stripped directly out of your fleet
+(`3.96 TB - 0.264 TB`) stripped directly out of your fleet
 deployment infrastructure.
 
 ## 2. Dimension B: Computational Overhead and Execution Latency
