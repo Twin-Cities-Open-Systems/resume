@@ -1,0 +1,88 @@
+# YaW! channel kit, 2026-09-11. The operator, on the YouTube channel page:
+# "need watermark with full exif and og and made with mt-logo in the mix ...
+# also need fresh images for this. this is personal and professional. I will
+# blend #tclug stuff into this as well. I need to establish my YaW! brand. the
+# goal is to get paid to promulgate linux and hacking and ham and punk".
+# consent: no person appears in any of the three images; all are generated.
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: yaw-channel-kit
+  labels:
+    domain: media
+    scope: spencer
+    topic: brand
+    artifact: card
+  annotations:
+    inuid: null
+    inuid_null_reason: bootstrap
+    created_utc: '2026-09-11T00:00:00Z'
+spec:
+  consent: approved
+  host: spencer.media.tcos.us
+  owner: Spencer Butler
+  title: YaW! channel kit
+  date: '2026-09-11'
+  eyebrow: brand · youtube · linux · hacking · ham · punk
+  description: The YaW! brand kit for Spencer Butler's YouTube channel -- banner, profile picture and video watermark, generated and signed.
+  sub_html: Three images for the channel, sized to YouTube Studio's limits, each carrying its provenance, an agent signature, Spencer
+    Butler's copyright and an embedded GPG signature. The round badges and the Morse dots come from MT-logo-render.
+  og_image: yaw-banner.png
+  og_image_alt: 'YaW! in cut-out letters on near-black, with a hacker prompt, "you are wrong.", 73 de YaW!, and a yellow tape strip reading linux, hacking, ham, punk, #tclug'
+  og_bg: '#0b1211'
+  tag_labels:
+    brand: Brand
+  items:
+  - file: yaw-banner.png
+    title: Channel banner
+    caption: 2560 x 1440. Everything that must be read sits inside YouTube's centered 1546 x 423 safe area; the Morse rows spell YAW 73 and TCOS.
+    tag: brand
+    date: '2026-09-11'
+  - file: yaw-avatar.png
+    title: Profile picture
+    caption: 800 x 800, drawn for YouTube's circle crop.
+    tag: brand
+    date: '2026-09-11'
+  - file: yaw-watermark.png
+    title: Video watermark
+    caption: 150 x 150 with a transparent corner, YouTube's recommended size.
+    tag: brand
+    date: '2026-09-11'
+  tile:
+    text: YaW
+  credit:
+    headline_html: 'Copyright &copy; 2026 Spencer Butler'
+    notes:
+    - 'Made with media-item kit (resume) and MT-logo-render, which draws the discs and Morse dots. Lettering: DejaVu, URW base35.'
+    - Generated images; no person appears in them.
+  signer:
+    github_login: touchy-claude
+    label: touchy-claude &lt;touchy-claude@tcos.us&gt; (lab signer)
+  stats:
+  - n: '3'
+    l: images
+  - n: '150'
+    l: px watermark
+  - n: '0'
+    l: people pictured
+  kit:
+    branding: ~/.config/hee/spencer-personal.branding.card.v1.yaml
+    wordmark: YaW!
+    motto: you are wrong.
+    prompt: 'spencer@yaw:~$ ./promulgate --linux --hacking --ham --punk'
+    tagline: 'LINUX · HACKING · HAM RADIO · PUNK · #TCLUG'
+    signoff: de YaW!
+    morse: YAW 73
+    morse_bottom: TCOS
+    avatar_line: linux hacking ham punk
+    footer: 'Spencer Butler · tcos.us · #tclug'
+    palette:
+      ground: '#0b1211'
+      ink: '#e7efec'
+      dim: '#9db3ae'
+      accent: '#3fd4c8'
+      hazard: '#e0a634'
+    outputs:
+      banner: yaw-banner.png
+      avatar: yaw-avatar.png
+      watermark: yaw-watermark.png

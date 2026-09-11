@@ -24,6 +24,7 @@
 # Usage:
 #   media/bin/media-item.py build <item-dir>        # <item-dir>/item.card.v1.yaml -> index.html + exif.html
 #   media/bin/media-item.py build <item-dir> --no-network   # skip regen-pubkey (offline check)
+#   media/bin/media-item.py kit <item-dir>          # spec.kit -> watermark, avatar, banner PNGs, stamped and signed
 #   media/bin/media-item.py root <media-dist> [--posts MANIFEST --oper SLUG --posts-src DIR]
 #       regenerate the media root's <ul class="items"> from every item card
 #       under <media-dist>, plus this oper's blog posts (copied into
@@ -173,6 +174,15 @@ def build(item_dir, network=True):
     env = dict(os.environ)
     if not env.get("HEE_BRANDING") and (Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml").is_file():
         env["HEE_BRANDING"] = str(Path.home() / "git/tcos-audit/policy/branding.card.v1.yaml")
+    # A personal item stamps its og card with its own identity, the card's
+    # kit.branding (or top-level branding). The page's Google tag still comes
+    # from the org card, since the page lives on the org's host.
+    own = spec.get("branding") or (spec.get("kit") or {}).get("branding")
+    if own:
+        own = os.path.expanduser(own)
+        if not Path(own).is_file():
+            sys.exit(f"media-item: branding card {own} not found -- a personal item must not fall back to the org's card")
+        env["HEE_BRANDING"] = own
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
     subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
                     "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
@@ -615,6 +625,271 @@ def audit(repo_root, env="lab"):
     return worst
 
 
+# ---- kit: a channel's brand images, from the same card ---------------------
+#
+# Operator, 2026-09-11, on the YouTube channel page: "need watermark with full
+# exif and og and made with mt-logo in the mix ... also need fresh images for
+# this ... I need to establish my YaW! brand". So `kit` renders a watermark,
+# an avatar and a banner from spec.kit on the item's card, checks each against
+# the platform's published limits, and stamps every file the way every
+# published file here is stamped: provenance, agent signature, branding, an
+# embedded GPG signature and a detached .asc. `build` then makes the page and
+# its og card from the same card, like any gallery.
+#
+# MT-logo-render draws the round badges and the Morse dots. Today it renders
+# only filled discs -- hex, stripes and labels are open issues #22 and #25 in
+# that repo -- so the lettering is drawn here with Pillow.
+LOGO_RENDER = Path(os.environ.get("MT_LOGO_RENDER", Path.home() / "git/MT-logo-render/target/release/logo-render"))
+KIT_FONTS = {
+    "mono": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
+    "serif": "/usr/share/fonts/opentype/urw-base35/C059-Bold.otf",
+    "narrow": "/usr/share/fonts/opentype/urw-base35/NimbusSansNarrow-Bold.otf",
+    "sans": "/usr/share/fonts/opentype/urw-base35/NimbusSans-Bold.otf",
+    "italic": "/usr/share/fonts/opentype/urw-base35/C059-BdIta.otf",
+}
+# YouTube Studio's own wording, 2026-09-11: watermark "150 x 150 pixels is
+# recommended ... 1MB or less"; banner "at least 2048 x 1152 pixels and 6MB or
+# less"; picture "at least 98 x 98 pixels and 4MB or less". The banner's safe
+# area, visible on every device, is the centered 1546 x 423.
+KIT_SLOTS = {
+    "watermark": {"size": (150, 150), "rule": "exact", "max_bytes": 1024 * 1024},
+    "avatar": {"size": (800, 800), "rule": "min", "min": (98, 98), "max_bytes": 4 * 1024 * 1024},
+    "banner": {"size": (2560, 1440), "rule": "min", "min": (2048, 1152), "max_bytes": 6 * 1024 * 1024},
+}
+MORSE = {"A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---",
+         "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-",
+         "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---",
+         "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----."}
+
+
+def _rgb(hexstr, a=255):
+    h = hexstr.lstrip("#")
+    return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), a)
+
+
+def _font(key, size):
+    from PIL import ImageFont
+    return ImageFont.truetype(KIT_FONTS[key], max(8, int(size)))
+
+
+class _Discs:
+    """Round sprites from MT-logo-render, cached per (color, diameter)."""
+
+    def __init__(self, workdir):
+        self.root = Path(workdir); self.used = {}
+        commit = subprocess.run(["git", "-C", str(LOGO_RENDER.parent.parent.parent), "rev-parse", "--short", "HEAD"],
+                                capture_output=True, text=True).stdout.strip()
+        self.commit = commit or "unknown"
+
+    def disc(self, color, diameter):
+        diameter = int(diameter)
+        # the renderer's disc is 80% of its canvas, so ask for a canvas that makes the wanted diameter
+        canvas = max(16, min(4096, round(diameter / 0.8)))
+        recipe = {"shape": "circle", "size": f"{canvas}x{canvas}", "base_color": color, "fill": "solid"}
+        r = subprocess.run([str(LOGO_RENDER), "--asset-root", str(self.root), "render", "--targets", "png", json.dumps(recipe)],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            sys.exit(f"media-item kit: MT-logo-render failed for {recipe}: {r.stderr.strip()[:300]}")
+        out = json.loads(r.stdout[r.stdout.index("{"):])["outputs"]["png"]
+        self.used[out["path"]] = {"sha256": out["sha256"], "recipe": recipe}
+        with Image.open(out["path"]) as im:
+            im = im.convert("RGBA")
+        box = im.getbbox() or (0, 0, canvas, canvas)
+        sprite = im.crop(box)
+        return sprite.resize((diameter, diameter), Image.LANCZOS)
+
+
+def _ransom(word, height, pal):
+    """The wordmark as cut-out letters: each glyph its own block, face and tilt."""
+    from PIL import ImageDraw
+    styles = [("mono", pal["ground"], pal["hazard"], -6, 0.00),
+              ("serif", pal["ink"], pal["ground"], 4, 0.05),
+              ("narrow", pal["ground"], pal["accent"], -3, -0.03),
+              ("sans", pal["hazard"], pal["ground"], 7, 0.04)]
+    pieces = []
+    for i, ch in enumerate(word):
+        face, fg, bg, tilt, drop = styles[i % len(styles)]
+        f = _font(face, height * 0.8)
+        l, t, r, b = f.getbbox(ch)
+        pad = height * 0.14
+        w, h = int(r - l + 2 * pad), int(height)
+        block = Image.new("RGBA", (w, h), _rgb(bg))
+        d = ImageDraw.Draw(block)
+        if bg == pal["ground"]:
+            d.rectangle([0, 0, w - 1, h - 1], outline=_rgb(pal["ink"]), width=max(2, int(height * 0.035)))
+        d.text(((w - (r - l)) / 2 - l, (h - (b - t)) / 2 - t), ch, font=f, fill=_rgb(fg))
+        pieces.append((block.rotate(tilt, resample=Image.BICUBIC, expand=True), int(drop * height)))
+    overlap = int(height * 0.05)
+    total_w = sum(p.width for p, _ in pieces) - overlap * (len(pieces) - 1)
+    total_h = max(p.height + abs(dy) for p, dy in pieces) + int(height * 0.1)
+    out = Image.new("RGBA", (total_w, total_h), (0, 0, 0, 0))
+    x = 0
+    for p, dy in pieces:
+        out.alpha_composite(p, (x, (total_h - p.height) // 2 + dy))
+        x += p.width - overlap
+    return out.crop(out.getbbox())
+
+
+def _fit(img, max_w, max_h):
+    s = min(max_w / img.width, max_h / img.height)
+    return img.resize((max(1, int(img.width * s)), max(1, int(img.height * s))), Image.LANCZOS)
+
+
+def _kit_watermark(k, discs):
+    from PIL import ImageDraw
+    pal = k["palette"]; W = 150
+    out = Image.new("RGBA", (W, W), (0, 0, 0, 0))
+    out.alpha_composite(discs.disc(pal["ground"], W), (0, 0))
+    ImageDraw.Draw(out).ellipse([2, 2, W - 3, W - 3], outline=_rgb(pal["accent"]), width=5)
+    mark = _fit(_ransom(k["wordmark"], 120, pal), 112, 70)
+    out.alpha_composite(mark, ((W - mark.width) // 2, (W - mark.height) // 2))
+    return out
+
+
+def _kit_avatar(k, discs):
+    from PIL import ImageDraw
+    pal = k["palette"]; W = 800
+    out = Image.new("RGBA", (W, W), _rgb(pal["ground"]))
+    out.alpha_composite(discs.disc(pal["accent"], W), (0, 0))
+    inner = 716
+    out.alpha_composite(discs.disc(pal["ground"], inner), ((W - inner) // 2, (W - inner) // 2))
+    mark = _fit(_ransom(k["wordmark"], 360, pal), 560, 300)
+    out.alpha_composite(mark, ((W - mark.width) // 2, 400 - mark.height // 2 - 40))
+    d = ImageDraw.Draw(out)
+    line = k.get("avatar_line", "")
+    if line:
+        f = _font("mono", 34); l, t, r, b = f.getbbox(line)
+        d.text(((W - (r - l)) // 2 - l, 400 + 150), line, font=f, fill=_rgb(pal["dim"]))
+    return out.convert("RGB")
+
+
+def _morse_row(img, discs, text, y, color, unit):
+    from PIL import ImageDraw
+    d = ImageDraw.Draw(img)
+    seq = []
+    for wi, word in enumerate(text.split()):
+        if wi:
+            seq.append(("gap", 7))
+        for li, ch in enumerate(word):
+            if li:
+                seq.append(("gap", 3))
+            for ei, el in enumerate(MORSE[ch]):
+                if ei:
+                    seq.append(("gap", 1))
+                seq.append(("dot", 1) if el == "." else ("dash", 3))
+    width = sum(n for _, n in seq) * unit
+    x = (img.width - width) // 2
+    dot = discs.disc(color, unit)
+    for kind, n in seq:
+        if kind == "dot":
+            img.alpha_composite(dot, (x, y))
+        elif kind == "dash":
+            d.rounded_rectangle([x, y, x + 3 * unit - 1, y + unit - 1], radius=unit // 2, fill=_rgb(color))
+        x += n * unit
+
+
+def _kit_banner(k, discs):
+    from PIL import ImageDraw
+    pal = k["palette"]; W, H = 2560, 1440
+    SX, SY, SW, SH = (W - 1546) // 2, (H - 423) // 2, 1546, 423
+    img = Image.new("RGBA", (W, H), _rgb(pal["ground"]))
+    over = Image.new("RGBA", (W, H), (0, 0, 0, 0)); o = ImageDraw.Draw(over)
+    for y in range(0, H, 6):
+        o.line([(0, y), (W, y)], fill=_rgb(pal["ink"], 7))
+    step = 30
+    for gy in range(step // 2, H, step):
+        for gx in range(step // 2, W, step):
+            inside = SX - 40 < gx < SX + SW + 40 and SY - 40 < gy < SY + SH + 40
+            if inside:
+                continue
+            fx = gx / W
+            # dots grow toward both outer edges, the same on each side: teal left, hazard right
+            edge = abs(fx - 0.5) * 2
+            r = 8.5 * edge ** 1.6 * (0.6 + 0.4 * abs(gy - H / 2) / (H / 2))
+            if r >= 1.5:
+                col = pal["accent"] if fx < 0.5 else pal["hazard"]
+                o.ellipse([gx - r, gy - r, gx + r, gy + r], fill=_rgb(col, 55))
+    img.alpha_composite(over)
+    _morse_row(img, discs, k.get("morse", "YAW 73"), SY - 90, pal["accent"], 22)
+    # the second row carries the professional half; operator, 2026-09-11: "the morse code for tcos is ... this might be a cool use of mt-logo"
+    _morse_row(img, discs, k.get("morse_bottom", k.get("morse", "YAW 73")), SY + SH + 68, pal["hazard"], 22)
+    d = ImageDraw.Draw(img)
+    d.text((SX + 40, SY + 12), k["prompt"], font=_font("mono", 36), fill=_rgb(pal["accent"]))
+    mark = _fit(_ransom(k["wordmark"], 300, pal), 760, 262)
+    img.alpha_composite(mark, (SX + 40, SY + 76))
+    rx = SX + 40 + mark.width + 90
+    d.text((rx, SY + 84), k["motto"], font=_font("italic", 70), fill=_rgb(pal["ink"]))
+    f73 = _font("narrow", 150)
+    d.text((rx, SY + 170), "73", font=f73, fill=_rgb(pal["hazard"]))
+    l, t, r, b = f73.getbbox("73")
+    d.text((rx + (r - l) + 30, SY + 238), k.get("signoff", "de YaW!"), font=_font("mono", 56), fill=_rgb(pal["ink"]))
+    tape = Image.new("RGBA", (SW - 60, 76), _rgb(pal["hazard"]))
+    ft = _font("narrow", 56); td = ImageDraw.Draw(tape)
+    l, t, r, b = ft.getbbox(k["tagline"])
+    td.text(((tape.width - (r - l)) // 2 - l, (tape.height - (b - t)) // 2 - t), k["tagline"], font=ft, fill=_rgb(pal["ground"]))
+    tape = tape.rotate(-1.2, resample=Image.BICUBIC, expand=True)
+    img.alpha_composite(tape, (SX + 30, SY + SH - tape.height - 2))
+    foot = k.get("footer", "")
+    if foot:
+        ff = _font("mono", 30); l, t, r, b = ff.getbbox(foot)
+        d.text((W - 60 - (r - l), H - 70), foot, font=ff, fill=_rgb(pal["dim"]))
+    return img.convert("RGB")
+
+
+def kit(item_dir):
+    item_dir = Path(item_dir).resolve()
+    card_path = item_dir / "item.card.v1.yaml"
+    card = yaml.safe_load(card_path.read_text()); spec = card["spec"]; k = spec.get("kit")
+    if not k:
+        sys.exit(f"media-item kit: {card_path} has no spec.kit")
+    if not LOGO_RENDER.is_file():
+        sys.exit(f"media-item kit: MT-logo-render not found at {LOGO_RENDER} (set MT_LOGO_RENDER)")
+    import tempfile
+    work = Path(tempfile.mkdtemp(prefix="media-kit-"))
+    discs = _Discs(work)
+    makers = {"watermark": _kit_watermark, "avatar": _kit_avatar, "banner": _kit_banner}
+    env = dict(os.environ)
+    branding = k.get("branding") and os.path.expanduser(k["branding"])
+    if branding:
+        if not Path(branding).is_file():
+            sys.exit(f"media-item kit: branding card {branding} not found -- a personal kit must not fall back to the org's card")
+        env["HEE_BRANDING"] = branding
+    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=item_dir).stdout.strip() or "unknown"
+    worst = 0
+    for slot, name in k["outputs"].items():
+        discs.used = {}
+        img = makers[slot](k, discs)
+        out = item_dir / name
+        for stale in (out, Path(str(out) + ".asc")):
+            if stale.exists():
+                stale.unlink()
+        img.save(out, "PNG", optimize=True)
+        lim = KIT_SLOTS[slot]
+        w, h = img.size; size = out.stat().st_size
+        want = lim["size"] if lim["rule"] == "exact" else lim["min"]
+        ok_size = (w, h) == want if lim["rule"] == "exact" else (w >= want[0] and h >= want[1])
+        ok = ok_size and size <= lim["max_bytes"]
+        worst = max(worst, 0 if ok else 2)
+        print(f"{'🟢 OK' if ok else '🔴 CRITICAL'}  kit {slot}: {name} {w}x{h}, {size / 1024:.0f} KB "
+              f"({lim['rule']} {want[0]}x{want[1]}, at most {lim['max_bytes'] // 1024} KB)")
+        main_src = max(discs.used, key=lambda p: discs.used[p]["recipe"]["size"]) if discs.used else ""
+        recipes = sorted({json.dumps(v["recipe"], sort_keys=True).replace(";", ",") for v in discs.used.values()})
+        run = lambda *a: subprocess.run([str(HEE_EXIF), *a], check=True, capture_output=True, text=True, env=env)
+        run("provenance", str(out), "--tool", "resume/media-item kit", "--commit", commit, "--job", str(card_path),
+            *(["--source", main_src] if main_src else []),
+            "--kv", f"slot={slot} {w}x{h}", "--kv", f"mt_logo_render={discs.commit}",
+            "--kv", f"mt_discs={len(discs.used)}: " + " | ".join(recipes),
+            "--kv", f"owner={spec.get('owner', '')}", "--kv", f"page=https://{spec['host']}/gallery/{item_dir.name}/")
+        run("sign", str(out))
+        run("brand", str(out), "--artist", spec.get("owner", ""), "--force")
+        run("embed-sig", str(out))
+        run("gpg-sign", str(out))
+        v = subprocess.run([str(HEE_EXIF), "verify", str(out)], capture_output=True, text=True, env=env)
+        worst = max(worst, 0 if v.returncode == 0 else 2)
+        print(f"{'🟢 OK' if v.returncode == 0 else '🔴 CRITICAL'}  kit {slot}: provenance, signature, branding, embedded and detached GPG -- verify exit {v.returncode}")
+    return worst
+
+
 def main(argv):
     if argv and argv[0] == "audit":
         env = "prod" if "--prod" in argv else "lab"
@@ -628,6 +903,8 @@ def main(argv):
                 sys.exit("usage: media-item.py root <media-dist> --init --name NAME --host <prefix>.media.tcos.us [--blog-host HOST]")
             return root_init(argv[1], opts["--name"], opts["--host"], opts.get("--blog-host"))
         return root(argv[1], opts.get("--posts"), opts.get("--oper"), opts.get("--posts-src"))
+    if len(argv) >= 2 and argv[0] == "kit":
+        return kit(argv[1])
     if len(argv) < 2 or argv[0] != "build":
         print(__doc__ or "usage: media-item.py build <item-dir> [--no-network] | root <media-dist> [--init --name N --host H] | audit [--prod]"); return 2
     return build(argv[1], network="--no-network" not in argv)
