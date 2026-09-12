@@ -18,6 +18,42 @@ spec:
   # outputs into the release commit, so the release PR shows what ships.
   build: "./convert.sh"
   outputs: ["media", "profiles/*/dist/resume.html", "dist"]
+  # What a release needs on the machine that runs it. hee release checks this
+  # before lab, cut or promote builds or deploys anything, and names every
+  # missing item at once (human-execution-engine#729); -requires checks alone.
+  # Read from the scripts on 2026-09-12:
+  #   every step builds: convert.sh -> bin/render-blog.py -> fleet-ops'
+  #     tile.py (Pillow) -> hee-exif provenance, sign, brand (exiftool, and
+  #     tcos-audit's branding card); media/bin/media-item.py (PyYAML,
+  #     Pillow); bin/render-resume.py (pandoc, also at deploy); both deploy
+  #     scripts run hee check all, npx terser and node --check
+  #   lab and promote: media/bin/deploy.sh stages over ssh pve
+  #   lab: bin/deploy-pages.sh runs make in ~/git/.github
+  #   cut: gh pr create
+  #   promote: node >= 20 for npx wrangler, curl to the Cloudflare API, the
+  #     sealed token below, hee git tag (gpg), gh release create
+  # ~/git paths are where the scripts look (Path.home()/git, or HEE_REPO_DIR
+  # for hee-exif). The credential path is repo-relative, like hee cred -dir.
+  # Not yq: no step of this release calls it.
+  requires:
+    commands: [git, python3, pandoc, exiftool, hee, node, npx]
+    python: [PIL, yaml]
+    files:
+      - ~/git/fleet-ops/tools/meme-factory/tile/tile.py
+      - ~/git/human-execution-engine/tooling/bin/hee-exif
+      - ~/git/tcos-audit/policy/branding.card.v1.yaml
+    lab:
+      commands: [ssh, make]
+      ssh: [pve]
+      files: [~/git/.github/Makefile]
+    cut:
+      commands: [gh]
+    promote:
+      commands: [ssh, curl, gpg, gh]
+      versions: { node: ">=20" }
+      ssh: [pve]
+      files: [../tcos-www/.hee/secrets/cloudflare-tcos-www.gpg]
+      decrypt: [../tcos-www/.hee/secrets/cloudflare-tcos-www.gpg]
   surfaces:
     - { name: spencer-media,     lab: "media/bin/deploy.sh spencer lab",       promote: "media/bin/deploy.sh spencer promote" }
     - { name: touchy-media,      lab: "media/bin/deploy.sh touchy-claude lab", promote: "media/bin/deploy.sh touchy-claude promote" }
