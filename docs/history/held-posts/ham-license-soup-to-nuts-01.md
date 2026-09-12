@@ -92,6 +92,7 @@ What to know about the material:
 - **The questions come from the Technician question pool, Element 2.** The 2026-2030 pool was released December 18, 2025, and is required for every exam session from July 1, 2026. It has 409 questions: 27 new, 30 removed and about 155 modified since the last pool. Source: [ARRL](https://www.arrl.org/news/view/new-technician-class-question-pool-released-effective-july-1-2026).
 - **HRCC's playlist was made for the 2022-2026 pool.** Most of it still applies. HamStudy's `E2_2026` pool is the one the exam draws from, so its questions are the source of truth.
 - **The pool has ten subelements, T1 through T0.** T1, Commission's Rules, is the biggest at 68 questions, and its first section, T1A, has 11.
+- **Cheat sheet:** phonetics, Morse, Q signals, SI prefixes, Ohm's law, pool formulas and band privileges for all three elements are in [the cheat sheet](ham-license-cheat-sheet.md).
 - **General (Element 3) and Amateur Extra (Element 4) are not explored yet.** Their study guides come later in the series.
 - `TODO(verify): The Technician exam's question count and passing score.`
 
