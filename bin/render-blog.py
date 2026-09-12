@@ -102,14 +102,30 @@ def published_diff_html(src, rr):
     def git(*a):
         return subprocess.run(["git", *a], capture_output=True, text=True).stdout
     names = sorted({n for n in git("log", "--follow", "--name-only", "--format=", "--", str(src)).splitlines() if n})
-    hashes = git("log", "--follow", "--format=%H %cs", "--", str(src)).splitlines()
+    # %ct, the commit time to the second. A date alone was useless: a post
+    # revised the day it was published read "first published (2026-09-11)"
+    # with nothing to show when. Operator, 2026-09-11: "updated is a date,
+    # same date. need high res there".
+    hashes = git("log", "--follow", "--format=%H %ct", "--", str(src)).splitlines()
+    def when(epoch, cls):
+        iso = datetime.fromtimestamp(int(epoch), timezone.utc).isoformat().replace("+00:00", "Z")
+        return f'<time class="{cls}" datetime="{iso}">{iso}</time>'
+    if not hashes:
+        return '<p class="empty">Not committed yet.</p>'
+    first_sha, first_epoch = hashes[-1].split()
+    published = when(first_epoch, "pub-when")
+    # The ISO text stays for readers without JS; this puts it in the viewer's
+    # own locale and zone, to the second, as the lu: row does.
+    localize = ('<script>document.querySelectorAll("time.pub-when").forEach(function (t) {'
+                'var d = new Date(t.getAttribute("datetime")); if (isNaN(d)) return; t.title = t.textContent;'
+                't.textContent = d.toLocaleString(undefined, {dateStyle: "medium", timeStyle: "medium"});});</script>')
     if len(hashes) < 2:
-        return '<p class="empty">No changes since first published.</p>'
-    first_sha, first_date = hashes[-1].split()
+        return f'<p class="empty">First published {published}. No changes since.</p>{localize}'
     raw = git("diff", "-M", f"{first_sha}", "HEAD", "--", *names)
     if not raw.strip():
-        return '<p class="empty">No changes since first published.</p>'
-    lines = [f'<p class="empty">Changes since first published ({first_date}); {len(hashes) - 1} revision(s) since.</p>']
+        return f'<p class="empty">First published {published}. No changes since.</p>{localize}'
+    revised = when(hashes[0].split()[1], "pub-when")
+    lines = [f'<p class="empty">First published {published}; last revised {revised}; {len(hashes) - 1} revision(s) since.</p>', localize]
     out = []
     for line in raw.splitlines():
         esc = _html.escape(line)
