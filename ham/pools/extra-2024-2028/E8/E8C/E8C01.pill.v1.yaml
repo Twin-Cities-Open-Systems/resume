@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e8c01
+  description: "2024-2028 Amateur Extra Class question E8C01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+    group: E8C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is Quadrature Amplitude Modulation or QAM?"
+  answer: "Transmission of data by modulating the amplitude of two carriers of the same frequency but 90 degrees out of phase"
+  id: E8C01
+  correct: B
+  choices:
+    A: "A technique for digital data compression used in digital television which removes redundancy in the data by comparing bit amplitudes"
+    B: "Transmission of data by modulating the amplitude of two carriers of the same frequency but 90 degrees out of phase"
+    C: "A method of performing single sideband modulation by shifting the phase of the carrier and modulation components of the signal"
+    D: "A technique for analog modulation of television video signals using phase modulation and compression"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

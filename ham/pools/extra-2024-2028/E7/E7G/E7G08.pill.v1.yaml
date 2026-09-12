@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e7g08
+  description: "2024-2028 Amateur Extra Class question E7G08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7G
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How does the gain of an ideal operational amplifier vary with frequency?"
+  answer: "It does not vary with frequency"
+  id: E7G08
+  correct: D
+  choices:
+    A: "It increases linearly with increasing frequency"
+    B: "It decreases linearly with increasing frequency"
+    C: "It decreases logarithmically with increasing frequency"
+    D: "It does not vary with frequency"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

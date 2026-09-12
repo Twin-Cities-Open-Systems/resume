@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7c11
+  description: "2026-2030 Technician Class question T7C11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is an advantage of foam-dielectric versus solid-dielectric coaxial cable?"
+  answer: "It has less loss per foot"
+  id: T7C11
+  correct: C
+  choices:
+    A: "It is more resistant to moisture contamination"
+    B: "It has higher voltage breakdown"
+    C: "It has less loss per foot"
+    D: "It has a better impedance match to 50 ohms"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

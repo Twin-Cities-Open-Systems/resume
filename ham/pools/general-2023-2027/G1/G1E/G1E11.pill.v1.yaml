@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1e11
+  description: "2023-2027 General Class question G1E11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "On what bands may automatically controlled stations transmitting RTTY or data emissions communicate with other automatically controlled digital stations?"
+  answer: "Anywhere in the 6-meter or shorter wavelength bands, and in limited segments of some of the HF bands"
+  id: G1E11
+  correct: D
+  choices:
+    A: "On any band segment where digital operation is permitted"
+    B: "Anywhere in the non-phone segments of the 10-meter or shorter wavelength bands"
+    C: "Only in the non-phone Extra Class segments of the bands"
+    D: "Anywhere in the 6-meter or shorter wavelength bands, and in limited segments of some of the HF bands"
+  rule_ref: "97.221, 97.305"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

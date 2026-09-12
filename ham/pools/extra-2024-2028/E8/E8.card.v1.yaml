@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e8
+  description: "2024-2028 Amateur Extra Class subelement E8: SIGNALS AND EMISSIONS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E8
+  title: "SIGNALS AND EMISSIONS"
+  exam_questions: 4
+  groups_stated: 4
+  questions_stated: 48
+  questions: 48
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: E8A
+      title: "Fourier analysis; RMS measurements; average RF power and peak envelope power (PEP); analog/digital conversion"
+      questions: 11
+    - id: E8B
+      title: "Modulation and demodulation: modulation methods; modulation index and deviation ratio; frequency- and time-division multiplexing; orthogonal frequency-division multiplexing (OFDM)"
+      questions: 11
+    - id: E8C
+      title: "Digital signals: digital communication modes; information rate vs. bandwidth; error correction; constellation diagrams"
+      questions: 15
+    - id: E8D
+      title: "Keying defects and overmodulation of digital signals; digital codes; spread spectrum"
+      questions: 11

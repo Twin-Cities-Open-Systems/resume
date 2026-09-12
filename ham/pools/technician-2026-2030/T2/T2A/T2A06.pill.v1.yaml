@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2a06
+  description: "2026-2030 Technician Class question T2A06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is an effective way to seek a call from any phone station when not using a repeater?"
+  answer: "Repeat “CQ” a few times, followed by “this is,” and your call sign, then pause to listen; repeat as necessary"
+  id: T2A06
+  correct: D
+  choices:
+    A: "Sign your call sign once, followed by the words “listening for a call;” if there is no answer, change the frequency and repeat"
+    B: "Say “QTC,” followed by “this is” and your call sign; if there is no answer, change the frequency and repeat"
+    C: "Transmit an unmodulated carrier for approximately 10 seconds, followed by “this is” and your call sign, and pause to listen; repeat as necessary"
+    D: "Repeat “CQ” a few times, followed by “this is,” and your call sign, then pause to listen; repeat as necessary"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

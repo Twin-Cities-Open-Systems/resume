@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e6a
+  description: "2024-2028 Amateur Extra Class group E6A: Semiconductor materials and devices: semiconductor materials; bipolar junction transistors; operation and types of field-effect transistors"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+    group: E6A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E6A
+  title: "Semiconductor materials and devices: semiconductor materials; bipolar junction transistors; operation and types of field-effect transistors"
+  subelement: E6
+  questions: 12
+  question_ids:
+    - E6A01
+    - E6A02
+    - E6A03
+    - E6A04
+    - E6A05
+    - E6A06
+    - E6A07
+    - E6A08
+    - E6A09
+    - E6A10
+    - E6A11
+    - E6A12

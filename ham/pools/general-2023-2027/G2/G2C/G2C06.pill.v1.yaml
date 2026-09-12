@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g2c06
+  description: "2023-2027 General Class question G2C06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What does the term “zero beat” mean in CW operation?"
+  answer: "Matching the transmit frequency to the frequency of a received signal"
+  id: G2C06
+  correct: D
+  choices:
+    A: "Matching the speed of the transmitting station"
+    B: "Operating split to avoid interference on frequency"
+    C: "Sending without error"
+    D: "Matching the transmit frequency to the frequency of a received signal"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

@@ -1,0 +1,48 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7
+  description: "2024-2028 Amateur Extra Class subelement E7: PRACTICAL CIRCUITS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E7
+  title: "PRACTICAL CIRCUITS"
+  exam_questions: 8
+  groups_stated: 8
+  questions_stated: 99
+  questions: 99
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: E7A
+      title: "Digital circuits: digital circuit principles and logic circuits; classes of logic elements; positive and negative logic; frequency dividers; truth tables"
+      questions: 11
+    - id: E7B
+      title: "Amplifiers: class of operation; vacuum tube and solid-state circuits; distortion and intermodulation; spurious and parasitic suppression; switching-type amplifiers"
+      questions: 12
+    - id: E7C
+      title: "Filters and matching networks: types of networks; types of filters; filter applications; filter characteristics; impedance matching"
+      questions: 11
+    - id: E7D
+      title: "Power supplies and voltage regulators; solar array charge controllers"
+      questions: 15
+    - id: E7E
+      title: "Modulation and demodulation: reactance, phase, and balanced modulators; detectors; mixers"
+      questions: 11
+    - id: E7F
+      title: "Software defined radio fundamentals: digital signal processing (DSP) filtering, modulation, and demodulation; analog-digital conversion; digital filters"
+      questions: 14
+    - id: E7G
+      title: "Operational amplifiers: characteristics and applications"
+      questions: 12
+    - id: E7H
+      title: "Oscillators and signal sources: types of oscillators; synthesizers and phase-locked loops; direct digital synthesizers; stabilizing thermal drift; microphonics; high-accuracy oscillators"
+      questions: 13

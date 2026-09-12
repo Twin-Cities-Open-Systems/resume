@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t3b
+  description: "2026-2030 Technician Class group T3B: Electromagnetic wave properties: wavelength vs frequency, nature and velocity of electromagnetic waves, relationship of wavelength and frequency; Electromagnetic spectrum definitions: UHF, VHF, HF"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+    group: T3B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T3B
+  title: "Electromagnetic wave properties: wavelength vs frequency, nature and velocity of electromagnetic waves, relationship of wavelength and frequency; Electromagnetic spectrum definitions: UHF, VHF, HF"
+  subelement: T3
+  questions: 12
+  question_ids:
+    - T3B01
+    - T3B02
+    - T3B03
+    - T3B04
+    - T3B05
+    - T3B06
+    - T3B07
+    - T3B08
+    - T3B09
+    - T3B10
+    - T3B11
+    - T3B12

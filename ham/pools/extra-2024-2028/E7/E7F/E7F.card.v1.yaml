@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7f
+  description: "2024-2028 Amateur Extra Class group E7F: Software defined radio fundamentals: digital signal processing (DSP) filtering, modulation, and demodulation; analog-digital conversion; digital filters"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E7F
+  title: "Software defined radio fundamentals: digital signal processing (DSP) filtering, modulation, and demodulation; analog-digital conversion; digital filters"
+  subelement: E7
+  questions: 14
+  question_ids:
+    - E7F01
+    - E7F02
+    - E7F03
+    - E7F04
+    - E7F05
+    - E7F06
+    - E7F07
+    - E7F08
+    - E7F09
+    - E7F10
+    - E7F11
+    - E7F12
+    - E7F13
+    - E7F14

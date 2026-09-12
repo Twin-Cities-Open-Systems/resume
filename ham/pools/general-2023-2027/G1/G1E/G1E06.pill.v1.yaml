@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1e06
+  description: "2023-2027 General Class question G1E06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "The frequency allocations of which ITU region apply to radio amateurs operating in North and South America?"
+  answer: "Region 2"
+  id: G1E06
+  correct: C
+  choices:
+    A: "Region 4"
+    B: "Region 3"
+    C: "Region 2"
+    D: "Region 1"
+  rule_ref: "97.301, ITU Radio Regulations"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

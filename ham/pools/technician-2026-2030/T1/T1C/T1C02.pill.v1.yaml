@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1c02
+  description: "2026-2030 Technician Class question T1C02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Who may select a desired call sign under the vanity call sign rules?"
+  answer: "Any licensed amateur"
+  id: T1C02
+  correct: D
+  choices:
+    A: "Only a licensed amateur with a General or Amateur Extra Class license"
+    B: "Only a licensed amateur with an Amateur Extra Class license"
+    C: "Only a licensed amateur who has been licensed continuously for more than 10 years"
+    D: "Any licensed amateur"
+  rule_ref: "97.19"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

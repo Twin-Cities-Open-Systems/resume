@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1e05
+  description: "2023-2027 General Class question G1E05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What are the restrictions on messages sent to a third party in a country with which there is a Third-Party Agreement?"
+  answer: "They must relate to amateur radio, or remarks of a personal character, or messages relating to emergencies or disaster relief"
+  id: G1E05
+  correct: C
+  choices:
+    A: "They must relate to emergencies or disaster relief"
+    B: "They must be for other licensed amateurs"
+    C: "They must relate to amateur radio, or remarks of a personal character, or messages relating to emergencies or disaster relief"
+    D: "The message must be limited to no longer than 1 minute in duration and the name of the third party must be recorded in the station log"
+  rule_ref: "97.115(a)(2), 97.117"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

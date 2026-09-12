@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1c11
+  description: "2023-2027 General Class question G1C11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What measurement is specified by FCC rules that regulate maximum power?"
+  answer: "PEP output from the transmitter"
+  id: G1C11
+  correct: D
+  choices:
+    A: "RMS output from the transmitter"
+    B: "RMS input to the antenna"
+    C: "PEP input to the antenna"
+    D: "PEP output from the transmitter"
+  rule_ref: "97.313"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

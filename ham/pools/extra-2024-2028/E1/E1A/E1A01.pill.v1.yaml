@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1a01
+  description: "2024-2028 Amateur Extra Class question E1A01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Why is it not legal to transmit a 3 kHz bandwidth USB signal with a carrier frequency of 14.348 MHz?"
+  answer: "The upper 1 kHz of the signal is outside the 20-meter band"
+  id: E1A01
+  correct: D
+  choices:
+    A: "USB is not used on 20-meter phone"
+    B: "The lower 1 kHz of the signal is outside the 20-meter band"
+    C: "14.348 MHz is outside the 20-meter band"
+    D: "The upper 1 kHz of the signal is outside the 20-meter band"
+  rule_ref: "97.305, 97.307(b)"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

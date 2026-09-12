@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1f11
+  description: "2026-2030 Technician Class question T1F11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is a requirement for the issuance of a club station license grant?"
+  answer: "The club must have at least four members"
+  id: T1F11
+  correct: B
+  choices:
+    A: "The trustee must have an Amateur Extra Class operator license grant"
+    B: "The club must have at least four members"
+    C: "The club must be registered with the American Radio Relay League (ARRL)"
+    D: "All these choices are correct"
+  rule_ref: "97.5(b)(2)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

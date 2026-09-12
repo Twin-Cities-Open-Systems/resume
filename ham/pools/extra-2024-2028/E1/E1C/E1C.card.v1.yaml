@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e1c
+  description: "2024-2028 Amateur Extra Class group E1C: Automatic and remote control; band-specific regulations; operating in and communicating with foreign countries; spurious emission standards; HF modulation index limit; band-specific rules"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E1C
+  title: "Automatic and remote control; band-specific regulations; operating in and communicating with foreign countries; spurious emission standards; HF modulation index limit; band-specific rules"
+  subelement: E1
+  questions: 12
+  question_ids:
+    - E1C01
+    - E1C02
+    - E1C03
+    - E1C04
+    - E1C05
+    - E1C06
+    - E1C07
+    - E1C08
+    - E1C09
+    - E1C10
+    - E1C11
+    - E1C12

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8b08
+  description: "2026-2030 Technician Class question T8B08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What does it mean if a satellite is operating in U/V mode?"
+  answer: "The satellite uplink is in the 70-centimeter band and the downlink is in the 2-meter band"
+  id: T8B08
+  correct: B
+  choices:
+    A: "The satellite uplink is in the 15-meter band and the downlink is in the 10-meter band"
+    B: "The satellite uplink is in the 70-centimeter band and the downlink is in the 2-meter band"
+    C: "The satellite operates using ultraviolet frequencies"
+    D: "The satellite frequencies are usually variable"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

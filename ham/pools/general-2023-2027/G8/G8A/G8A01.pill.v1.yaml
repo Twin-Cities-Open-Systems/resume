@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g8a01
+  description: "2023-2027 General Class question G8A01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G8
+    group: G8A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How is direct binary FSK modulation generated?"
+  answer: "By changing an oscillator’s frequency directly with a digital control signal"
+  id: G8A01
+  correct: B
+  choices:
+    A: "By keying an FM transmitter with a sub-audible tone"
+    B: "By changing an oscillator’s frequency directly with a digital control signal"
+    C: "By using a transceiver’s computer data interface protocol to change frequencies"
+    D: "By reconfiguring the CW keying input to act as a tone generator"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

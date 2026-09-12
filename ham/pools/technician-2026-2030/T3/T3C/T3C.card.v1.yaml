@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t3c
+  description: "2026-2030 Technician Class group T3C: Propagation modes: sporadic E, meteor scatter, auroral propagation, tropospheric ducting; F region skip; Line of sight and radio horizon"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+    group: T3C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T3C
+  title: "Propagation modes: sporadic E, meteor scatter, auroral propagation, tropospheric ducting; F region skip; Line of sight and radio horizon"
+  subelement: T3
+  questions: 11
+  question_ids:
+    - T3C01
+    - T3C02
+    - T3C03
+    - T3C04
+    - T3C05
+    - T3C06
+    - T3C07
+    - T3C08
+    - T3C09
+    - T3C10
+    - T3C11

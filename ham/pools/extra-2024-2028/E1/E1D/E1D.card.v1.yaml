@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e1d
+  description: "2024-2028 Amateur Extra Class group E1D: Amateur Space and Earth stations; telemetry and telecommand rules; identification of balloon transmissions; one-way communications"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E1D
+  title: "Amateur Space and Earth stations; telemetry and telecommand rules; identification of balloon transmissions; one-way communications"
+  subelement: E1
+  questions: 12
+  question_ids:
+    - E1D01
+    - E1D02
+    - E1D03
+    - E1D04
+    - E1D05
+    - E1D06
+    - E1D07
+    - E1D08
+    - E1D09
+    - E1D10
+    - E1D11
+    - E1D12

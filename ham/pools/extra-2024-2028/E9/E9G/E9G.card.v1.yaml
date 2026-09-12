@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e9g
+  description: "2024-2028 Amateur Extra Class group E9G: The Smith chart"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9G
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E9G
+  title: "The Smith chart"
+  subelement: E9
+  questions: 11
+  question_ids:
+    - E9G01
+    - E9G02
+    - E9G03
+    - E9G04
+    - E9G05
+    - E9G06
+    - E9G07
+    - E9G08
+    - E9G09
+    - E9G10
+    - E9G11

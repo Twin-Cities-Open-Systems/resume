@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1a05
+  description: "2023-2027 General Class question G1A05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "On which of the following frequencies are General class licensees prohibited from operating as control operator?"
+  answer: "7.125 MHz to 7.175 MHz"
+  id: G1A05
+  correct: A
+  choices:
+    A: "7.125 MHz to 7.175 MHz"
+    B: "28.000 MHz to 28.025 MHz"
+    C: "21.275 MHz to 21.300 MHz"
+    D: "All these choices are correct"
+  rule_ref: "97.301(d)"
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool 2nd Errata"
+      issued: "April 10, 2023"
+      change: "G1A05 – in the answers, change answer D to read “All these choices are correct”."
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

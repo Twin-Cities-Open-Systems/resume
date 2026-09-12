@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t8
+  description: "2026-2030 Technician Class subelement T8: SIGNALS AND EMISSIONS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T8
+  title: "SIGNALS AND EMISSIONS"
+  exam_questions: 4
+  groups_stated: 4
+  questions_stated: 47
+  questions: 47
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T8A
+      title: "Basic characteristics of FM and SSB; Bandwidth of various modulation modes: CW, SSB, FM, fast-scan TV; Choice of emission type: selection of USB vs LSB, use of SSB for weak signal work, use of FM for VHF packet and repeaters"
+      questions: 12
+    - id: T8B
+      title: "Amateur satellite operation: Doppler shift, basic orbits, operating protocols, modulation mode selection, transmitter power considerations, telemetry, satellite tracking programs, beacons, uplink and downlink mode definitions, spin fading, definition of “LEO”, setting uplink power"
+      questions: 12
+    - id: T8C
+      title: "Operating activities: radio direction finding, contests, linking over the internet, exchanging grid locators"
+      questions: 11
+    - id: T8D
+      title: "Non-voice and digital communications: image signals and definition of NTSC, CW, packet radio, PSK, APRS, error detection and correction, amateur radio networking, DMR, WSJT modes, Broadband-Hamnet"
+      questions: 12

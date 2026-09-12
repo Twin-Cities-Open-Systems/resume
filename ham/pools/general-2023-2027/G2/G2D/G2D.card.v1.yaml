@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g2d
+  description: "2023-2027 General Class group G2D: Volunteer Monitor Program; HF operations"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G2D
+  title: "Volunteer Monitor Program; HF operations"
+  subelement: G2
+  questions: 11
+  question_ids:
+    - G2D01
+    - G2D02
+    - G2D03
+    - G2D04
+    - G2D05
+    - G2D06
+    - G2D07
+    - G2D08
+    - G2D09
+    - G2D10
+    - G2D11

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1b12
+  description: "2026-2030 Technician Class question T1B12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Except for some specific restrictions, what is the maximum peak envelope power output for Technician class operators using frequencies above 30 MHz?"
+  answer: "1500 watts"
+  id: T1B12
+  correct: D
+  choices:
+    A: "50 watts"
+    B: "100 watts"
+    C: "500 watts"
+    D: "1500 watts"
+  rule_ref: "97.313(b)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

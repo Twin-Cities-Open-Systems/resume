@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g2e
+  description: "2023-2027 General Class group G2E: Digital mode operating procedures"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G2E
+  title: "Digital mode operating procedures"
+  subelement: G2
+  questions: 15
+  question_ids:
+    - G2E01
+    - G2E02
+    - G2E03
+    - G2E04
+    - G2E05
+    - G2E06
+    - G2E07
+    - G2E08
+    - G2E09
+    - G2E10
+    - G2E11
+    - G2E12
+    - G2E13
+    - G2E14
+    - G2E15

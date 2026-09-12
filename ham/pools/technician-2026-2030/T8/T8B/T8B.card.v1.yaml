@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t8b
+  description: "2026-2030 Technician Class group T8B: Amateur satellite operation: Doppler shift, basic orbits, operating protocols, modulation mode selection, transmitter power considerations, telemetry, satellite tracking programs, beacons, uplink and downlink mode definitions, spin fading, definition of “LEO”, setting uplink power"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T8B
+  title: "Amateur satellite operation: Doppler shift, basic orbits, operating protocols, modulation mode selection, transmitter power considerations, telemetry, satellite tracking programs, beacons, uplink and downlink mode definitions, spin fading, definition of “LEO”, setting uplink power"
+  subelement: T8
+  questions: 12
+  question_ids:
+    - T8B01
+    - T8B02
+    - T8B03
+    - T8B04
+    - T8B05
+    - T8B06
+    - T8B07
+    - T8B08
+    - T8B09
+    - T8B10
+    - T8B11
+    - T8B12

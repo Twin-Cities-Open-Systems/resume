@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7h
+  description: "2024-2028 Amateur Extra Class group E7H: Oscillators and signal sources: types of oscillators; synthesizers and phase-locked loops; direct digital synthesizers; stabilizing thermal drift; microphonics; high-accuracy oscillators"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7H
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E7H
+  title: "Oscillators and signal sources: types of oscillators; synthesizers and phase-locked loops; direct digital synthesizers; stabilizing thermal drift; microphonics; high-accuracy oscillators"
+  subelement: E7
+  questions: 13
+  question_ids:
+    - E7H01
+    - E7H02
+    - E7H03
+    - E7H04
+    - E7H05
+    - E7H06
+    - E7H07
+    - E7H08
+    - E7H09
+    - E7H10
+    - E7H11
+    - E7H12
+    - E7H13

@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t6a
+  description: "2026-2030 Technician Class group T6A: Fixed and variable resistors; Capacitors; Inductors; Fuses; Switches; Batteries"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+    group: T6A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T6A
+  title: "Fixed and variable resistors; Capacitors; Inductors; Fuses; Switches; Batteries"
+  subelement: T6
+  questions: 11
+  question_ids:
+    - T6A01
+    - T6A02
+    - T6A03
+    - T6A04
+    - T6A05
+    - T6A06
+    - T6A07
+    - T6A08
+    - T6A09
+    - T6A10
+    - T6A11

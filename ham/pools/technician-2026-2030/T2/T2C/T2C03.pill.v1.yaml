@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2c03
+  description: "2026-2030 Technician Class question T2C03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What technique is used to ensure that voice messages containing unusual words are received correctly?"
+  answer: "Spell the words using a standard phonetic alphabet"
+  id: T2C03
+  correct: C
+  choices:
+    A: "Send the words by voice and Morse code"
+    B: "Use the Q-code “QSR” to ask the receiving station to repeat the words back"
+    C: "Spell the words using a standard phonetic alphabet"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t7b
+  description: "2026-2030 Technician Class group T7B: Symptoms, causes, and cures of common transmitter and receiver problems: overload and overdrive, distortion, interference and consumer electronics, RF feedback"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T7B
+  title: "Symptoms, causes, and cures of common transmitter and receiver problems: overload and overdrive, distortion, interference and consumer electronics, RF feedback"
+  subelement: T7
+  questions: 11
+  question_ids:
+    - T7B01
+    - T7B02
+    - T7B03
+    - T7B04
+    - T7B05
+    - T7B06
+    - T7B07
+    - T7B08
+    - T7B09
+    - T7B10
+    - T7B11

@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t1d
+  description: "2026-2030 Technician Class group T1D: Authorized and prohibited transmissions; Sale of equipment"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T1D
+  title: "Authorized and prohibited transmissions; Sale of equipment"
+  subelement: T1
+  questions: 12
+  question_ids:
+    - T1D01
+    - T1D02
+    - T1D03
+    - T1D04
+    - T1D05
+    - T1D06
+    - T1D07
+    - T1D08
+    - T1D09
+    - T1D10
+    - T1D11
+    - T1D12

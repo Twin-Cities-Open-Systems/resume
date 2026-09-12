@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t3c09
+  description: "2026-2030 Technician Class question T3C09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+    group: T3C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is generally the best time for long-distance 10-meter band propagation via the F region?"
+  answer: "From dawn to shortly after sunset during periods of high sunspot activity"
+  id: T3C09
+  correct: A
+  choices:
+    A: "From dawn to shortly after sunset during periods of high sunspot activity"
+    B: "From shortly after sunset to dawn during periods of high sunspot activity"
+    C: "From dawn to shortly after sunset during periods of low sunspot activity"
+    D: "From shortly after sunset to dawn during periods of low sunspot activity"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

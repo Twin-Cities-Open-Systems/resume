@@ -1,0 +1,39 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e2
+  description: "2024-2028 Amateur Extra Class subelement E2: OPERATING PROCEDURES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E2
+  title: "OPERATING PROCEDURES"
+  exam_questions: 5
+  groups_stated: 5
+  questions_stated: 61
+  questions: 60
+  withdrawn: [E2A13]
+  count_note: "the syllabus count includes 1 withdrawn question(s)"
+  groups:
+    - id: E2A
+      title: "Amateur radio in space: amateur satellites; orbital mechanics; frequencies and modes; satellite hardware; satellite operations"
+      questions: 12
+    - id: E2B
+      title: "Television practices: fast-scan television standards and techniques; slow scan television standards and techniques"
+      questions: 12
+    - id: E2C
+      title: "Contest and DX operating; remote operation techniques; log data format; contact confirmation; RF network systems"
+      questions: 12
+    - id: E2D
+      title: "Operating methods: digital modes and procedures for VHF and UHF; APRS; EME procedures; meteor scatter procedures"
+      questions: 11
+    - id: E2E
+      title: "Operating methods: digital modes and procedures for HF"
+      questions: 13

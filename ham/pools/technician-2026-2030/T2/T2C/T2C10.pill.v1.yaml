@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2c10
+  description: "2026-2030 Technician Class question T2C10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What information is contained in the preamble of a formal traffic message?"
+  answer: "Information needed to track the message"
+  id: T2C10
+  correct: D
+  choices:
+    A: "The email address of the originating station"
+    B: "The address of the intended recipient"
+    C: "The telephone number of the addressee"
+    D: "Information needed to track the message"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

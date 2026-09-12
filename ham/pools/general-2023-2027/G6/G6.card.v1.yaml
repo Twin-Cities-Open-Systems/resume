@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g6
+  description: "2023-2027 General Class subelement G6: CIRCUIT COMPONENTS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G6
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G6
+  title: "CIRCUIT COMPONENTS"
+  exam_questions: 2
+  groups_stated: 2
+  questions_stated: 23
+  questions: 23
+  withdrawn: [G6B09]
+  count_note: null
+  groups:
+    - id: G6A
+      title: "Resistors; capacitors; inductors; rectifiers; solid-state diodes and transistors; vacuum tubes; batteries"
+      questions: 12
+    - id: G6B
+      title: "Analog and digital integrated circuits (ICs); microwave ICs (MMICs); display devices; RF connectors; ferrite cores"
+      questions: 11

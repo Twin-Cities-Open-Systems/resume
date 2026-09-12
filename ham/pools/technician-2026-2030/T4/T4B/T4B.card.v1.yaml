@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t4b
+  description: "2026-2030 Technician Class group T4B: Operating controls: frequency tuning, use of filters, squelch function, AGC, memory channels, noise blanker, microphone gain, receiver incremental tuning (RIT), bandwidth selection, scanning function; Digital transceiver configuration; DMR code plugs and talk groups"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+    group: T4B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T4B
+  title: "Operating controls: frequency tuning, use of filters, squelch function, AGC, memory channels, noise blanker, microphone gain, receiver incremental tuning (RIT), bandwidth selection, scanning function; Digital transceiver configuration; DMR code plugs and talk groups"
+  subelement: T4
+  questions: 11
+  question_ids:
+    - T4B01
+    - T4B02
+    - T4B03
+    - T4B04
+    - T4B05
+    - T4B06
+    - T4B07
+    - T4B08
+    - T4B09
+    - T4B10
+    - T4B11

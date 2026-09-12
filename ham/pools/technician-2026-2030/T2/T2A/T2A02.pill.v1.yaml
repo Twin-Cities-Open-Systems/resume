@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2a02
+  description: "2026-2030 Technician Class question T2A02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the national calling frequency for FM simplex operations in the 2-meter band?"
+  answer: "146.520 MHz"
+  id: T2A02
+  correct: A
+  choices:
+    A: "146.520 MHz"
+    B: "145.000 MHz"
+    C: "432.100 MHz"
+    D: "446.000 MHz"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

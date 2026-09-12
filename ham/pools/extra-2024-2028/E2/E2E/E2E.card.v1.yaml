@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e2e
+  description: "2024-2028 Amateur Extra Class group E2E: Operating methods: digital modes and procedures for HF"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E2E
+  title: "Operating methods: digital modes and procedures for HF"
+  subelement: E2
+  questions: 13
+  question_ids:
+    - E2E01
+    - E2E02
+    - E2E03
+    - E2E04
+    - E2E05
+    - E2E06
+    - E2E07
+    - E2E08
+    - E2E09
+    - E2E10
+    - E2E11
+    - E2E12
+    - E2E13

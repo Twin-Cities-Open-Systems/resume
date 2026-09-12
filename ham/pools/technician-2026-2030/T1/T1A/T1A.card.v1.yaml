@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t1a
+  description: "2026-2030 Technician Class group T1A: Purpose and permissible use of the Amateur Radio Service; Operator/primary station license grant; Meanings of basic terms used in FCC rules; Interference; RACES rules; Phonetics; Frequency Coordinator; Beacon"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T1A
+  title: "Purpose and permissible use of the Amateur Radio Service; Operator/primary station license grant; Meanings of basic terms used in FCC rules; Interference; RACES rules; Phonetics; Frequency Coordinator; Beacon"
+  subelement: T1
+  questions: 11
+  question_ids:
+    - T1A01
+    - T1A02
+    - T1A03
+    - T1A04
+    - T1A05
+    - T1A06
+    - T1A07
+    - T1A08
+    - T1A09
+    - T1A10
+    - T1A11

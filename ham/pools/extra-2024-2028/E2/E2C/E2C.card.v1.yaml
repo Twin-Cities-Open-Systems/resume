@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e2c
+  description: "2024-2028 Amateur Extra Class group E2C: Contest and DX operating; remote operation techniques; log data format; contact confirmation; RF network systems"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E2C
+  title: "Contest and DX operating; remote operation techniques; log data format; contact confirmation; RF network systems"
+  subelement: E2
+  questions: 12
+  question_ids:
+    - E2C01
+    - E2C02
+    - E2C03
+    - E2C04
+    - E2C05
+    - E2C06
+    - E2C07
+    - E2C08
+    - E2C09
+    - E2C10
+    - E2C11
+    - E2C12

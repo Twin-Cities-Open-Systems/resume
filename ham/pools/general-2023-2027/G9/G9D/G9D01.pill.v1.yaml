@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g9d01
+  description: "2023-2027 General Class question G9D01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following antenna types will be most effective as a near vertical incidence skywave (NVIS) antenna for short-skip communications on 40 meters during the day?"
+  answer: "A horizontal dipole placed between 1/10 and 1/4 wavelength above the ground"
+  id: G9D01
+  correct: A
+  choices:
+    A: "A horizontal dipole placed between 1/10 and 1/4 wavelength above the ground"
+    B: "A vertical antenna placed between 1/4 and 1/2 wavelength above the ground"
+    C: "A horizontal dipole placed at approximately 1/2 wavelength above the ground"
+    D: "A vertical dipole placed at approximately 1/2 wavelength above the ground"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool 2nd Errata"
+      issued: "April 10, 2023"
+      change: "G9D01 – in answer C add “A” to the beginning of the answer to read:"
+      reads: "C. A horizontal dipole placed at approximately 1/2 wavelength above the ground"
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

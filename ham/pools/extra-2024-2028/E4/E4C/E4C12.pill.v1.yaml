@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e4c12
+  description: "2024-2028 Amateur Extra Class question E4C12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How does a narrow-band roofing filter affect receiver performance?"
+  answer: "It improves blocking dynamic range by attenuating strong signals near the receive frequency"
+  id: E4C12
+  correct: C
+  choices:
+    A: "It improves sensitivity by reducing front-end noise"
+    B: "It improves intelligibility by using low Q circuitry to reduce ringing"
+    C: "It improves blocking dynamic range by attenuating strong signals near the receive frequency"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8b10
+  description: "2026-2030 Technician Class question T8B10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What does the term LEO mean in reference to communication satellites?"
+  answer: "Low Earth Orbit, which has a period of around 100 minutes"
+  id: T8B10
+  correct: D
+  choices:
+    A: "Low Energy Orbit, which conserves battery power"
+    B: "Low Elevation Orbit, which appears close to the horizon from the earth station"
+    C: "Low Equilibrium Orbit, which has a slightly unstable period"
+    D: "Low Earth Orbit, which has a period of around 100 minutes"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

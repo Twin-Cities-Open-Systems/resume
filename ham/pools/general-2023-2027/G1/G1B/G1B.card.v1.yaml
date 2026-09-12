@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g1b
+  description: "2023-2027 General Class group G1B: Antenna structure limitations; good engineering and good amateur practice; beacon operation; prohibited transmissions; retransmitting radio signals"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G1B
+  title: "Antenna structure limitations; good engineering and good amateur practice; beacon operation; prohibited transmissions; retransmitting radio signals"
+  subelement: G1
+  questions: 11
+  question_ids:
+    - G1B01
+    - G1B02
+    - G1B03
+    - G1B04
+    - G1B05
+    - G1B06
+    - G1B07
+    - G1B08
+    - G1B09
+    - G1B10
+    - G1B11

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1e11
+  description: "2026-2030 Technician Class question T1E11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is a control operator as defined in Part 97?"
+  answer: "An amateur operator designated by the licensee of a station to be responsible for transmissions and FCC rules compliance at that station"
+  id: T1E11
+  correct: D
+  choices:
+    A: "The person speaking or otherwise communicating messages over an amateur station"
+    B: "The person who is the licensee of an amateur station"
+    C: "An amateur operator identified in the FCC database as responsible for transmissions and FCC rules compliance at a station license location"
+    D: "An amateur operator designated by the licensee of a station to be responsible for transmissions and FCC rules compliance at that station"
+  rule_ref: "97.3(a)(13)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

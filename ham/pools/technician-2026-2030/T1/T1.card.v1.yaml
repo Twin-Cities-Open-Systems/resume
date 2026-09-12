@@ -1,0 +1,42 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t1
+  description: "2026-2030 Technician Class subelement T1: COMMISSION’S RULES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T1
+  title: "COMMISSION’S RULES"
+  exam_questions: 6
+  groups_stated: 6
+  questions_stated: 68
+  questions: 68
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T1A
+      title: "Purpose and permissible use of the Amateur Radio Service; Operator/primary station license grant; Meanings of basic terms used in FCC rules; Interference; RACES rules; Phonetics; Frequency Coordinator; Beacon"
+      questions: 11
+    - id: T1B
+      title: "Frequency allocations; Emission modes; Spectrum sharing; Transmissions near band edges; Contacting the International Space Station; Power output"
+      questions: 12
+    - id: T1C
+      title: "Licensing: classes, sequential and vanity call sign systems, places where the Amateur Radio Service is regulated by the FCC, name and address on FCC license database, term, renewal, grace period, maintaining mailing address; International communications"
+      questions: 11
+    - id: T1D
+      title: "Authorized and prohibited transmissions; Sale of equipment"
+      questions: 12
+    - id: T1E
+      title: "Control operator: eligibility, designating, privileges, duties, location, required; Control point; Control types: automatic, remote"
+      questions: 11
+    - id: T1F
+      title: "Station identification; Repeaters; Third party communications; Club stations; FCC inspection"
+      questions: 11

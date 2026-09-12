@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t8d
+  description: "2026-2030 Technician Class group T8D: Non-voice and digital communications: image signals and definition of NTSC, CW, packet radio, PSK, APRS, error detection and correction, amateur radio networking, DMR, WSJT modes, Broadband-Hamnet"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T8D
+  title: "Non-voice and digital communications: image signals and definition of NTSC, CW, packet radio, PSK, APRS, error detection and correction, amateur radio networking, DMR, WSJT modes, Broadband-Hamnet"
+  subelement: T8
+  questions: 12
+  question_ids:
+    - T8D01
+    - T8D02
+    - T8D03
+    - T8D04
+    - T8D05
+    - T8D06
+    - T8D07
+    - T8D08
+    - T8D09
+    - T8D10
+    - T8D11
+    - T8D12

@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t9a
+  description: "2026-2030 Technician Class group T9A: Antennas: vertical and horizontal polarization, concept of antenna gain, definition and types of beam antennas, antenna loading, common portable and mobile antennas, relationships between resonant length and frequency, dipole pattern"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T9A
+  title: "Antennas: vertical and horizontal polarization, concept of antenna gain, definition and types of beam antennas, antenna loading, common portable and mobile antennas, relationships between resonant length and frequency, dipole pattern"
+  subelement: T9
+  questions: 11
+  question_ids:
+    - T9A01
+    - T9A02
+    - T9A03
+    - T9A04
+    - T9A05
+    - T9A06
+    - T9A07
+    - T9A08
+    - T9A09
+    - T9A10
+    - T9A11

@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g2c
+  description: "2023-2027 General Class group G2C: CW operating procedures and procedural signals; Q signals; full break-in"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G2C
+  title: "CW operating procedures and procedural signals; Q signals; full break-in"
+  subelement: G2
+  questions: 11
+  question_ids:
+    - G2C01
+    - G2C02
+    - G2C03
+    - G2C04
+    - G2C05
+    - G2C06
+    - G2C07
+    - G2C08
+    - G2C09
+    - G2C10
+    - G2C11

@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e9f
+  description: "2024-2028 Amateur Extra Class group E9F: Transmission lines: characteristics of open and shorted feed lines; coax versus open wire; velocity factor; electrical length; coaxial cable dielectrics; microstrip"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E9F
+  title: "Transmission lines: characteristics of open and shorted feed lines; coax versus open wire; velocity factor; electrical length; coaxial cable dielectrics; microstrip"
+  subelement: E9
+  questions: 12
+  question_ids:
+    - E9F01
+    - E9F02
+    - E9F03
+    - E9F04
+    - E9F05
+    - E9F06
+    - E9F07
+    - E9F08
+    - E9F09
+    - E9F10
+    - E9F11
+    - E9F12

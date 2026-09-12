@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2c06
+  description: "2026-2030 Technician Class question T2C06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the Amateur Radio Emergency Service (ARES)?"
+  answer: "A group of licensed amateurs who have voluntarily registered their qualifications and equipment for communications duty in the public service"
+  id: T2C06
+  correct: A
+  choices:
+    A: "A group of licensed amateurs who have voluntarily registered their qualifications and equipment for communications duty in the public service"
+    B: "A group of licensed amateurs who are members of the military and who voluntarily agreed to provide message handling services in the case of an emergency"
+    C: "A training program that provides licensing courses for those interested in obtaining an amateur license to use during emergencies"
+    D: "A training program that certifies amateur operators for membership in the Radio Amateur Civil Emergency Service"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

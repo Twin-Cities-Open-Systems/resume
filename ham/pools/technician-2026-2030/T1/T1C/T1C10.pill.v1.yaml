@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1c10
+  description: "2026-2030 Technician Class question T1C10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How soon after passing the examination for your first amateur radio license may you transmit on the amateur radio bands?"
+  answer: "As soon as your operator/station license grant appears in the FCC’s license database"
+  id: T1C10
+  correct: C
+  choices:
+    A: "Immediately on receiving your Certificate of Successful Completion of Examination (CSCE)"
+    B: "As soon as your operator/station license grant appears on the ARRL website"
+    C: "As soon as your operator/station license grant appears in the FCC’s license database"
+    D: "As soon as you receive your license in the mail from the FCC"
+  rule_ref: "97.5a"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e2b04
+  description: "2024-2028 Amateur Extra Class question E2B04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How is color information sent in analog SSTV?"
+  answer: "Color lines are sent sequentially"
+  id: E2B04
+  correct: A
+  choices:
+    A: "Color lines are sent sequentially"
+    B: "Color information is sent on a 2.8 kHz subcarrier"
+    C: "Color is sent in a color burst at the end of each line"
+    D: "Color is amplitude modulated on the frequency modulated intensity signal"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

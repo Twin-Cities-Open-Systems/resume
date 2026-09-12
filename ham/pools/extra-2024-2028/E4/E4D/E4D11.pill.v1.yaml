@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e4d11
+  description: "2024-2028 Amateur Extra Class question E4D11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Why are odd-order intermodulation products, created within a receiver, of particular interest compared to other products?"
+  answer: "Odd-order products of two signals in the band being received are also likely to be within the band"
+  id: E4D11
+  correct: A
+  choices:
+    A: "Odd-order products of two signals in the band being received are also likely to be within the band"
+    B: "Odd-order products are more likely to overload the IF filters"
+    C: "Odd-order products are an indication of poor image rejection"
+    D: "Odd-order intermodulation produces three products for every input signal within the band of interest"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

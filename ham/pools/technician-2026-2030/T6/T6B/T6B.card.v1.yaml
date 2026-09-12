@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t6b
+  description: "2026-2030 Technician Class group T6B: Semiconductors: basic principles and applications of solid-state devices, diodes and transistors; Gain"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+    group: T6B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T6B
+  title: "Semiconductors: basic principles and applications of solid-state devices, diodes and transistors; Gain"
+  subelement: T6
+  questions: 12
+  question_ids:
+    - T6B01
+    - T6B02
+    - T6B03
+    - T6B04
+    - T6B05
+    - T6B06
+    - T6B07
+    - T6B08
+    - T6B09
+    - T6B10
+    - T6B11
+    - T6B12

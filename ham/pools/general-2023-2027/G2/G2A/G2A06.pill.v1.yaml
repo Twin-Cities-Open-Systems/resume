@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g2a06
+  description: "2023-2027 General Class question G2A06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is an advantage of using single sideband, as compared to other analog voice modes on the HF amateur bands?"
+  answer: "Less bandwidth used and greater power efficiency"
+  id: G2A06
+  correct: D
+  choices:
+    A: "Very high-fidelity voice modulation"
+    B: "Less subject to interference from atmospheric static crashes"
+    C: "Ease of tuning on receive and immunity to impulse noise"
+    D: "Less bandwidth used and greater power efficiency"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7d
+  description: "2024-2028 Amateur Extra Class group E7D: Power supplies and voltage regulators; solar array charge controllers"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E7D
+  title: "Power supplies and voltage regulators; solar array charge controllers"
+  subelement: E7
+  questions: 15
+  question_ids:
+    - E7D01
+    - E7D02
+    - E7D03
+    - E7D04
+    - E7D05
+    - E7D06
+    - E7D07
+    - E7D08
+    - E7D09
+    - E7D10
+    - E7D11
+    - E7D12
+    - E7D13
+    - E7D14
+    - E7D15

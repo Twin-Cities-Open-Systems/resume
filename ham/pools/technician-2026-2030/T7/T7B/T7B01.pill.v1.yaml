@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7b01
+  description: "2026-2030 Technician Class question T7B01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What can you do if you are told your FM handheld or mobile transceiver is over-deviating?"
+  answer: "Talk farther away from the microphone"
+  id: T7B01
+  correct: D
+  choices:
+    A: "Talk louder into the microphone"
+    B: "Let the transceiver cool off"
+    C: "Change to a higher power level"
+    D: "Talk farther away from the microphone"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g8b13
+  description: "2023-2027 General Class question G8B13, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G8
+    group: G8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is an odd-order intermodulation product of frequencies F1 and F2?"
+  answer: "2F1-F2"
+  id: G8B13
+  correct: C
+  choices:
+    A: "5F1-3F2"
+    B: "3F1-F2"
+    C: "2F1-F2"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1c02
+  description: "2023-2027 General Class question G1C02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the maximum transmitter power an amateur station may use on the 12-meter band?"
+  answer: "1500 watts PEP output"
+  id: G1C02
+  correct: C
+  choices:
+    A: "50 watts PEP output"
+    B: "200 watts PEP output"
+    C: "1500 watts PEP output"
+    D: "An effective radiated power equivalent to 100 watts from a half-wave dipole"
+  rule_ref: "97.313"
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool Errata"
+      issued: "February 1, 2023"
+      change: "G1C02 – in the question change “transmitting” to “transmitter” to read:"
+      reads: "What is the maximum transmitter power an amateur station may use on the 12-meter band?"
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

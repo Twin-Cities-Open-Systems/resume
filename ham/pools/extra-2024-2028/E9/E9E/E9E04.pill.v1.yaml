@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9e04
+  description: "2024-2028 Amateur Extra Class question E9E04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the purpose of the series capacitor in a gamma match?"
+  answer: "To cancel unwanted inductive reactance"
+  id: E9E04
+  correct: B
+  choices:
+    A: "To provide DC isolation between the feed line and the antenna"
+    B: "To cancel unwanted inductive reactance"
+    C: "To provide a rejection notch that prevents the radiation of harmonics"
+    D: "To transform the antenna impedance to a higher value"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

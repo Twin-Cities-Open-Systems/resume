@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2c09
+  description: "2026-2030 Technician Class question T2C09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Are amateur station control operators ever permitted to operate outside the frequency privileges of their license class?"
+  answer: "Yes, but only in situations involving the immediate safety of human life or protection of property"
+  id: T2C09
+  correct: D
+  choices:
+    A: "No"
+    B: "Yes, but only when part of a FEMA emergency plan"
+    C: "Yes, but only when part of a RACES emergency plan"
+    D: "Yes, but only in situations involving the immediate safety of human life or protection of property"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

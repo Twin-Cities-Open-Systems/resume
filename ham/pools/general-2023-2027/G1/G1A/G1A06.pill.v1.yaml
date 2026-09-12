@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1a06
+  description: "2023-2027 General Class question G1A06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following applies when the FCC rules designate the amateur service as a secondary user on a band?"
+  answer: "Amateur stations must not cause harmful interference to primary users and must accept interference from primary users"
+  id: G1A06
+  correct: C
+  choices:
+    A: "Amateur stations must record the call sign of the primary service station before operating on a frequency assigned to that station"
+    B: "Amateur stations may use the band only during emergencies"
+    C: "Amateur stations must not cause harmful interference to primary users and must accept interference from primary users"
+    D: "Amateur stations may only operate during specific hours of the day, while primary users are permitted 24-hour use of the band"
+  rule_ref: "97.303"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

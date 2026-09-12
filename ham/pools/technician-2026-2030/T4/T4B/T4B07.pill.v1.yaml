@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t4b07
+  description: "2026-2030 Technician Class question T4B07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+    group: T4B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is a DMR “code plug”?"
+  answer: "Configuration data loaded onto your radio to access repeaters and talkgroups"
+  id: T4B07
+  correct: B
+  choices:
+    A: "An adapter cable used to connect a DMR radio to a computer for internet access"
+    B: "Configuration data loaded onto your radio to access repeaters and talkgroups"
+    C: "An upgrade to DMR programming software provided by the radio manufacturer to accommodate new radio models"
+    D: "A Coder-Decoder (CODEC) that converts analog voice data to DMR digital data and vice versa"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

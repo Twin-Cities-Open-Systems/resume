@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1d03
+  description: "2023-2027 General Class question G1D03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "On which of the following band segments may you operate if you are a Technician class operator and have an unexpired Certificate of Successful Completion of Examination (CSCE) for General class privileges?"
+  answer: "On any General or Technician class band segment"
+  id: G1D03
+  correct: C
+  choices:
+    A: "Only the Technician band segments until your upgrade is posted in the FCC database"
+    B: "Only on the Technician band segments until you have a receipt for the FCC application fee payment"
+    C: "On any General or Technician class band segment"
+    D: "On any General or Technician class band segment except 30 meters and 60 meters"
+  rule_ref: "97.9(b)"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

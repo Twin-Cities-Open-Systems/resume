@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1a10
+  description: "2026-2030 Technician Class question T1A10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Besides an FCC-issued amateur operator license, what is required to be the control operator of a Radio Amateur Civil Emergency Service (RACES) Station?"
+  answer: "Certification of current enrollment by a civil defense organization"
+  id: T1A10
+  correct: C
+  choices:
+    A: "A written recommendation by the local ARRL Emergency Coordinator"
+    B: "Membership in the Amateur Radio Emergency Service (ARES)"
+    C: "Certification of current enrollment by a civil defense organization"
+    D: "Nothing"
+  rule_ref: "97.407(a)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

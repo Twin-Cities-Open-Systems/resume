@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t2a
+  description: "2026-2030 Technician Class group T2A: Station operation: choosing an operating frequency, calling another station, test transmissions; Band plans: calling frequencies, repeater offsets"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T2A
+  title: "Station operation: choosing an operating frequency, calling another station, test transmissions; Band plans: calling frequencies, repeater offsets"
+  subelement: T2
+  questions: 11
+  question_ids:
+    - T2A01
+    - T2A02
+    - T2A03
+    - T2A04
+    - T2A05
+    - T2A06
+    - T2A07
+    - T2A08
+    - T2A09
+    - T2A10
+    - T2A11

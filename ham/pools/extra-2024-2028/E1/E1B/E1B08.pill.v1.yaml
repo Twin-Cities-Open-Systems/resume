@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1b08
+  description: "2024-2028 Amateur Extra Class question E1B08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What limitations may the FCC place on an amateur station if its signal causes interference to domestic broadcast reception, assuming that the receivers involved are of good engineering design?"
+  answer: "The amateur station must avoid transmitting during certain hours on frequencies that cause the interference"
+  id: E1B08
+  correct: D
+  choices:
+    A: "The amateur station must cease operation"
+    B: "The amateur station must cease operation on all frequencies below 30 MHz"
+    C: "The amateur station must cease operation on all frequencies above 30 MHz"
+    D: "The amateur station must avoid transmitting during certain hours on frequencies that cause the interference"
+  rule_ref: "97.121"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

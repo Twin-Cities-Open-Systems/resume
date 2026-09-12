@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1a11
+  description: "2024-2028 Amateur Extra Class question E1A11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What licensing is required when operating an amateur station aboard a US-registered vessel in international waters?"
+  answer: "Any FCC-issued amateur license"
+  id: E1A11
+  correct: B
+  choices:
+    A: "Any amateur license with an FCC Marine or Aircraft endorsement"
+    B: "Any FCC-issued amateur license"
+    C: "Only General class or higher amateur licenses"
+    D: "An unrestricted Radiotelephone Operator Permit"
+  rule_ref: "97.5"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

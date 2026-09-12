@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1b01
+  description: "2026-2030 Technician Class question T1B01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following frequency ranges are available for phone operation by Technician licensees?"
+  answer: "28.300 MHz to 28.500 MHz"
+  id: T1B01
+  correct: C
+  choices:
+    A: "28.050 MHz to 28.150 MHz"
+    B: "28.100 MHz to 28.300 MHz"
+    C: "28.300 MHz to 28.500 MHz"
+    D: "28.500 MHz to 28.600 MHz"
+  rule_ref: "97.301(e)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t1f
+  description: "2026-2030 Technician Class group T1F: Station identification; Repeaters; Third party communications; Club stations; FCC inspection"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T1F
+  title: "Station identification; Repeaters; Third party communications; Club stations; FCC inspection"
+  subelement: T1
+  questions: 11
+  question_ids:
+    - T1F01
+    - T1F02
+    - T1F03
+    - T1F04
+    - T1F05
+    - T1F06
+    - T1F07
+    - T1F08
+    - T1F09
+    - T1F10
+    - T1F11

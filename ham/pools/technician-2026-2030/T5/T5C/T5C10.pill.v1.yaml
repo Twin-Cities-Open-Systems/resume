@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t5c10
+  description: "2026-2030 Technician Class question T5C10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T5
+    group: T5C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How much power is delivered by a voltage of 12 volts DC and a current of 2.5 amperes?"
+  answer: "30 watts"
+  id: T5C10
+  correct: B
+  choices:
+    A: "4.8 watts"
+    B: "30 watts"
+    C: "14.5 watts"
+    D: "0.208 watts"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1b09
+  description: "2024-2028 Amateur Extra Class question E1B09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which amateur stations may be operated under RACES rules?"
+  answer: "Any FCC-licensed amateur station certified by the responsible civil defense organization for the area served"
+  id: E1B09
+  correct: C
+  choices:
+    A: "Only those club stations licensed to Amateur Extra class operators"
+    B: "Any FCC-licensed amateur station except a Technician class"
+    C: "Any FCC-licensed amateur station certified by the responsible civil defense organization for the area served"
+    D: "Only stations meeting the FCC Part 97 technical standards for operation during an emergency"
+  rule_ref: "97.407"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2a01
+  description: "2026-2030 Technician Class question T2A01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is a common repeater frequency offset in the 2-meter band?"
+  answer: "Plus or minus 600 kHz"
+  id: T2A01
+  correct: B
+  choices:
+    A: "Plus or minus 5 MHz"
+    B: "Plus or minus 600 kHz"
+    C: "Plus or minus 500 kHz"
+    D: "Plus or minus 1 MHz"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

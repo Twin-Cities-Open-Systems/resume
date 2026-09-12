@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e2b
+  description: "2024-2028 Amateur Extra Class group E2B: Television practices: fast-scan television standards and techniques; slow scan television standards and techniques"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E2B
+  title: "Television practices: fast-scan television standards and techniques; slow scan television standards and techniques"
+  subelement: E2
+  questions: 12
+  question_ids:
+    - E2B01
+    - E2B02
+    - E2B03
+    - E2B04
+    - E2B05
+    - E2B06
+    - E2B07
+    - E2B08
+    - E2B09
+    - E2B10
+    - E2B11
+    - E2B12

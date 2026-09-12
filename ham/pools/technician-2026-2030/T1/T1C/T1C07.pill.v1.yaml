@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1c07
+  description: "2026-2030 Technician Class question T1C07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How long before the expiration date may an amateur radio license renewal be requested?"
+  answer: "90 days"
+  id: T1C07
+  correct: B
+  choices:
+    A: "30 days"
+    B: "90 days"
+    C: "6 months"
+    D: "1 year"
+  rule_ref: "97.21, 1.949"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

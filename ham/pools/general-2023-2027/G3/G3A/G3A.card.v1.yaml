@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g3a
+  description: "2023-2027 General Class group G3A: Sunspots and solar radiation; geomagnetic field and stability indices"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G3
+    group: G3A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G3A
+  title: "Sunspots and solar radiation; geomagnetic field and stability indices"
+  subelement: G3
+  questions: 14
+  question_ids:
+    - G3A01
+    - G3A02
+    - G3A03
+    - G3A04
+    - G3A05
+    - G3A06
+    - G3A07
+    - G3A08
+    - G3A09
+    - G3A10
+    - G3A11
+    - G3A12
+    - G3A13
+    - G3A14

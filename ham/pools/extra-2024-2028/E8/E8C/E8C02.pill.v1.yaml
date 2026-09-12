@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e8c02
+  description: "2024-2028 Amateur Extra Class question E8C02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+    group: E8C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the definition of symbol rate in a digital transmission?"
+  answer: "The rate at which the waveform changes to convey information"
+  id: E8C02
+  correct: C
+  choices:
+    A: "The number of control characters in a message packet"
+    B: "The maximum rate at which the forward error correction code can make corrections"
+    C: "The rate at which the waveform changes to convey information"
+    D: "The number of characters carried per second by the station-to-station link"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

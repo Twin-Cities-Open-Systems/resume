@@ -1,0 +1,39 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g1
+  description: "2023-2027 General Class subelement G1: COMMISSION’S RULES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G1
+  title: "COMMISSION’S RULES"
+  exam_questions: 5
+  groups_stated: 5
+  questions_stated: 54
+  questions: 52
+  withdrawn: [G1A04, G1C08, G1C09, G1C10, G1E09]
+  count_note: "the syllabus header states 54 questions, but the pool holds 52 live questions and 5 withdrawn (G1A04, G1C08, G1C09, G1C10, G1E09): the stated count matches neither"
+  groups:
+    - id: G1A
+      title: "General class control operator frequency privileges; primary and secondary allocations"
+      questions: 10
+    - id: G1B
+      title: "Antenna structure limitations; good engineering and good amateur practice; beacon operation; prohibited transmissions; retransmitting radio signals"
+      questions: 11
+    - id: G1C
+      title: "Transmitter power regulations; data emission standards; 60-meter operation requirements"
+      questions: 8
+    - id: G1D
+      title: "Volunteer Examiners and Volunteer Examiner Coordinators; temporary identification; element credit; remote operation"
+      questions: 12
+    - id: G1E
+      title: "Control categories; repeater regulations; third-party rules; ITU regions; automatically controlled digital station"
+      questions: 11

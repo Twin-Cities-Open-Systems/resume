@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g3a02
+  description: "2023-2027 General Class question G3A02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G3
+    group: G3A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What effect does a sudden ionospheric disturbance have on the daytime ionospheric propagation?"
+  answer: "It disrupts signals on lower frequencies more than those on higher frequencies"
+  id: G3A02
+  correct: B
+  choices:
+    A: "It enhances propagation on all HF frequencies"
+    B: "It disrupts signals on lower frequencies more than those on higher frequencies"
+    C: "It disrupts communications via satellite more than direct communications"
+    D: "None, because only areas on the night side of the Earth are affected"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

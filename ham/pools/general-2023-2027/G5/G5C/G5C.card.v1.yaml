@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g5c
+  description: "2023-2027 General Class group G5C: Resistors, capacitors, and inductors in series and parallel; transformers"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G5
+    group: G5C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G5C
+  title: "Resistors, capacitors, and inductors in series and parallel; transformers"
+  subelement: G5
+  questions: 14
+  question_ids:
+    - G5C01
+    - G5C02
+    - G5C03
+    - G5C04
+    - G5C05
+    - G5C06
+    - G5C07
+    - G5C08
+    - G5C09
+    - G5C10
+    - G5C11
+    - G5C12
+    - G5C13
+    - G5C14

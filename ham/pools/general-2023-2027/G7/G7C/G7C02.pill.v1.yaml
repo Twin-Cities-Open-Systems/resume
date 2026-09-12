@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g7c02
+  description: "2023-2027 General Class question G7C02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G7
+    group: G7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What output is produced by a balanced modulator?"
+  answer: "Double-sideband modulated RF"
+  id: G7C02
+  correct: D
+  choices:
+    A: "Frequency modulated RF"
+    B: "Audio with equalized frequency response"
+    C: "Audio extracted from the modulation signal"
+    D: "Double-sideband modulated RF"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

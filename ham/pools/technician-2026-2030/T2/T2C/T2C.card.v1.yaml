@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t2c
+  description: "2026-2030 Technician Class group T2C: Public service: emergency operations, applicability of FCC rules, RACES and ARES, net and traffic procedures, operating restrictions during emergencies, use of phonetics in message handling"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T2C
+  title: "Public service: emergency operations, applicability of FCC rules, RACES and ARES, net and traffic procedures, operating restrictions during emergencies, use of phonetics in message handling"
+  subelement: T2
+  questions: 12
+  question_ids:
+    - T2C01
+    - T2C02
+    - T2C03
+    - T2C04
+    - T2C05
+    - T2C06
+    - T2C07
+    - T2C08
+    - T2C09
+    - T2C10
+    - T2C11
+    - T2C12

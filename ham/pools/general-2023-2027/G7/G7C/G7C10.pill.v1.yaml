@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g7c10
+  description: "2023-2027 General Class question G7C10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G7
+    group: G7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is an advantage of using I-Q modulation with software-defined radios (SDRs)?"
+  answer: "All types of modulation can be created with appropriate processing"
+  id: G7C10
+  correct: B
+  choices:
+    A: "The need for high resolution analog-to-digital converters is eliminated"
+    B: "All types of modulation can be created with appropriate processing"
+    C: "Minimum detectible signal level is reduced"
+    D: "Automatic conversion of the signal from digital to analog"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool Errata"
+      issued: "February 1, 2023"
+      change: "G7C10 – in the answers, add a period after the “D”."
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

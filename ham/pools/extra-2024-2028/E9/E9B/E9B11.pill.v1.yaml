@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9b11
+  description: "2024-2028 Amateur Extra Class question E9B11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is a disadvantage of decreasing the number of wire segments in an antenna model below 10 segments per half-wavelength?"
+  answer: "The computed feed point impedance may be incorrect"
+  id: E9B11
+  correct: C
+  choices:
+    A: "Ground conductivity will not be accurately modeled"
+    B: "The resulting design will favor radiation of harmonic energy"
+    C: "The computed feed point impedance may be incorrect"
+    D: "The antenna will become mechanically unstable"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

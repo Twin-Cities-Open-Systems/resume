@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t2b
+  description: "2026-2030 Technician Class group T2B: VHF/UHF operating practices: FM repeater, simplex, reverse splits; Access tones: CTCSS, DTMF; DMR operation; Resolving operating problems; Q signals"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T2B
+  title: "VHF/UHF operating practices: FM repeater, simplex, reverse splits; Access tones: CTCSS, DTMF; DMR operation; Resolving operating problems; Q signals"
+  subelement: T2
+  questions: 14
+  question_ids:
+    - T2B01
+    - T2B02
+    - T2B03
+    - T2B04
+    - T2B05
+    - T2B06
+    - T2B07
+    - T2B08
+    - T2B09
+    - T2B10
+    - T2B11
+    - T2B12
+    - T2B13
+    - T2B14

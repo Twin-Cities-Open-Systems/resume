@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7a
+  description: "2024-2028 Amateur Extra Class group E7A: Digital circuits: digital circuit principles and logic circuits; classes of logic elements; positive and negative logic; frequency dividers; truth tables"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E7A
+  title: "Digital circuits: digital circuit principles and logic circuits; classes of logic elements; positive and negative logic; frequency dividers; truth tables"
+  subelement: E7
+  questions: 11
+  question_ids:
+    - E7A01
+    - E7A02
+    - E7A03
+    - E7A04
+    - E7A05
+    - E7A06
+    - E7A07
+    - E7A08
+    - E7A09
+    - E7A10
+    - E7A11

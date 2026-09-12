@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2a04
+  description: "2026-2030 Technician Class question T2A04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is an appropriate way to call another station on a repeater if you know the other station's call sign?"
+  answer: "Say the station's call sign, then identify with your call sign"
+  id: T2A04
+  correct: B
+  choices:
+    A: "Say \"break, break,\" then the other station’s call sign, followed by your call sign"
+    B: "Say the station's call sign, then identify with your call sign"
+    C: "Say \"CQ\" three times, then the other station's call sign, followed by your call sign"
+    D: "Wait for the station to call CQ, then answer with your call sign"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

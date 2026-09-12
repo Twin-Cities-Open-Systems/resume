@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g9d10
+  description: "2023-2027 General Class question G9D10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "In which direction or directions does an electrically small loop (less than 1/10 wavelength in circumference) have nulls in its radiation pattern?"
+  answer: "Broadside to the loop"
+  id: G9D10
+  correct: B
+  choices:
+    A: "In the plane of the loop"
+    B: "Broadside to the loop"
+    C: "Broadside and in the plane of the loop"
+    D: "Electrically small loops are omnidirectional"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool Errata"
+      issued: "February 1, 2023"
+      change: "G9D10 – in the question change “1/3” to “1/10” to read:"
+      reads: "In which direction or directions does an electrically small loop (less than 1/10 wavelength in circumference) have nulls in its radiation pattern?"
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

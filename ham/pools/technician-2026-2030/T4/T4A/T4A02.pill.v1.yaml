@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t4a02
+  description: "2026-2030 Technician Class question T4A02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+    group: T4A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following should be considered when selecting an accessory SWR meter?"
+  answer: "The frequency and power level at which the measurements will be made"
+  id: T4A02
+  correct: A
+  choices:
+    A: "The frequency and power level at which the measurements will be made"
+    B: "The distance that the meter will be located from the antenna"
+    C: "The maximum SWR anticipated on the transmission line"
+    D: "The ability of the meter to compensate for a poor transmission line match to the antenna"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

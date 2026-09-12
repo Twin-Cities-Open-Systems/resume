@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g8a12
+  description: "2023-2027 General Class question G8A12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G8
+    group: G8A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is QPSK modulation?"
+  answer: "Modulation in which digital data is transmitted using 0-, 90-, 180- and 270-degrees phase shift to represent pairs of bits"
+  id: G8A12
+  correct: D
+  choices:
+    A: "Modulation using quasi-parallel to serial conversion to reduce bandwidth"
+    B: "Modulation using quadra-pole sideband keying to generate spread spectrum signals"
+    C: "Modulation using Fast Fourier Transforms to generate frequencies at the first, second, third, and fourth harmonics of the carrier frequency to improve noise immunity"
+    D: "Modulation in which digital data is transmitted using 0-, 90-, 180- and 270-degrees phase shift to represent pairs of bits"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g9b12
+  description: "2023-2027 General Class question G9B12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the approximate length for a 1/4 wave monopole antenna cut for 28.5 MHz?"
+  answer: "8 feet"
+  id: G9B12
+  correct: A
+  choices:
+    A: "8 feet"
+    B: "11 feet"
+    C: "16 feet"
+    D: "21 feet"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

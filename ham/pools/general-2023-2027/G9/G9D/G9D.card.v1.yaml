@@ -1,0 +1,39 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g9d
+  description: "2023-2027 General Class group G9D: Specialized antenna types and applications"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G9D
+  title: "Specialized antenna types and applications"
+  subelement: G9
+  questions: 12
+  question_ids:
+    - G9D01
+    - G9D02
+    - G9D03
+    - G9D04
+    - G9D05
+    - G9D06
+    - G9D07
+    - G9D08
+    - G9D09
+    - G9D10
+    - G9D11
+    - G9D12
+  withdrawn:
+    - id: G9D13
+      errata:
+        - errata: "2023-2027 General Class Question Pool Errata"
+          issued: "February 1, 2023"
+          change: "G9D13 - question deleted"

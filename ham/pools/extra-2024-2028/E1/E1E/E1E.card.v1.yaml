@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e1e
+  description: "2024-2028 Amateur Extra Class group E1E: Volunteer examiner program: definitions; qualifications; preparation and administration of exams; reimbursement; accreditation; question pools; documentation requirements"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E1E
+  title: "Volunteer examiner program: definitions; qualifications; preparation and administration of exams; reimbursement; accreditation; question pools; documentation requirements"
+  subelement: E1
+  questions: 11
+  question_ids:
+    - E1E01
+    - E1E02
+    - E1E03
+    - E1E04
+    - E1E05
+    - E1E06
+    - E1E07
+    - E1E08
+    - E1E09
+    - E1E10
+    - E1E11

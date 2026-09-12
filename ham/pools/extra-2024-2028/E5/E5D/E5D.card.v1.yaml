@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e5d
+  description: "2024-2028 Amateur Extra Class group E5D: RF effects in components and circuits: skin effect; real and reactive power; electrical length of conductors"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E5
+    group: E5D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E5D
+  title: "RF effects in components and circuits: skin effect; real and reactive power; electrical length of conductors"
+  subelement: E5
+  questions: 12
+  question_ids:
+    - E5D01
+    - E5D02
+    - E5D03
+    - E5D04
+    - E5D05
+    - E5D06
+    - E5D07
+    - E5D08
+    - E5D09
+    - E5D10
+    - E5D11
+    - E5D12

@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t1e
+  description: "2026-2030 Technician Class group T1E: Control operator: eligibility, designating, privileges, duties, location, required; Control point; Control types: automatic, remote"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T1E
+  title: "Control operator: eligibility, designating, privileges, duties, location, required; Control point; Control types: automatic, remote"
+  subelement: T1
+  questions: 11
+  question_ids:
+    - T1E01
+    - T1E02
+    - T1E03
+    - T1E04
+    - T1E05
+    - T1E06
+    - T1E07
+    - T1E08
+    - T1E09
+    - T1E10
+    - T1E11

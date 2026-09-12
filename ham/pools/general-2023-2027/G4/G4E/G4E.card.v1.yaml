@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g4e
+  description: "2023-2027 General Class group G4E: Mobile and portable HF stations; alternative energy source operation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+    group: G4E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G4E
+  title: "Mobile and portable HF stations; alternative energy source operation"
+  subelement: G4
+  questions: 11
+  question_ids:
+    - G4E01
+    - G4E02
+    - G4E03
+    - G4E04
+    - G4E05
+    - G4E06
+    - G4E07
+    - G4E08
+    - G4E09
+    - G4E10
+    - G4E11

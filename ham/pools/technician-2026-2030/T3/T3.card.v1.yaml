@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t3
+  description: "2026-2030 Technician Class subelement T3: RADIO WAVE PROPAGATION"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T3
+  title: "RADIO WAVE PROPAGATION"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 35
+  questions: 35
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T3A
+      title: "Radio wave characteristics: how a radio signal travels, fading, multipath, polarization, wavelength vs absorption; Antenna orientation"
+      questions: 12
+    - id: T3B
+      title: "Electromagnetic wave properties: wavelength vs frequency, nature and velocity of electromagnetic waves, relationship of wavelength and frequency; Electromagnetic spectrum definitions: UHF, VHF, HF"
+      questions: 12
+    - id: T3C
+      title: "Propagation modes: sporadic E, meteor scatter, auroral propagation, tropospheric ducting; F region skip; Line of sight and radio horizon"
+      questions: 11

@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g3
+  description: "2023-2027 General Class subelement G3: RADIO WAVE PROPAGATION"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G3
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G3
+  title: "RADIO WAVE PROPAGATION"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 37
+  questions: 37
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: G3A
+      title: "Sunspots and solar radiation; geomagnetic field and stability indices"
+      questions: 14
+    - id: G3B
+      title: "Maximum Usable Frequency; Lowest Usable Frequency; short path and long path propagation; determining propagation conditions; ionospheric refraction"
+      questions: 12
+    - id: G3C
+      title: "Ionospheric regions; critical angle and frequency; HF scatter; near vertical incidence skywave (NVIS)"
+      questions: 11

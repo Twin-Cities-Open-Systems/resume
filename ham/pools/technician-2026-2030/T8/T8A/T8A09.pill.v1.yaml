@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8a09
+  description: "2026-2030 Technician Class question T8A09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the approximate bandwidth of an FM voice signal on VHF repeaters?"
+  answer: "Between 10 and 15 kHz"
+  id: T8A09
+  correct: C
+  choices:
+    A: "Less than 500 Hz"
+    B: "About 150 kHz"
+    C: "Between 10 and 15 kHz"
+    D: "Between 50 and 125 kHz"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

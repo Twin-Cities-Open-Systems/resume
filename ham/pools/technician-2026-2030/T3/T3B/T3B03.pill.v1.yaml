@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t3b03
+  description: "2026-2030 Technician Class question T3B03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+    group: T3B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What are the two components of a radio wave?"
+  answer: "Electric and magnetic fields"
+  id: T3B03
+  correct: C
+  choices:
+    A: "Impedance and reactance"
+    B: "Voltage and current"
+    C: "Electric and magnetic fields"
+    D: "Ionizing and non-ionizing radiation"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

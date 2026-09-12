@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1d08
+  description: "2026-2030 Technician Class question T1D08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "In which of the following circumstances may the control operator of an amateur station receive compensation for operating that station?"
+  answer: "When the communication is a part of classroom instruction at an educational institution"
+  id: T1D08
+  correct: B
+  choices:
+    A: "When the communication is related to the sale of amateur equipment by the control operator's employer"
+    B: "When the communication is a part of classroom instruction at an educational institution"
+    C: "When the communication is made to obtain emergency information for a local broadcast station"
+    D: "All these choices are correct"
+  rule_ref: "97.113(a)(3)(iii)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

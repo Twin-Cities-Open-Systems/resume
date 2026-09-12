@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g0a
+  description: "2023-2027 General Class group G0A: RF safety principles, rules, and guidelines; routine station evaluation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G0
+    group: G0A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G0A
+  title: "RF safety principles, rules, and guidelines; routine station evaluation"
+  subelement: G0
+  questions: 12
+  question_ids:
+    - G0A01
+    - G0A02
+    - G0A03
+    - G0A04
+    - G0A05
+    - G0A06
+    - G0A07
+    - G0A08
+    - G0A09
+    - G0A10
+    - G0A11
+    - G0A12

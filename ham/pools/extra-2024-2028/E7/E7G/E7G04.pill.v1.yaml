@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e7g04
+  description: "2024-2028 Amateur Extra Class question E7G04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7G
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is meant by the term “op-amp input offset voltage”?"
+  answer: "The differential input voltage needed to bring the open loop output voltage to zero"
+  id: E7G04
+  correct: C
+  choices:
+    A: "The output voltage of the op-amp minus its input voltage"
+    B: "The difference between the output voltage of the op-amp and the input voltage required in the immediately following stage"
+    C: "The differential input voltage needed to bring the open loop output voltage to zero"
+    D: "The potential between the amplifier input terminals of the op-amp in an open loop condition"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

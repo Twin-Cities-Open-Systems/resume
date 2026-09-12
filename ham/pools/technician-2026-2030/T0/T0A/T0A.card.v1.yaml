@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t0a
+  description: "2026-2030 Technician Class group T0A: Power circuits and hazards: hazardous voltages, fuses and circuit breakers, grounding, electrical code compliance; Lightning protection; Battery safety"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T0A
+  title: "Power circuits and hazards: hazardous voltages, fuses and circuit breakers, grounding, electrical code compliance; Lightning protection; Battery safety"
+  subelement: T0
+  questions: 12
+  question_ids:
+    - T0A01
+    - T0A02
+    - T0A03
+    - T0A04
+    - T0A05
+    - T0A06
+    - T0A07
+    - T0A08
+    - T0A09
+    - T0A10
+    - T0A11
+    - T0A12

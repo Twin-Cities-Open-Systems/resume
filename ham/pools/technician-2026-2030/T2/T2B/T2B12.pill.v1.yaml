@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2b12
+  description: "2026-2030 Technician Class question T2B12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the digital color code used on DMR repeater systems?"
+  answer: "An access code which must be programmed into a DMR transmitter to access a specific repeater"
+  id: T2B12
+  correct: A
+  choices:
+    A: "An access code which must be programmed into a DMR transmitter to access a specific repeater"
+    B: "A code which automatically programs the repeater offset to a frequency chosen by the user"
+    C: "A code which identifies the specific CODEC being used so that the repeater can properly decode the audio"
+    D: "A code transmitted by the repeater to indicate health and status of the equipment"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

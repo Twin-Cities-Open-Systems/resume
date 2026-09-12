@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t7c
+  description: "2026-2030 Technician Class group T7C: Antenna and transmission line measurements and troubleshooting: measuring SWR, effects of high SWR, causes of feed line failures; Basic coaxial cable characteristics; Use of dummy loads when testing"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T7C
+  title: "Antenna and transmission line measurements and troubleshooting: measuring SWR, effects of high SWR, causes of feed line failures; Basic coaxial cable characteristics; Use of dummy loads when testing"
+  subelement: T7
+  questions: 11
+  question_ids:
+    - T7C01
+    - T7C02
+    - T7C03
+    - T7C04
+    - T7C05
+    - T7C06
+    - T7C07
+    - T7C08
+    - T7C09
+    - T7C10
+    - T7C11

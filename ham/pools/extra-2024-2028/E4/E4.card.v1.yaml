@@ -1,0 +1,39 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e4
+  description: "2024-2028 Amateur Extra Class subelement E4: AMATEUR PRACTICES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E4
+  title: "AMATEUR PRACTICES"
+  exam_questions: 5
+  groups_stated: 5
+  questions_stated: 64
+  questions: 63
+  withdrawn: [E4D05]
+  count_note: "the syllabus count includes 1 withdrawn question(s)"
+  groups:
+    - id: E4A
+      title: "Test equipment: analog and digital instruments; spectrum analyzers; antenna analyzers; oscilloscopes; RF measurements"
+      questions: 11
+    - id: E4B
+      title: "Measurement technique and limitations: instrument accuracy and performance limitations; probes; techniques to minimize errors; measurement of Q; instrument calibration; S parameters; vector network analyzers; RF signals"
+      questions: 11
+    - id: E4C
+      title: "Receiver performance: phase noise, noise floor, image rejection, minimum detectable signal (MDS), increasing signal-to-noise ratio and dynamic range, noise figure, reciprocal mixing; selectivity; SDR non-linearity; use of attenuators at low frequencies"
+      questions: 14
+    - id: E4D
+      title: "Receiver performance characteristics: dynamic range; intermodulation and cross-modulation interference; third-order intercept; desensitization; preselector; sensitivity; link margin"
+      questions: 13
+    - id: E4E
+      title: "Noise and interference: external RF interference; electrical and computer noise; line noise; DSP filtering and noise reduction; common-mode current; surge protectors; single point ground panel"
+      questions: 14

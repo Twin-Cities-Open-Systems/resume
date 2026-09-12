@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e6e
+  description: "2024-2028 Amateur Extra Class group E6E: Semiconductor materials and packages for RF use"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+    group: E6E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E6E
+  title: "Semiconductor materials and packages for RF use"
+  subelement: E6
+  questions: 12
+  question_ids:
+    - E6E01
+    - E6E02
+    - E6E03
+    - E6E04
+    - E6E05
+    - E6E06
+    - E6E07
+    - E6E08
+    - E6E09
+    - E6E10
+    - E6E11
+    - E6E12

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1e05
+  description: "2026-2030 Technician Class question T1E05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is an amateur station’s control point?"
+  answer: "The location at which the control operator function is performed"
+  id: T1E05
+  correct: C
+  choices:
+    A: "The location of the station’s transmitting antenna"
+    B: "The location of the station’s transmitting apparatus"
+    C: "The location at which the control operator function is performed"
+    D: "The mailing address of the station licensee"
+  rule_ref: "97.3(a)(14)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1e02
+  description: "2026-2030 Technician Class question T1E02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Who may be the control operator of a station communicating through an amateur satellite or space station?"
+  answer: "Any amateur allowed to transmit on the satellite uplink frequency"
+  id: T1E02
+  correct: D
+  choices:
+    A: "Only an Amateur Extra Class operator"
+    B: "A General class or higher licensee with a satellite operator certification"
+    C: "Only an Amateur Extra Class operator who is also an AMSAT member"
+    D: "Any amateur allowed to transmit on the satellite uplink frequency"
+  rule_ref: "97.301, 97.207(c)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

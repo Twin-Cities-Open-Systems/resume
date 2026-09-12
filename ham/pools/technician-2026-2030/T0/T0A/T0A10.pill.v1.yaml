@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0a10
+  description: "2026-2030 Technician Class question T0A10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What hazard exists when rapidly charging or discharging an unprotected battery?"
+  answer: "Overheating or out-gassing"
+  id: T0A10
+  correct: A
+  choices:
+    A: "Overheating or out-gassing"
+    B: "Excess output ripple"
+    C: "Electric shock"
+    D: "Overvoltage"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2026-2030 Technician Class Pool Errata"
+      issued: "February 19, 2026"
+      change: "T0A10 – change the question to read:"
+      reads: "What hazard exists when rapidly charging or discharging an unprotected battery?"
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

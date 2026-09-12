@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g5
+  description: "2023-2027 General Class subelement G5: ELECTRICAL PRINCIPLES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G5
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G5
+  title: "ELECTRICAL PRINCIPLES"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 40
+  questions: 40
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: G5A
+      title: "Reactance; inductance; capacitance; impedance; impedance transformation; resonance"
+      questions: 12
+    - id: G5B
+      title: "The decibel; current and voltage dividers; electrical power calculations; sine wave root-mean-square (RMS) values; PEP calculations"
+      questions: 14
+    - id: G5C
+      title: "Resistors, capacitors, and inductors in series and parallel; transformers"
+      questions: 14

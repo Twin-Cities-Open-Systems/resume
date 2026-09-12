@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7g
+  description: "2024-2028 Amateur Extra Class group E7G: Operational amplifiers: characteristics and applications"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7G
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E7G
+  title: "Operational amplifiers: characteristics and applications"
+  subelement: E7
+  questions: 12
+  question_ids:
+    - E7G01
+    - E7G02
+    - E7G03
+    - E7G04
+    - E7G05
+    - E7G06
+    - E7G07
+    - E7G08
+    - E7G09
+    - E7G10
+    - E7G11
+    - E7G12

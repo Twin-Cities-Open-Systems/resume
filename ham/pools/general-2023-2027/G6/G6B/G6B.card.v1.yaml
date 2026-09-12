@@ -1,0 +1,38 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g6b
+  description: "2023-2027 General Class group G6B: Analog and digital integrated circuits (ICs); microwave ICs (MMICs); display devices; RF connectors; ferrite cores"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G6
+    group: G6B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G6B
+  title: "Analog and digital integrated circuits (ICs); microwave ICs (MMICs); display devices; RF connectors; ferrite cores"
+  subelement: G6
+  questions: 11
+  question_ids:
+    - G6B01
+    - G6B02
+    - G6B03
+    - G6B04
+    - G6B05
+    - G6B06
+    - G6B07
+    - G6B08
+    - G6B10
+    - G6B11
+    - G6B12
+  withdrawn:
+    - id: G6B09
+      errata:
+        - errata: "2023-2027 General Class Question Pool 2nd Errata"
+          issued: "April 10, 2023"
+          change: "G6B09 – question deleted"

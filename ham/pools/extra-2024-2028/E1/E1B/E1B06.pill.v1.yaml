@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1b06
+  description: "2024-2028 Amateur Extra Class question E1B06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following additional rules apply if you are erecting an amateur station antenna structure at a site at or near a public use airport?"
+  answer: "You may have to notify the Federal Aviation Administration and register it with the FCC as required by Part 17 of the FCC rules"
+  id: E1B06
+  correct: A
+  choices:
+    A: "You may have to notify the Federal Aviation Administration and register it with the FCC as required by Part 17 of the FCC rules"
+    B: "You may have to enter the height above ground in meters, and the latitude and longitude in degrees, minutes, and seconds on the FAA website"
+    C: "You must file an Environmental Impact Statement with the EPA before construction begins"
+    D: "You must obtain a construction permit from the airport zoning authority per Part 119 of the FAA regulations"
+  rule_ref: "97.15"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

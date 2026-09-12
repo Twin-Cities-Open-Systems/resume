@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1f07
+  description: "2026-2030 Technician Class question T1F07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following restrictions apply when a non-licensed person speaks to a foreign amateur radio station via a station under the control of an FCC-licensed amateur radio operator?"
+  answer: "The foreign station must be in a country with which the U.S. has a third-party agreement"
+  id: T1F07
+  correct: B
+  choices:
+    A: "The person must be a U.S. citizen"
+    B: "The foreign station must be in a country with which the U.S. has a third-party agreement"
+    C: "The licensed control operator must do the station identification"
+    D: "All these choices are correct"
+  rule_ref: "97.115(a)(2)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

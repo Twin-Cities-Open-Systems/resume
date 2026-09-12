@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7e
+  description: "2024-2028 Amateur Extra Class group E7E: Modulation and demodulation: reactance, phase, and balanced modulators; detectors; mixers"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E7E
+  title: "Modulation and demodulation: reactance, phase, and balanced modulators; detectors; mixers"
+  subelement: E7
+  questions: 11
+  question_ids:
+    - E7E01
+    - E7E02
+    - E7E03
+    - E7E04
+    - E7E05
+    - E7E06
+    - E7E07
+    - E7E08
+    - E7E09
+    - E7E10
+    - E7E11

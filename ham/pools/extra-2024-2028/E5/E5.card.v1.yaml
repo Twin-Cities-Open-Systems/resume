@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e5
+  description: "2024-2028 Amateur Extra Class subelement E5: ELECTRICAL PRINCIPLES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E5
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E5
+  title: "ELECTRICAL PRINCIPLES"
+  exam_questions: 4
+  groups_stated: 4
+  questions_stated: 49
+  questions: 49
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: E5A
+      title: "Resonance and Q: characteristics of resonant circuits; series and parallel resonance; definitions and effects of Q; half-power bandwidth"
+      questions: 13
+    - id: E5B
+      title: "Time constants and phase relationships: RL and RC time constants; phase angle in reactive circuits and components; admittance and susceptance"
+      questions: 12
+    - id: E5C
+      title: "Coordinate systems and phasors in electronics: rectangular coordinates; polar coordinates; phasors; logarithmic axes"
+      questions: 12
+    - id: E5D
+      title: "RF effects in components and circuits: skin effect; real and reactive power; electrical length of conductors"
+      questions: 12

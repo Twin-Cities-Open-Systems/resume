@@ -1,0 +1,37 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g1a
+  description: "2023-2027 General Class group G1A: General class control operator frequency privileges; primary and secondary allocations"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G1A
+  title: "General class control operator frequency privileges; primary and secondary allocations"
+  subelement: G1
+  questions: 10
+  question_ids:
+    - G1A01
+    - G1A02
+    - G1A03
+    - G1A05
+    - G1A06
+    - G1A07
+    - G1A08
+    - G1A09
+    - G1A10
+    - G1A11
+  withdrawn:
+    - id: G1A04
+      errata:
+        - errata: "2023-2027 General Class Question Pool 6th Errata"
+          issued: "February 4, 2026"
+          change: "G1A04 – question deleted"

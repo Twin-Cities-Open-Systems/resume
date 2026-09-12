@@ -1,0 +1,101 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-2024-2028
+  description: "NCVEC 2024-2028 Amateur Extra Class question pool (FCC Element 4)"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  pool: extra-2024-2028
+  element: extra
+  fcc_element: 4
+  title: "2024-2028 Amateur Extra Class"
+  syllabus_effective: "July 1, 2024"
+  valid_from: "2024-07-01"
+  valid_to: "2028-06-30"
+  valid_to_source: "the pool name; the syllabus states no end date"
+  questions: 599
+  withdrawn: [E2A13, E4D05, E6D07, E9E10]
+  questions_stated: 602
+  exam_questions: 50
+  exam_size: 50
+  passing_score: 37
+  exam_rule: "47 CFR 97.503; the pool states exam questions per subelement, not the passing score"
+  exam_rule_url: "https://www.law.cornell.edu/cfr/text/47/97.503"
+  latest_errata: "2024-2028 Extra Class Pool 4th Errata"
+  latest_errata_issued: "February 4, 2026"
+  subelements:
+    - E1
+    - E2
+    - E3
+    - E4
+    - E5
+    - E6
+    - E7
+    - E8
+    - E9
+    - E0
+  figures:
+    - id: E5-1
+      file: "ham/pools/extra-2024-2028/figures/E5-1.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E6-1
+      file: "ham/pools/extra-2024-2028/figures/E6-1.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E6-2
+      file: "ham/pools/extra-2024-2028/figures/E6-2.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E6-3
+      file: "ham/pools/extra-2024-2028/figures/E6-3.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E7-1
+      file: "ham/pools/extra-2024-2028/figures/E7-1.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E7-2
+      file: "ham/pools/extra-2024-2028/figures/E7-2.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E7-3
+      file: "ham/pools/extra-2024-2028/figures/E7-3.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E9-1
+      file: "ham/pools/extra-2024-2028/figures/E9-1.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E9-2
+      file: "ham/pools/extra-2024-2028/figures/E9-2.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+    - id: E9-3
+      file: "ham/pools/extra-2024-2028/figures/E9-3.svg"
+      from: extra-figures-svg-zip
+      shipped: true
+      derived_by: null
+  public_domain:
+    statement: "The NCVEC Question Pool Committee hereby releases into public domain the 2024-2028 Element 4 Extra Class Question Pool."
+    page: "https://ncvec.org/index.php/2024-2028-extra-class-question-pool-release"
+  source:
+    sources: "ham/pools/sources.yaml"
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

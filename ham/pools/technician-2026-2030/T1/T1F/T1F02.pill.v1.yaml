@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1f02
+  description: "2026-2030 Technician Class question T1F02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How often must you identify with your FCC-assigned call sign when using tactical call signs such as “Race Headquarters”?"
+  answer: "At least every 10 minutes during and at the end of a communication"
+  id: T1F02
+  correct: C
+  choices:
+    A: "Never, the tactical call is sufficient"
+    B: "Once every hour"
+    C: "At least every 10 minutes during and at the end of a communication"
+    D: "At the end of every transmission"
+  rule_ref: "97.119(a)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

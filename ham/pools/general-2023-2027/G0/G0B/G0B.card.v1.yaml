@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g0b
+  description: "2023-2027 General Class group G0B: Station safety: electrical shock, grounding, fusing, interlocks, and wiring; antenna and tower safety"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G0
+    group: G0B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G0B
+  title: "Station safety: electrical shock, grounding, fusing, interlocks, and wiring; antenna and tower safety"
+  subelement: G0
+  questions: 13
+  question_ids:
+    - G0B01
+    - G0B02
+    - G0B03
+    - G0B04
+    - G0B05
+    - G0B06
+    - G0B07
+    - G0B08
+    - G0B09
+    - G0B10
+    - G0B11
+    - G0B12
+    - G0B13

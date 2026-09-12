@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9d02
+  description: "2024-2028 Amateur Extra Class question E9D02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How can two linearly polarized Yagi antennas be used to produce circular polarization?"
+  answer: "Arrange two Yagis on the same axis and perpendicular to each other with the driven elements at the same point on the boom and fed 90 degrees out of phase"
+  id: E9D02
+  correct: C
+  choices:
+    A: "Stack two Yagis to form an array with the respective elements in parallel planes fed 90 degrees out of phase"
+    B: "Stack two Yagis to form an array with the respective elements in parallel planes fed in phase"
+    C: "Arrange two Yagis on the same axis and perpendicular to each other with the driven elements at the same point on the boom and fed 90 degrees out of phase"
+    D: "Arrange two Yagis collinear to each other with the driven elements fed 180 degrees out of phase"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

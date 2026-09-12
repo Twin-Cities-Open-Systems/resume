@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t3a
+  description: "2026-2030 Technician Class group T3A: Radio wave characteristics: how a radio signal travels, fading, multipath, polarization, wavelength vs absorption; Antenna orientation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+    group: T3A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T3A
+  title: "Radio wave characteristics: how a radio signal travels, fading, multipath, polarization, wavelength vs absorption; Antenna orientation"
+  subelement: T3
+  questions: 12
+  question_ids:
+    - T3A01
+    - T3A02
+    - T3A03
+    - T3A04
+    - T3A05
+    - T3A06
+    - T3A07
+    - T3A08
+    - T3A09
+    - T3A10
+    - T3A11
+    - T3A12

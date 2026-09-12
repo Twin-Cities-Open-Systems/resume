@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7c09
+  description: "2026-2030 Technician Class question T7C09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following causes failure of coaxial cables?"
+  answer: "Moisture contamination"
+  id: T7C09
+  correct: A
+  choices:
+    A: "Moisture contamination"
+    B: "Solder flux contamination"
+    C: "Rapid fluctuation in transmitter output power"
+    D: "Operation at 100% duty cycle for an extended period"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t9a02
+  description: "2026-2030 Technician Class question T9A02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following describes a type of antenna loading?"
+  answer: "Electrically lengthening by inserting inductors in radiating elements"
+  id: T9A02
+  correct: A
+  choices:
+    A: "Electrically lengthening by inserting inductors in radiating elements"
+    B: "Inserting a resistor in the radiating portion of the antenna to make it resonant"
+    C: "Installing a spring in the base of a mobile vertical antenna to make it more flexible"
+    D: "Strengthening the radiating elements of a beam antenna to better resist wind damage"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

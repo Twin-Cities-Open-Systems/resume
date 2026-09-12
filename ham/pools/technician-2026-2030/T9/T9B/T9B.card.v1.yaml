@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t9b
+  description: "2026-2030 Technician Class group T9B: Feed lines: types, attenuation vs frequency, selecting; SWR concepts; Antenna tuners (couplers); RF Connectors: selecting, weather protection"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T9B
+  title: "Feed lines: types, attenuation vs frequency, selecting; SWR concepts; Antenna tuners (couplers); RF Connectors: selecting, weather protection"
+  subelement: T9
+  questions: 12
+  question_ids:
+    - T9B01
+    - T9B02
+    - T9B03
+    - T9B04
+    - T9B05
+    - T9B06
+    - T9B07
+    - T9B08
+    - T9B09
+    - T9B10
+    - T9B11
+    - T9B12

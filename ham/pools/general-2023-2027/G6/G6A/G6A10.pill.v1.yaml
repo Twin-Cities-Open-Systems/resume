@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g6a10
+  description: "2023-2027 General Class question G6A10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G6
+    group: G6A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which element of a vacuum tube regulates the flow of electrons between cathode and plate?"
+  answer: "Control grid"
+  id: G6A10
+  correct: A
+  choices:
+    A: "Control grid"
+    B: "Suppressor grid"
+    C: "Screen grid"
+    D: "Trigger electrode"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

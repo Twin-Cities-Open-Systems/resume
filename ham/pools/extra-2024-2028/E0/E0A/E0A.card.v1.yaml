@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e0a
+  description: "2024-2028 Amateur Extra Class group E0A: Safety: RF radiation hazards; hazardous materials; grounding"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E0
+    group: E0A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E0A
+  title: "Safety: RF radiation hazards; hazardous materials; grounding"
+  subelement: E0
+  questions: 12
+  question_ids:
+    - E0A01
+    - E0A02
+    - E0A03
+    - E0A04
+    - E0A05
+    - E0A06
+    - E0A07
+    - E0A08
+    - E0A09
+    - E0A10
+    - E0A11
+    - E0A12

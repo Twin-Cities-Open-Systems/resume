@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e6b
+  description: "2024-2028 Amateur Extra Class group E6B: Diodes"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+    group: E6B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E6B
+  title: "Diodes"
+  subelement: E6
+  questions: 11
+  question_ids:
+    - E6B01
+    - E6B02
+    - E6B03
+    - E6B04
+    - E6B05
+    - E6B06
+    - E6B07
+    - E6B08
+    - E6B09
+    - E6B10
+    - E6B11

@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g9b
+  description: "2023-2027 General Class group G9B: Basic dipole and monopole antennas"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G9B
+  title: "Basic dipole and monopole antennas"
+  subelement: G9
+  questions: 12
+  question_ids:
+    - G9B01
+    - G9B02
+    - G9B03
+    - G9B04
+    - G9B05
+    - G9B06
+    - G9B07
+    - G9B08
+    - G9B09
+    - G9B10
+    - G9B11
+    - G9B12

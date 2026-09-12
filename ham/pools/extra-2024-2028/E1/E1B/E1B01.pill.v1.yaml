@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1b01
+  description: "2024-2028 Amateur Extra Class question E1B01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following constitutes a spurious emission?"
+  answer: "An emission outside the signal’s necessary bandwidth that can be reduced or eliminated without affecting the information transmitted"
+  id: E1B01
+  correct: D
+  choices:
+    A: "An amateur station transmission made without the proper call sign identification"
+    B: "A signal transmitted to prevent its detection by any station other than the intended recipient"
+    C: "Any transmitted signal that unintentionally interferes with another licensed radio station and whose levels exceed 40 dB below the fundamental power level"
+    D: "An emission outside the signal’s necessary bandwidth that can be reduced or eliminated without affecting the information transmitted"
+  rule_ref: "97.3"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

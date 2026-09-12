@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g2b
+  description: "2023-2027 General Class group G2B: Operating effectively; band plans; drills and emergencies; RACES operation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G2B
+  title: "Operating effectively; band plans; drills and emergencies; RACES operation"
+  subelement: G2
+  questions: 11
+  question_ids:
+    - G2B01
+    - G2B02
+    - G2B03
+    - G2B04
+    - G2B05
+    - G2B06
+    - G2B07
+    - G2B08
+    - G2B09
+    - G2B10
+    - G2B11

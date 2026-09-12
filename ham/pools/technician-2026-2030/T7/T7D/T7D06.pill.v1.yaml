@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7d06
+  description: "2026-2030 Technician Class question T7D06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following can damage a multimeter?"
+  answer: "Attempting to measure voltage when using the resistance setting"
+  id: T7D06
+  correct: C
+  choices:
+    A: "Attempting to measure resistance using the voltage setting"
+    B: "Failing to connect one of the probes to ground"
+    C: "Attempting to measure voltage when using the resistance setting"
+    D: "Not allowing it to warm up properly"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

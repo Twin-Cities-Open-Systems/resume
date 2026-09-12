@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e8a04
+  description: "2024-2028 Amateur Extra Class question E8A04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+    group: E8A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is “dither” with respect to analog-to-digital converters?"
+  answer: "A small amount of noise added to the input signal to reduce quantization noise"
+  id: E8A04
+  correct: B
+  choices:
+    A: "An abnormal condition where the converter cannot settle on a value to represent the signal"
+    B: "A small amount of noise added to the input signal to reduce quantization noise"
+    C: "An error caused by irregular quantization step size"
+    D: "A method of decimation by randomly skipping samples"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

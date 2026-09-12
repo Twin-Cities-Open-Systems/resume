@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1d01
+  description: "2026-2030 Technician Class question T1D01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "With which countries are FCC-licensed amateur radio stations prohibited from exchanging communications?"
+  answer: "Any country whose administration has notified the International Telecommunication Union (ITU) that it objects to such communications"
+  id: T1D01
+  correct: A
+  choices:
+    A: "Any country whose administration has notified the International Telecommunication Union (ITU) that it objects to such communications"
+    B: "Any country whose administration has notified the American Radio Relay League (ARRL) that it objects to such communications"
+    C: "Any country banned from such communications by the International Amateur Radio Union (IARU)"
+    D: "Any country banned from making such communications by the American Radio Relay League (ARRL)"
+  rule_ref: "97.111(a)(1)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

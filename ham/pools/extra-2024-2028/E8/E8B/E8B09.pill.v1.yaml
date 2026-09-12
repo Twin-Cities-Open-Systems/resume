@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e8b09
+  description: "2024-2028 Amateur Extra Class question E8B09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+    group: E8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is deviation ratio?"
+  answer: "The ratio of the maximum carrier frequency deviation to the highest audio modulating frequency"
+  id: E8B09
+  correct: B
+  choices:
+    A: "The ratio of the audio modulating frequency to the center carrier frequency"
+    B: "The ratio of the maximum carrier frequency deviation to the highest audio modulating frequency"
+    C: "The ratio of the carrier center frequency to the audio modulating frequency"
+    D: "The ratio of the highest audio modulating frequency to the average audio modulating frequency"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

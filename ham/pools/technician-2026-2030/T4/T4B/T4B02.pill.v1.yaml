@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t4b02
+  description: "2026-2030 Technician Class question T4B02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+    group: T4B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following can be used to enter a transceiver’s operating frequency?"
+  answer: "The keypad or VFO knob"
+  id: T4B02
+  correct: A
+  choices:
+    A: "The keypad or VFO knob"
+    B: "The CTCSS or DTMF encoder"
+    C: "The Automatic Frequency Control"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g2e04
+  description: "2023-2027 General Class question G2E04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is good practice when choosing a transmitting frequency to answer a station calling CQ using FT8?"
+  answer: "Find a clear frequency during the alternate time slot to the calling station"
+  id: G2E04
+  correct: D
+  choices:
+    A: "Always call on the station’s frequency"
+    B: "Call on any frequency in the waterfall except the station’s frequency"
+    C: "Find a clear frequency during the same time slot as the calling station"
+    D: "Find a clear frequency during the alternate time slot to the calling station"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

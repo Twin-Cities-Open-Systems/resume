@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1a03
+  description: "2026-2030 Technician Class question T1A03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What do the FCC rules state regarding the use of a phonetic alphabet for station identification in the Amateur Radio Service?"
+  answer: "It is encouraged when using phone emissions"
+  id: T1A03
+  correct: B
+  choices:
+    A: "It is required when transmitting emergency messages"
+    B: "It is encouraged when using phone emissions"
+    C: "It is required when in contact with foreign stations"
+    D: "All these choices are correct"
+  rule_ref: "97.119(b)(2)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

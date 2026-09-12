@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1b01
+  description: "2023-2027 General Class question G1B01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the maximum height above ground for an antenna structure not near a public use airport without requiring notification to the FAA and registration with the FCC?"
+  answer: "200 feet"
+  id: G1B01
+  correct: C
+  choices:
+    A: "50 feet"
+    B: "100 feet"
+    C: "200 feet"
+    D: "250 feet"
+  rule_ref: "97.15(a)"
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool Errata"
+      issued: "February 1, 2023"
+      change: "G1B01 – in the question add “not” after structure to read:"
+      reads: "What is the maximum height above ground for an antenna structure not near a public use airport without requiring notification to the FAA and registration with the FCC?"
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

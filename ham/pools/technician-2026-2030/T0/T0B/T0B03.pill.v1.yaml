@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0b03
+  description: "2026-2030 Technician Class question T0B03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Under what circumstances is it safe to climb a tower without a helper or observer?"
+  answer: "Never"
+  id: T0B03
+  correct: D
+  choices:
+    A: "When no electrical work is being performed"
+    B: "When no mechanical work is being performed"
+    C: "When the work being done is not more than 20 feet above the ground"
+    D: "Never"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

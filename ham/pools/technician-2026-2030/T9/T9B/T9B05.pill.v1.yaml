@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t9b05
+  description: "2026-2030 Technician Class question T9B05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What happens as the frequency of a signal in coaxial cable is increased?"
+  answer: "The loss increases"
+  id: T9B05
+  correct: D
+  choices:
+    A: "The characteristic impedance decreases"
+    B: "The loss decreases"
+    C: "The characteristic impedance increases"
+    D: "The loss increases"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

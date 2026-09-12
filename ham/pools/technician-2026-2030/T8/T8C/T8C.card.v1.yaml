@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t8c
+  description: "2026-2030 Technician Class group T8C: Operating activities: radio direction finding, contests, linking over the internet, exchanging grid locators"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T8C
+  title: "Operating activities: radio direction finding, contests, linking over the internet, exchanging grid locators"
+  subelement: T8
+  questions: 11
+  question_ids:
+    - T8C01
+    - T8C02
+    - T8C03
+    - T8C04
+    - T8C05
+    - T8C06
+    - T8C07
+    - T8C08
+    - T8C09
+    - T8C10
+    - T8C11
