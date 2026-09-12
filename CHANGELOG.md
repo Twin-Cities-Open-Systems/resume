@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Nothing since the last release._
 
+## [1.4.0] - 2026-09-12
+
+### Added
+
+- 2026-09-12 **release**: resume's card declares what a release needs; media-item names hee-exif's failure ([#106](https://github.com/Twin-Cities-Open-Systems/resume/pull/106))
+
+### Fixed
+
+- 2026-09-12 **render-blog**: a post's header links "resume" to the author's resume page, and a thesis says thesis ([#107](https://github.com/Twin-Cities-Open-Systems/resume/pull/107))
+
 ## [1.3.0] - 2026-09-11
 
 ### Added
