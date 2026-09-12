@@ -61,6 +61,18 @@ HEE_EXIF = Path(os.environ.get("HEE_REPO_DIR", Path.home() / "git" / "human-exec
 IMAGE_EXT = (".jpg", ".jpeg", ".png", ".gif", ".webp")
 
 
+def _hee_exif(args, env=None):
+    """Run hee-exif; on failure raise with its own words. check=True with
+    capture_output=True raised CalledProcessError and discarded hee-exif's
+    message -- on 2026-09-12 a build on a fresh machine said only "returned
+    non-zero exit status 1" (human-execution-engine#729)."""
+    r = subprocess.run([str(HEE_EXIF), *args], capture_output=True, text=True, env=env)
+    if r.returncode != 0:
+        said = r.stderr.strip() or r.stdout.strip() or "(it printed nothing)"
+        raise RuntimeError(f"hee-exif {args[0]} failed (exit {r.returncode}): {said}")
+    return r
+
+
 def esc(s):
     return html.escape(str(s), quote=True)
 
@@ -188,13 +200,13 @@ def build(item_dir, network=True, regen_og=True):
                 sys.exit(f"media-item: branding card {own} not found -- a personal item must not fall back to the org's card")
             env["HEE_BRANDING"] = own
         commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip() or "unknown"
-        subprocess.run([str(HEE_EXIF), "provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
+        _hee_exif(["provenance", str(og_file), "--tool", "resume/media-item", "--commit", commit,
                         "--job", str(card_path), "--source", str(og_src), "--kv", "shape=card 1200x630 letterboxed",
                         "--kv", f"og_for=https://{host}/gallery/{slug}/", "--kv", "page=gallery", "--kv", f"owner={spec.get('owner', '')}",
-                        "--kv", f"title={spec['title'].replace(';', ',')}", "--kv", f"host={host}"], check=True, capture_output=True, env=env)
-        subprocess.run([str(HEE_EXIF), "sign", str(og_file)], check=True, capture_output=True, env=env)
+                        "--kv", f"title={spec['title'].replace(';', ',')}", "--kv", f"host={host}"], env)
+        _hee_exif(["sign", str(og_file)], env)
         if env.get("HEE_BRANDING"):
-            subprocess.run([str(HEE_EXIF), "brand", str(og_file), "--artist", spec.get("owner", "Twin Cities Open Systems")], check=True, capture_output=True, env=env)
+            _hee_exif(["brand", str(og_file), "--artist", spec.get("owner", "Twin Cities Open Systems")], env)
     og_file = item_dir / "og.jpg"
     with Image.open(og_file) as im:
         og_w, og_h = im.size
@@ -910,7 +922,7 @@ def kit(item_dir):
               f"({lim['rule']} {want[0]}x{want[1]}, at most {lim['max_bytes'] // 1024} KB)")
         main_src = max(discs.used, key=lambda p: discs.used[p]["recipe"]["size"]) if discs.used else ""
         recipes = sorted({json.dumps(v["recipe"], sort_keys=True).replace(";", ",") for v in discs.used.values()})
-        run = lambda *a: subprocess.run([str(HEE_EXIF), *a], check=True, capture_output=True, text=True, env=env)
+        run = lambda *a: _hee_exif(list(a), env)
         run("provenance", str(out), "--tool", "resume/media-item kit", "--commit", commit, "--job", str(card_path),
             *(["--source", main_src] if main_src else []),
             "--kv", f"slot={slot} {w}x{h}", "--kv", f"mt_logo_render={discs.commit}",
@@ -960,8 +972,8 @@ def sign(item_dir, key_override=None):
         asc = f.with_name(f.name + ".asc")
         if asc.exists():
             asc.unlink()
-        subprocess.run([str(HEE_EXIF), "embed-sig", "--key", key, str(f)], check=True, capture_output=True, text=True)
-        subprocess.run([str(HEE_EXIF), "gpg-sign", "--key", key, str(f)], check=True, capture_output=True, text=True)
+        _hee_exif(["embed-sig", "--key", key, str(f)])
+        _hee_exif(["gpg-sign", "--key", key, str(f)])
         got = subprocess.run(["exiftool", "-config", str(HEE_EXIF.parent.parent.parent / "library" / "exiftool" / "hee-xmp.config"),
                               "-s3", "-XMP-hee:LabSigner", str(f)], capture_output=True, text=True).stdout.strip()
         v = subprocess.run([str(HEE_EXIF), "verify", str(f)], capture_output=True, text=True)
