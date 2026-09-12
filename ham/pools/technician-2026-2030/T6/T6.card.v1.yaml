@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t6
+  description: "2026-2030 Technician Class subelement T6: ELECTRONIC AND ELECTRICAL COMPONENTS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T6
+  title: "ELECTRONIC AND ELECTRICAL COMPONENTS"
+  exam_questions: 4
+  groups_stated: 4
+  questions_stated: 46
+  questions: 46
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T6A
+      title: "Fixed and variable resistors; Capacitors; Inductors; Fuses; Switches; Batteries"
+      questions: 11
+    - id: T6B
+      title: "Semiconductors: basic principles and applications of solid-state devices, diodes and transistors; Gain"
+      questions: 12
+    - id: T6C
+      title: "Circuit diagrams: use of schematics, basic structure; Schematic symbols of basic components"
+      questions: 12
+    - id: T6D
+      title: "Component functions: rectifiers, relays, voltage regulators, meters, indicators, integrated circuits, transformers; Resonant circuit; Shielding"
+      questions: 11

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t9
+  description: "2026-2030 Technician Class subelement T9: ANTENNAS AND FEED LINES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T9
+  title: "ANTENNAS AND FEED LINES"
+  exam_questions: 2
+  groups_stated: 2
+  questions_stated: 23
+  questions: 23
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T9A
+      title: "Antennas: vertical and horizontal polarization, concept of antenna gain, definition and types of beam antennas, antenna loading, common portable and mobile antennas, relationships between resonant length and frequency, dipole pattern"
+      questions: 11
+    - id: T9B
+      title: "Feed lines: types, attenuation vs frequency, selecting; SWR concepts; Antenna tuners (couplers); RF Connectors: selecting, weather protection"
+      questions: 12

@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g9c09
+  description: "2023-2027 General Class question G9C09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "In free space, how does the gain of two three-element, horizontally polarized Yagi antennas spaced vertically 1/2 wavelength apart typically compare to the gain of a single three-element Yagi?"
+  answer: "Approximately 3 dB higher"
+  id: G9C09
+  correct: B
+  choices:
+    A: "Approximately 1.5 dB higher"
+    B: "Approximately 3 dB higher"
+    C: "Approximately 6 dB higher"
+    D: "Approximately 9 dB higher"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool Errata"
+      issued: "February 1, 2023"
+      change: "G9C09 – in the question add “In free space,” to the beginning of the question to read:"
+      reads: "In free space, how does the gain of two three-element, horizontally polarized Yagi antennas spaced vertically 1/2 wavelength apart typically compare to the gain of a single three-element Yagi?"
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

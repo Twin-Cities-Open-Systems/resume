@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t4a09
+  description: "2026-2030 Technician Class question T4A09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+    group: T4A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How can you determine the length of time that equipment can be powered from a battery?"
+  answer: "Divide the battery ampere-hour rating by the average current draw of the equipment"
+  id: T4A09
+  correct: B
+  choices:
+    A: "Divide the watt-hour rating of the battery by the peak power consumption of the equipment"
+    B: "Divide the battery ampere-hour rating by the average current draw of the equipment"
+    C: "Multiply the watts per hour consumed by the equipment by the battery power rating"
+    D: "Multiply the square of the current rating of the battery by the input resistance of the equipment"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

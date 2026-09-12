@@ -1,0 +1,39 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g2
+  description: "2023-2027 General Class subelement G2: OPERATING PROCEDURES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G2
+  title: "OPERATING PROCEDURES"
+  exam_questions: 5
+  groups_stated: 5
+  questions_stated: 60
+  questions: 60
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: G2A
+      title: "Phone operating procedures: USB/LSB conventions, breaking into a contact, transmitter setup for voice operation; answering DX stations"
+      questions: 12
+    - id: G2B
+      title: "Operating effectively; band plans; drills and emergencies; RACES operation"
+      questions: 11
+    - id: G2C
+      title: "CW operating procedures and procedural signals; Q signals; full break-in"
+      questions: 11
+    - id: G2D
+      title: "Volunteer Monitor Program; HF operations"
+      questions: 11
+    - id: G2E
+      title: "Digital mode operating procedures"
+      questions: 15

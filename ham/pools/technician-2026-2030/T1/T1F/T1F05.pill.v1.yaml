@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1f05
+  description: "2026-2030 Technician Class question T1F05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What method of call sign identification is required for a station transmitting phone signals?"
+  answer: "Send the call sign using a CW or phone emission"
+  id: T1F05
+  correct: B
+  choices:
+    A: "Send the call sign followed by the indicator RPT"
+    B: "Send the call sign using a CW or phone emission"
+    C: "Send the call sign followed by the indicator R"
+    D: "Send the call sign using only a phone emission"
+  rule_ref: "97.119(b)(2)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

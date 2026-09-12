@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7a02
+  description: "2026-2030 Technician Class question T7A02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is a transceiver?"
+  answer: "A device that combines a receiver and transmitter"
+  id: T7A02
+  correct: A
+  choices:
+    A: "A device that combines a receiver and transmitter"
+    B: "A device for matching feed line impedance to 50 ohms"
+    C: "A device for automatically sending and decoding Morse code"
+    D: "A device for converting receiver and transmitter frequencies to another band"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

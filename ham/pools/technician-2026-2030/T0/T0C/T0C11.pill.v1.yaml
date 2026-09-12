@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0c11
+  description: "2026-2030 Technician Class question T0C11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the definition of duty cycle during the averaging time for RF exposure?"
+  answer: "The percentage of time that a transmitter is transmitting"
+  id: T0C11
+  correct: C
+  choices:
+    A: "The difference between the lowest and highest power output of a transmitter"
+    B: "The difference between the PEP and the average power output of a transmitter"
+    C: "The percentage of time that a transmitter is transmitting"
+    D: "The percentage of time that a transmitter is not transmitting"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

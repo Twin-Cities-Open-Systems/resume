@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g9a
+  description: "2023-2027 General Class group G9A: Feed lines: characteristic impedance and attenuation; standing wave ratio (SWR) calculation, measurement, and effects; antenna feed point matching"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G9A
+  title: "Feed lines: characteristic impedance and attenuation; standing wave ratio (SWR) calculation, measurement, and effects; antenna feed point matching"
+  subelement: G9
+  questions: 11
+  question_ids:
+    - G9A01
+    - G9A02
+    - G9A03
+    - G9A04
+    - G9A05
+    - G9A06
+    - G9A07
+    - G9A08
+    - G9A09
+    - G9A10
+    - G9A11

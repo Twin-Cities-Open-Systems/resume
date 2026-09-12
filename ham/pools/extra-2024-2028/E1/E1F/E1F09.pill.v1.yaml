@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1f09
+  description: "2024-2028 Amateur Extra Class question E1F09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following cannot be transmitted over an amateur radio mesh network?"
+  answer: "Messages encoded to obscure their meaning"
+  id: E1F09
+  correct: C
+  choices:
+    A: "Third party traffic"
+    B: "Email"
+    C: "Messages encoded to obscure their meaning"
+    D: "All these choices are correct"
+  rule_ref: "FCC Part 97.113(a)(4)"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

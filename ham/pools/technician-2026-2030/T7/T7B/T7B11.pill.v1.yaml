@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7b11
+  description: "2026-2030 Technician Class question T7B11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following can eliminate distorted voice transmissions?"
+  answer: "Adding a clip-on ferrite “choke” to the microphone cable to prevent the transmitted signal from feeding back into the transmitter"
+  id: T7B11
+  correct: C
+  choices:
+    A: "Adding extra feedline to the antenna to lower SWR"
+    B: "Turning the radio on and off to reset the computer-controlled circuitry"
+    C: "Adding a clip-on ferrite “choke” to the microphone cable to prevent the transmitted signal from feeding back into the transmitter"
+    D: "Turning the squelch control fully clockwise to prevent the transmitted signal from triggering the squelch circuit"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e4e09
+  description: "2024-2028 Amateur Extra Class question E4E09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What undesirable effect can occur when using a noise blanker?"
+  answer: "Strong signals may be distorted and appear to cause spurious emissions"
+  id: E4E09
+  correct: C
+  choices:
+    A: "Received audio in the speech range might have an echo effect"
+    B: "The audio frequency bandwidth of the received signal might be compressed"
+    C: "Strong signals may be distorted and appear to cause spurious emissions"
+    D: "FM signals can no longer be demodulated"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

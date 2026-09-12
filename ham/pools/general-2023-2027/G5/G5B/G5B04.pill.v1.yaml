@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g5b04
+  description: "2023-2027 General Class question G5B04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G5
+    group: G5B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How many watts of electrical power are consumed by a 12 VDC light bulb that draws 0.2 amperes?"
+  answer: "2.4 watts"
+  id: G5B04
+  correct: A
+  choices:
+    A: "2.4 watts"
+    B: "24 watts"
+    C: "6 watts"
+    D: "60 watts"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

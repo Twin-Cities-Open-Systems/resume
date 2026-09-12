@@ -1,0 +1,39 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g4
+  description: "2023-2027 General Class subelement G4: AMATEUR RADIO PRACTICES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G4
+  title: "AMATEUR RADIO PRACTICES"
+  exam_questions: 5
+  groups_stated: 5
+  questions_stated: 60
+  questions: 60
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: G4A
+      title: "Station configuration and operation"
+      questions: 13
+    - id: G4B
+      title: "Tests and test equipment"
+      questions: 13
+    - id: G4C
+      title: "Interference to consumer electronics; grounding and bonding"
+      questions: 12
+    - id: G4D
+      title: "Speech processors; S meters; sideband operation near band edges"
+      questions: 11
+    - id: G4E
+      title: "Mobile and portable HF stations; alternative energy source operation"
+      questions: 11

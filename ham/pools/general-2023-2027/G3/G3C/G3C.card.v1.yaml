@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g3c
+  description: "2023-2027 General Class group G3C: Ionospheric regions; critical angle and frequency; HF scatter; near vertical incidence skywave (NVIS)"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G3
+    group: G3C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G3C
+  title: "Ionospheric regions; critical angle and frequency; HF scatter; near vertical incidence skywave (NVIS)"
+  subelement: G3
+  questions: 11
+  question_ids:
+    - G3C01
+    - G3C02
+    - G3C03
+    - G3C04
+    - G3C05
+    - G3C06
+    - G3C07
+    - G3C08
+    - G3C09
+    - G3C10
+    - G3C11

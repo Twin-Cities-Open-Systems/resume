@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t4a
+  description: "2026-2030 Technician Class group T4A: Station setup: connecting a microphone, RF power meter, a power source, a computer, digital equipment, an SWR meter; bonding; Mobile radio installation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+    group: T4A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T4A
+  title: "Station setup: connecting a microphone, RF power meter, a power source, a computer, digital equipment, an SWR meter; bonding; Mobile radio installation"
+  subelement: T4
+  questions: 12
+  question_ids:
+    - T4A01
+    - T4A02
+    - T4A03
+    - T4A04
+    - T4A05
+    - T4A06
+    - T4A07
+    - T4A08
+    - T4A09
+    - T4A10
+    - T4A11
+    - T4A12

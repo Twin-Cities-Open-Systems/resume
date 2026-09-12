@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e1a
+  description: "2024-2028 Amateur Extra Class group E1A: Frequency privileges; signal frequency range; automatic message forwarding; stations aboard ships or aircraft; power restriction on 630- and 2200-meter bands"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E1A
+  title: "Frequency privileges; signal frequency range; automatic message forwarding; stations aboard ships or aircraft; power restriction on 630- and 2200-meter bands"
+  subelement: E1
+  questions: 11
+  question_ids:
+    - E1A01
+    - E1A02
+    - E1A03
+    - E1A04
+    - E1A05
+    - E1A06
+    - E1A07
+    - E1A08
+    - E1A09
+    - E1A10
+    - E1A11

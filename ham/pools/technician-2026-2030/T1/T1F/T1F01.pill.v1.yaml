@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1f01
+  description: "2026-2030 Technician Class question T1F01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "When must the station licensee make the station and the station records available for inspection?"
+  answer: "At any time upon request by an FCC representative"
+  id: T1F01
+  correct: B
+  choices:
+    A: "At any time ten days after notification by the FCC of such an inspection"
+    B: "At any time upon request by an FCC representative"
+    C: "At any time after a written notification by the FCC of such inspection"
+    D: "Only when presented with a valid warrant by an FCC official or government agent"
+  rule_ref: "97.103(c)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

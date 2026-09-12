@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t9b04
+  description: "2026-2030 Technician Class question T9B04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the major function of an antenna tuner (antenna coupler)?"
+  answer: "It matches the antenna system impedance to the transceiver's output impedance"
+  id: T9B04
+  correct: A
+  choices:
+    A: "It matches the antenna system impedance to the transceiver's output impedance"
+    B: "It helps a receiver automatically tune in weak stations"
+    C: "It allows an antenna to be used on both transmit and receive"
+    D: "It automatically selects the proper antenna for the frequency band being used"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g8a
+  description: "2023-2027 General Class group G8A: Carriers and modulation: AM, FM, and single sideband; modulation envelope; digital modulation; overmodulation; link budgets and link margins"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G8
+    group: G8A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G8A
+  title: "Carriers and modulation: AM, FM, and single sideband; modulation envelope; digital modulation; overmodulation; link budgets and link margins"
+  subelement: G8
+  questions: 14
+  question_ids:
+    - G8A01
+    - G8A02
+    - G8A03
+    - G8A04
+    - G8A05
+    - G8A06
+    - G8A07
+    - G8A08
+    - G8A09
+    - G8A10
+    - G8A11
+    - G8A12
+    - G8A13
+    - G8A14

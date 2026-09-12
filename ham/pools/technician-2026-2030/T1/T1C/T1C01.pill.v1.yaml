@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1c01
+  description: "2026-2030 Technician Class question T1C01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "For which classes of amateur radio licenses does the FCC currently issue new licenses?"
+  answer: "Technician, General, Amateur Extra"
+  id: T1C01
+  correct: D
+  choices:
+    A: "Novice, Technician, General, Amateur Extra"
+    B: "Technician, Technician Plus, General, Amateur Extra"
+    C: "Novice, Technician Plus, General, Advanced"
+    D: "Technician, General, Amateur Extra"
+  rule_ref: "97.9(a), 97.17(a)"
+  figure: null
+  errata:
+    - errata: "2026-2030 Technician Class Pool Errata"
+      issued: "February 19, 2026"
+      change: "T1C01 – change the question to read:"
+      reads: "For which classes of amateur radio licenses does the FCC currently issue new licenses?"
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

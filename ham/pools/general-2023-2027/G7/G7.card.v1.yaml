@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g7
+  description: "2023-2027 General Class subelement G7: PRACTICAL CIRCUITS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G7
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G7
+  title: "PRACTICAL CIRCUITS"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 38
+  questions: 38
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: G7A
+      title: "Power supplies; schematic symbols"
+      questions: 13
+    - id: G7B
+      title: "Digital circuits; amplifiers and oscillators"
+      questions: 11
+    - id: G7C
+      title: "Transceiver design; filters; oscillators; digital signal processing (DSP)"
+      questions: 14

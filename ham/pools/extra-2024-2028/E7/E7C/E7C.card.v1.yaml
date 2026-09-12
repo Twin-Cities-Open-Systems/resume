@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e7c
+  description: "2024-2028 Amateur Extra Class group E7C: Filters and matching networks: types of networks; types of filters; filter applications; filter characteristics; impedance matching"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E7C
+  title: "Filters and matching networks: types of networks; types of filters; filter applications; filter characteristics; impedance matching"
+  subelement: E7
+  questions: 11
+  question_ids:
+    - E7C01
+    - E7C02
+    - E7C03
+    - E7C04
+    - E7C05
+    - E7C06
+    - E7C07
+    - E7C08
+    - E7C09
+    - E7C10
+    - E7C11

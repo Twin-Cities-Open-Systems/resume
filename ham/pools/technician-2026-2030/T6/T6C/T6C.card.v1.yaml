@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t6c
+  description: "2026-2030 Technician Class group T6C: Circuit diagrams: use of schematics, basic structure; Schematic symbols of basic components"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+    group: T6C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T6C
+  title: "Circuit diagrams: use of schematics, basic structure; Schematic symbols of basic components"
+  subelement: T6
+  questions: 12
+  question_ids:
+    - T6C01
+    - T6C02
+    - T6C03
+    - T6C04
+    - T6C05
+    - T6C06
+    - T6C07
+    - T6C08
+    - T6C09
+    - T6C10
+    - T6C11
+    - T6C12

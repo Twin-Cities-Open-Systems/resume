@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1d12
+  description: "2026-2030 Technician Class question T1D12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is required when making on-the-air test transmissions?"
+  answer: "Identify the transmitting station"
+  id: T1D12
+  correct: A
+  choices:
+    A: "Identify the transmitting station"
+    B: "Conduct tests only between 10 p.m. and 6 a.m. local time"
+    C: "Notify the FCC of the transmissions"
+    D: "All these choices are correct"
+  rule_ref: "97.119(a)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

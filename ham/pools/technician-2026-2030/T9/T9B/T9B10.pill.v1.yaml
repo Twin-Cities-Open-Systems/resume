@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t9b10
+  description: "2026-2030 Technician Class question T9B10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the electrical difference between RG-58 and RG-213 coaxial cable?"
+  answer: "RG-213 cable has less loss at a given frequency"
+  id: T9B10
+  correct: C
+  choices:
+    A: "There is no significant difference between the two types"
+    B: "RG-58 cable has two shields"
+    C: "RG-213 cable has less loss at a given frequency"
+    D: "RG-58 cable can handle higher power levels"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

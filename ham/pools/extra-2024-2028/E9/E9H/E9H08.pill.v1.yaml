@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9h08
+  description: "2024-2028 Amateur Extra Class question E9H08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9H
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the function of a sense antenna?"
+  answer: "It modifies the pattern of a DF antenna to provide a null in only one direction"
+  id: E9H08
+  correct: A
+  choices:
+    A: "It modifies the pattern of a DF antenna to provide a null in only one direction"
+    B: "It increases the sensitivity of a DF antenna array"
+    C: "It allows DF antennas to receive signals at different vertical angles"
+    D: "It provides diversity reception that cancels multipath signals"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1e04
+  description: "2023-2027 General Class question G1E04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following conditions require a licensed amateur radio operator to take specific steps to avoid harmful interference to other users or facilities?"
+  answer: "All these choices are correct"
+  id: G1E04
+  correct: D
+  choices:
+    A: "When operating within one mile of an FCC Monitoring Station"
+    B: "When using a band where the Amateur Service is secondary"
+    C: "When a station is transmitting spread spectrum emissions"
+    D: "All these choices are correct"
+  rule_ref: "97.13(b), 97.303, 97.311(b)"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

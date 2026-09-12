@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2a07
+  description: "2026-2030 Technician Class question T2A07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What does the term \"repeater offset\" mean?"
+  answer: "The difference between a repeater’s transmit and receive frequencies"
+  id: T2A07
+  correct: A
+  choices:
+    A: "The difference between a repeater’s transmit and receive frequencies"
+    B: "The repeater has a time delay to prevent interference"
+    C: "The approximately half-second delay to allow for the “squelch tail” to be removed"
+    D: "The fee charged by the repeater owner or club to provide for maintenance"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

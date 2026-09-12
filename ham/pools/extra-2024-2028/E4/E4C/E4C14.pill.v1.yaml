@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e4c14
+  description: "2024-2028 Amateur Extra Class question E4C14, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the purpose of the receiver IF Shift control?"
+  answer: "To reduce interference from stations transmitting on adjacent frequencies"
+  id: E4C14
+  correct: C
+  choices:
+    A: "To permit listening on a different frequency from the transmitting frequency"
+    B: "To change frequency rapidly"
+    C: "To reduce interference from stations transmitting on adjacent frequencies"
+    D: "To tune in stations slightly off frequency without changing the transmit frequency"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

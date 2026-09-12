@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t6d10
+  description: "2026-2030 Technician Class question T6D10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+    group: T6D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the function of component 2 in figure T-1?"
+  answer: "Control the flow of current"
+  id: T6D10
+  correct: C
+  choices:
+    A: "Give off light when current flows through it"
+    B: "Supply electrical energy"
+    C: "Control the flow of current"
+    D: "Convert electrical energy into radio waves"
+  rule_ref: null
+  figure: "ham/pools/technician-2026-2030/figures/T-1.jpg"
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

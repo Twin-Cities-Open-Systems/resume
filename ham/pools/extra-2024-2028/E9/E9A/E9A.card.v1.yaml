@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e9a
+  description: "2024-2028 Amateur Extra Class group E9A: Basic antenna parameters: radiation resistance, gain, beamwidth, efficiency; effective radiated power (ERP) and effective isotropic radiated power (EIRP)"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E9A
+  title: "Basic antenna parameters: radiation resistance, gain, beamwidth, efficiency; effective radiated power (ERP) and effective isotropic radiated power (EIRP)"
+  subelement: E9
+  questions: 12
+  question_ids:
+    - E9A01
+    - E9A02
+    - E9A03
+    - E9A04
+    - E9A05
+    - E9A06
+    - E9A07
+    - E9A08
+    - E9A09
+    - E9A10
+    - E9A11
+    - E9A12

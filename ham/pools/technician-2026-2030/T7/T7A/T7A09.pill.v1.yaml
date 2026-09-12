@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7a09
+  description: "2026-2030 Technician Class question T7A09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the function of the switch which selects either SSB or CW-FM on some VHF power amplifiers?"
+  answer: "Set the amplifier for proper operation in the selected mode"
+  id: T7A09
+  correct: B
+  choices:
+    A: "Change the mode of the transmitted signal"
+    B: "Set the amplifier for proper operation in the selected mode"
+    C: "Change the frequency range of the amplifier to operate in the proper segment of the band"
+    D: "Reduce the received signal noise"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2026-2030 Technician Class Pool Errata"
+      issued: "February 19, 2026"
+      change: "T7A09 – change the question to read:"
+      reads: "What is the function of the switch which selects either SSB or CW-FM on some VHF power amplifiers?"
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

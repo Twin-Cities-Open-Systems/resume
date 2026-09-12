@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g4a08
+  description: "2023-2027 General Class question G4A08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+    group: G4A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the correct adjustment for the LOAD or COUPLING control of a vacuum tube RF power amplifier?"
+  answer: "Desired power output without exceeding maximum allowable plate current"
+  id: G4A08
+  correct: D
+  choices:
+    A: "Minimum SWR on the antenna"
+    B: "Minimum plate current without exceeding maximum allowable grid current"
+    C: "Highest plate voltage while minimizing grid current"
+    D: "Desired power output without exceeding maximum allowable plate current"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

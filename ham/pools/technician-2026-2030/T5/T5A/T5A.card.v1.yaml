@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t5a
+  description: "2026-2030 Technician Class group T5A: Current and voltage: terminology and units, conductors and insulators, alternating and direct current"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T5
+    group: T5A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T5A
+  title: "Current and voltage: terminology and units, conductors and insulators, alternating and direct current"
+  subelement: T5
+  questions: 11
+  question_ids:
+    - T5A01
+    - T5A02
+    - T5A03
+    - T5A04
+    - T5A05
+    - T5A06
+    - T5A07
+    - T5A08
+    - T5A09
+    - T5A10
+    - T5A11

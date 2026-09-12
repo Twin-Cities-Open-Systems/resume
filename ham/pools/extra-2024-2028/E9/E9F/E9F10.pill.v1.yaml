@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9f10
+  description: "2024-2028 Amateur Extra Class question E9F10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What impedance does a 1/8-wavelength transmission line present to an RF generator when the line is shorted at the far end?"
+  answer: "An inductive reactance"
+  id: E9F10
+  correct: C
+  choices:
+    A: "A capacitive reactance"
+    B: "The same as the characteristic impedance of the line"
+    C: "An inductive reactance"
+    D: "Zero"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

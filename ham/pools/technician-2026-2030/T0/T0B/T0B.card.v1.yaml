@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t0b
+  description: "2026-2030 Technician Class group T0B: Antenna safety: tower safety and grounding, installing antennas, antenna supports"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T0B
+  title: "Antenna safety: tower safety and grounding, installing antennas, antenna supports"
+  subelement: T0
+  questions: 11
+  question_ids:
+    - T0B01
+    - T0B02
+    - T0B03
+    - T0B04
+    - T0B05
+    - T0B06
+    - T0B07
+    - T0B08
+    - T0B09
+    - T0B10
+    - T0B11

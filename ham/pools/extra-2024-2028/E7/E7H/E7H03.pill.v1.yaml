@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e7h03
+  description: "2024-2028 Amateur Extra Class question E7H03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7H
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is a phase-locked loop?"
+  answer: "An electronic servo loop consisting of a phase detector, a low-pass filter, a voltage-controlled oscillator, and a stable reference oscillator"
+  id: E7H03
+  correct: C
+  choices:
+    A: "An electronic servo loop consisting of a ratio detector, reactance modulator, and voltage-controlled oscillator"
+    B: "An electronic circuit also known as a monostable multivibrator"
+    C: "An electronic servo loop consisting of a phase detector, a low-pass filter, a voltage-controlled oscillator, and a stable reference oscillator"
+    D: "An electronic circuit consisting of a precision push-pull amplifier with a differential phase input"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

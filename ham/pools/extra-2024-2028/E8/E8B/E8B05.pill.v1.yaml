@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e8b05
+  description: "2024-2028 Amateur Extra Class question E8B05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+    group: E8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the deviation ratio of an FM phone signal having a maximum frequency swing of plus or minus 5 kHz if the highest modulation frequency is 3 kHz?"
+  answer: "1.67"
+  id: E8B05
+  correct: D
+  choices:
+    A: "6"
+    B: "0.167"
+    C: "0.6"
+    D: "1.67"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2b14
+  description: "2026-2030 Technician Class question T2B14, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is a “talkgroup”?"
+  answer: "An identifier used by DMR to organize radio traffic so that those who want to hear the group aren’t bothered by other radio traffic"
+  id: T2B14
+  correct: B
+  choices:
+    A: "A group of amateur radio operators who share email on a specific amateur radio topic"
+    B: "An identifier used by DMR to organize radio traffic so that those who want to hear the group aren’t bothered by other radio traffic"
+    C: "The members of a net organized for amateur radio operators with a specific common interest"
+    D: "A method of automatically alerting all group members to the frequency where any member is transmitting"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

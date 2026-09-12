@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1b02
+  description: "2026-2030 Technician Class question T1B02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following U.S. amateur radio operators are allowed to contact the International Space Station (ISS) on VHF bands?"
+  answer: "Any amateur with a Technician class or higher license"
+  id: T1B02
+  correct: B
+  choices:
+    A: "Only amateurs with a General class or higher license"
+    B: "Any amateur with a Technician class or higher license"
+    C: "Only amateurs with a General class or higher license, and NASA approval"
+    D: "Any amateurs with a Technician class or higher license, and NASA approval"
+  rule_ref: "97.301, 97.207(c)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

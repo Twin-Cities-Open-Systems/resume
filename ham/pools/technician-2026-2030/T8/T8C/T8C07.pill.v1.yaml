@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8c07
+  description: "2026-2030 Technician Class question T8C07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is Voice Over Internet Protocol (VoIP)?"
+  answer: "A method of delivering voice communications over the internet using digital techniques"
+  id: T8C07
+  correct: D
+  choices:
+    A: "A set of rules specifying how to identify your station when linked over the internet to another station"
+    B: "A technique employed to “spot” DX stations via the internet"
+    C: "A technique for measuring the modulation quality of a transmitter using remote sites monitored via the internet"
+    D: "A method of delivering voice communications over the internet using digital techniques"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

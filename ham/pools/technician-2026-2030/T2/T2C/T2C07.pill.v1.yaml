@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2c07
+  description: "2026-2030 Technician Class question T2C07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is standard practice when you participate in a net?"
+  answer: "Unless you are reporting an emergency, transmit only when directed by the net control station"
+  id: T2C07
+  correct: C
+  choices:
+    A: "When first responding to the net control station, transmit your call sign, name, and address as in the FCC database"
+    B: "Record the time of each of your transmissions"
+    C: "Unless you are reporting an emergency, transmit only when directed by the net control station"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

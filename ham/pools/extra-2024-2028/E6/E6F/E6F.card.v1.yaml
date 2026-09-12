@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e6f
+  description: "2024-2028 Amateur Extra Class group E6F: Electro-optical technology: photoconductivity; photovoltaic devices; optical sensors and encoders; optically isolated switching"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+    group: E6F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E6F
+  title: "Electro-optical technology: photoconductivity; photovoltaic devices; optical sensors and encoders; optically isolated switching"
+  subelement: E6
+  questions: 11
+  question_ids:
+    - E6F01
+    - E6F02
+    - E6F03
+    - E6F04
+    - E6F05
+    - E6F06
+    - E6F07
+    - E6F08
+    - E6F09
+    - E6F10
+    - E6F11

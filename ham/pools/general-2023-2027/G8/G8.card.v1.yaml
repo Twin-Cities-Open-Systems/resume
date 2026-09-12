@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g8
+  description: "2023-2027 General Class subelement G8: SIGNALS AND EMISSIONS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G8
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G8
+  title: "SIGNALS AND EMISSIONS"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 42
+  questions: 42
+  withdrawn: [G8C01]
+  count_note: null
+  groups:
+    - id: G8A
+      title: "Carriers and modulation: AM, FM, and single sideband; modulation envelope; digital modulation; overmodulation; link budgets and link margins"
+      questions: 14
+    - id: G8B
+      title: "Frequency changing; bandwidths of various modes; deviation; intermodulation"
+      questions: 13
+    - id: G8C
+      title: "Digital emission modes"
+      questions: 15

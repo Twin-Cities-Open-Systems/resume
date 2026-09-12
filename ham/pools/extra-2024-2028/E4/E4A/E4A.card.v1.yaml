@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e4a
+  description: "2024-2028 Amateur Extra Class group E4A: Test equipment: analog and digital instruments; spectrum analyzers; antenna analyzers; oscilloscopes; RF measurements"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E4A
+  title: "Test equipment: analog and digital instruments; spectrum analyzers; antenna analyzers; oscilloscopes; RF measurements"
+  subelement: E4
+  questions: 11
+  question_ids:
+    - E4A01
+    - E4A02
+    - E4A03
+    - E4A04
+    - E4A05
+    - E4A06
+    - E4A07
+    - E4A08
+    - E4A09
+    - E4A10
+    - E4A11

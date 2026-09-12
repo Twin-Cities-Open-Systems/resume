@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1e06
+  description: "2026-2030 Technician Class question T1E06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "When, other than during an emergency, may a Technician class licensee be the control operator of a station operating in an Amateur Extra Class band segment?"
+  answer: "At no time"
+  id: T1E06
+  correct: A
+  choices:
+    A: "At no time"
+    B: "When designated as the control operator by an Amateur Extra Class licensee"
+    C: "As part of a multi-operator contest team"
+    D: "When using a club station whose trustee holds an Amateur Extra Class license"
+  rule_ref: "97.301"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

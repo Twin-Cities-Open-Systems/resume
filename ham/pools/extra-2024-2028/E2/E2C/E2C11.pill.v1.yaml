@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e2c11
+  description: "2024-2028 Amateur Extra Class question E2C11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How should you generally identify your station when attempting to contact a DX station during a contest or in a pileup?"
+  answer: "Send your full call sign once or twice"
+  id: E2C11
+  correct: A
+  choices:
+    A: "Send your full call sign once or twice"
+    B: "Send only the last two letters of your call sign until you make contact"
+    C: "Send your full call sign and grid square"
+    D: "Send the call sign of the DX station three times, the words “this is,” then your call sign three times"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

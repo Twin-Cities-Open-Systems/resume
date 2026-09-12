@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0c03
+  description: "2026-2030 Technician Class question T0C03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How does the allowable power density for RF safety change if duty cycle changes from 100 percent to 50 percent?"
+  answer: "It increases by a factor of 2"
+  id: T0C03
+  correct: C
+  choices:
+    A: "It increases by a factor of 3"
+    B: "It decreases by 50 percent"
+    C: "It increases by a factor of 2"
+    D: "There is no adjustment allowed for lower duty cycle"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1e08
+  description: "2026-2030 Technician Class question T1E08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is an example of automatic control?"
+  answer: "Repeater operation"
+  id: T1E08
+  correct: A
+  choices:
+    A: "Repeater operation"
+    B: "Controlling a station over the internet"
+    C: "Using a computer or other device to send CW automatically"
+    D: "Using a computer or other device to identify automatically"
+  rule_ref: "97.3(a)(6), 97.205(d)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

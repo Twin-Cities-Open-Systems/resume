@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e8c
+  description: "2024-2028 Amateur Extra Class group E8C: Digital signals: digital communication modes; information rate vs. bandwidth; error correction; constellation diagrams"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+    group: E8C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E8C
+  title: "Digital signals: digital communication modes; information rate vs. bandwidth; error correction; constellation diagrams"
+  subelement: E8
+  questions: 15
+  question_ids:
+    - E8C01
+    - E8C02
+    - E8C03
+    - E8C04
+    - E8C05
+    - E8C06
+    - E8C07
+    - E8C08
+    - E8C09
+    - E8C10
+    - E8C11
+    - E8C12
+    - E8C13
+    - E8C14
+    - E8C15

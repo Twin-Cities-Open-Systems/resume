@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t0c
+  description: "2026-2030 Technician Class group T0C: RF hazards: radiation exposure, proximity to antennas, recognized safe power levels, radiation types, duty cycle"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T0C
+  title: "RF hazards: radiation exposure, proximity to antennas, recognized safe power levels, radiation types, duty cycle"
+  subelement: T0
+  questions: 13
+  question_ids:
+    - T0C01
+    - T0C02
+    - T0C03
+    - T0C04
+    - T0C05
+    - T0C06
+    - T0C07
+    - T0C08
+    - T0C09
+    - T0C10
+    - T0C11
+    - T0C12
+    - T0C13

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1e07
+  description: "2026-2030 Technician Class question T1E07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "When the control operator is not the station licensee, who is responsible for the proper operation of the station?"
+  answer: "The control operator and the station licensee"
+  id: T1E07
+  correct: D
+  choices:
+    A: "All licensed amateurs who are present at the operation"
+    B: "Only the station licensee"
+    C: "Only the control operator"
+    D: "The control operator and the station licensee"
+  rule_ref: "97.103(a)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

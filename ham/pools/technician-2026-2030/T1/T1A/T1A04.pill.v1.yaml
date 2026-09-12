@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1a04
+  description: "2026-2030 Technician Class question T1A04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How do you receive official notification of your new license and call sign after passing the exam?"
+  answer: "Email from the FCC with a link to download the license grant"
+  id: T1A04
+  correct: A
+  choices:
+    A: "Email from the FCC with a link to download the license grant"
+    B: "USPS First-Class Mail from the FCC"
+    C: "Email from the lead volunteer examiner"
+    D: "USPS First-Class Mail from the lead volunteer examiner"
+  rule_ref: "97.23"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

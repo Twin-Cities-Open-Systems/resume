@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e4c
+  description: "2024-2028 Amateur Extra Class group E4C: Receiver performance: phase noise, noise floor, image rejection, minimum detectable signal (MDS), increasing signal-to-noise ratio and dynamic range, noise figure, reciprocal mixing; selectivity; SDR non-linearity; use of attenuators at low frequencies"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E4C
+  title: "Receiver performance: phase noise, noise floor, image rejection, minimum detectable signal (MDS), increasing signal-to-noise ratio and dynamic range, noise figure, reciprocal mixing; selectivity; SDR non-linearity; use of attenuators at low frequencies"
+  subelement: E4
+  questions: 14
+  question_ids:
+    - E4C01
+    - E4C02
+    - E4C03
+    - E4C04
+    - E4C05
+    - E4C06
+    - E4C07
+    - E4C08
+    - E4C09
+    - E4C10
+    - E4C11
+    - E4C12
+    - E4C13
+    - E4C14

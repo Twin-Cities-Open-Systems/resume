@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g9
+  description: "2023-2027 General Class subelement G9: ANTENNAS AND FEED LINES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: G9
+  title: "ANTENNAS AND FEED LINES"
+  exam_questions: 4
+  groups_stated: 4
+  questions_stated: 46
+  questions: 46
+  withdrawn: [G9C06, G9D13]
+  count_note: null
+  groups:
+    - id: G9A
+      title: "Feed lines: characteristic impedance and attenuation; standing wave ratio (SWR) calculation, measurement, and effects; antenna feed point matching"
+      questions: 11
+    - id: G9B
+      title: "Basic dipole and monopole antennas"
+      questions: 12
+    - id: G9C
+      title: "Directional antennas"
+      questions: 11
+    - id: G9D
+      title: "Specialized antenna types and applications"
+      questions: 12

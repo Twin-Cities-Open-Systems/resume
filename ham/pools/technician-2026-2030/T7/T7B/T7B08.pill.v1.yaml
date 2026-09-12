@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7b08
+  description: "2026-2030 Technician Class question T7B08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What should you do if something in a neighbor’s home is causing harmful interference to your amateur station?"
+  answer: "All these choices are correct"
+  id: T7B08
+  correct: D
+  choices:
+    A: "Work with your neighbor to identify the offending device"
+    B: "Politely inform your neighbor that FCC rules prohibit the use of devices that cause interference"
+    C: "Make sure your station meets the standards of good amateur practice"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

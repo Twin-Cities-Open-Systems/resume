@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t1c
+  description: "2026-2030 Technician Class group T1C: Licensing: classes, sequential and vanity call sign systems, places where the Amateur Radio Service is regulated by the FCC, name and address on FCC license database, term, renewal, grace period, maintaining mailing address; International communications"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T1C
+  title: "Licensing: classes, sequential and vanity call sign systems, places where the Amateur Radio Service is regulated by the FCC, name and address on FCC license database, term, renewal, grace period, maintaining mailing address; International communications"
+  subelement: T1
+  questions: 11
+  question_ids:
+    - T1C01
+    - T1C02
+    - T1C03
+    - T1C04
+    - T1C05
+    - T1C06
+    - T1C07
+    - T1C08
+    - T1C09
+    - T1C10
+    - T1C11

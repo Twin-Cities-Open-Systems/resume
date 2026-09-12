@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1e10
+  description: "2023-2027 General Class question G1E10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Why should an amateur operator normally avoid transmitting on 14.100, 18.110, 21.150, 24.930 and 28.200 MHz?"
+  answer: "A system of propagation beacon stations operates on those frequencies"
+  id: G1E10
+  correct: A
+  choices:
+    A: "A system of propagation beacon stations operates on those frequencies"
+    B: "A system of automatic digital stations operates on those frequencies"
+    C: "These frequencies are set aside for emergency operations"
+    D: "These frequencies are set aside for bulletins from the FCC"
+  rule_ref: "97.101"
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool 2nd Errata"
+      issued: "April 10, 2023"
+      change: "G1E10 – in the question remove the space in 24.930 to read:"
+      reads: "Why should an amateur operator normally avoid transmitting on 14.100, 18.110, 21.150, 24.930 and 28.200 MHz?"
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

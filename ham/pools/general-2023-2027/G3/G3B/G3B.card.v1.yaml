@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g3b
+  description: "2023-2027 General Class group G3B: Maximum Usable Frequency; Lowest Usable Frequency; short path and long path propagation; determining propagation conditions; ionospheric refraction"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G3
+    group: G3B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G3B
+  title: "Maximum Usable Frequency; Lowest Usable Frequency; short path and long path propagation; determining propagation conditions; ionospheric refraction"
+  subelement: G3
+  questions: 12
+  question_ids:
+    - G3B01
+    - G3B02
+    - G3B03
+    - G3B04
+    - G3B05
+    - G3B06
+    - G3B07
+    - G3B08
+    - G3B09
+    - G3B10
+    - G3B11
+    - G3B12

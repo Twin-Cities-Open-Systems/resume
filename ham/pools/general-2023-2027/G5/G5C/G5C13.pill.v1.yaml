@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g5c13
+  description: "2023-2027 General Class question G5C13, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G5
+    group: G5C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following components should be added to a capacitor to increase the capacitance?"
+  answer: "A capacitor in parallel"
+  id: G5C13
+  correct: C
+  choices:
+    A: "An inductor in series"
+    B: "An inductor in parallel"
+    C: "A capacitor in parallel"
+    D: "A capacitor in series"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

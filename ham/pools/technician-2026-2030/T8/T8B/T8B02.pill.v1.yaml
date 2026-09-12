@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8b02
+  description: "2026-2030 Technician Class question T8B02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the impact of using excessive effective radiated power on a satellite uplink?"
+  answer: "Blocking access by other users"
+  id: T8B02
+  correct: B
+  choices:
+    A: "Possibility of commanding the satellite to an improper mode"
+    B: "Blocking access by other users"
+    C: "Overloading the satellite batteries"
+    D: "Possibility of rebooting the satellite control computer"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

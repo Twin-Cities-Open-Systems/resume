@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t5c11
+  description: "2026-2030 Technician Class question T5C11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T5
+    group: T5C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How much current is required to deliver 120 watts at a voltage of 12 volts DC?"
+  answer: "10 amperes"
+  id: T5C11
+  correct: B
+  choices:
+    A: "0.1 amperes"
+    B: "10 amperes"
+    C: "12 amperes"
+    D: "132 amperes"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

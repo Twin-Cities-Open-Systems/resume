@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e4c13
+  description: "2024-2028 Amateur Extra Class question E4C13, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is reciprocal mixing?"
+  answer: "Local oscillator phase noise mixing with adjacent strong signals to create interference to desired signals"
+  id: E4C13
+  correct: D
+  choices:
+    A: "Two out-of-band signals mixing to generate an in-band spurious signal"
+    B: "In-phase signals cancelling in a mixer resulting in loss of receiver sensitivity"
+    C: "Two digital signals combining from alternate time slots"
+    D: "Local oscillator phase noise mixing with adjacent strong signals to create interference to desired signals"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t4a01
+  description: "2026-2030 Technician Class question T4A01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+    group: T4A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is an appropriate power supply rating for a typical 50-watt output mobile FM transceiver?"
+  answer: "13.8 volts at 12 amperes"
+  id: T4A01
+  correct: D
+  choices:
+    A: "24.0 volts at 4 amperes"
+    B: "13.8 volts at 4 amperes"
+    C: "24.0 volts at 12 amperes"
+    D: "13.8 volts at 12 amperes"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

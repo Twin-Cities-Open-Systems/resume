@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t2b13
+  description: "2026-2030 Technician Class question T2B13, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+    group: T2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the purpose of a squelch function?"
+  answer: "Mute the receiver audio when a signal is not present"
+  id: T2B13
+  correct: B
+  choices:
+    A: "Reduce a CW transmitter's key clicks"
+    B: "Mute the receiver audio when a signal is not present"
+    C: "Eliminate parasitic oscillations in an RF amplifier"
+    D: "Reduce interference from impulse noise"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

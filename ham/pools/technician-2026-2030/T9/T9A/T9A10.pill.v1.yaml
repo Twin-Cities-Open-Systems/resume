@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t9a10
+  description: "2026-2030 Technician Class question T9A10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "In which direction does a half-wave dipole antenna radiate the strongest signal?"
+  answer: "Broadside to the antenna"
+  id: T9A10
+  correct: D
+  choices:
+    A: "Equally in all directions"
+    B: "Off the ends of the antenna"
+    C: "In the direction of the feed line"
+    D: "Broadside to the antenna"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

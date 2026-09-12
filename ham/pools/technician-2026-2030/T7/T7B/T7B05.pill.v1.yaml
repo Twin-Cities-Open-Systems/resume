@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7b05
+  description: "2026-2030 Technician Class question T7B05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following might reduce interference by an amateur station to a non-amateur over-the-air radio receiver?"
+  answer: "Block the amateur signal with a filter at the antenna input of the affected receiver"
+  id: T7B05
+  correct: A
+  choices:
+    A: "Block the amateur signal with a filter at the antenna input of the affected receiver"
+    B: "Block the interfering signal with a filter on the amateur transmitter"
+    C: "Switch the transmitter from FM to SSB"
+    D: "Switch the transmitter to a narrow-band mode"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e4e
+  description: "2024-2028 Amateur Extra Class group E4E: Noise and interference: external RF interference; electrical and computer noise; line noise; DSP filtering and noise reduction; common-mode current; surge protectors; single point ground panel"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E4E
+  title: "Noise and interference: external RF interference; electrical and computer noise; line noise; DSP filtering and noise reduction; common-mode current; surge protectors; single point ground panel"
+  subelement: E4
+  questions: 14
+  question_ids:
+    - E4E01
+    - E4E02
+    - E4E03
+    - E4E04
+    - E4E05
+    - E4E06
+    - E4E07
+    - E4E08
+    - E4E09
+    - E4E10
+    - E4E11
+    - E4E12
+    - E4E13
+    - E4E14

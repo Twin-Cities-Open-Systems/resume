@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t3b06
+  description: "2026-2030 Technician Class question T3B06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+    group: T3B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the formula for converting frequency to approximate wavelength in meters?"
+  answer: "Wavelength in meters equals 300 divided by frequency in megahertz"
+  id: T3B06
+  correct: D
+  choices:
+    A: "Wavelength in meters equals frequency in hertz multiplied by 300"
+    B: "Wavelength in meters equals frequency in hertz divided by 300"
+    C: "Wavelength in meters equals frequency in megahertz divided by 300"
+    D: "Wavelength in meters equals 300 divided by frequency in megahertz"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

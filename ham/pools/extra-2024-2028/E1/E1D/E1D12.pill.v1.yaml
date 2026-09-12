@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1d12
+  description: "2024-2028 Amateur Extra Class question E1D12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following amateur stations may transmit one-way communications?"
+  answer: "A space station, beacon station, or telecommand station"
+  id: E1D12
+  correct: A
+  choices:
+    A: "A space station, beacon station, or telecommand station"
+    B: "A local repeater or linked repeater station"
+    C: "A message forwarding station or automatically controlled digital station"
+    D: "All these choices are correct"
+  rule_ref: "97.207(e), 97.203(g)"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

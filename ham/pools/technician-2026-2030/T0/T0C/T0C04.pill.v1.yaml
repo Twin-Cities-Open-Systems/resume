@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0c04
+  description: "2026-2030 Technician Class question T0C04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What factors affect the RF exposure of people near an amateur station antenna?"
+  answer: "All these choices are correct"
+  id: T0C04
+  correct: D
+  choices:
+    A: "Frequency and power level of the RF field"
+    B: "Distance from the antenna to a person"
+    C: "Radiation pattern of the antenna"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

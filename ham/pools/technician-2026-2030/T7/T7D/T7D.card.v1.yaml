@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t7d
+  description: "2026-2030 Technician Class group T7D: Using basic test instruments: voltmeter, ammeter, and ohmmeter; Soldering"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T7D
+  title: "Using basic test instruments: voltmeter, ammeter, and ohmmeter; Soldering"
+  subelement: T7
+  questions: 11
+  question_ids:
+    - T7D01
+    - T7D02
+    - T7D03
+    - T7D04
+    - T7D05
+    - T7D06
+    - T7D07
+    - T7D08
+    - T7D09
+    - T7D10
+    - T7D11

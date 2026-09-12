@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e5b
+  description: "2024-2028 Amateur Extra Class group E5B: Time constants and phase relationships: RL and RC time constants; phase angle in reactive circuits and components; admittance and susceptance"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E5
+    group: E5B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E5B
+  title: "Time constants and phase relationships: RL and RC time constants; phase angle in reactive circuits and components; admittance and susceptance"
+  subelement: E5
+  questions: 12
+  question_ids:
+    - E5B01
+    - E5B02
+    - E5B03
+    - E5B04
+    - E5B05
+    - E5B06
+    - E5B07
+    - E5B08
+    - E5B09
+    - E5B10
+    - E5B11
+    - E5B12

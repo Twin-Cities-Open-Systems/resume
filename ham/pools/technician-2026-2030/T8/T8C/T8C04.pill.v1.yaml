@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8c04
+  description: "2026-2030 Technician Class question T8C04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is good practice when contacting another station in a contest?"
+  answer: "Sending only the minimum information needed for proper identification and the contest exchange"
+  id: T8C04
+  correct: C
+  choices:
+    A: "Signing only the last two letters of your call if there are many other stations calling"
+    B: "Contacting the station twice to be sure that you are in his log"
+    C: "Sending only the minimum information needed for proper identification and the contest exchange"
+    D: "Adding “Please copy” before your exchange"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

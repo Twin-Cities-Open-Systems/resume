@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t4
+  description: "2026-2030 Technician Class subelement T4: AMATEUR RADIO PRACTICES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T4
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T4
+  title: "AMATEUR RADIO PRACTICES"
+  exam_questions: 2
+  groups_stated: 2
+  questions_stated: 23
+  questions: 23
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T4A
+      title: "Station setup: connecting a microphone, RF power meter, a power source, a computer, digital equipment, an SWR meter; bonding; Mobile radio installation"
+      questions: 12
+    - id: T4B
+      title: "Operating controls: frequency tuning, use of filters, squelch function, AGC, memory channels, noise blanker, microphone gain, receiver incremental tuning (RIT), bandwidth selection, scanning function; Digital transceiver configuration; DMR code plugs and talk groups"
+      questions: 11

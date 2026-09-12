@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t6d
+  description: "2026-2030 Technician Class group T6D: Component functions: rectifiers, relays, voltage regulators, meters, indicators, integrated circuits, transformers; Resonant circuit; Shielding"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+    group: T6D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T6D
+  title: "Component functions: rectifiers, relays, voltage regulators, meters, indicators, integrated circuits, transformers; Resonant circuit; Shielding"
+  subelement: T6
+  questions: 11
+  question_ids:
+    - T6D01
+    - T6D02
+    - T6D03
+    - T6D04
+    - T6D05
+    - T6D06
+    - T6D07
+    - T6D08
+    - T6D09
+    - T6D10
+    - T6D11

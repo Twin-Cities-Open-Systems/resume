@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9c05
+  description: "2024-2028 Amateur Extra Class question E9C05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the purpose of feeding an off-center-fed dipole (OCFD) between the center and one end instead of at the midpoint?"
+  answer: "To create a similar feed point impedance on multiple bands"
+  id: E9C05
+  correct: A
+  choices:
+    A: "To create a similar feed point impedance on multiple bands"
+    B: "To suppress off-center lobes at higher frequencies"
+    C: "To resonate the antenna across a wider range of frequencies"
+    D: "To reduce common-mode current coupling on the feed line shield"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

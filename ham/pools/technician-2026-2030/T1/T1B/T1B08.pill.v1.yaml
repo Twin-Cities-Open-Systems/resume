@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1b08
+  description: "2026-2030 Technician Class question T1B08, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How are US amateurs restricted in segments of bands where the Amateur Radio Service is secondary?"
+  answer: "U.S. amateurs may find non-amateur stations in those segments, and must avoid interfering with them"
+  id: T1B08
+  correct: A
+  choices:
+    A: "U.S. amateurs may find non-amateur stations in those segments, and must avoid interfering with them"
+    B: "U.S. amateurs must give foreign amateur stations priority in those segments"
+    C: "International communications are not permitted in those segments"
+    D: "Digital transmissions are not permitted in those segments"
+  rule_ref: "97.303"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

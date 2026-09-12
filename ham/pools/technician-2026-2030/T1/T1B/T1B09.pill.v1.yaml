@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1b09
+  description: "2026-2030 Technician Class question T1B09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Why should you not set your transmit frequency to be exactly at the edge of an amateur band or sub-band?"
+  answer: "All these choices are correct"
+  id: T1B09
+  correct: D
+  choices:
+    A: "To allow for calibration error in the transmitter frequency display"
+    B: "So that modulation sidebands do not extend beyond the band edge"
+    C: "To allow for transmitter frequency drift"
+    D: "All these choices are correct"
+  rule_ref: "97.101(a), 97.301(a-e)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

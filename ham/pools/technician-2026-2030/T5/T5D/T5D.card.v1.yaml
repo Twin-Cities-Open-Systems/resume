@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t5d
+  description: "2026-2030 Technician Class group T5D: Ohm’s Law; Series and parallel circuits"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T5
+    group: T5D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T5D
+  title: "Ohm’s Law; Series and parallel circuits"
+  subelement: T5
+  questions: 14
+  question_ids:
+    - T5D01
+    - T5D02
+    - T5D03
+    - T5D04
+    - T5D05
+    - T5D06
+    - T5D07
+    - T5D08
+    - T5D09
+    - T5D10
+    - T5D11
+    - T5D12
+    - T5D13
+    - T5D14

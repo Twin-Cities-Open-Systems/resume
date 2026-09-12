@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1a10
+  description: "2024-2028 Amateur Extra Class question E1A10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "If an amateur station is installed aboard a ship or aircraft, what condition must be met before the station is operated?"
+  answer: "Its operation must be approved by the master of the ship or the pilot in command of the aircraft"
+  id: E1A10
+  correct: A
+  choices:
+    A: "Its operation must be approved by the master of the ship or the pilot in command of the aircraft"
+    B: "The amateur station operator must agree not to transmit when the main radio of the ship or aircraft is in use"
+    C: "The amateur station must have a power supply that is completely independent of the main ship or aircraft power supply"
+    D: "The amateur station must operate only in specific segments of the amateur service HF and VHF bands"
+  rule_ref: "97.11"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

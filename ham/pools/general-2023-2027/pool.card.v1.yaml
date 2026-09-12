@@ -1,0 +1,61 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-2023-2027
+  description: "NCVEC 2023-2027 General Class question pool (FCC Element 3)"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  pool: general-2023-2027
+  element: general
+  fcc_element: 3
+  title: "2023-2027 General Class"
+  syllabus_effective: "7/01/2023 – 6/30/2027"
+  valid_from: "2023-07-01"
+  valid_to: "2027-06-30"
+  valid_to_source: "the syllabus"
+  questions: 423
+  withdrawn: [G1A04, G1C08, G1C09, G1C10, G1E09, G6B09, G8C01, G9C06, G9D13]
+  questions_stated: 425
+  exam_questions: 35
+  exam_size: 35
+  passing_score: 26
+  exam_rule: "47 CFR 97.503; the pool states exam questions per subelement, not the passing score"
+  exam_rule_url: "https://www.law.cornell.edu/cfr/text/47/97.503"
+  latest_errata: "2023-2027 General Class Question Pool 6th Errata"
+  latest_errata_issued: "February 4, 2026"
+  subelements:
+    - G1
+    - G2
+    - G3
+    - G4
+    - G5
+    - G6
+    - G7
+    - G8
+    - G9
+    - G0
+  figures:
+    - id: G7-1
+      file: "ham/pools/general-2023-2027/figures/G7-1.pdf"
+      from: general-figure-g7-1-pdf
+      shipped: true
+      derived_by: null
+    - id: G7-1
+      file: "ham/pools/general-2023-2027/figures/G7-1.png"
+      from: general-figure-g7-1-pdf
+      shipped: false
+      derived_by: "pdftoppm -r 200 -png -singlefile"
+  public_domain:
+    statement: "The NCVEC Question Pool Committee hereby releases into public domain the 2023-2027 General, Element 3, Question pool."
+    page: "https://ncvec.org/index.php/2023-2027-general-question-pool-release"
+  source:
+    sources: "ham/pools/sources.yaml"
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

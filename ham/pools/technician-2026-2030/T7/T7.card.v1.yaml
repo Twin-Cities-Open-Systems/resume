@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t7
+  description: "2026-2030 Technician Class subelement T7: PRACTICAL CIRCUITS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T7
+  title: "PRACTICAL CIRCUITS"
+  exam_questions: 4
+  groups_stated: 4
+  questions_stated: 44
+  questions: 44
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T7A
+      title: "Station equipment: receivers, transceivers, transmitter amplifiers, RF preamplifiers, transverters; Basic radio circuit concepts and terminology: sensitivity, selectivity, mixers, oscillators, Push-To-Talk (PTT), VFO, modulation"
+      questions: 11
+    - id: T7B
+      title: "Symptoms, causes, and cures of common transmitter and receiver problems: overload and overdrive, distortion, interference and consumer electronics, RF feedback"
+      questions: 11
+    - id: T7C
+      title: "Antenna and transmission line measurements and troubleshooting: measuring SWR, effects of high SWR, causes of feed line failures; Basic coaxial cable characteristics; Use of dummy loads when testing"
+      questions: 11
+    - id: T7D
+      title: "Using basic test instruments: voltmeter, ammeter, and ohmmeter; Soldering"
+      questions: 11

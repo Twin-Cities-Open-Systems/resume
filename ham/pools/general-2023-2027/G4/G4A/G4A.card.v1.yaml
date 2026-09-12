@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g4a
+  description: "2023-2027 General Class group G4A: Station configuration and operation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+    group: G4A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G4A
+  title: "Station configuration and operation"
+  subelement: G4
+  questions: 13
+  question_ids:
+    - G4A01
+    - G4A02
+    - G4A03
+    - G4A04
+    - G4A05
+    - G4A06
+    - G4A07
+    - G4A08
+    - G4A09
+    - G4A10
+    - G4A11
+    - G4A12
+    - G4A13

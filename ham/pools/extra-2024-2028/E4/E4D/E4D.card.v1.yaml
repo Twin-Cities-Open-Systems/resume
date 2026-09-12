@@ -1,0 +1,40 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e4d
+  description: "2024-2028 Amateur Extra Class group E4D: Receiver performance characteristics: dynamic range; intermodulation and cross-modulation interference; third-order intercept; desensitization; preselector; sensitivity; link margin"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E4D
+  title: "Receiver performance characteristics: dynamic range; intermodulation and cross-modulation interference; third-order intercept; desensitization; preselector; sensitivity; link margin"
+  subelement: E4
+  questions: 13
+  question_ids:
+    - E4D01
+    - E4D02
+    - E4D03
+    - E4D04
+    - E4D06
+    - E4D07
+    - E4D08
+    - E4D09
+    - E4D10
+    - E4D11
+    - E4D12
+    - E4D13
+    - E4D14
+  withdrawn:
+    - id: E4D05
+      errata:
+        - errata: "2024-2028 Extra Class Pool 4th Errata"
+          issued: "February 4, 2026"
+          change: "E4D05 – removed from use"

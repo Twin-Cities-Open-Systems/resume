@@ -1,0 +1,38 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g9c
+  description: "2023-2027 General Class group G9C: Directional antennas"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G9C
+  title: "Directional antennas"
+  subelement: G9
+  questions: 11
+  question_ids:
+    - G9C01
+    - G9C02
+    - G9C03
+    - G9C04
+    - G9C05
+    - G9C07
+    - G9C08
+    - G9C09
+    - G9C10
+    - G9C11
+    - G9C12
+  withdrawn:
+    - id: G9C06
+      errata:
+        - errata: "2023-2027 General Class Question Pool Errata"
+          issued: "February 1, 2023"
+          change: "G9C06 - question deleted"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8a12
+  description: "2026-2030 Technician Class question T8A12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is a disadvantage of FM compared with single sideband?"
+  answer: "Only one signal can be received at a time"
+  id: T8A12
+  correct: B
+  choices:
+    A: "Voice quality is poorer"
+    B: "Only one signal can be received at a time"
+    C: "FM signals are harder to tune"
+    D: "FM signals are more susceptible to high SWR"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

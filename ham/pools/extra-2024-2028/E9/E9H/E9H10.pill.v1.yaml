@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9h10
+  description: "2024-2028 Amateur Extra Class question E9H10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9H
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How can the output voltage of a multiple-turn receiving loop antenna be increased?"
+  answer: "By increasing the number of turns and/or the area enclosed by the loop"
+  id: E9H10
+  correct: C
+  choices:
+    A: "By reducing the permeability of the loop shield"
+    B: "By utilizing high impedance wire for the coupling loop"
+    C: "By increasing the number of turns and/or the area enclosed by the loop"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t9a11
+  description: "2026-2030 Technician Class question T9A11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is antenna gain?"
+  answer: "The increase in signal strength in a specified direction compared to a reference antenna"
+  id: T9A11
+  correct: C
+  choices:
+    A: "The additional power that is added to the transmitter power"
+    B: "The additional power that is required in the antenna when transmitting on a higher frequency"
+    C: "The increase in signal strength in a specified direction compared to a reference antenna"
+    D: "The increase in impedance on receive or transmit compared to a reference antenna"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

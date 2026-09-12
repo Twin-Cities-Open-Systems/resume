@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g2b07
+  description: "2023-2027 General Class question G2B07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following complies with commonly accepted amateur practice when choosing a frequency on which to initiate a call?"
+  answer: "Follow the voluntary band plan"
+  id: G2B07
+  correct: C
+  choices:
+    A: "Listen on the frequency for at least two minutes to be sure it is clear"
+    B: "Identify your station by transmitting your call sign at least 3 times"
+    C: "Follow the voluntary band plan"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

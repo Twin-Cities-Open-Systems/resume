@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1b07
+  description: "2026-2030 Technician Class question T1B07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following VHF/UHF band segments are limited to CW only?"
+  answer: "50.0 MHz to 50.1 MHz and 144.0 MHz to 144.1 MHz"
+  id: T1B07
+  correct: A
+  choices:
+    A: "50.0 MHz to 50.1 MHz and 144.0 MHz to 144.1 MHz"
+    B: "219 MHz to 220 MHz and 420.0 MHz to 420.1 MHz"
+    C: "902.0 MHz to 902.1 MHz"
+    D: "All these choices are correct"
+  rule_ref: "97.305(a), (c)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

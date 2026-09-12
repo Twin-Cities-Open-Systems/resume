@@ -1,0 +1,66 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-2026-2030
+  description: "NCVEC 2026-2030 Technician Class question pool (FCC Element 2)"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  pool: technician-2026-2030
+  element: technician
+  fcc_element: 2
+  title: "2026-2030 Technician Class"
+  syllabus_effective: "7/01/2026 – 6/30/2030"
+  valid_from: "2026-07-01"
+  valid_to: "2030-06-30"
+  valid_to_source: "the syllabus"
+  questions: 409
+  withdrawn: []
+  questions_stated: 409
+  exam_questions: 35
+  exam_size: 35
+  passing_score: 26
+  exam_rule: "47 CFR 97.503; the pool states exam questions per subelement, not the passing score"
+  exam_rule_url: "https://www.law.cornell.edu/cfr/text/47/97.503"
+  latest_errata: "2026-2030 Technician Class Pool Errata"
+  latest_errata_issued: "February 19, 2026"
+  subelements:
+    - T1
+    - T2
+    - T3
+    - T4
+    - T5
+    - T6
+    - T7
+    - T8
+    - T9
+    - T0
+  figures:
+    - id: T-1
+      file: "ham/pools/technician-2026-2030/figures/T-1.jpg"
+      from: technician-diagram-t1-jpg
+      shipped: true
+      derived_by: null
+    - id: T-2
+      file: "ham/pools/technician-2026-2030/figures/T-2.jpg"
+      from: technician-diagram-t2-jpg
+      shipped: true
+      derived_by: null
+    - id: T-3
+      file: "ham/pools/technician-2026-2030/figures/T-3.jpg"
+      from: technician-diagram-t3-jpg
+      shipped: true
+      derived_by: null
+  public_domain:
+    statement: "The NCVEC Question Pool Committee (QPC) hereby releases the 2026-2030 Technician Class (Element 2) Question Pool into the public domain."
+    page: "https://ncvec.org/index.php/2026-2030-technician-question-pool"
+  source:
+    sources: "ham/pools/sources.yaml"
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

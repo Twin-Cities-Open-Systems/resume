@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g2e12
+  description: "2023-2027 General Class question G2E12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following describes Winlink?"
+  answer: "All these choices are correct"
+  id: G2E12
+  correct: D
+  choices:
+    A: "An amateur radio wireless network to send and receive email on the internet"
+    B: "A form of Packet Radio"
+    C: "A wireless network capable of both VHF and HF band operation"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool 3rd Errata"
+      issued: "December 1, 2023"
+      change: "G2E12 – in the answers, change answer D to read “All these choices are correct”."
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

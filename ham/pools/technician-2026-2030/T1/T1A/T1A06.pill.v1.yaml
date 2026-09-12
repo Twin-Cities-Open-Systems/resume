@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1a06
+  description: "2026-2030 Technician Class question T1A06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "On which of the following HF frequencies can automatically controlled amateur propagation beacons be found?"
+  answer: "On ten meters, between 28.200 MHz and 28.300 MHz"
+  id: T1A06
+  correct: D
+  choices:
+    A: "Anywhere in the Technician portion of 10 meters"
+    B: "Anywhere, if they are registered with the FCC"
+    C: "In a specific portion of each of the HF Technician bands"
+    D: "On ten meters, between 28.200 MHz and 28.300 MHz"
+  rule_ref: "97.203(d)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

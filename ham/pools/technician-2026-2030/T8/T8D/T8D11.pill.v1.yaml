@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t8d11
+  description: "2026-2030 Technician Class question T8D11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the role of ARQ in a transmission system?"
+  answer: "An error correction method in which the receiving station detects errors and sends a request for retransmission"
+  id: T8D11
+  correct: C
+  choices:
+    A: "A special transmission format limited to video signals"
+    B: "A system used to encrypt command signals to an amateur radio satellite"
+    C: "An error correction method in which the receiving station detects errors and sends a request for retransmission"
+    D: "A method of compressing data using autonomous reiterative Q codes prior to final encoding"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

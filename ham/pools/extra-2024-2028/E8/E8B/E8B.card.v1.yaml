@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e8b
+  description: "2024-2028 Amateur Extra Class group E8B: Modulation and demodulation: modulation methods; modulation index and deviation ratio; frequency- and time-division multiplexing; orthogonal frequency-division multiplexing (OFDM)"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E8
+    group: E8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E8B
+  title: "Modulation and demodulation: modulation methods; modulation index and deviation ratio; frequency- and time-division multiplexing; orthogonal frequency-division multiplexing (OFDM)"
+  subelement: E8
+  questions: 11
+  question_ids:
+    - E8B01
+    - E8B02
+    - E8B03
+    - E8B04
+    - E8B05
+    - E8B06
+    - E8B07
+    - E8B08
+    - E8B09
+    - E8B10
+    - E8B11

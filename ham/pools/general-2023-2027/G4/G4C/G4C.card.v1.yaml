@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g4c
+  description: "2023-2027 General Class group G4C: Interference to consumer electronics; grounding and bonding"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+    group: G4C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G4C
+  title: "Interference to consumer electronics; grounding and bonding"
+  subelement: G4
+  questions: 12
+  question_ids:
+    - G4C01
+    - G4C02
+    - G4C03
+    - G4C04
+    - G4C05
+    - G4C06
+    - G4C07
+    - G4C08
+    - G4C09
+    - G4C10
+    - G4C11
+    - G4C12

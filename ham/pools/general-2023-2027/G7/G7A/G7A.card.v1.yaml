@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g7a
+  description: "2023-2027 General Class group G7A: Power supplies; schematic symbols"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G7
+    group: G7A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G7A
+  title: "Power supplies; schematic symbols"
+  subelement: G7
+  questions: 13
+  question_ids:
+    - G7A01
+    - G7A02
+    - G7A03
+    - G7A04
+    - G7A05
+    - G7A06
+    - G7A07
+    - G7A08
+    - G7A09
+    - G7A10
+    - G7A11
+    - G7A12
+    - G7A13

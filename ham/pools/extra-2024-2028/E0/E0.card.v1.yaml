@@ -1,0 +1,27 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e0
+  description: "2024-2028 Amateur Extra Class subelement E0: SAFETY"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E0
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E0
+  title: "SAFETY"
+  exam_questions: 1
+  groups_stated: 1
+  questions_stated: 12
+  questions: 12
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: E0A
+      title: "Safety: RF radiation hazards; hazardous materials; grounding"
+      questions: 12

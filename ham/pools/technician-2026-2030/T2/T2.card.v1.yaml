@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t2
+  description: "2026-2030 Technician Class subelement T2: OPERATING PROCEDURES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T2
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T2
+  title: "OPERATING PROCEDURES"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 37
+  questions: 37
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T2A
+      title: "Station operation: choosing an operating frequency, calling another station, test transmissions; Band plans: calling frequencies, repeater offsets"
+      questions: 11
+    - id: T2B
+      title: "VHF/UHF operating practices: FM repeater, simplex, reverse splits; Access tones: CTCSS, DTMF; DMR operation; Resolving operating problems; Q signals"
+      questions: 14
+    - id: T2C
+      title: "Public service: emergency operations, applicability of FCC rules, RACES and ARES, net and traffic procedures, operating restrictions during emergencies, use of phonetics in message handling"
+      questions: 12

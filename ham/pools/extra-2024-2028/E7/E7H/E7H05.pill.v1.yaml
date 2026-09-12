@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e7h05
+  description: "2024-2028 Amateur Extra Class question E7H05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7H
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How is positive feedback supplied in a Pierce oscillator?"
+  answer: "Through a quartz crystal"
+  id: E7H05
+  correct: D
+  choices:
+    A: "Through a tapped coil"
+    B: "Through link coupling"
+    C: "Through a neutralizing capacitor"
+    D: "Through a quartz crystal"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

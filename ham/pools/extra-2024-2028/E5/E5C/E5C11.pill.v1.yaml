@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e5c11
+  description: "2024-2028 Amateur Extra Class question E5C11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E5
+    group: E5C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which point in Figure E5-1 best represents the impedance of a series circuit consisting of a 300-ohm resistor and an 18-microhenry inductor at 3.505 MHz?"
+  answer: "Point 3"
+  id: E5C11
+  correct: B
+  choices:
+    A: "Point 1"
+    B: "Point 3"
+    C: "Point 7"
+    D: "Point 8"
+  rule_ref: null
+  figure: "ham/pools/extra-2024-2028/figures/E5-1.svg"
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

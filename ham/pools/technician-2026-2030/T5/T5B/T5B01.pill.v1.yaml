@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t5b01
+  description: "2026-2030 Technician Class question T5B01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T5
+    group: T5B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How many milliamperes is 1.5 amperes?"
+  answer: "1500 milliamperes"
+  id: T5B01
+  correct: C
+  choices:
+    A: "0.0000015 milliamperes"
+    B: "0.0015 milliamperes"
+    C: "1500 milliamperes"
+    D: "1,500,000 milliamperes"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t8a
+  description: "2026-2030 Technician Class group T8A: Basic characteristics of FM and SSB; Bandwidth of various modulation modes: CW, SSB, FM, fast-scan TV; Choice of emission type: selection of USB vs LSB, use of SSB for weak signal work, use of FM for VHF packet and repeaters"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T8
+    group: T8A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: T8A
+  title: "Basic characteristics of FM and SSB; Bandwidth of various modulation modes: CW, SSB, FM, fast-scan TV; Choice of emission type: selection of USB vs LSB, use of SSB for weak signal work, use of FM for VHF packet and repeaters"
+  subelement: T8
+  questions: 12
+  question_ids:
+    - T8A01
+    - T8A02
+    - T8A03
+    - T8A04
+    - T8A05
+    - T8A06
+    - T8A07
+    - T8A08
+    - T8A09
+    - T8A10
+    - T8A11
+    - T8A12

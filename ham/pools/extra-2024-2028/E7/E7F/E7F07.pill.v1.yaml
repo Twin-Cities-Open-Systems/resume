@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e7f07
+  description: "2024-2028 Amateur Extra Class question E7F07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E7
+    group: E7F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What function is performed by a Fast Fourier Transform?"
+  answer: "Converting signals from the time domain to the frequency domain"
+  id: E7F07
+  correct: C
+  choices:
+    A: "Converting analog signals to digital form"
+    B: "Converting digital signals to analog form"
+    C: "Converting signals from the time domain to the frequency domain"
+    D: "Converting signals from the frequency domain to the time domain"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

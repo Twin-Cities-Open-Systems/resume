@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t0
+  description: "2026-2030 Technician Class subelement T0: SAFETY"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T0
+  title: "SAFETY"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 36
+  questions: 36
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T0A
+      title: "Power circuits and hazards: hazardous voltages, fuses and circuit breakers, grounding, electrical code compliance; Lightning protection; Battery safety"
+      questions: 12
+    - id: T0B
+      title: "Antenna safety: tower safety and grounding, installing antennas, antenna supports"
+      questions: 11
+    - id: T0C
+      title: "RF hazards: radiation exposure, proximity to antennas, recognized safe power levels, radiation types, duty cycle"
+      questions: 13

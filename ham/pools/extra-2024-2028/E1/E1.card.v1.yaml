@@ -1,0 +1,42 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e1
+  description: "2024-2028 Amateur Extra Class subelement E1: COMMISSION RULES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E1
+  title: "COMMISSION RULES"
+  exam_questions: 6
+  groups_stated: 6
+  questions_stated: 68
+  questions: 68
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: E1A
+      title: "Frequency privileges; signal frequency range; automatic message forwarding; stations aboard ships or aircraft; power restriction on 630- and 2200-meter bands"
+      questions: 11
+    - id: E1B
+      title: "Station restrictions and special operations: restrictions on station location; general operating restrictions; spurious emissions; antenna structure restrictions; RACES operations"
+      questions: 11
+    - id: E1C
+      title: "Automatic and remote control; band-specific regulations; operating in and communicating with foreign countries; spurious emission standards; HF modulation index limit; band-specific rules"
+      questions: 12
+    - id: E1D
+      title: "Amateur Space and Earth stations; telemetry and telecommand rules; identification of balloon transmissions; one-way communications"
+      questions: 12
+    - id: E1E
+      title: "Volunteer examiner program: definitions; qualifications; preparation and administration of exams; reimbursement; accreditation; question pools; documentation requirements"
+      questions: 11
+    - id: E1F
+      title: "Miscellaneous rules: external RF power amplifiers; prohibited communications; spread spectrum; auxiliary stations; Canadian amateurs operating in the US; special temporary authority"
+      questions: 11

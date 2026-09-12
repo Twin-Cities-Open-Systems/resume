@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g6a
+  description: "2023-2027 General Class group G6A: Resistors; capacitors; inductors; rectifiers; solid-state diodes and transistors; vacuum tubes; batteries"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G6
+    group: G6A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G6A
+  title: "Resistors; capacitors; inductors; rectifiers; solid-state diodes and transistors; vacuum tubes; batteries"
+  subelement: G6
+  questions: 12
+  question_ids:
+    - G6A01
+    - G6A02
+    - G6A03
+    - G6A04
+    - G6A05
+    - G6A06
+    - G6A07
+    - G6A08
+    - G6A09
+    - G6A10
+    - G6A11
+    - G6A12

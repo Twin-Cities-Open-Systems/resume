@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e2b03
+  description: "2024-2028 Amateur Extra Class question E2B03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How is an interlaced scanning pattern generated in a fast-scan (NTSC) television system?"
+  answer: "By scanning odd-numbered lines in one field and even-numbered lines in the next"
+  id: E2B03
+  correct: D
+  choices:
+    A: "By scanning two fields simultaneously"
+    B: "By scanning each field from bottom-to-top"
+    C: "By scanning lines from left-to-right in one field and right-to-left in the next"
+    D: "By scanning odd-numbered lines in one field and even-numbered lines in the next"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

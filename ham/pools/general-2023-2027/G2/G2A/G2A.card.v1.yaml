@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g2a
+  description: "2023-2027 General Class group G2A: Phone operating procedures: USB/LSB conventions, breaking into a contact, transmitter setup for voice operation; answering DX stations"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G2A
+  title: "Phone operating procedures: USB/LSB conventions, breaking into a contact, transmitter setup for voice operation; answering DX stations"
+  subelement: G2
+  questions: 12
+  question_ids:
+    - G2A01
+    - G2A02
+    - G2A03
+    - G2A04
+    - G2A05
+    - G2A06
+    - G2A07
+    - G2A08
+    - G2A09
+    - G2A10
+    - G2A11
+    - G2A12

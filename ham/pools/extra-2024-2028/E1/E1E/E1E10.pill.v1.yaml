@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1e10
+  description: "2024-2028 Amateur Extra Class question E1E10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What must the administering VEs do after the administration of a successful examination for an amateur operator license?"
+  answer: "They must submit the application document to the coordinating VEC according to the coordinating VEC instructions"
+  id: E1E10
+  correct: C
+  choices:
+    A: "They must collect and send the documents directly to the FCC"
+    B: "They must collect and submit the documents to the coordinating VEC for grading"
+    C: "They must submit the application document to the coordinating VEC according to the coordinating VEC instructions"
+    D: "They must return the documents to the applicant for submission to the FCC according to the FCC instructions"
+  rule_ref: "97.509(m)"
+  figure: null
+  errata:
+    - errata: "2024-2028 Extra Class Pool Errata"
+      issued: "January 31, 2024"
+      change: "E1E10 – update the rule citation’s letter from “h” to “m” to read:"
+      reads: "E1E10 (C) [97.509(m)]"
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

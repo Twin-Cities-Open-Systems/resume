@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e4b
+  description: "2024-2028 Amateur Extra Class group E4B: Measurement technique and limitations: instrument accuracy and performance limitations; probes; techniques to minimize errors; measurement of Q; instrument calibration; S parameters; vector network analyzers; RF signals"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E4B
+  title: "Measurement technique and limitations: instrument accuracy and performance limitations; probes; techniques to minimize errors; measurement of Q; instrument calibration; S parameters; vector network analyzers; RF signals"
+  subelement: E4
+  questions: 11
+  question_ids:
+    - E4B01
+    - E4B02
+    - E4B03
+    - E4B04
+    - E4B05
+    - E4B06
+    - E4B07
+    - E4B08
+    - E4B09
+    - E4B10
+    - E4B11

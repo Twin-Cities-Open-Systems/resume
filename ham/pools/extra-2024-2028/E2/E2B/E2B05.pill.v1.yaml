@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e2b05
+  description: "2024-2028 Amateur Extra Class question E2B05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following describes the use of vestigial sideband in analog fast-scan TV transmissions?"
+  answer: "Vestigial sideband reduces the bandwidth while increasing the fidelity of low frequency video components"
+  id: E2B05
+  correct: C
+  choices:
+    A: "The vestigial sideband carries the audio information"
+    B: "The vestigial sideband contains chroma information"
+    C: "Vestigial sideband reduces the bandwidth while increasing the fidelity of low frequency video components"
+    D: "Vestigial sideband provides high frequency emphasis to sharpen the picture"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

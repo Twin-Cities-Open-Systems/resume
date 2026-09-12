@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g4d09
+  description: "2023-2027 General Class question G4D09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+    group: G4D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What frequency range is occupied by a 3 kHz USB signal with the displayed carrier frequency set to 14.347 MHz?"
+  answer: "14.347 MHz to 14.350 MHz"
+  id: G4D09
+  correct: B
+  choices:
+    A: "14.347 MHz to 14.647 MHz"
+    B: "14.347 MHz to 14.350 MHz"
+    C: "14.344 MHz to 14.347 MHz"
+    D: "14.3455 MHz to 14.3485 MHz"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

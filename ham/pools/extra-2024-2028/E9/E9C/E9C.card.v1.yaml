@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e9c
+  description: "2024-2028 Amateur Extra Class group E9C: Practical wire antennas; folded dipoles; phased arrays; effects of ground near antennas"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E9C
+  title: "Practical wire antennas; folded dipoles; phased arrays; effects of ground near antennas"
+  subelement: E9
+  questions: 14
+  question_ids:
+    - E9C01
+    - E9C02
+    - E9C03
+    - E9C04
+    - E9C05
+    - E9C06
+    - E9C07
+    - E9C08
+    - E9C09
+    - E9C10
+    - E9C11
+    - E9C12
+    - E9C13
+    - E9C14

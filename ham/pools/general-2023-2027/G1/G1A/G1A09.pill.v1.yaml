@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1a09
+  description: "2023-2027 General Class question G1A09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following frequencies is within the General class portion of the 15-meter band?"
+  answer: "21300 kHz"
+  id: G1A09
+  correct: C
+  choices:
+    A: "14250 kHz"
+    B: "18155 kHz"
+    C: "21300 kHz"
+    D: "24900 kHz"
+  rule_ref: "97.301(d)"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

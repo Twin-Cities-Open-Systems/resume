@@ -1,0 +1,42 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e6
+  description: "2024-2028 Amateur Extra Class subelement E6: CIRCUIT COMPONENTS"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E6
+  title: "CIRCUIT COMPONENTS"
+  exam_questions: 6
+  groups_stated: 6
+  questions_stated: 68
+  questions: 68
+  withdrawn: [E6D07]
+  count_note: null
+  groups:
+    - id: E6A
+      title: "Semiconductor materials and devices: semiconductor materials; bipolar junction transistors; operation and types of field-effect transistors"
+      questions: 12
+    - id: E6B
+      title: "Diodes"
+      questions: 11
+    - id: E6C
+      title: "Digital ICs: families of digital ICs; gates; programmable logic devices"
+      questions: 11
+    - id: E6D
+      title: "Inductors and piezoelectricity: permeability, core material and configuration; transformers; piezoelectric devices"
+      questions: 11
+    - id: E6E
+      title: "Semiconductor materials and packages for RF use"
+      questions: 12
+    - id: E6F
+      title: "Electro-optical technology: photoconductivity; photovoltaic devices; optical sensors and encoders; optically isolated switching"
+      questions: 11

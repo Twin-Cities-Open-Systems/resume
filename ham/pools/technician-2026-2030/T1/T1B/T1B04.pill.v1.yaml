@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1b04
+  description: "2026-2030 Technician Class question T1B04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which amateur band includes 146.52 MHz?"
+  answer: "2 meters"
+  id: T1B04
+  correct: D
+  choices:
+    A: "6 meters"
+    B: "20 meters"
+    C: "70 centimeters"
+    D: "2 meters"
+  rule_ref: "97.301(a)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

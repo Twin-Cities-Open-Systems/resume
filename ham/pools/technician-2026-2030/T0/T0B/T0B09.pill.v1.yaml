@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0b09
+  description: "2026-2030 Technician Class question T0B09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Why should you avoid attaching an antenna to a utility pole?"
+  answer: "The antenna could contact high-voltage power lines"
+  id: T0B09
+  correct: C
+  choices:
+    A: "The antenna will not work properly because of induced voltages"
+    B: "The antenna may unbalance the power transformer, causing power fluctuations"
+    C: "The antenna could contact high-voltage power lines"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

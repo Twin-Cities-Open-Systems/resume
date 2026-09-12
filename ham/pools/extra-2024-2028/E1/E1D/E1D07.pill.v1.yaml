@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1d07
+  description: "2024-2028 Amateur Extra Class question E1D07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following HF amateur bands include allocations for space stations?"
+  answer: "40 meters, 20 meters, 15 meters, and 10 meters"
+  id: E1D07
+  correct: A
+  choices:
+    A: "40 meters, 20 meters, 15 meters, and 10 meters"
+    B: "30 meters, 17 meters, and 10 meters"
+    C: "Only 10 meters"
+    D: "Satellite operation is permitted on all HF bands"
+  rule_ref: "97.207"
+  figure: null
+  errata:
+    - errata: "2024-2028 Extra Class Pool Errata"
+      issued: "January 31, 2024"
+      change: "E1D07 – in the question change “group of” to “of the following” to read:"
+      reads: "Which of the following HF amateur bands include allocations for space stations?"
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

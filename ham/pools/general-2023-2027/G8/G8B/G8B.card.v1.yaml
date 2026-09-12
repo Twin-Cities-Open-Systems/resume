@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g8b
+  description: "2023-2027 General Class group G8B: Frequency changing; bandwidths of various modes; deviation; intermodulation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G8
+    group: G8B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G8B
+  title: "Frequency changing; bandwidths of various modes; deviation; intermodulation"
+  subelement: G8
+  questions: 13
+  question_ids:
+    - G8B01
+    - G8B02
+    - G8B03
+    - G8B04
+    - G8B05
+    - G8B06
+    - G8B07
+    - G8B08
+    - G8B09
+    - G8B10
+    - G8B11
+    - G8B12
+    - G8B13

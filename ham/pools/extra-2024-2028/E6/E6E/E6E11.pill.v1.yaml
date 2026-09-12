@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e6e11
+  description: "2024-2028 Amateur Extra Class question E6E11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+    group: E6E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is a characteristic of DIP packaging used for integrated circuits?"
+  answer: "Two rows of connecting pins on opposite sides of package (dual in-line package)"
+  id: E6E11
+  correct: D
+  choices:
+    A: "Extremely low stray capacitance (dielectrically isolated package)"
+    B: "Extremely high resistance between pins (doubly insulated package)"
+    C: "Two chips in each package (dual in package)"
+    D: "Two rows of connecting pins on opposite sides of package (dual in-line package)"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

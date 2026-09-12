@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0b04
+  description: "2026-2030 Technician Class question T0B04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following is an important safety precaution to observe when putting up an antenna tower?"
+  answer: "Look for and stay clear of any overhead electrical wires"
+  id: T0B04
+  correct: C
+  choices:
+    A: "Wear a ground strap connected to your wrist at all times"
+    B: "Insulate the base of the tower to avoid lightning strikes"
+    C: "Look for and stay clear of any overhead electrical wires"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

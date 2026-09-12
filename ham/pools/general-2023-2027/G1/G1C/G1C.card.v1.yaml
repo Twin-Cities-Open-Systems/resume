@@ -1,0 +1,45 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g1c
+  description: "2023-2027 General Class group G1C: Transmitter power regulations; data emission standards; 60-meter operation requirements"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G1C
+  title: "Transmitter power regulations; data emission standards; 60-meter operation requirements"
+  subelement: G1
+  questions: 8
+  question_ids:
+    - G1C01
+    - G1C02
+    - G1C03
+    - G1C04
+    - G1C05
+    - G1C06
+    - G1C07
+    - G1C11
+  withdrawn:
+    - id: G1C08
+      errata:
+        - errata: "2023-2027 General Class Question Pool 3rd Errata"
+          issued: "December 1, 2023"
+          change: "G1C08 – question deleted"
+    - id: G1C09
+      errata:
+        - errata: "2023-2027 General Class Question Pool 6th Errata"
+          issued: "February 4, 2026"
+          change: "G1C09– question deleted"
+    - id: G1C10
+      errata:
+        - errata: "2023-2027 General Class Question Pool 3rd Errata"
+          issued: "December 1, 2023"
+          change: "G1C10 – question deleted"

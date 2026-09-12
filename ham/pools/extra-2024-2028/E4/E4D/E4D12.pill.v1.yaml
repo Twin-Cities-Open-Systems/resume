@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e4d12
+  description: "2024-2028 Amateur Extra Class question E4D12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E4
+    group: E4D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the link margin in a system with a transmit power level of 10 W (+40 dBm), a system antenna gain of 10 dBi, a cable loss of 3 dB, a path loss of 136 dB, a receiver minimum discernable signal of -103 dBm, and a required signal-to-noise ratio of 6 dB?"
+  answer: "+8dB"
+  id: E4D12
+  correct: C
+  choices:
+    A: "-8dB"
+    B: "-14dB"
+    C: "+8dB"
+    D: "+14dB"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2024-2028 Extra Class Pool Errata"
+      issued: "January 31, 2024"
+      change: "E4D12 – in the question change “100 W” to “10 W” to read:"
+      reads: "What is the link margin in a system with a transmit power level of 10 W (+40 dBm), a system antenna gain of 10 dBi, a cable loss of 3 dB, a path loss of 136 dB, a receiver minimum discernable signal of -103 dBm, and a required signal-to-noise ratio of 6 dB?"
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

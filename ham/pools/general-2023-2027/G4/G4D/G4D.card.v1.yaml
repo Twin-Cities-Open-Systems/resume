@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g4d
+  description: "2023-2027 General Class group G4D: Speech processors; S meters; sideband operation near band edges"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+    group: G4D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G4D
+  title: "Speech processors; S meters; sideband operation near band edges"
+  subelement: G4
+  questions: 11
+  question_ids:
+    - G4D01
+    - G4D02
+    - G4D03
+    - G4D04
+    - G4D05
+    - G4D06
+    - G4D07
+    - G4D08
+    - G4D09
+    - G4D10
+    - G4D11

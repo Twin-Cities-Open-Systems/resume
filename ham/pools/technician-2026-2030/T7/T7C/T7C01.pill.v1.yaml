@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7c01
+  description: "2026-2030 Technician Class question T7C01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the primary purpose of a dummy load?"
+  answer: "To prevent transmitting signals over the air when making tests"
+  id: T7C01
+  correct: A
+  choices:
+    A: "To prevent transmitting signals over the air when making tests"
+    B: "To prevent over-modulation of a transmitter"
+    C: "To improve the efficiency of an antenna"
+    D: "To improve the signal-to-noise ratio of a receiver"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1f10
+  description: "2026-2030 Technician Class question T1F10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Who is accountable if a repeater inadvertently retransmits communications that violate the FCC rules?"
+  answer: "The control operator of the originating station"
+  id: T1F10
+  correct: A
+  choices:
+    A: "The control operator of the originating station"
+    B: "The control operator of the repeater"
+    C: "The owner of the repeater"
+    D: "Both the originating station and the repeater owner"
+  rule_ref: "97.205(g)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

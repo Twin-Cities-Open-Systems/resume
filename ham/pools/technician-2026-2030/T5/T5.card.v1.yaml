@@ -1,0 +1,36 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-technician-t5
+  description: "2026-2030 Technician Class subelement T5: ELECTRICAL PRINCIPLES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T5
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: T5
+  title: "ELECTRICAL PRINCIPLES"
+  exam_questions: 4
+  groups_stated: 4
+  questions_stated: 50
+  questions: 50
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: T5A
+      title: "Current and voltage: terminology and units, conductors and insulators, alternating and direct current"
+      questions: 11
+    - id: T5B
+      title: "Math for electronics: conversion of electrical units, decibels"
+      questions: 13
+    - id: T5C
+      title: "Capacitance and inductance terminology and units; Radio frequency definition and units; Impedance definition and units; Calculating power"
+      questions: 12
+    - id: T5D
+      title: "Ohm’s Law; Series and parallel circuits"
+      questions: 14

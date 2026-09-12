@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7a11
+  description: "2026-2030 Technician Class question T7A11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the function of the Variable Frequency Oscillator (VFO) circuit in a transceiver?"
+  answer: "Set the receive and transmit frequency"
+  id: T7A11
+  correct: A
+  choices:
+    A: "Set the receive and transmit frequency"
+    B: "Provide automatic frequency control"
+    C: "Inject a variable frequency to allow CW reception"
+    D: "Generate and demodulate single sideband signals"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

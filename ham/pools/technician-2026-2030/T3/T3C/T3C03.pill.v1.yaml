@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t3c03
+  description: "2026-2030 Technician Class question T3C03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T3
+    group: T3C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is one characteristic of VHF signals received via auroral backscatter?"
+  answer: "They are distorted, with a characteristic raspy sound"
+  id: T3C03
+  correct: B
+  choices:
+    A: "They are often received from 10,000 miles or more"
+    B: "They are distorted, with a characteristic raspy sound"
+    C: "They occur only during winter nighttime hours"
+    D: "They are generally strongest when your antenna is aimed west"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

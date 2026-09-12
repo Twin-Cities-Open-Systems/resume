@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1c04
+  description: "2026-2030 Technician Class question T1C04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What may happen if the FCC is unable to reach you by email?"
+  answer: "Revocation of the station license or suspension of the operator license"
+  id: T1C04
+  correct: B
+  choices:
+    A: "Fine and suspension of operator license"
+    B: "Revocation of the station license or suspension of the operator license"
+    C: "Revocation of access to the license record in the FCC system"
+    D: "Nothing; there is no such requirement"
+  rule_ref: "97.23"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

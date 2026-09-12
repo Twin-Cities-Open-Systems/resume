@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t1a07
+  description: "2026-2030 Technician Class question T1A07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T1
+    group: T1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the FCC Part 97 definition of a space station?"
+  answer: "An amateur station located more than 50 km above Earth's surface"
+  id: T1A07
+  correct: C
+  choices:
+    A: "Any satellite orbiting Earth"
+    B: "A manned satellite orbiting Earth"
+    C: "An amateur station located more than 50 km above Earth's surface"
+    D: "An amateur station using amateur radio satellites for relay of signals"
+  rule_ref: "97.3(a)(41)"
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

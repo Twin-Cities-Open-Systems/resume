@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g2d01
+  description: "2023-2027 General Class question G2D01, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the Volunteer Monitor Program?"
+  answer: "Amateur volunteers who are formally enlisted to monitor the airwaves for rules violations"
+  id: G2D01
+  correct: A
+  choices:
+    A: "Amateur volunteers who are formally enlisted to monitor the airwaves for rules violations"
+    B: "Amateur volunteers who conduct amateur licensing examinations"
+    C: "Amateur volunteers who conduct frequency coordination for amateur VHF repeaters"
+    D: "Amateur volunteers who use their station equipment to help civil defense organizations in times of emergency"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

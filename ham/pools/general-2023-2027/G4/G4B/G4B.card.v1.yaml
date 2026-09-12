@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g4b
+  description: "2023-2027 General Class group G4B: Tests and test equipment"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G4
+    group: G4B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G4B
+  title: "Tests and test equipment"
+  subelement: G4
+  questions: 13
+  question_ids:
+    - G4B01
+    - G4B02
+    - G4B03
+    - G4B04
+    - G4B05
+    - G4B06
+    - G4B07
+    - G4B08
+    - G4B09
+    - G4B10
+    - G4B11
+    - G4B12
+    - G4B13

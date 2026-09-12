@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e6b10
+  description: "2024-2028 Amateur Extra Class question E6B10, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+    group: E6B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "In Figure E6-2, which is the schematic symbol for a Schottky diode?"
+  answer: "6"
+  id: E6B10
+  correct: B
+  choices:
+    A: "1"
+    B: "6"
+    C: "2"
+    D: "3"
+  rule_ref: null
+  figure: "ham/pools/extra-2024-2028/figures/E6-2.svg"
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

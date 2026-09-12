@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g9b05
+  description: "2023-2027 General Class question G9B05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How does antenna height affect the azimuthal radiation pattern of a horizontal dipole HF antenna at elevation angles higher than about 45 degrees?"
+  answer: "If the antenna is less than 1/2 wavelength high, the azimuthal pattern is almost omnidirectional"
+  id: G9B05
+  correct: C
+  choices:
+    A: "If the antenna is too high, the pattern becomes unpredictable"
+    B: "Antenna height has no effect on the pattern"
+    C: "If the antenna is less than 1/2 wavelength high, the azimuthal pattern is almost omnidirectional"
+    D: "If the antenna is less than 1/2 wavelength high, radiation off the ends of the wire is eliminated"
+  rule_ref: null
+  figure: null
+  errata:
+    - errata: "2023-2027 General Class Question Pool Errata"
+      issued: "February 1, 2023"
+      change: "G9B05 – in the question add “at elevation angles higher than about 45 degrees“ to the end of the question to read:"
+      reads: "How does antenna height affect the azimuthal radiation pattern of a horizontal dipole HF antenna at elevation angles higher than about 45 degrees?"
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

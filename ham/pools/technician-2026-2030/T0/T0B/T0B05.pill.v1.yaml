@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t0b05
+  description: "2026-2030 Technician Class question T0B05, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T0
+    group: T0B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the purpose of a safety wire through a turnbuckle used to tension guy lines?"
+  answer: "Prevent loosening of the turnbuckle from vibration"
+  id: T0B05
+  correct: B
+  choices:
+    A: "Secure the guy line if the turnbuckle breaks"
+    B: "Prevent loosening of the turnbuckle from vibration"
+    C: "Provide a ground path for lightning strikes"
+    D: "Provide an ability to measure for proper tensioning"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

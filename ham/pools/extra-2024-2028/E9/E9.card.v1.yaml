@@ -1,0 +1,48 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e9
+  description: "2024-2028 Amateur Extra Class subelement E9: ANTENNAS AND TRANSMISSION LINES"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E9
+  title: "ANTENNAS AND TRANSMISSION LINES"
+  exam_questions: 8
+  groups_stated: 8
+  questions_stated: 94
+  questions: 93
+  withdrawn: [E9E10]
+  count_note: "the syllabus count includes 1 withdrawn question(s)"
+  groups:
+    - id: E9A
+      title: "Basic antenna parameters: radiation resistance, gain, beamwidth, efficiency; effective radiated power (ERP) and effective isotropic radiated power (EIRP)"
+      questions: 12
+    - id: E9B
+      title: "Antenna patterns and designs: azimuth and elevation patterns; gain as a function of pattern; antenna modeling"
+      questions: 11
+    - id: E9C
+      title: "Practical wire antennas; folded dipoles; phased arrays; effects of ground near antennas"
+      questions: 14
+    - id: E9D
+      title: "Yagi antennas; parabolic reflectors; feed point impedance and loading of electrically short antennas; antenna Q; RF grounding"
+      questions: 12
+    - id: E9E
+      title: "Impedance matching: matching antennas to feed lines; phasing lines; power dividers"
+      questions: 10
+    - id: E9F
+      title: "Transmission lines: characteristics of open and shorted feed lines; coax versus open wire; velocity factor; electrical length; coaxial cable dielectrics; microstrip"
+      questions: 12
+    - id: E9G
+      title: "The Smith chart"
+      questions: 11
+    - id: E9H
+      title: "Receiving antennas: radio direction finding (RDF) techniques; Beverage antennas; single- and multiple-turn loops"
+      questions: 11

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e9h02
+  description: "2024-2028 Amateur Extra Class question E9H02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E9
+    group: E9H
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which is generally true for 160- and 80-meter receiving antennas?"
+  answer: "Atmospheric noise is so high that directivity is much more important than losses"
+  id: E9H02
+  correct: A
+  choices:
+    A: "Atmospheric noise is so high that directivity is much more important than losses"
+    B: "They must be erected at least 1/2 wavelength above the ground to attain good directivity"
+    C: "Low loss coax transmission line is essential for good performance"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

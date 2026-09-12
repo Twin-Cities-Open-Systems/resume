@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g9c07
+  description: "2023-2027 General Class question G9C07, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G9
+    group: G9C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What does “front-to-back ratio” mean in reference to a Yagi antenna?"
+  answer: "The power radiated in the major lobe compared to that in the opposite direction"
+  id: G9C07
+  correct: C
+  choices:
+    A: "The number of directors versus the number of reflectors"
+    B: "The relative position of the driven element with respect to the reflectors and directors"
+    C: "The power radiated in the major lobe compared to that in the opposite direction"
+    D: "The ratio of forward gain to dipole gain"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

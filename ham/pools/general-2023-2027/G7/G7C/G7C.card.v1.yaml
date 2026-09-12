@@ -1,0 +1,35 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g7c
+  description: "2023-2027 General Class group G7C: Transceiver design; filters; oscillators; digital signal processing (DSP)"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G7
+    group: G7C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G7C
+  title: "Transceiver design; filters; oscillators; digital signal processing (DSP)"
+  subelement: G7
+  questions: 14
+  question_ids:
+    - G7C01
+    - G7C02
+    - G7C03
+    - G7C04
+    - G7C05
+    - G7C06
+    - G7C07
+    - G7C08
+    - G7C09
+    - G7C10
+    - G7C11
+    - G7C12
+    - G7C13
+    - G7C14

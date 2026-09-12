@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g5a
+  description: "2023-2027 General Class group G5A: Reactance; inductance; capacitance; impedance; impedance transformation; resonance"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G5
+    group: G5A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G5A
+  title: "Reactance; inductance; capacitance; impedance; impedance transformation; resonance"
+  subelement: G5
+  questions: 12
+  question_ids:
+    - G5A01
+    - G5A02
+    - G5A03
+    - G5A04
+    - G5A05
+    - G5A06
+    - G5A07
+    - G5A08
+    - G5A09
+    - G5A10
+    - G5A11
+    - G5A12

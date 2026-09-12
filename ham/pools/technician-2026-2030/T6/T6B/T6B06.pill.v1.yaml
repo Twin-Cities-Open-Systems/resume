@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t6b06
+  description: "2026-2030 Technician Class question T6B06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+    group: T6B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How is the cathode lead of a semiconductor diode often marked on the package?"
+  answer: "With a stripe"
+  id: T6B06
+  correct: B
+  choices:
+    A: "With the word \"cathode\""
+    B: "With a stripe"
+    C: "With the letter C"
+    D: "With the letter K"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

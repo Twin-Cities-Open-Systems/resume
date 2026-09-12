@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7b02
+  description: "2026-2030 Technician Class question T7B02, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What would cause a broadcast AM or FM radio to receive an amateur radio transmission unintentionally?"
+  answer: "The receiver is unable to reject strong signals outside the AM or FM band"
+  id: T7B02
+  correct: A
+  choices:
+    A: "The receiver is unable to reject strong signals outside the AM or FM band"
+    B: "The microphone gain of the transmitter is turned up too high"
+    C: "The audio amplifier of the transmitter is overloaded"
+    D: "The deviation of an FM transmitter is set too low"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

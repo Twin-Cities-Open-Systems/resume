@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t6b12
+  description: "2026-2030 Technician Class question T6B12, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T6
+    group: T6B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What are the names of the electrodes of a bipolar junction transistor?"
+  answer: "Emitter, base, collector"
+  id: T6B12
+  correct: B
+  choices:
+    A: "Signal, bias, power"
+    B: "Emitter, base, collector"
+    C: "Input, output, supply"
+    D: "Pole one, pole two, output"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

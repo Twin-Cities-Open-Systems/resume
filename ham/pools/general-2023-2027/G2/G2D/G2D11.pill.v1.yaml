@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g2d11
+  description: "2023-2027 General Class question G2D11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G2
+    group: G2D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Why are signal reports typically exchanged at the beginning of an HF contact?"
+  answer: "To allow each station to operate according to conditions"
+  id: G2D11
+  correct: A
+  choices:
+    A: "To allow each station to operate according to conditions"
+    B: "To be sure the contact will count for award programs"
+    C: "To follow standard radiogram structure"
+    D: "To allow each station to calibrate their frequency display"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

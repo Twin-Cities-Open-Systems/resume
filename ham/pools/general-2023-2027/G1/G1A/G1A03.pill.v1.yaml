@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1a03
+  description: "2023-2027 General Class question G1A03, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "On which of the following bands is image transmission prohibited?"
+  answer: "30 meters"
+  id: G1A03
+  correct: B
+  choices:
+    A: "160 meters"
+    B: "30 meters"
+    C: "20 meters"
+    D: "12 meters"
+  rule_ref: "97.305"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

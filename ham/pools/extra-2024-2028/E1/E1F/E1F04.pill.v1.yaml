@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e1f04
+  description: "2024-2028 Amateur Extra Class question E1F04, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E1
+    group: E1F
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following geographic descriptions approximately describes \"Line A\"?"
+  answer: "A line roughly parallel to and south of the border between the US and Canada"
+  id: E1F04
+  correct: A
+  choices:
+    A: "A line roughly parallel to and south of the border between the US and Canada"
+    B: "A line roughly parallel to and west of the US Atlantic coastline"
+    C: "A line roughly parallel to and north of the border between the US and Mexico"
+    D: "A line roughly parallel to and east of the US Pacific coastline"
+  rule_ref: "97.3"
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

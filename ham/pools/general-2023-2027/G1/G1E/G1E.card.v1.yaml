@@ -1,0 +1,38 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g1e
+  description: "2023-2027 General Class group G1E: Control categories; repeater regulations; third-party rules; ITU regions; automatically controlled digital station"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1E
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G1E
+  title: "Control categories; repeater regulations; third-party rules; ITU regions; automatically controlled digital station"
+  subelement: G1
+  questions: 11
+  question_ids:
+    - G1E01
+    - G1E02
+    - G1E03
+    - G1E04
+    - G1E05
+    - G1E06
+    - G1E07
+    - G1E08
+    - G1E10
+    - G1E11
+    - G1E12
+  withdrawn:
+    - id: G1E09
+      errata:
+        - errata: "2023-2027 General Class Question Pool 4th Errata"
+          issued: "March 6, 2024"
+          change: "G1E09 – question deleted"

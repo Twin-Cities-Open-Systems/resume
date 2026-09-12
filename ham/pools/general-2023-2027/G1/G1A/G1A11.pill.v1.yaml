@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1a11
+  description: "2023-2027 General Class question G1A11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "When General class licensees are not permitted to use the entire voice portion of a band, which portion of the voice segment is available to them?"
+  answer: "The upper frequency portion"
+  id: G1A11
+  correct: B
+  choices:
+    A: "The lower frequency portion"
+    B: "The upper frequency portion"
+    C: "The lower frequency portion on frequencies below 7.3 MHz, and the upper portion on frequencies above 14.150 MHz"
+    D: "The upper frequency portion on frequencies below 7.3 MHz, and the lower portion on frequencies above 14.150 MHz"
+  rule_ref: "97.301"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

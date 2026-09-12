@@ -1,0 +1,34 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e5a
+  description: "2024-2028 Amateur Extra Class group E5A: Resonance and Q: characteristics of resonant circuits; series and parallel resonance; definitions and effects of Q; half-power bandwidth"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E5
+    group: E5A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E5A
+  title: "Resonance and Q: characteristics of resonant circuits; series and parallel resonance; definitions and effects of Q; half-power bandwidth"
+  subelement: E5
+  questions: 13
+  question_ids:
+    - E5A01
+    - E5A02
+    - E5A03
+    - E5A04
+    - E5A05
+    - E5A06
+    - E5A07
+    - E5A08
+    - E5A09
+    - E5A10
+    - E5A11
+    - E5A12
+    - E5A13

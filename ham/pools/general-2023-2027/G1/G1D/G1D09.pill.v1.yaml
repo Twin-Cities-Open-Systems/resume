@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g1d09
+  description: "2023-2027 General Class question G1D09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "How long is a Certificate of Successful Completion of Examination (CSCE) valid for exam element credit?"
+  answer: "365 days"
+  id: G1D09
+  correct: C
+  choices:
+    A: "30 days"
+    B: "180 days"
+    C: "365 days"
+    D: "For as long as your current license is valid"
+  rule_ref: "97.9(b)"
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

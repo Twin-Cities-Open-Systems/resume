@@ -1,0 +1,156 @@
+apiVersion: hee/v1
+kind: Registry
+metadata:
+  name: ham-pools-sources
+  description: "Every NCVEC file the ham question pool tree is built from: where it came from, its size and sha256, and the public-domain release that covers it."
+  labels:
+    hee.object: "true"
+    domain: ham
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  cache: "${XDG_CACHE_HOME:-$HOME/.cache}/ham-pools/files"
+  pools:
+    - pool: technician-2026-2030
+      page: "https://ncvec.org/index.php/2026-2030-technician-question-pool"
+      public_domain_statement: "The NCVEC Question Pool Committee (QPC) hereby releases the 2026-2030 Technician Class (Element 2) Question Pool into the public domain."
+    - pool: general-2023-2027
+      page: "https://ncvec.org/index.php/2023-2027-general-question-pool-release"
+      public_domain_statement: "The NCVEC Question Pool Committee hereby releases into public domain the 2023-2027 General, Element 3, Question pool."
+    - pool: extra-2024-2028
+      page: "https://ncvec.org/index.php/2024-2028-extra-class-question-pool-release"
+      public_domain_statement: "The NCVEC Question Pool Committee hereby releases into public domain the 2024-2028 Element 4 Extra Class Question Pool."
+  files:
+    - id: technician-pool-docx
+      pool: technician-2026-2030
+      role: "pool"
+      url: "https://ncvec.org/downloads/2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+      file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+      bytes: 489983
+      sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"
+      fetched_at: "2026-09-12T06:35:02Z"
+    - id: technician-pool-pdf
+      pool: technician-2026-2030
+      role: "pool cross-check"
+      url: "https://ncvec.org/downloads/2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.pdf"
+      file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.pdf"
+      bytes: 480239
+      sha256: "3618649d64df77f2cf217fa79ef82094fe5d2d41b26d20ce08c46ca1c3d5055a"
+      fetched_at: "2026-09-12T06:35:03Z"
+    - id: technician-diagrams-pdf
+      pool: technician-2026-2030
+      role: "figures, all three (not committed; the JPGs are)"
+      url: "https://ncvec.org/downloads/TECH_2026/2026-2030%20Technician%20Pool%203%20Diagrams.pdf"
+      file: "2026-2030 Technician Pool 3 Diagrams.pdf"
+      bytes: 278003
+      sha256: "0b2f636a399100ab42a929328e187cef925d6d50666599ad58aff318cd81147c"
+      fetched_at: "2026-09-12T06:35:04Z"
+    - id: technician-diagram-t1-jpg
+      pool: technician-2026-2030
+      role: "figure T-1"
+      url: "https://ncvec.org/downloads/TECH_2026/Technician%20Diagram%20T1.jpg"
+      file: "Technician Diagram T1.jpg"
+      bytes: 115824
+      sha256: "7e5f000404feeae942c625a773f0a02c3ee3b5bafda2218d6b8b0d3653288462"
+      fetched_at: "2026-09-12T06:35:04Z"
+    - id: technician-diagram-t2-jpg
+      pool: technician-2026-2030
+      role: "figure T-2"
+      url: "https://ncvec.org/downloads/TECH_2026/Technician%20Diagram%20T2.jpg"
+      file: "Technician Diagram T2.jpg"
+      bytes: 140293
+      sha256: "36313bc65ea22bd483e9b0ff2cd8e7dbce3784e2b009046879d8e5959cc9ebf7"
+      fetched_at: "2026-09-12T06:35:04Z"
+    - id: technician-diagram-t3-jpg
+      pool: technician-2026-2030
+      role: "figure T-3"
+      url: "https://ncvec.org/downloads/TECH_2026/Technician%20Diagram%20T3.jpg"
+      file: "Technician Diagram T3.jpg"
+      bytes: 108532
+      sha256: "6db1d838f067ecd00a1ee8ad1e396c9e4d4415cfbc75764169a7bc868e44dc52"
+      fetched_at: "2026-09-12T06:35:04Z"
+    - id: general-pool-docx
+      pool: general-2023-2027
+      role: "pool"
+      url: "https://ncvec.org/downloads/General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+      file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+      bytes: 277568
+      sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"
+      fetched_at: "2026-09-12T06:35:05Z"
+    - id: general-pool-pdf
+      pool: general-2023-2027
+      role: "pool cross-check"
+      url: "https://ncvec.org/downloads/General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.pdf"
+      file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.pdf"
+      bytes: 487877
+      sha256: "0627221fe69014b3015e97b44d3552a119ef7370144da8de9d02719c91cfa433"
+      fetched_at: "2026-09-12T06:35:05Z"
+    - id: general-figure-g7-1-pdf
+      pool: general-2023-2027
+      role: "figure G7-1"
+      url: "http://www.ncvec.org/downloads/G7-1.pdf"
+      file: "G7-1.pdf"
+      bytes: 11312
+      sha256: "13b8ed81fc963ec1c24a414c78a288d658e52ff5d89e58c775aff85f17e57c3f"
+      fetched_at: "2026-09-12T06:35:05Z"
+    - id: extra-pool-docx
+      pool: extra-2024-2028
+      role: "pool"
+      url: "https://ncvec.org/downloads/2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+      file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+      bytes: 674155
+      sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"
+      fetched_at: "2026-09-12T06:35:06Z"
+    - id: extra-pool-pdf
+      pool: extra-2024-2028
+      role: "pool cross-check"
+      url: "https://ncvec.org/downloads/2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.pdf"
+      file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.pdf"
+      bytes: 952745
+      sha256: "9cc63ae0c1c9ee63a617824555d5b4e73da8c8edb91566f97a66770eb200f517"
+      fetched_at: "2026-09-12T06:35:07Z"
+    - id: extra-figures-pdf
+      pool: extra-2024-2028
+      role: "figures, all ten (not committed; the SVGs are)"
+      url: "http://www.ncvec.org/downloads/Extra_Figures_2024-2028-1.pdf"
+      file: "Extra_Figures_2024-2028-1.pdf"
+      bytes: 78505
+      sha256: "591bb4c9fc9a9267e298b3ee23c93ab54ba3813f8ea3730123f9ccda1e4b80f2"
+      fetched_at: "2026-09-12T06:35:07Z"
+    - id: extra-diagrams-page-1-jpg
+      pool: extra-2024-2028
+      role: "figures page 1 (not committed)"
+      url: "http://www.ncvec.org/downloads/2024-2028 Amateur Extra Class Pool Diagrams_Page_1.jpg"
+      file: "2024-2028 Amateur Extra Class Pool Diagrams_Page_1.jpg"
+      bytes: 142593
+      sha256: "fff1411a04c35aa58262e64d8188f75778fbd00cabe7997f9d8eae298df9a2cb"
+      fetched_at: "2026-09-12T06:35:08Z"
+    - id: extra-diagrams-page-2-jpg
+      pool: extra-2024-2028
+      role: "figures page 2 (not committed)"
+      url: "http://www.ncvec.org/downloads/2024-2028 Amateur Extra Class Pool Diagrams_Page_2.jpg"
+      file: "2024-2028 Amateur Extra Class Pool Diagrams_Page_2.jpg"
+      bytes: 168703
+      sha256: "6b085fb7461331899b33c24a0e9eb690bc0d555e00775086538cd5b8742931a9"
+      fetched_at: "2026-09-12T06:35:08Z"
+    - id: extra-diagrams-page-3-jpg
+      pool: extra-2024-2028
+      role: "figures page 3 (not committed)"
+      url: "http://www.ncvec.org/downloads/2024-2028 Amateur Extra Class Pool Diagrams_Page_3_V2.jpg"
+      file: "2024-2028 Amateur Extra Class Pool Diagrams_Page_3_V2.jpg"
+      bytes: 120970
+      sha256: "b67ea1b4109f04b7a9142254e7ec0d944e4a36736f0ed8dce54f9b10abb53ba9"
+      fetched_at: "2026-09-12T06:35:08Z"
+    - id: extra-figures-svg-zip
+      pool: extra-2024-2028
+      role: "figures, all ten as SVG"
+      url: "http://www.ncvec.org/downloads/e4_2024-svgs.zip"
+      file: "e4_2024-svgs.zip"
+      bytes: 30740
+      sha256: "baf46fe88b6914f971f446bfdc1550622d0dcf89d1bfb938ef0dfdcaa85aa558"
+      fetched_at: "2026-09-12T06:35:08Z"
+  unavailable:
+    - pool: general-2023-2027
+      url: "http://www.ncvec.org/downloads/G7-1 diagram 2023 Figure G7-1.jpg"
+      status: "HTTP 404 on 2026-09-12, linked from the General release page as General Question Pool Graphics.jpg; the figure is used from G7-1.pdf instead"

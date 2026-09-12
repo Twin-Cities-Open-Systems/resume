@@ -1,0 +1,32 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e6c
+  description: "2024-2028 Amateur Extra Class group E6C: Digital ICs: families of digital ICs; gates; programmable logic devices"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E6
+    group: E6C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: E6C
+  title: "Digital ICs: families of digital ICs; gates; programmable logic devices"
+  subelement: E6
+  questions: 11
+  question_ids:
+    - E6C01
+    - E6C02
+    - E6C03
+    - E6C04
+    - E6C05
+    - E6C06
+    - E6C07
+    - E6C08
+    - E6C09
+    - E6C10
+    - E6C11

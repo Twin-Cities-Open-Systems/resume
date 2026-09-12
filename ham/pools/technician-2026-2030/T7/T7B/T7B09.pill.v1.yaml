@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t7b09
+  description: "2026-2030 Technician Class question T7B09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T7
+    group: T7B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What should be the first step to resolve non-fiber optic cable TV interference caused by your amateur radio transmission?"
+  answer: "Be sure all TV feed line coaxial connectors are installed properly"
+  id: T7B09
+  correct: D
+  choices:
+    A: "Add a low-pass filter to the TV antenna input"
+    B: "Add a high-pass filter to the TV antenna input"
+    C: "Add a preamplifier to the TV antenna input"
+    D: "Be sure all TV feed line coaxial connectors are installed properly"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-general-g5b06
+  description: "2023-2027 General Class question G5B06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G5
+    group: G5B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What is the PEP produced by 200 volts peak-to-peak across a 50-ohm dummy load?"
+  answer: "100 watts"
+  id: G5B06
+  correct: B
+  choices:
+    A: "1.4 watts"
+    B: "100 watts"
+    C: "353.5 watts"
+    D: "400 watts"
+  rule_ref: null
+  figure: null
+  source:
+    file: "General Class Pool and Syllabus 2023-2027 Public Release with 6th Errata Feb 4 2026.docx"
+    sha256: "a07b15d6b9b7aef9e51dae3dd7d37b23de1d7bb410733b7ac6323eaac2f4b396"

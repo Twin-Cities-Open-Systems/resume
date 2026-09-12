@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e0a06
+  description: "2024-2028 Amateur Extra Class question E0A06, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E0
+    group: E0A
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Why are there separate electric (E) and magnetic (H) MPE limits at frequencies below 300 MHz?"
+  answer: "All these choices are correct"
+  id: E0A06
+  correct: D
+  choices:
+    A: "The body reacts to electromagnetic radiation from both the E and H fields"
+    B: "Ground reflections and scattering cause the field strength to vary with location"
+    C: "E field and H field radiation intensity peaks can occur at different locations"
+    D: "All these choices are correct"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-extra-e2c09
+  description: "2024-2028 Amateur Extra Class question E2C09, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E2
+    group: E2C
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "What type of equipment is commonly used to implement an amateur radio mesh network?"
+  answer: "A wireless router running custom firmware"
+  id: E2C09
+  correct: C
+  choices:
+    A: "A 2-meter VHF transceiver with a 1,200-baud modem"
+    B: "A computer running EchoLink to provide interface from the radio to the internet"
+    C: "A wireless router running custom firmware"
+    D: "A 440 MHz transceiver with a 9,600-baud modem"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2024-2028 Extra Class Question Pool and Syllabus Public Release with 4th Errata Feb 4 2026.docx"
+    sha256: "581ff3aa4c98bb2a6fcc303fe1ce19beb29bc7d3d02ff7fe5c6162c4c26ce4f7"

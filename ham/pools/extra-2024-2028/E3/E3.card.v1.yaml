@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-extra-e3
+  description: "2024-2028 Amateur Extra Class subelement E3: RADIO WAVE PROPAGATION"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: extra
+    pool: extra-2024-2028
+    subelement: E3
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  subelement: E3
+  title: "RADIO WAVE PROPAGATION"
+  exam_questions: 3
+  groups_stated: 3
+  questions_stated: 39
+  questions: 39
+  withdrawn: []
+  count_note: null
+  groups:
+    - id: E3A
+      title: "Electromagnetic Waves and Specialized Propagation: Earth-Moon-Earth (EME) communications; meteor scatter; microwave tropospheric and scatter propagation; auroral propagation; daily variation of ionospheric propagation; circular polarization"
+      questions: 14
+    - id: E3B
+      title: "Transequatorial propagation; long-path propagation; ordinary and extraordinary waves; chordal hop; sporadic-E mechanisms; ground-wave propagation"
+      questions: 13
+    - id: E3C
+      title: "Propagation prediction and reporting: radio horizon; effects of space-weather phenomena"
+      questions: 12

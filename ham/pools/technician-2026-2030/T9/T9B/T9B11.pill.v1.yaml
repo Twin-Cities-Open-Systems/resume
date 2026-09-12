@@ -1,0 +1,30 @@
+apiVersion: hee/v1
+kind: Pill
+metadata:
+  name: ham-technician-t9b11
+  description: "2026-2030 Technician Class question T9B11, NCVEC question pool"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: technician
+    pool: technician-2026-2030
+    subelement: T9
+    group: T9B
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  question: "Which of the following types of feed line has the lowest loss?"
+  answer: "Air-insulated hardline"
+  id: T9B11
+  correct: C
+  choices:
+    A: "50-ohm flexible coax"
+    B: "Multi-conductor unbalanced cable"
+    C: "Air-insulated hardline"
+    D: "75-ohm flexible coax"
+  rule_ref: null
+  figure: null
+  source:
+    file: "2026-2030 Technician Pool and Syllabus Public Release Feb 19 2026.docx"
+    sha256: "c3bb9ebf46730a9812ae854d12a93f07b7a38f521441e51c451e917ccb9e3a54"

@@ -1,0 +1,33 @@
+apiVersion: hee/v1
+kind: Card
+metadata:
+  name: ham-general-g1d
+  description: "2023-2027 General Class group G1D: Volunteer Examiners and Volunteer Examiner Coordinators; temporary identification; element credit; remote operation"
+  labels:
+    hee.object: "true"
+    domain: ham
+    element: general
+    pool: general-2023-2027
+    subelement: G1
+    group: G1D
+  annotations:
+    inuid: null
+    inuid_null_reason: generated from the NCVEC pool
+spec:
+  group: G1D
+  title: "Volunteer Examiners and Volunteer Examiner Coordinators; temporary identification; element credit; remote operation"
+  subelement: G1
+  questions: 12
+  question_ids:
+    - G1D01
+    - G1D02
+    - G1D03
+    - G1D04
+    - G1D05
+    - G1D06
+    - G1D07
+    - G1D08
+    - G1D09
+    - G1D10
+    - G1D11
+    - G1D12
