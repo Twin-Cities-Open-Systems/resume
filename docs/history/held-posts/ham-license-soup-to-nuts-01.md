@@ -47,13 +47,23 @@ The FCC's license file (l_amat) and pending-applications file (a_amat) are the s
 
 I am using a tool to sort assignable call signs into four groups by the license class needed to request them. Every call sign has exactly one digit. "NxM" means N letters before the digit and M letters after it:
 
-**Group A**, needs Amateur Extra: 1x2 (one of K, N or W, a digit, two letters: K0XY shape), 2x1 (A plus a letter A to L, a digit, one letter: AA0X shape), and 2x2 starting with A (A plus a letter A to L, a digit, two letters: AA0XY shape).
+**Group A**, needs Amateur Extra: 1x2 (one of K, N or W, a digit, two letters: K0XY shape), 2x1 (two letters, a digit, one letter: AA0X or KA0X shape), and 2x2 starting with AA to AK (a digit, two letters: AA0XY shape).
 
 **Group B**, needs Advanced: 2x2 starting with K, N or W (two letters, a digit, two letters: KA0XY shape).
 
 **Group C**, open to Technician and General: 1x3 (one of K, N or W, a digit, three letters: K0XYZ shape).
 
-**Group D**, open to any class: 2x3 (two letters, a digit, three letters: KA0XYZ shape).
+**Group D**, open to any class: 2x3 starting with K or W (two letters, a digit, three letters: KA0ABC shape). A 2x3 starting with N is never assigned.
+
+Some calls are never assigned, whatever the group, per the ARRL vanity page:
+
+- A two-letter prefix whose second letter is H, L or P (KH, KL, KP, WH and so on) needs an Alaska, Pacific or Caribbean mailing address.
+- AM to AZ belong to other countries.
+- A 2x3 suffix cannot start with X.
+- SOS and QRA to QUZ are never suffixes.
+- A 1x1 call (W0A shape) is for special events.
+
+I was 98% sure of NO0YAW until I learned it is a 2x3 with an N prefix, which the FCC will not assign. The tool had ranked it. It now drops every format on the list above, which comes from the ARRL vanity page.
 
 If I pass Technician and stop there, Groups C and D are open to me: A needs Amateur Extra and B needs Advanced. I will not know which group is reachable until I know my final license class. That is why the license exam is step one: it gates everything that follows.
 
