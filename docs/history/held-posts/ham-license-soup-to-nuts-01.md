@@ -23,7 +23,7 @@ I am documenting it because the whole process runs on public data and published 
 
 `TODO(verify): The three US license classes issued today are Technician, General, and Amateur Extra.`
 
-I am targeting Technician first. `TODO(verify): The Technician exam has a specific question count, passing score, and current question pool from the NCVEC.`
+I am targeting Technician first. How I am studying for it is below, in the study guide. `TODO(verify): The Technician exam has a specific question count, passing score, and current question pool from the NCVEC.`
 
 `TODO(verify): What the Technician exam covers.` That is the gate. Everything after it depends on passing.
 
@@ -68,6 +68,22 @@ I am looking for call signs that read like words or acronyms tied to TCOS, punk,
 Once the exam is taken, I will have a license class. That gates which call sign groups are available. The tool will re-run against the live data to generate the final ranked list of candidates tied to the TCOS and YAW brand. A later episode covers the ranked list and the FCC Form 605 filing.
 
 This post gets updated, not rewritten, as each step actually happens.
+
+## Study guide: Technician (Element 2)
+
+This is the whole method. T is for TANGO, and Technician is where it starts.
+
+1. Watch Ham Radio Crash Course's Technician playlist, [Ham Radio Technician License Prep 2022-2026](https://www.youtube.com/playlist?list=PL1KAjn5rGhixvvb_jMZFWmbP97-t9Kyxk).
+2. Work through the questions on HamStudy, section by section, starting with [T1A, Commission's Rules](https://hamstudy.org/browse/E2_2026/T1A).
+3. Repeat both until the answers are memorized.
+
+What to know about the material:
+
+- **The questions come from the Technician question pool, Element 2.** The 2026-2030 pool was released December 18, 2025, and is required for every exam session from July 1, 2026. It has 409 questions: 27 new, 30 removed and about 155 modified since the last pool. Source: [ARRL](https://www.arrl.org/news/view/new-technician-class-question-pool-released-effective-july-1-2026).
+- **HRCC's playlist was made for the 2022-2026 pool.** Most of it still applies. HamStudy's `E2_2026` pool is the one the exam draws from, so its questions are the source of truth.
+- **The pool has ten subelements, T1 through T0.** T1, Commission's Rules, is the biggest at 68 questions, and its first section, T1A, has 11.
+- **General (Element 3) and Amateur Extra (Element 4) are not explored yet.** Their study guides come later in the series.
+- `TODO(verify): The Technician exam's question count and passing score.`
 
 ## Still open, as of this entry
 
