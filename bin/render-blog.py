@@ -150,6 +150,26 @@ def load_renderer():
     return mod
 
 
+def header_first_link(rr, slug, media_host):
+    """The eyebrow's first link. The shared renderer names the repo there,
+    and this repo is called "resume", so every post and thesis read
+    "resume" and linked to GitHub. The operator clicked it for his resume
+    (2026-09-12: "both lab and prod are wrong again for my resume link ...
+    should be a resume-spencer page"). It now goes to the author's resume
+    page on the same host -- /resume, where the old resume-<slug>.html
+    URLs redirect -- when the build rendered one
+    (profiles/<slug>/dist/resume.html, the rule the media root uses), and
+    to the media root otherwise, never to a page that 404s."""
+    import inspect
+    if "repo_link" not in inspect.signature(rr.render_file_page).parameters:
+        print("⚠️  WARNING render-review.py has no repo_link= -- the header's first link still names the repo; "
+              "update the .github checkout", file=sys.stderr)
+        return {}
+    if (Path("profiles") / slug / "dist" / "resume.html").is_file():
+        return {"repo_link": ("/resume", "resume")}
+    return {"repo_link": ("/", media_host.replace(".tcos.us", ""))}
+
+
 TILE_PY = Path(os.environ.get("MEME_FACTORY_TILE", Path.home() / "git/fleet-ops/tools/meme-factory/tile/tile.py"))
 PALETTE_NAMES = ["ember", "violet", "lime", "sunset", "ocean", "mint", "coral", "teal"]
 
@@ -221,11 +241,12 @@ def main(argv):
         out = DIST / src.with_suffix(".html")
         out.parent.mkdir(parents=True, exist_ok=True)
         card = post_card(out, post["title"], post["date"], media_host, post["slug"], kind=post.get("kind", "post"))
+        kind = post.get("kind", "post")
         page = rr.render_file_page(
             repo, str(src),
             diff_html=published_diff_html(src, rr),
             title=post["title"],
-            status_class="browse", status_label="post",
+            status_class="browse", status_label=kind,  # a thesis says thesis, not post
             generated_iso=generated_iso,
             og_description=f"{post['title']} -- {slug}'s blog, {post['date']}.",
             # the page's home is the media host now; the blog host only redirects (deprecated, 2026-09-11)
@@ -236,6 +257,7 @@ def main(argv):
             label_url="/",  # the chip goes to the media root, where every post is listed
             og_image=(f"https://{media_host}/{'blog' if post.get('kind', 'post') == 'post' else post['kind']}/{post['slug']}/og.jpg" if card else None), og_image_alt=post["title"],
             extra_head=gtag,
+            **header_first_link(rr, slug, media_host),
         )
         out.write_text(page, encoding="utf-8")
         post["html"] = str(out.relative_to(DIST))
