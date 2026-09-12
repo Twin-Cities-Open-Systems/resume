@@ -9,6 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Nothing since the last release._
 
+## [1.3.0] - 2026-09-11
+
+### Added
+
+- 2026-09-11 **media**: the YaW! channel kit -- banner, profile picture and watermark for YouTube, stamped and signed ([#98](https://github.com/Twin-Cities-Open-Systems/resume/pull/98))
+
+### Fixed
+
+- 2026-09-11 **render-blog**: the Diff tab gives first-published and last-revised times to the second, in the viewer's zone ([#102](https://github.com/Twin-Cities-Open-Systems/resume/pull/102))
+- 2026-09-11 **media**: og tags point at the kind URL and the og card shows a photo upright; build warns on a rotated photo ([#96](https://github.com/Twin-Cities-Open-Systems/resume/pull/96))
+- 2026-09-11 **thesis**: left-of-capex's math is plain text -- the renderer has no LaTeX, so $$\text{...}$$ printed raw ([#95](https://github.com/Twin-Cities-Open-Systems/resume/pull/95))
+
+### Documentation
+
+- 2026-09-11 **held-posts**: episode one's call sign groups match the FCC -- 2x3 is K or W only, and the never-assigned list ([#101](https://github.com/Twin-Cities-Open-Systems/resume/pull/101))
+- 2026-09-11 **held-posts**: episode one gets the Technician study guide -- HRCC's playlist and HamStudy's E2_2026 pool, repeated until memorized ([#100](https://github.com/Twin-Cities-Open-Systems/resume/pull/100))
+- 2026-09-11 **held-posts**: episode one of the YaW! ham license series, held until its TODO(verify) claims are sourced ([#99](https://github.com/Twin-Cities-Open-Systems/resume/pull/99))
+
+### Changed
+
+- 2026-09-11 **gitignore**: the org secret baseline, so a fresh clone ignores every baseline secret path ([#97](https://github.com/Twin-Cities-Open-Systems/resume/pull/97))
+
 ## [1.2.0] - 2026-09-11
 
 ### Added
