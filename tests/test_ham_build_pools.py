@@ -81,6 +81,26 @@ class TestParse(unittest.TestCase):
             z.writestr("word/document.xml", xml)
         self.assertEqual(bp.paragraphs(buf.getvalue()), ["Figure E7‑3 here"])
 
+    def test_superscript_and_subscript_runs_become_unicode(self):
+        # T5D01 in the 2026-2030 Technician docx: "I = E" then a superscript run "2" then " x R".
+        w = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'
+        sup = '<w:rPr><w:vertAlign w:val="superscript"/></w:rPr>'
+        sub = '<w:rPr><w:vertAlign w:val="subscript"/></w:rPr>'
+        xml = (f'<w:document {w}><w:body>'
+               f'<w:p><w:r><w:t xml:space="preserve">C. I = E</w:t></w:r><w:r>{sup}<w:t>2</w:t></w:r>'
+               f'<w:r><w:t xml:space="preserve"> x R</w:t></w:r></w:p>'
+               f'<w:p><w:r><w:t>V</w:t></w:r><w:r>{sub}<w:t>10</w:t></w:r></w:p>'
+               f'<w:p><w:r><w:t>x</w:t></w:r><w:r>{sup}<w:t>n</w:t></w:r></w:p>'
+               f'</w:body></w:document>')
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w") as z:
+            z.writestr("word/document.xml", xml)
+        stats = {}
+        self.assertEqual(bp.paragraphs(buf.getvalue(), stats), ["C. I = E² x R", "V₁₀", "x⟦superscript:n⟧"])
+        self.assertEqual((stats["runs"], stats["mapped"]), (3, 3))
+        self.assertEqual(stats["unmappable"], [(2, "superscript", "n")])
+        self.assertEqual(stats["mapped_by_para"], {0: 1, 1: 2})
+
     def test_no_body_is_an_error(self):
         with self.assertRaises(ValueError):
             bp.parse(["SUBELEMENT T1 - RULES [1 Exam Questions - 1 Groups]  3 Questions", "nothing else"])
@@ -140,6 +160,29 @@ class TestValidate(unittest.TestCase):
         self.assertIn("T1B: group has no questions", crit)
         self.assertIn("header states 1 groups, the pool has 2", crit)
         self.assertIn("syllabus groups", crit)
+
+    def test_unmappable_superscript_is_critical_naming_the_question(self):
+        m = copy.deepcopy(self.m)
+        q = m["subelements"][0]["groups"][0]["questions"][0]
+        q["choices"][2][1] = "E = I⟦superscript:n⟧ x R"
+        self.assertIn("T1A01: choice C has a superscript run 'n' with no Unicode form",
+                      " ".join(levels(self.run_v(m), bp.CRITICAL)))
+
+    def test_superscript_count_must_match_what_is_written(self):
+        owner = self.m["owner"]
+        para = next(i for i, who in owner.items() if who == "T1A02" and "B.A switch" == FIXTURE[i])
+        stats = {"runs": 1, "mapped": 1, "unmappable": [], "mapped_by_para": {para: 1}, "literal_by_para": {}}
+        good = {"x/T1A02.pill.v1.yaml": '  question: "q"\n  choices:\n    B: "A switch²"\n  answer: "A switch²"\n'}
+        found = bp.supsub_check("fixture", stats, self.m, good)
+        self.assertEqual(levels(found, bp.CRITICAL), [])
+        self.assertIn("1 superscript/subscript run(s) in the docx, 1 character(s) mapped to Unicode, 1 written (T1A02)",
+                      " ".join(levels(found, bp.OK)))
+        flattened = {"x/T1A02.pill.v1.yaml": '    B: "A switch2"\n'}
+        self.assertIn("1 character(s) expected in questions and choices, 0 written",
+                      " ".join(levels(bp.supsub_check("fixture", stats, self.m, flattened), bp.CRITICAL)))
+        stats["unmappable"] = [(para, "subscript", "x")]
+        self.assertIn("fixture T1A02: subscript run 'x' has no Unicode form",
+                      " ".join(levels(bp.supsub_check("fixture", stats, self.m, good), bp.CRITICAL)))
 
     def test_errata_text_not_carried_is_a_warning(self):
         m = copy.deepcopy(self.m)

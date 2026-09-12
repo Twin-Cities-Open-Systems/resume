@@ -21,7 +21,7 @@ spec:
   choices:
     A: "P = I x E"
     B: "P = E / I"
-    C: "P = I2 x E"
+    C: "P = I² x E"
     D: "P = I / E"
   rule_ref: null
   figure: null

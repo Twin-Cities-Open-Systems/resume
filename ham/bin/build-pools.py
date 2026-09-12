@@ -157,19 +157,62 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-def paragraphs(docx: bytes) -> list[str]:
-    """Paragraph text from word/document.xml. A non-breaking hyphen stays U+2011; tabs and breaks are whitespace."""
+# Superscript and subscript runs (<w:vertAlign w:val="superscript"/>) become
+# Unicode characters, never flattened: "I<sup>2</sup>" is I², and "I2" would be
+# a different formula. Text with no Unicode form is kept visibly marked as
+# ⟦superscript:text⟧ and is CRITICAL in validation. Measured 2026-09-12: the
+# Technician docx has 5 superscript runs (T5C08, T5D01, T5D02); General and
+# Extra have none.
+SUPERSCRIPT = dict(zip("0123456789+-−", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁻"))
+SUBSCRIPT = dict(zip("0123456789", "₀₁₂₃₄₅₆₇₈₉"))
+SUPSUB_CHARS = set(SUPERSCRIPT.values()) | set(SUBSCRIPT.values())
+UNMAPPED = re.compile(r"⟦(superscript|subscript):([^⟧]*)⟧")
+
+
+def shift(text: str, align: str) -> tuple[str, int]:
+    """(text in Unicode superscript or subscript, characters mapped), or a ⟦marker⟧ and -1 if any character has no form."""
+    table = SUPERSCRIPT if align == "superscript" else SUBSCRIPT
+    if all(c in table or c.isspace() for c in text):
+        return "".join(table.get(c, c) for c in text), sum(1 for c in text if c in table)
+    return f"⟦{align}:{text}⟧", -1
+
+
+def paragraphs(docx: bytes, stats: dict | None = None) -> list[str]:
+    """Paragraph text from word/document.xml. A non-breaking hyphen stays U+2011; tabs and breaks are whitespace;
+    superscript and subscript runs become Unicode (see SUPERSCRIPT). stats, if given, receives runs, mapped,
+    unmappable [(paragraph, align, text)], mapped_by_para and literal_by_para."""
     root = ET.fromstring(zipfile.ZipFile(io.BytesIO(docx)).read("word/document.xml"))
+    st = stats if stats is not None else {}
+    st.update(runs=0, mapped=0, unmappable=[], mapped_by_para={}, literal_by_para={})
     out = []
-    for p in root.iter(W + "p"):
+    for idx, p in enumerate(root.iter(W + "p")):
         parts = []
-        for n in p.iter():
-            if n.tag == W + "t":
-                parts.append(n.text or "")
-            elif n.tag in (W + "tab", W + "ptab", W + "br", W + "cr"):
-                parts.append(" ")
-            elif n.tag == W + "noBreakHyphen":
-                parts.append("‑")
+        for r in p.iter(W + "r"):
+            va = r.find(f"{W}rPr/{W}vertAlign")
+            align = va.get(W + "val") if va is not None else None
+            buf = []
+            for n in r:
+                if n.tag == W + "t":
+                    buf.append(n.text or "")
+                elif n.tag in (W + "tab", W + "ptab", W + "br", W + "cr"):
+                    buf.append(" ")
+                elif n.tag == W + "noBreakHyphen":
+                    buf.append("‑")
+            text = "".join(buf)
+            if align in ("superscript", "subscript") and text.strip():
+                st["runs"] += 1
+                shifted, n_mapped = shift(text, align)
+                if n_mapped < 0:
+                    st["unmappable"].append((idx, align, text))
+                else:
+                    st["mapped"] += n_mapped
+                    st["mapped_by_para"][idx] = st["mapped_by_para"].get(idx, 0) + n_mapped
+                parts.append(shifted)
+            else:
+                literal = sum(1 for c in text if c in SUPSUB_CHARS)
+                if literal:
+                    st["literal_by_para"][idx] = st["literal_by_para"].get(idx, 0) + literal
+                parts.append(text)
         out.append(norm("".join(parts)))
     return out
 
@@ -209,7 +252,7 @@ def parse(paras: list[str]) -> dict:
         syllabus[m.group(1)] = {"questions": int(m.group(5)), "groups": groups}
     effective = next((paras[i][len("Effective "):] for i in reversed(nb) if i < body and paras[i].startswith("Effective ")), None)
 
-    errata, header, issued = {}, None, None
+    errata, header, issued, owner = {}, None, None, {}
     for i in nb:
         if i >= (syl_idx[0] if syl_idx else body):
             break
@@ -221,9 +264,11 @@ def parse(paras: list[str]) -> dict:
         elif (m := EDIT_RE.match(t)) and header:
             entry = {"errata": header, "issued": issued, "change": t, "reads": None}
             if t.rstrip().endswith("to read:"):
-                nxt = next((paras[j] for j in nb if j > i), "")
+                j = next((j for j in nb if j > i), None)
+                nxt = paras[j] if j is not None else ""
                 if nxt and not EDIT_RE.match(nxt) and not nxt.endswith("Errata"):
                     entry["reads"] = nxt
+                    owner[j] = m.group(1)
             errata.setdefault(m.group(1), []).append(entry)
 
     subs, q, cur_sub, cur_group, seen = [], None, None, None, {}
@@ -274,6 +319,7 @@ def parse(paras: list[str]) -> dict:
             continue
         if q is not None:
             q["lines"].append(t)
+            owner[i] = q["id"]
             continue
         if (m := GROUP_RE.match(t)) and cur_sub:
             cur_group = {"id": m.group(1), "title": m.group(2).strip(), "questions": [], "withdrawn": []}
@@ -281,7 +327,8 @@ def parse(paras: list[str]) -> dict:
             continue
         problems.append((CRITICAL, f"unparsed paragraph {i}: {t[:80]!r}"))
     finish()
-    return {"subelements": subs, "syllabus": syllabus, "effective": effective, "errata": errata, "problems": problems}
+    return {"subelements": subs, "syllabus": syllabus, "effective": effective, "errata": errata, "problems": problems,
+            "owner": owner}
 
 
 def figure_key(letter, d1, d2):
@@ -342,6 +389,9 @@ def validate(pool: str, model: dict, fcc_element: int, figure_files: dict, known
                     out.append((CRITICAL, f"{pool} {q['id']}: key {q['correct']} is not A-D"))
                 if not q["question"]:
                     out.append((CRITICAL, f"{pool} {q['id']}: no question text"))
+                for field, text in [("question", q["question"])] + [(f"choice {k}", v) for k, v in q["choices"]]:
+                    for mm in UNMAPPED.finditer(text):
+                        out.append((CRITICAL, f"{pool} {q['id']}: {field} has a {mm.group(1)} run {mm.group(2)!r} with no Unicode form"))
                 for e in q["errata"]:
                     miss = errata_missing(q, e)
                     if miss:
@@ -365,6 +415,36 @@ def validate(pool: str, model: dict, fcc_element: int, figure_files: dict, known
     used = {question_figure(q["question"])[0] for s in model["subelements"] for g in s["groups"] for q in g["questions"]}
     for fid in sorted(set(figure_files) - used):
         out.append((WARNING, f"{pool}: figure {fid} is named by no question"))
+    return out
+
+
+SUPSUB_FIELD = re.compile(r"^\s*(question|[ABCD]|reads): ")
+
+
+def supsub_check(pool: str, stats: dict, model: dict, files: dict) -> list:
+    """The docx's superscript/subscript runs against the Unicode characters written into questions, choices
+    and errata replacement text. pdftotext flattens superscripts too, so the PDF cross-check cannot see this."""
+    out = []
+    owner = model.get("owner", {})
+    for idx, align, text in stats["unmappable"]:
+        who = owner.get(idx, f"paragraph {idx}")
+        out.append((CRITICAL, f"{pool} {who}: {align} run {text!r} has no Unicode form"))
+    consumed = set(owner)
+    expected = sum(stats["mapped_by_para"].get(i, 0) + stats["literal_by_para"].get(i, 0) for i in consumed)
+    outside = sum(n for i, n in stats["mapped_by_para"].items() if i not in consumed)
+    written = sum(sum(1 for c in ln if c in SUPSUB_CHARS)
+                  for rel, text in files.items() if rel.endswith(".pill.v1.yaml")
+                  for ln in text.splitlines() if SUPSUB_FIELD.match(ln))
+    if not stats["runs"]:
+        out.append((OK, f"{pool}: no superscript or subscript runs in the docx"))
+    elif written != expected:
+        out.append((CRITICAL, f"{pool}: {stats['runs']} superscript/subscript run(s), {expected} character(s) expected in "
+                              f"questions and choices, {written} written"))
+    else:
+        where = sorted({owner[i] for i in stats["mapped_by_para"] if i in owner})
+        extra = f"; {outside} outside the questions" if outside else ""
+        out.append((OK, f"{pool}: {stats['runs']} superscript/subscript run(s) in the docx, {stats['mapped']} character(s) "
+                        f"mapped to Unicode, {written} written ({', '.join(where)}){extra}"))
     return out
 
 
@@ -591,7 +671,8 @@ def build(cache: Path, dest_root: Path) -> tuple[int, dict]:
     dest = dest_root / REL_OUT
     for pool, meta in POOLS.items():
         docx = cache / sources[meta["docx"]]["file"]
-        model = parse(paragraphs(docx.read_bytes()))
+        stats = {}
+        model = parse(paragraphs(docx.read_bytes(), stats))
         figure_files = {}
         for fid, fname, _s, _m, derived in meta["figures"]:
             if derived and not shutil.which("pdftoppm"):
@@ -602,7 +683,9 @@ def build(cache: Path, dest_root: Path) -> tuple[int, dict]:
         findings = write_figures(pool, meta, cache, dest)
         findings += validate(pool, model, meta["fcc_element"], figure_files)
         findings += pdf_crosscheck(pool, model, cache / sources[meta["pdf"]]["file"])
-        for rel, text in render_pool(pool, meta, model, sources, figure_files).items():
+        rendered = render_pool(pool, meta, model, sources, figure_files)
+        findings += supsub_check(pool, stats, model, rendered)
+        for rel, text in rendered.items():
             p = dest_root / rel
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(text, encoding="utf-8")

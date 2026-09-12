@@ -21,8 +21,8 @@ spec:
   choices:
     A: "I = E x R"
     B: "I = E / R"
-    C: "I = E2 x R"
-    D: "I = E2 / R"
+    C: "I = E² x R"
+    D: "I = E² / R"
   rule_ref: null
   figure: null
   source:
