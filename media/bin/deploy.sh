@@ -33,7 +33,16 @@
 #                              ships), then push to prod, then verify
 #                              lab == prod byte-for-byte
 # Requires: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID (or run via
-# hee-cred) for `promote`; real SSH access to `pve` for both.
+# hee-cred) for `promote`; the lab share mounted at $HEE_LAB_WWW for both.
+#
+# Lab is a directory, not a host (operator, 2026-09-19: "we do not ssh to
+# the pve for this ... that is what nfs is for"). pve exports /data/storage
+# to the lab LAN; ct107 (view) mounts it and its /www/<prefix>-media are
+# symlinks onto /data/storage/lab/www/<prefix>-media. So a lab deploy is an
+# rsync into the mount from whichever host runs this, with no ssh, no pve
+# and no credential. The old path streamed a tar through `ssh pve pct exec
+# 107`, which hung on a password prompt for anyone whose `ssh pve` was not
+# root -- the operator, on the first run of hee deploy blog.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -52,7 +61,12 @@ MEDIA_HOST="$(python3 -c "import json,sys; print(json.load(open(sys.argv[1]))['m
 [ -n "$MEDIA_HOST" ] || { echo "❌ CRITICAL deploy: $PROFILE has no meta.media_routing" >&2; exit 2; }
 PREFIX="${MEDIA_HOST%%.*}"
 LAB_HOST="${PREFIX}.media.lab.tcos.us"
-WWW_DIR="/www/${PREFIX}-media"
+LAB_WWW="${HEE_LAB_WWW:-/data/storage/lab/www}"
+LAB_DIR="$LAB_WWW/${PREFIX}-media"
+if ! [ -d "$LAB_WWW" ]; then
+  echo "❌ CRITICAL deploy: lab share not mounted at $LAB_WWW -- mount pve's /data/storage (fstab: 10.0.0.153:/ /data/storage nfs4), or set HEE_LAB_WWW" >&2; exit 2
+fi
+command -v rsync >/dev/null || { echo "❌ CRITICAL deploy: rsync is not installed" >&2; exit 2; }
 # spencer keeps the original Worker name; every other operator gets tcos-media-<prefix>
 WORKER="tcos-media"; [ "$PREFIX" != "spencer" ] && WORKER="tcos-media-${PREFIX}"
 OWN_JS=("shell-toggles.js" "shell-freshness.js")
@@ -151,25 +165,18 @@ for js in "${OWN_JS[@]}"; do
   fi
 done
 
-echo "=== syncing lab (pve container 107) ==="
-tar -C "$STAGE" -cf - --exclude=deploy.sh --exclude=__pycache__ --exclude=.assetsignore . \
-  | ssh pve "pct exec 107 -- sh -c 'mkdir -p $WWW_DIR && tar -C $WWW_DIR -xf -'"
-# Prune: anything under posts/ or an item dir that the stage no longer has.
-# tar only adds; a renamed post (2026-09-05, the numbered prefix) left its
-# old file live at the old URL until removed by hand.
-# An operator with no posts yet has no posts/ dir -- that is not an error.
-# Both lists sort in byte order, and comm compares in byte order. kiosk's sort
-# (en_US.UTF-8) and ct107's busybox sort put bofh-still.jpg and bofh.gif in
-# opposite orders; comm then called live files stale, pruned three real
-# gallery files from lab, and exited 1 under pipefail (2026-09-11).
-( cd "$STAGE" && { find blog thesis gallery posts -type f 2>/dev/null || true; } | LC_ALL=C sort ) > "$STAGE/.manifest"
-ssh pve "pct exec 107 -- sh -c 'cd $WWW_DIR && { find blog thesis gallery posts -type f 2>/dev/null || true; } | LC_ALL=C sort'" \
-  | LC_ALL=C comm -13 "$STAGE/.manifest" - \
-  | while read -r stale; do
-      [ -n "$stale" ] || continue
-      echo "  prune: $stale (no longer in the build)"
-      ssh -n pve "pct exec 107 -- rm -f -- '$WWW_DIR/$stale'"
-    done
+echo "=== syncing lab: $LAB_DIR ==="
+# The stage is the truth: rsync --delete prunes what the build no longer
+# has, which the old tar-then-comm prune did by hand (and once got wrong
+# across two sorts, 2026-09-11). No ownership or mode is carried over: the
+# export squashes every writer to one uid, and the directories are setgid.
+mkdir -p "$LAB_DIR"
+rsync -rlt --delete --no-owner --no-group --no-perms --chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r \
+  --exclude=deploy.sh --exclude=__pycache__ --exclude=.assetsignore --exclude=.manifest \
+  "$STAGE/" "$LAB_DIR/"
+# Read back through the proxy, not the filesystem: what a reader gets.
+_probe=$(curl -sL -o /dev/null -w '%{http_code}' "https://$LAB_HOST/") || _probe=000
+[ "$_probe" = 200 ] || { echo "❌ CRITICAL deploy: https://$LAB_HOST/ answers $_probe after the sync" >&2; exit 2; }
 
 if [ "$cmd" = "lab" ]; then
   echo "=== lab updated. review at https://$LAB_HOST -- run 'media/bin/deploy.sh $OPER promote' when approved ==="
@@ -246,7 +253,7 @@ for card in "$MEDIA_ROOT"/*/item.card.v1.yaml "$MEDIA_ROOT"/tux-tattoo/index.htm
   d="$(basename "$(dirname "$card")")"; ITEM_PAGES="$ITEM_PAGES $d/index.html $d/exif.html"
 done
 for f in $ITEM_PAGES; do
-  lab=$(ssh pve "pct exec 103 -- curl -sL -H 'Host: $LAB_HOST' 'http://localhost/$f'" 2>/dev/null | md5sum | cut -d' ' -f1)
+  lab=$(curl -sL "https://$LAB_HOST/$f" 2>/dev/null | md5sum | cut -d' ' -f1)
   # The edge can still hand out the previous version for a short while
   # after a deploy (index.html MISMATCH seconds after a Success line,
   # identical a minute later; 2026-09-06). Bypass the cache and retry
