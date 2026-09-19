@@ -419,6 +419,22 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
             card = src.with_suffix(".og.jpg")   # the page's social preview, rendered by render-blog
             if card.is_file():
                 (page_dir / "og.jpg").write_bytes(card.read_bytes())
+            # The post's own files -- images and their notes' figures -- live
+            # beside the page like a gallery's do. Tracked at
+            # profiles/<oper>/blog/<slug>/ (a directory named for the post);
+            # copied here so /blog/<slug>/a.png resolves. Regular files only:
+            # no dotfiles, no symlinks, no .md (the notes hee deploy already
+            # folded into the post). media-hand, job deploy-blog-images.
+            src_kind = "blog" if kind == "post" else kind
+            src_dir = Path("profiles") / oper / src_kind / post["slug"]
+            if src_dir.is_dir():
+                for src_file in sorted(src_dir.iterdir()):
+                    if src_file.name.startswith(".") or src_file.is_symlink():
+                        continue
+                    if src_file.is_file() and src_file.suffix != ".md":
+                        dest_file = page_dir / src_file.name
+                        dest_file.write_bytes(src_file.read_bytes())
+                        print(f"[+] {dest_file}")
             label = {"post": "Blog post", "thesis": "Thesis"}.get(kind, kind.capitalize())
             rows.append((post["date"], kind, f"/{kind_dir}/{post['slug']}/", post["title"],
                          f"{label}, {post['date']}.", tile_for_post(page_dir, post["slug"], post["title"], host=root_host, owner=root_owner, kind_dir=kind_dir)))
