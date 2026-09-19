@@ -384,6 +384,11 @@ def root_init(media_dist, oper_name, media_host, blog_host=None, description=Non
     return 0
 
 
+# Files root() and its helpers write into a post's page directory; a post's own
+# file by one of these names is skipped, never copied over them.
+PAGE_OWNED = {"index.html", "og.jpg", "tile.png", "tile.png.job.json"}
+
+
 def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
     """The media root lists galleries (every item.card.v1.yaml below it, by
     date) and this oper's blog posts, copied in from the rendered Gold
@@ -419,6 +424,32 @@ def root(media_dist, posts_manifest=None, oper=None, posts_src=None):
             card = src.with_suffix(".og.jpg")   # the page's social preview, rendered by render-blog
             if card.is_file():
                 (page_dir / "og.jpg").write_bytes(card.read_bytes())
+            # The post's own files -- images and their notes' figures -- live
+            # beside the page like a gallery's do. Tracked at
+            # profiles/<oper>/blog/<slug>/ (a directory named for the post);
+            # copied here so /blog/<slug>/a.png resolves. Regular files only:
+            # no dotfiles, no symlinks, no .md (the notes hee deploy already
+            # folded into the post). media-hand, job deploy-blog-images.
+            src_kind = "blog" if kind == "post" else kind
+            src_dir = Path("profiles") / oper / src_kind / post["slug"]
+            # The directory itself must be real too: is_dir() follows a
+            # symlink, and a tracked symlink pointing outside the repo would
+            # publish whatever it points at (pr-reviewer, job
+            # deploy-blog-review, 2026-09-19).
+            if src_dir.is_dir() and not src_dir.is_symlink():
+                for src_file in sorted(src_dir.iterdir()):
+                    if src_file.name.startswith(".") or src_file.is_symlink():
+                        continue
+                    if not src_file.is_file() or src_file.suffix == ".md":
+                        continue
+                    if src_file.name in PAGE_OWNED:
+                        # this function's own products; a figure by the same
+                        # name would silently replace the social card
+                        print(f"⚠️  WARNING  media-item root: {src_dir / src_file.name} skipped -- the page's own {src_file.name}", file=sys.stderr)
+                        continue
+                    dest_file = page_dir / src_file.name
+                    dest_file.write_bytes(src_file.read_bytes())
+                    print(f"[+] {dest_file}")
             label = {"post": "Blog post", "thesis": "Thesis"}.get(kind, kind.capitalize())
             rows.append((post["date"], kind, f"/{kind_dir}/{post['slug']}/", post["title"],
                          f"{label}, {post['date']}.", tile_for_post(page_dir, post["slug"], post["title"], host=root_host, owner=root_owner, kind_dir=kind_dir)))
