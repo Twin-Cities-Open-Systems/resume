@@ -27,7 +27,8 @@ spec:
   #     tcos-audit's branding card); media/bin/media-item.py (PyYAML,
   #     Pillow); bin/render-resume.py (pandoc, also at deploy); both deploy
   #     scripts run hee check all, npx terser and node --check
-  #   lab and promote: media/bin/deploy.sh stages over ssh pve
+  #   lab and promote: media/bin/deploy.sh rsyncs the stage into the lab share
+  #     at /data/storage/lab/www (pve's NFS export, mounted on every lab host)
   #   lab: bin/deploy-pages.sh runs make in ~/git/.github
   #   cut: gh pr create
   #   promote: node >= 20 for npx wrangler, curl to the Cloudflare API, the
@@ -43,15 +44,14 @@ spec:
       - ~/git/human-execution-engine/tooling/bin/hee-exif
       - ~/git/tcos-audit/policy/branding.card.v1.yaml
     lab:
-      commands: [ssh, make]
-      ssh: [pve]
-      files: [~/git/.github/Makefile]
+      commands: [rsync, make, curl]
+      files: [~/git/.github/Makefile, /data/storage/lab/www]
     cut:
       commands: [gh]
     promote:
-      commands: [ssh, curl, gpg, gh]
+      commands: [rsync, curl, gpg, gh]
       versions: { node: ">=20" }
-      ssh: [pve]
+      files: [/data/storage/lab/www]
       files: [../tcos-www/.hee/secrets/cloudflare-tcos-www.gpg]
       decrypt: [../tcos-www/.hee/secrets/cloudflare-tcos-www.gpg]
   surfaces:
