@@ -4,6 +4,8 @@
 **Author:** Spencer Butler
 **Tag:** HWOps For Life
 
+**Status:** draft
+
 ---
 
 > **Work in progress.** Started as a brain dump on 2026-09-29 and pushed to lab as-is. Not sold on the title. Photos to come. Items marked *(check)* or *(lookup)* still need a date or a name confirmed.

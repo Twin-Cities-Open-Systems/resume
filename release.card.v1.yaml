@@ -16,7 +16,9 @@ spec:
   # cut runs the build once for the whole repo (convert.sh renders posts,
   # cards, media roots, resumes and the Pages dist) and commits the tracked
   # outputs into the release commit, so the release PR shows what ships.
-  build: "./convert.sh"
+  # RESUME_DRAFTS=exclude: a post marked "**Status:** draft" stays out of the
+  # release (ticket 0005); lab builds keep it. Clear the line to publish it.
+  build: "RESUME_DRAFTS=exclude ./convert.sh"
   outputs: ["media", "profiles/*/dist/resume.html", "dist"]
   # What a release needs on the machine that runs it. hee release checks this
   # before lab, cut or promote builds or deploys anything, and names every
