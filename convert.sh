@@ -211,6 +211,18 @@ echo "]" >> "$OUTPUT_WEB_DIR/people.json"
 # class as every other hand-duplicated list already fixed in this file
 # (media_dns, people.json) -- scan the real .md files on disk instead of
 # trusting a list to stay in sync with itself.
+# Drafts (ticket 0005; operator 2026-10-01: hold a work-in-progress post back
+# from prod without holding back the rest of the release). A post whose
+# metadata block carries "**Status:** draft" builds normally -- lab shows it --
+# unless RESUME_DRAFTS=exclude, which the release build and the Pages promote
+# build set: then it is left out of the manifest, so no page, root listing, hub,
+# redirect or audit ever sees it, and its built files from an earlier lab build
+# are removed so a staged tree cannot carry it unlisted. Clear the line to
+# publish it with the next release.
+RESUME_DRAFTS="${RESUME_DRAFTS:-include}"
+case "$RESUME_DRAFTS" in include|exclude) ;; *) echo "convert.sh: RESUME_DRAFTS must be include or exclude, not '$RESUME_DRAFTS'" >&2; exit 2 ;; esac
+is_draft() { head -n 12 "$1" | grep -qiE '^\*\*Status:\*\*[[:space:]]*draft[[:space:]]*$'; }
+DRAFTS_HELD=""
 echo "[" > "$OUTPUT_WEB_DIR/blog_manifest.json"
 FIRST_POST=true
 for profile_dir in profiles/*; do
@@ -222,6 +234,11 @@ for profile_dir in profiles/*; do
         # URL kinds, not tags (operator, 2026-09-11): blog/ renders under /blog/<slug>/, thesis/ under /thesis/<slug>/
         kind=$(basename "$(dirname "$post_file")"); [ "$kind" = blog ] && kind=post; [ "$kind" = thesis ] && kind=thesis
         post_slug=$(basename "$post_file" .md)
+        post_draft=false; is_draft "$post_file" && post_draft=true
+        if [ "$post_draft" = true ] && [ "$RESUME_DRAFTS" = exclude ]; then
+            DRAFTS_HELD="$DRAFTS_HELD $slug:$(basename "$(dirname "$post_file")"):$post_slug"
+            continue
+        fi
         title=$(sed -n '1s/^#*[[:space:]]*//p' "$post_file")
         # Real bug, found live building this exact fix: a post with no
         # "**Date:**" line on line 2 (002-cloudflare-wrangler-convergence.md
@@ -252,7 +269,7 @@ for profile_dir in profiles/*; do
         # expected in real prose) would otherwise break the generated
         # source rather than just being real, safely-escaped JSON data.
         POST_SLUG="$post_slug" POST_DATE="$date" POST_TITLE="$title" \
-        POST_PATH="profiles/$slug/$(basename "$(dirname "$post_file")")/$(basename "$post_file")" POST_KIND="$kind" \
+        POST_PATH="profiles/$slug/$(basename "$(dirname "$post_file")")/$(basename "$post_file")" POST_KIND="$kind" POST_DRAFT="$post_draft" \
         python3 -c "
 import json, os
 print(json.dumps({
@@ -262,12 +279,19 @@ print(json.dumps({
     'raw_fallback': '(see full post)',
     'kind': os.environ['POST_KIND'],
     'path': os.environ['POST_PATH'],
+    **({'draft': True} if os.environ['POST_DRAFT'] == 'true' else {}),
 }), end='')
 " >> "$OUTPUT_WEB_DIR/blog_manifest.json"
     done
 done
 echo "" >> "$OUTPUT_WEB_DIR/blog_manifest.json"
 echo "]" >> "$OUTPUT_WEB_DIR/blog_manifest.json"
+for held in $DRAFTS_HELD; do
+    h_oper="${held%%:*}"; h_rest="${held#*:}"; h_dir="${h_rest%%:*}"; h_slug="${h_rest#*:}"
+    echo "  draft held back from this build: $h_oper/$h_dir/$h_slug" >&2
+    rm -rf "media/"*"/dist/$h_dir/$h_slug" "media/"*"/dist/posts/$h_slug".*
+    rm -f "$OUTPUT_WEB_DIR/profiles/$h_oper/$h_dir/$h_slug".*
+done
 
 # Real fix, 2026-09-05 (Spencer: "we need to fix the blogs next, this is
 # just raw markdown"): every post is rendered to a real Gold HTML page

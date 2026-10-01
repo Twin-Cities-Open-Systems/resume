@@ -51,7 +51,9 @@ cleanup() { git worktree remove --force "$BUILD" >/dev/null 2>&1 || rm -rf "$BUI
 trap cleanup EXIT
 git worktree add -q --detach "$BUILD" HEAD
 echo "=== build (worktree of $(git rev-parse --short HEAD): convert.sh -> dist/, blog-redirect-worker -> dist/_worker.js) ==="
-( cd "$BUILD" && ./convert.sh ) >"$LOG" 2>&1 || { echo "❌ CRITICAL build: convert.sh failed -- last lines:" >&2; tail -15 "$LOG" >&2; exit 2; }
+# Drafts (convert.sh, "**Status:** draft"): lab shows them, prod never does.
+drafts=include; [ "$cmd" = promote ] && drafts=exclude
+( cd "$BUILD" && RESUME_DRAFTS="$drafts" ./convert.sh ) >"$LOG" 2>&1 || { echo "❌ CRITICAL build: convert.sh failed -- last lines:" >&2; tail -15 "$LOG" >&2; exit 2; }
 cd "$BUILD"
 [ -s dist/_worker.js ] || { echo "❌ CRITICAL build: dist/_worker.js missing -- the blog->media redirect would not ship" >&2; exit 2; }
 [ -s dist/people.json ] || { echo "❌ CRITICAL build: dist/people.json missing -- the hubs would be empty" >&2; exit 2; }
