@@ -1,0 +1,329 @@
+/* shell.css -- the shared stylesheet of every TCOS web page: the *.tcos.app apps,
+ * view.lab, the tcos.us sites and the media hubs. OWNED by tcos-app; children copy
+ * it (see CLAUDE.md, "How a child inherits"), never edit the copy.
+ *
+ * Status colors are the reserved palette for fills, edges and icons, never
+ * themed:  good #0ca30c   warning #fab219   serious #ec835a   critical #d03b3b
+ * Text that states a status wears the matching -ink token instead (7:1 on its
+ * chip), and the icon and label always ride with it, so a status color never
+ * carries meaning alone.
+ */
+
+/* Light is the base set. Every color is a token, so all three theme states
+ * (explicit light, explicit dark, and the unstamped system default) resolve as
+ * a complete set rather than half of one.
+ *
+ * Readability is the design brief, and it is measured, not eyeballed --
+ * tests/test_contrast.py computes the WCAG ratio for every pair below in both
+ * themes and fails under target:
+ *   body text     >= 7:1   (--ink, --muted, --accent on their surfaces)
+ *   UI text       >= 4.5:1 (chips, button labels, tags)
+ *   borders/icons >= 3:1   (--edge on every surface it divides)
+ * Off-white on off-black, never #fff on #000. Light and dark are two designs:
+ * dark lifts its surfaces by lightness and softens the ink, it is not the
+ * light theme inverted. --rule is a hairline inside a card (decorative);
+ * --edge is what draws a component's boundary, so it carries the 3:1.
+ * --bg < --surface < --sunk is the page, the card, the pill on the card. */
+:root{
+  --bg:#e8eef5; --surface:#fbfdff; --sunk:#eef3f9; --ink:#17202a; --muted:#3a4757;
+  --rule:#ccd6e2; --edge:#66788c; --accent:#0f4c9c; --accent-soft:#d9e8fa; --on-accent:#fbfdff;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --good-ink:#0a5c0a; --warning-ink:#6b4700; --serious-ink:#7c3210; --critical-ink:#921f1f;
+  --good-bg:#e3f2e3; --warning-bg:#fbf1da; --serious-bg:#fbeae3; --critical-bg:#f8e3e3;
+  --shadow:0 1px 2px rgba(27,33,40,.10),0 6px 18px rgba(27,33,40,.10);
+  --fs:16px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1116; --surface:#171e26; --sunk:#0f151b; --ink:#e3e8ed; --muted:#a9b6c2;
+    --rule:#2b3947; --edge:#6a7b8c; --accent:#8bbcf0; --accent-soft:#163049; --on-accent:#0c1116;
+    --good-ink:#5fd35f; --warning-ink:#f2b93b; --serious-ink:#f6a683; --critical-ink:#f79f9f;
+    --good-bg:#12291b; --warning-bg:#2a2413; --serious-bg:#2c1d16; --critical-bg:#2c1717;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1116; --surface:#171e26; --sunk:#0f151b; --ink:#e3e8ed; --muted:#a9b6c2;
+  --rule:#2b3947; --edge:#6a7b8c; --accent:#8bbcf0; --accent-soft:#163049; --on-accent:#0c1116;
+  --good-ink:#5fd35f; --warning-ink:#f2b93b; --serious-ink:#f6a683; --critical-ink:#f79f9f;
+  --good-bg:#12291b; --warning-bg:#2a2413; --serious-bg:#2c1d16; --critical-bg:#2c1717;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.45);
+}
+/* Named themes. [data-theme] stays light or dark (the base every component and
+ * child app already keys on); [data-skin] restates only the core tokens, so a
+ * skin needs no per-component rules. Status colors keep their base. */
+:root[data-skin="paper"]{
+  --bg:#ece3d0; --surface:#faf5e8; --sunk:#f3ead6; --ink:#2a2318; --muted:#54473a;
+  --rule:#d6c9ae; --edge:#75634c; --accent:#7a3410; --accent-soft:#ecdcbf; --on-accent:#faf5e8;
+}
+:root[data-skin="contrast"]{
+  --bg:#f2f2f2; --surface:#fdfdfd; --sunk:#e9e9e9; --ink:#0a0a0a; --muted:#252525;
+  --rule:#8c8c8c; --edge:#333333; --accent:#0a2f80; --accent-soft:#d5def5; --on-accent:#fdfdfd;
+}
+:root[data-skin="midnight"]{
+  --bg:#070b1a; --surface:#101830; --sunk:#0a1024; --ink:#e6ecff; --muted:#adb9db;
+  --rule:#25325a; --edge:#7183b3; --accent:#93b7ff; --accent-soft:#1a2a55; --on-accent:#070b1a;
+}
+:root[data-skin="graphite"]{
+  --bg:#181a1d; --surface:#24272b; --sunk:#1b1d20; --ink:#e6e8ea; --muted:#adb2b8;
+  --rule:#383c42; --edge:#7d858e; --accent:#72d4cb; --accent-soft:#1f3b39; --on-accent:#181a1d;
+}
+:root[data-fs="s"]{--fs:14px}  :root[data-fs="m"]{--fs:16px}
+:root[data-fs="l"]{--fs:18px}  :root[data-fs="xl"]{--fs:21px}
+:root[data-fs="xxl"]{--fs:25px}
+*{box-sizing:border-box}
+/* `hidden` is a state, not a style: an author rule that sets display would
+ * otherwise beat the UA's [hidden]{display:none}. */
+[hidden]{display:none!important}
+html{font-size:var(--fs)}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:slashed-zero}
+/* The zero is always slashed, in every font everywhere. font-variant-numeric does not merge:
+   any rule that sets it must repeat slashed-zero, and form controls do not inherit it. */
+input,select,textarea,button{font-family:inherit;font-variant-numeric:slashed-zero}
+.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;font-variant-numeric:tabular-nums slashed-zero}
+/* header ------------------------------------------------------------------ */
+.top{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--rule);
+     display:flex;align-items:center;gap:.75rem;padding:.6rem 1rem;flex-wrap:wrap}
+.brand{font-weight:600;letter-spacing:-.01em;margin-right:auto;display:flex;align-items:baseline;gap:.5rem}
+.brand a{text-decoration:none;color:inherit}
+.brand small{color:var(--muted);font-weight:400;font-size:.78em}
+.top nav{display:flex;gap:.15rem}
+.top nav a{color:var(--ink);text-decoration:none;padding:.3rem .6rem;border-radius:7px;font-size:.92rem}
+.top nav a:hover,.top nav a:focus-visible,.top nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.top nav a.ext::after{content:"\2197";margin-left:.25em;font-size:.85em}
+@media (max-width:30rem){.top nav{flex-wrap:wrap}}
+/* Small screens: the header is a brand and a menu button; nav, text size and theme fold
+   into the panel. shell.js adds .tc-menu (and the button), so with no script it all stays visible. */
+.menu-btn{display:none}
+@media (max-width:40rem){
+  .top.tc-menu .menu-btn{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;
+    background:var(--sunk);border:1px solid var(--edge);color:var(--ink);border-radius:8px;font:inherit;font-size:1.25rem;line-height:1;cursor:pointer}
+  .top.tc-menu .menu-btn[aria-expanded="true"]{background:var(--accent-soft);color:var(--accent)}
+  .top.tc-menu:not([data-open]) > :not(.brand):not(.menu-btn){display:none}
+  .top.tc-menu[data-open] > nav,.top.tc-menu[data-open] > .fontsize-toggle,.top.tc-menu[data-open] > .theme-toggle{flex:1 1 100%}
+  .top.tc-menu[data-open] > nav{flex-direction:column}
+  .top.tc-menu[data-open] > .fontsize-toggle{flex-wrap:wrap}
+  .top.tc-menu[data-open]{max-height:100vh;max-height:100dvh;overflow-y:auto}
+}
+.theme-select{background:var(--sunk);border:1px solid var(--edge);color:var(--ink);border-radius:6px;padding:.22rem .5rem;font:inherit;font-size:.85rem;min-height:44px;cursor:pointer}
+.fontsize-toggle,.theme-toggle{display:flex;gap:.15rem;align-items:center}
+.fontsize-btn,.theme-btn{background:var(--sunk);border:1px solid var(--edge);color:var(--muted);
+  border-radius:6px;padding:.22rem .45rem;font-size:.8rem;cursor:pointer;font-family:inherit}
+.fontsize-btn[aria-pressed="true"],.theme-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.fs-label{color:var(--muted);font-size:.8rem;margin-right:.2rem}
+.wrap{max-width:64rem;margin:0 auto;padding:1.5rem 1rem 5rem;display:flex;flex-direction:column;gap:2rem}
+h1{font-size:clamp(1.6rem,3.5vw,2.2rem);line-height:1.15;margin:0;letter-spacing:-.02em;text-wrap:balance}
+/* Three levels, each visibly a step from the next: panel h2 > group h3/h4 > pill label. */
+h2{font-size:1.25rem;line-height:1.3;margin:0 0 .2rem;text-wrap:balance}
+.lede{color:var(--muted);margin:.4rem 0 0;max-width:42rem}
+/* Reading measure: prose stops at ~70 characters, left-aligned, never justified. */
+.card .body p,.card .body li,.lede{max-width:70ch;text-align:left}
+p{margin:0}
+a{color:var(--accent)}
+code{font-family:ui-monospace,monospace;font-size:.86em;background:var(--sunk);padding:.1em .36em;border-radius:4px}
+/* status chips -- ICON + LABEL, never color alone --------------------------- */
+.chip{display:inline-flex;align-items:center;gap:.32rem;font-family:ui-monospace,monospace;
+      font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+      padding:.2rem .5rem;border-radius:999px;white-space:nowrap}
+.chip.good{color:var(--good-ink);background:var(--good-bg)}
+.chip.warning{color:var(--warning-ink);background:var(--warning-bg)}
+.chip.serious{color:var(--serious-ink);background:var(--serious-bg)}
+.chip.critical{color:var(--critical-ink);background:var(--critical-bg)}
+/* A state that is correct and is not a status: a stopped template is not a
+ * fault, so it must not borrow a status color to say so. */
+.chip.neutral{color:var(--muted);background:var(--sunk)}
+/* Flex, not grid: a grid cannot stretch a short last row, so ten tiles at a card
+   width of seven left the second row two-thirds empty (inv.lab, 2026-09-30). Each
+   tile grows to fill its row. */
+.stats{display:flex;flex-wrap:wrap;gap:1px;
+       background:var(--rule);border:1px solid var(--edge);border-radius:10px;overflow:hidden}
+.stat{background:var(--surface);padding:.9rem 1rem;display:flex;flex-direction:column;gap:.15rem;flex:1 1 8rem;min-width:8rem}
+.stat b{font-family:ui-monospace,monospace;font-size:1.7rem;font-weight:600;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums slashed-zero}
+.stat span{font-family:ui-monospace,monospace;font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat.is-good b{color:var(--good-ink)} .stat.is-critical b{color:var(--critical-ink)} .stat.is-warning b{color:var(--warning-ink)}
+/* A zero is present, not loud: an empty state should not read like a live one. */
+.stat.is-empty b,.stat.is-empty span{opacity:.45}
+.card{background:var(--surface);border:1px solid var(--edge);border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.card>header{padding:.75rem 1rem;border-bottom:1px solid var(--rule);background:var(--sunk);
+             display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.card>header .count{margin-left:auto;font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted)}
+.card .body{padding:1rem;display:flex;flex-direction:column;gap:.9rem}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-family:ui-monospace,monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tbody tr:last-child td{border-bottom:0}
+footer{border-top:1px solid var(--rule);padding-top:1rem;color:var(--muted);
+       font-family:ui-monospace,monospace;font-size:.72rem;line-height:1.7}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.tabs{display:flex;gap:.25rem;padding:.55rem 1rem 0;border-bottom:1px solid var(--edge);background:var(--sunk)}
+.tab{font:inherit;font-size:.86rem;color:var(--muted);background:none;cursor:pointer;
+     border:1px solid transparent;border-bottom:0;border-radius:7px 7px 0 0;
+     padding:.4rem .85rem;margin-bottom:-1px}
+.tab:hover{color:var(--ink)}
+/* The selected tab is the one joined to the panel below it. That join is the
+ * cue, so the state does not rest on color alone -- aria-selected carries it
+ * for anything that is not looking at pixels. */
+.tab[aria-selected="true"]{background:var(--surface);border-color:var(--edge);color:var(--ink);font-weight:600}
+.bar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.bar .btn{margin-left:auto}
+.btn{font:inherit;font-size:.9rem;font-weight:600;background:var(--accent);color:var(--on-accent);
+     border:1px solid var(--accent);border-radius:7px;padding:.42rem 1rem;cursor:pointer}
+.btn:disabled{opacity:.55;cursor:progress}
+.hint{color:var(--muted);font-size:.82rem;margin:0}
+kbd{font-family:ui-monospace,monospace;font-size:.78em;background:var(--sunk);
+    border:1px solid var(--edge);border-bottom-width:2px;border-radius:4px;padding:.05em .35em}
+.muted{color:var(--muted)}
+
+.cards{display:flex;flex-direction:column;gap:2rem}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:1rem;top:.5rem;z-index:30;background:var(--surface);padding:.4rem .7rem;border-radius:6px}
+
+/* Touch targets: every button-like control is at least 44 x 44 CSS px
+ * (WCAG 2.5.5), so it can be hit with a thumb and not just a pointer. */
+.btn,.tab,.fontsize-btn,.theme-btn,.top nav a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center}
+.top nav a{justify-content:flex-start}
+.tab{padding-top:0;padding-bottom:0}
+[data-tc-collapse-head]{min-height:44px;display:flex;align-items:center;gap:.4em}
+
+/* components: collapse, arrange, table, freshness --------------------------
+ * The library/js components ship their own behavior CSS; this is the page's half
+ * (how they sit in the shell). One accent hue for every control affordance;
+ * status colors stay reserved for status. */
+/* arrange: the cards live in their own container so a drop onto container
+ * padding cannot land a card past the page footer. */
+.cards{display:flex;flex-direction:column;gap:2rem}
+.grip{font-family:ui-monospace,monospace;color:var(--muted);font-size:1rem;line-height:1;
+      padding:.1rem .2rem;border-radius:5px;align-self:center}
+.grip:hover,.grip:focus-visible{color:var(--accent);background:var(--accent-soft)}
+.card>header h2[data-tc-collapse-head],.new>header h2[data-tc-collapse-head]{
+  cursor:pointer;border-radius:5px;padding:0 .2rem;margin-left:-.2rem}
+.card>header h2[data-tc-collapse-head]:hover,.new>header h2[data-tc-collapse-head]:hover{color:var(--accent)}
+/* A collapsed card is a header and nothing else -- the rule under it would
+ * be drawing a line beneath empty space. */
+[data-tc-collapsed="true"]>header{border-bottom:0}
+.tc-collapse-marker{color:var(--accent)}
+
+/* Status echoed on the card's left edge. Set ONLY on a card whose header
+ * already carries the matching icon+label chip -- see the block comment. */
+.card.is-good{border-left:4px solid var(--good)}
+.card.is-warning{border-left:4px solid var(--warning)}
+.card.is-serious{border-left:4px solid var(--serious)}
+.card.is-critical{border-left:4px solid var(--critical)}
+
+/* table: sort + search. Everything is client-side over rows already in the
+ * DOM -- see view/README.md for why there is no server and no cache. */
+.card-tools{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+            padding:.7rem 1rem;border-bottom:1px solid var(--rule);background:var(--surface)}
+.card-tools input[type="search"]{flex:1 1 14rem;min-width:9rem;font:inherit;font-size:.86rem;
+  background:var(--sunk);color:var(--ink);border:1px solid var(--edge);border-radius:7px;
+  padding:.35rem .6rem}
+.card-tools input[type="search"]:focus-visible{border-color:var(--accent)}
+.card-tools .count{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);white-space:nowrap}
+.card-tools .hint{font-size:.72rem;color:var(--muted)}
+thead th[data-tc-sortable]{color:var(--muted)}
+thead th[aria-sort="ascending"],thead th[aria-sort="descending"]{color:var(--accent)}
+
+/* Freshness: how old is what you are reading, and can you get back to the
+ * source. One card per page, last, generated by build.sh -- never authored,
+ * because a hand-typed timestamp is wrong the moment the page is rebuilt. */
+.fresh-card{border-left:4px solid var(--rule)}
+.fresh-card .body{padding:.7rem 1rem}
+.fresh dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem .9rem;margin:0;
+          font-family:ui-monospace,monospace;font-size:.76rem}
+.fresh dt{color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:.68rem}
+.fresh dd{margin:0;color:var(--ink);overflow-wrap:anywhere}
+.fresh dd.none{color:var(--muted);font-style:italic;font-family:inherit}
+
+/* print / Save as PDF: the page as it looks on screen minus the controls. */
+@page{margin:12mm}
+/* flip card ---------------------------------------------------------------
+ * A card with two faces, front and back, in one grid cell, so the card is as tall as its
+ * taller face and a grid of them never reflows on a flip. The hidden face is
+ * visibility:hidden, so it cannot take focus. shell.js (TC.flip) sets data-flipped.
+ *   <li class="tc-flip" data-flipped="false"><div class="tc-flip-in">
+ *     <div class="tc-face tc-front"><button class="tc-flipbtn" data-tc-flip>...</button></div>
+ *     <div class="tc-face tc-back"><button class="tc-backq" data-tc-flip>...</button>...</div>
+ *   </div></li>
+ * .tc-fit makes the card only as tall as the face showing. --fam colors the left edge. */
+.tc-flip{list-style:none;perspective:1200px;scroll-margin-top:5rem}
+.tc-flip.is-jumped{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.tc-flip-in{display:grid;transition:transform .3s;transform-style:preserve-3d}
+.tc-flip[data-flipped="true"] .tc-flip-in{transform:rotateY(180deg)}
+.tc-face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:left;
+  border:1px solid var(--edge);border-left:5px solid var(--fam,var(--accent));border-radius:8px;background:var(--surface);
+  padding:.6rem .85rem;font:inherit;color:inherit;transition:visibility 0s .15s}
+.tc-front{display:flex;flex-direction:column;gap:.5rem;cursor:pointer;line-height:1.4;font-size:.95rem}
+.tc-flipbtn{all:unset;box-sizing:border-box;display:block;cursor:pointer}
+.tc-flipbtn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tc-front .tc-flip-cue{margin-top:auto}
+.tc-front:hover,.tc-backq:hover .tc-flip-cue{border-color:var(--accent)}
+.tc-flip-cue{display:block;margin-top:.4rem;font-size:.8rem;color:var(--accent);font-weight:600}
+.tc-back{transform:rotateY(180deg);display:flex;flex-direction:column;gap:.5rem;background:var(--sunk)}
+.tc-backq{all:unset;box-sizing:border-box;display:block;cursor:pointer;font-size:.85rem;line-height:1.4;color:var(--muted)}
+.tc-backq:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tc-flip[data-flipped="false"] .tc-back,.tc-flip[data-flipped="true"] .tc-front{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.tc-flip-in,.tc-face{transition:none}}
+@media print{
+  .tc-flip-in{transform:none!important}
+  .tc-face{grid-area:auto;transform:none;visibility:visible!important;position:static!important;break-inside:avoid;margin-bottom:.3rem}
+  .tc-flip-in{display:block}.tc-flip-cue{display:none}
+}
+.tc-fit .tc-flip-in{position:relative}
+.tc-fit[data-flipped="false"] .tc-back,.tc-fit[data-flipped="true"] .tc-front{position:absolute;top:0;left:0;right:0}
+.tc-fit .tc-front .tc-flip-cue{margin-top:.15rem}
+
+/* way back ------------------------------------------------------------------
+ * A small pill fixed to the corner that names what is above the reader and scrolls
+ * back to it. shell.js (TC.wayback.init) fills and shows it. */
+.tc-jump{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:15;display:flex;
+  max-width:calc(100vw - 24px);border:1px solid var(--edge);border-radius:999px;overflow:hidden;
+  background:color-mix(in srgb,var(--surface) 90%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:0 2px 12px rgba(0,0,0,.2);opacity:.9;transition:opacity .2s,transform .2s,visibility 0s}
+.tc-jump:hover,.tc-jump:focus-within{opacity:1}
+.tc-jump[data-show="false"]{opacity:0;visibility:hidden;transform:translateY(10px);pointer-events:none;transition:opacity .2s,transform .2s,visibility 0s .2s}
+.tc-jump button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:.4rem;min-height:44px;min-width:44px;
+  padding:0 .8rem;font:600 .85rem/1 inherit;color:var(--ink);justify-content:center}
+.tc-jump button[hidden]{display:none}
+.tc-jump button+button{border-left:1px solid var(--edge)}
+.tc-jump button:hover{color:var(--accent);background:var(--sunk)}
+.tc-jump button:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.tc-jump-l{max-width:11rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tc-jump-l::before{content:"\2191\00a0";color:var(--accent)}
+@media (max-width:40rem){.tc-jump-l{max-width:38vw}.tc-jump[data-has-group="true"] [data-tc-to="panel"]{display:none}}
+@media (prefers-reduced-motion:reduce){.tc-jump,.tc-jump[data-show="false"]{transition:none}}
+@media print{.tc-jump{display:none!important}}
+
+/* dock ----------------------------------------------------------------------
+ * A bar that rides the bottom edge of the screen while its section is on screen (a
+ * primary action and a status line, e.g. Score and "12 / 35 answered"). It must come
+ * after the content it serves; position:sticky needs the card around it not to clip. */
+.tc-dock{position:sticky;bottom:max(8px,env(safe-area-inset-bottom));z-index:14;display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  margin-top:.8rem;padding:.5rem .5rem .5rem .9rem;border:1px solid var(--edge);border-radius:999px;background:color-mix(in srgb,var(--surface) 88%,transparent);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(0,0,0,.18)}
+.tc-dock[hidden]{display:none}
+.tc-dock-n{font-size:.85rem;color:var(--muted)}
+.tc-dock .btn{min-height:44px;min-width:6rem}
+.card:has(.tc-dock){overflow:visible}
+body:has(.tc-dock:not([hidden])) .tc-jump{bottom:calc(max(8px,env(safe-area-inset-bottom)) + 76px)}
+@media print{.tc-dock{display:none!important}}
+
+@media print{
+  html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* Paper by default. A page whose own export promises "the PDF looks like the
+     screen" (view.lab's PDF button) opts out with <html data-tc-print="theme">
+     and keeps the reader's theme, dark included. */
+  :root:not([data-tc-print="theme"]),:root[data-theme]:not([data-tc-print="theme"]){--bg:#fff;--surface:#fff;--sunk:#f3f3f3;--ink:#000;--muted:#333;--edge:#555;--accent:#0b3a70}
+  body{font-size:11pt;line-height:1.4}
+  .top,.grip,.tc-collapse-marker,.card-tools input,.card-tools .hint{display:none!important}
+  [data-tc-collapse][data-tc-collapsed='true'] [data-tc-collapse-body]{display:block!important}
+  [data-tc-collapse][data-tc-collapsed='true'] .body[data-tc-collapse-body]{display:flex!important}
+  .wrap{max-width:none;padding:0}
+  .card{box-shadow:none}
+  .tbl{overflow:visible}
+  tr,.stat,figure,img,svg{break-inside:avoid}
+  .card>header{break-after:avoid}
+  thead{display:table-header-group}
+  img,svg{max-width:100%;height:auto}
+}

@@ -36,29 +36,31 @@
   });
 })();
 
+// Theme: the selector is tcos-app's shell (/js/shell.js, loaded before this
+// file), which reads and writes tc-theme. The pre-paint script in each page
+// carries an old tcos-theme choice over once.
+//
+// The way back (tcos-app shell, TC.wayback): a pill that follows the reader
+// down a long page and names the page title, plus a jump to the top. Added
+// here, once, so no page has to carry its markup.
 (function () {
-  // Real bug, found 2026-08-28: this read/wrote dataset.theme, matching
-  // this file's own HTML (internally consistent, so it never broke
-  // silently the way tcos-www's tc-theme.js did) but not the canonical
-  // reference implementation's dataset.themeChoice everywhere else --
-  // real, if quieter, drift risk. Aligned to match.
-  var KEY = "tcos-theme";
-  function apply(theme) {
-    if (theme === "auto") document.documentElement.removeAttribute("data-theme");
-    else document.documentElement.setAttribute("data-theme", theme);
-    document.querySelectorAll(".theme-btn").forEach(function (b) {
-      b.classList.toggle("active", b.dataset.themeChoice === theme);
-    });
+  function run() {
+    if (!(window.TC && window.TC.wayback) || document.querySelector("nav.tc-jump")) return;
+    var nav = document.createElement("nav");
+    nav.className = "tc-jump";
+    nav.setAttribute("aria-label", "Back to");
+    nav.setAttribute("data-show", "false");
+    nav.innerHTML =
+      '<button type="button" data-tc-to="group" hidden><span class="tc-jump-l"></span></button>' +
+      '<button type="button" data-tc-to="panel" hidden><span class="tc-jump-l"></span></button>' +
+      '<button type="button" data-tc-to="top" aria-label="Top of the page">' +
+      '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">' +
+      '<path d="M3 10l5-5 5 5M3 4h10" fill="none" stroke="currentColor" stroke-width="2" ' +
+      'stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+    document.body.appendChild(nav);
+    window.TC.wayback.init(nav, { heading: "h1" });
   }
-  document.addEventListener("DOMContentLoaded", function () {
-    apply(localStorage.getItem(KEY) || "auto");
-    document.querySelectorAll(".theme-btn").forEach(function (b) {
-      b.addEventListener("click", function () {
-        localStorage.setItem(KEY, b.dataset.themeChoice);
-        apply(b.dataset.themeChoice);
-      });
-    });
-  });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
 })();
 
 // Real host-aware link/text handling (Spencer, 2026-08-26): "lab links

@@ -40,6 +40,16 @@ jobs:
       # and derived state committed to git.
       - name: hee-check all
         run: human-execution-engine/tooling/bin/hee-check all resume
+      # tcos-app owns the shared shell; media/shared/ and dist/ carry copies
+      # (sync-shell.sh), which must match its main.
+      - name: Checkout tcos-app (owns the shared shell)
+        uses: actions/checkout@v4
+        with:
+          repository: Twin-Cities-Open-Systems/tcos-app
+          ref: main
+          path: tcos-app
+      - name: Shared shell has not drifted from tcos-app
+        run: sh resume/sync-shell.sh --check tcos-app
 
   shellcheck:
     name: shellcheck (25 script(s))
