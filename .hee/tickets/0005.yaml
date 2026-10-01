@@ -1,0 +1,16 @@
+id: '0005'
+created_at: '2026-10-01T07:21:25Z'
+description: 'Draft one media post without promoting the rest of resume: updating
+  a single post''s draft pulls every other pending resume change into the same release.
+  Separate a post from the repo''s other changes, hee-style, no database, nothing
+  invented; may mean pulling posts out of the resume repo'
+status: open
+stage: idea
+stage_history:
+- stage: idea
+  at: '2026-10-01T07:21:25Z'
+source: braindump 2026-09-30T16:33:38Z
+tags:
+- media
+- resume
+- workflow
