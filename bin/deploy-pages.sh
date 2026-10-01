@@ -9,15 +9,18 @@
 # URL still answered 200 a week after the redirect worker was written.
 #
 #   bin/deploy-pages.sh lab       ./convert.sh (dist + the redirect worker),
-#                                 gate, push dist to the view container, run
-#                                 media-item audit against lab
+#                                 gate, rsync dist into the lab share
+#                                 (/www/spencer-blog, served as blog.lab and
+#                                 media.lab), run media-item audit against lab
 #   bin/deploy-pages.sh promote   clean tree on origin/main, rebuild from that
 #                                 commit, gate, `wrangler pages deploy` with
 #                                 the session signature as the commit message,
 #                                 media-item audit --prod, GPG-signed
 #                                 prod/resume-pages/<stamp> tag
 #
-# Requires: hee on PATH, ~/git/.github (lab), ssh to pve (lab), and for
+# Requires: hee on PATH, rsync and the lab share mounted at $HEE_LAB_WWW
+# (default /data/storage/lab/www) for lab -- no ssh, no pve, the same path as
+# media/bin/deploy.sh (operator, 2026-09-19: "that is what nfs is for") -- and for
 # promote the sealed token:
 #   hee cred -pass cloudflare-tcos-www -dir ~/git/tcos-www/.hee/secrets -exec bin/deploy-pages.sh promote
 set -euo pipefail
@@ -79,7 +82,18 @@ cp dist/_worker.js "$LOG.mjs" && node --check "$LOG.mjs" 2>/dev/null && rm -f "$
 echo "  hee check all: OK; no conflict markers; tag on the three hubs; worker parses"
 
 if [ "$cmd" = lab ]; then
-  make -C "$HOME/git/.github" RESUME="$BUILD" lab-blog >/dev/null
+  # Lab is a directory on pve's share, not a host: ct107's /www/spencer-blog
+  # is that directory. rsync --delete makes it exactly dist, which is what the
+  # old .github `make lab-blog` (scp + pct push over ssh) did by rm -rf.
+  LAB_WWW="${HEE_LAB_WWW:-/data/storage/lab/www}"
+  [ -d "$LAB_WWW" ] || { echo "❌ CRITICAL lab: lab share not mounted at $LAB_WWW -- mount pve's /data/storage (fstab: 10.0.0.153:/ /data/storage nfs4), or set HEE_LAB_WWW" >&2; exit 2; }
+  command -v rsync >/dev/null || { echo "❌ CRITICAL lab: rsync is not installed" >&2; exit 2; }
+  mkdir -p "$LAB_WWW/spencer-blog"
+  rsync -rlt --delete --no-owner --no-group --no-perms --chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r \
+    dist/ "$LAB_WWW/spencer-blog/"
+  for u in https://media.lab.tcos.us/ https://media.lab.tcos.us/css/shell.css https://blog.lab.tcos.us/; do
+    printf '  %-44s %s\n' "$u" "$(curl -s -o /dev/null -w '%{http_code}' "$u")"
+  done
   echo "=== audit (lab) ==="
   python3 media/bin/media-item.py audit || true
   echo "=== lab updated -- review https://blog.lab.tcos.us and https://media.lab.tcos.us, then bin/deploy-pages.sh promote ==="

@@ -36,7 +36,25 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/css/shell.css">
 <link rel="stylesheet" href="/shell-theme.css">
+<script>
+// Theme before paint, in the shell's terms (tc-theme; a named theme is a light
+// or dark base plus a skin -- KIND in tcos-app js/shell.js). An old tcos-theme
+// choice carries over once.
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("tc-theme");
+    if (!t) { t = localStorage.getItem("tcos-theme") || "auto"; localStorage.setItem("tc-theme", t); }
+    if (t !== "auto") {
+      d.setAttribute("data-theme", {paper: "light", contrast: "light", midnight: "dark", graphite: "dark"}[t] || t);
+      d.setAttribute("data-skin", t);
+    }
+  } catch (e) {}
+})();
+</script>
+
 <style>
 .eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
 h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 6px; }
@@ -135,9 +153,15 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
         </div>
       </div>
       <span class="tgl-sep"></span>
-      <button class="tgl-btn theme-btn" data-theme-choice="auto" type="button">Auto</button>
-      <button class="tgl-btn theme-btn" data-theme-choice="light" type="button">Light</button>
-      <button class="tgl-btn theme-btn" data-theme-choice="dark" type="button">Dark</button>
+      <select class="theme-select" aria-label="Theme">
+        <option value="auto">Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="paper">Paper</option>
+        <option value="contrast">High contrast</option>
+        <option value="midnight">Midnight</option>
+        <option value="graphite">Graphite</option>
+      </select>
     </div>
   </div>
 
@@ -202,6 +226,7 @@ h1 { font-family: var(--mono); font-size: clamp(28px, 5vw, 40px); margin: 8px 0 
 <div class="lightbox" id="lightbox"><button class="lb-close" type="button">&times; close</button><img id="lightbox-img" alt=""></div>
 
 <script src="/openpgp.min.js"></script>
+<script src="/js/shell.js"></script>
 <script src="/shell-toggles.js"></script>
 <script src="/shell-freshness.js"></script>
 <script>

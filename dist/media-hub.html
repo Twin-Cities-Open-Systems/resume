@@ -30,45 +30,37 @@
     <meta name="description" content="Real category-level hub -- every operator's media presence. Each person has their own: prefix.media.tcos.us.">
     <link rel="canonical" href="https://media.tcos.us/">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/css/shell.css">
     <script>
-    // Real oper theme choice (light/dark/auto), applied before first paint --
-    // same pattern as view.lab.tcos.us, the gold-standard reference this page
-    // was reskinned from (2026-08-28, replacing the old green-terminal look).
+    // Theme before paint, in tcos-app's shell terms (tc-theme; a named theme is
+    // a light or dark base plus a skin). An old tcos-theme choice carries over
+    // once; a first visit still opens dark, as this page always has.
     (function () {
+      var d = document.documentElement;
       try {
-        var t = localStorage.getItem("tcos-theme") || "dark";
-        if (t !== "auto") document.documentElement.setAttribute("data-theme", t);
+        var t = localStorage.getItem("tc-theme");
+        if (!t) { t = localStorage.getItem("tcos-theme") || "dark"; localStorage.setItem("tc-theme", t); }
+        if (t !== "auto") {
+          d.setAttribute("data-theme", {paper: "light", contrast: "light", midnight: "dark", graphite: "dark"}[t] || t);
+          d.setAttribute("data-skin", t);
+        }
       } catch (e) {
-        document.documentElement.setAttribute("data-theme", "dark");
+        d.setAttribute("data-theme", "dark");
       }
     })();
     </script>
     <style>
-        /* SYNCED-FROM: view.lab.tcos.us's token palette (gold standard). */
-        :root {
-            --bg: #fbfbfa; --pane-bg: #ffffff; --text: #12181a; --muted: #7c8688;
-            --border: #e2e4e0; --accent: #0d7d78; --accent-ink: #085e5a; --accent-soft: #e3f3f1;
-            color-scheme: light;
-        }
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme="light"]) {
-                --bg: #0b0f0f; --pane-bg: #12181a; --text: #eef2f1; --muted: #6f7d7d;
-                --border: #263030; --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
-                color-scheme: dark;
-            }
-        }
-        :root[data-theme="dark"] {
-            --bg: #0b0f0f; --pane-bg: #12181a; --text: #eef2f1; --muted: #6f7d7d;
-            --border: #263030; --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
-            color-scheme: dark;
-        }
+        /* Colors come from tcos-app's shared shell (/css/shell.css, synced into
+           dist/ by sync-shell.sh): this page's names mapped onto its tokens, so
+           the theme selector's named themes repaint the hub too. */
+        :root { --pane-bg: var(--surface); --text: var(--ink); --border: var(--rule); --accent-ink: var(--accent); color-scheme: light; }
+        @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; } }
+        :root[data-theme="dark"] { color-scheme: dark; }
         * { box-sizing: border-box; }
         body { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
         .site-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 1.5rem; }
         .theme-toggle { display: flex; align-items: center; gap: 4px; }
         .theme-toggle span { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; color: var(--muted); margin-right: 2px; }
-        .theme-btn { background: var(--pane-bg); border: 1px solid var(--border); color: var(--muted); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 9.5px; font-weight: 700; padding: 0 7px; height: 22px; border-radius: 5px; cursor: pointer; line-height: 1; text-transform: uppercase; }
-        .theme-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
         .fontsize-toggle { display: flex; align-items: center; gap: 6px; }
         .fontsize-toggle .fs-label { font-family: ui-monospace, monospace; font-size: 10px; color: var(--muted); cursor: default; user-select: none; }
         .fontsize-toggle .fs-options { display: flex; align-items: center; gap: 4px; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .18s ease, opacity .12s ease; }
@@ -96,10 +88,16 @@
 <body>
     <div class="site-bar">
         <div class="theme-toggle">
-            <span>Theme</span>
-            <button class="theme-btn" data-theme-choice="light" type="button">Light</button>
-            <button class="theme-btn" data-theme-choice="dark" type="button">Dark</button>
-            <button class="theme-btn" data-theme-choice="auto" type="button">Auto</button>
+            <label for="theme-select"><span>Theme</span></label>
+            <select class="theme-select" id="theme-select">
+                <option value="auto">Auto</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="paper">Paper</option>
+                <option value="contrast">High contrast</option>
+                <option value="midnight">Midnight</option>
+                <option value="graphite">Graphite</option>
+            </select>
         </div>
         <div class="fontsize-toggle">
             <span class="fs-label" tabindex="0">Aa</span>
@@ -160,29 +158,7 @@
                 }
             }
         })();
-        (function () {
-            var TH_KEY = "tcos-theme";
-            function markActive(choice) {
-                document.querySelectorAll(".theme-btn").forEach(function (b) {
-                    b.classList.toggle("active", b.dataset.themeChoice === choice);
-                });
-            }
-            var saved = "dark";
-            try { saved = localStorage.getItem(TH_KEY) || "dark"; } catch (e) {}
-            markActive(saved);
-            document.querySelectorAll(".theme-btn").forEach(function (b) {
-                b.addEventListener("click", function () {
-                    var choice = b.dataset.themeChoice;
-                    try { localStorage.setItem(TH_KEY, choice); } catch (e) {}
-                    if (choice === "auto") {
-                        document.documentElement.removeAttribute("data-theme");
-                    } else {
-                        document.documentElement.setAttribute("data-theme", choice);
-                    }
-                    markActive(choice);
-                });
-            });
-        })();
+        // The theme selector is wired by tcos-app's /js/shell.js (loaded below).
         (function () {
             var FS_KEY = "tcos-fontsize";
             function applyFontsize(size) {
@@ -226,5 +202,6 @@
             setInterval(renderDelta, 30000);
         })();
     </script>
+<script src="/js/shell.js"></script>
 </body>
 </html>

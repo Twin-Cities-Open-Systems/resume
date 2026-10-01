@@ -1,41 +1,30 @@
-/* Shared theme shell: light/dark tokens + header toggle bar styles.
+/* Shared theme shell: this site's layer over tcos-app's shell + header toggle bar styles.
    One real source, referenced by every page under spencer.media
    (and meant to be copied to other <oper>.media/<oper>.blog sites the
    same low-tech way tcos-www's site.js already gets reused) rather
    than pasted inline into each page and left to drift. Swap a whole
    theme by editing the :root/dark blocks here -- nothing else needs
    to change. */
+/* Colors come from tcos-app's shared shell (/css/shell.css, loaded before this
+   file; sync-shell.sh copies it into media/shared). Operator, 2026-10-01:
+   tcos-app is the home of every web page. The names below are this file's own
+   vocabulary, mapped onto the shell's tokens so no rule further down changes and
+   the theme selector's named themes (paper, high contrast, midnight, graphite)
+   repaint every media page. Status names here are TEXT colors, so they map to
+   the shell's -ink tokens, which are measured to 7:1 in tcos-app. */
 :root {
-  --ground: #f6f5f1; --surface: #ffffff; --surface-2: #eef1ee; --line: #dbe0da;
-  --ink: #131a19; --ink-dim: #4d5b58; --ink-faint: #7c8985;
-  --accent: #0d7d78; --accent-ink: #085e5a; --accent-soft: #dcf1ee;
-  --good: #0ca30c; --good-soft: #e2f6e0; --warning: #b8790a; --critical: #d03b3b; --critical-soft: #fbdada;
+  --ground: var(--bg); --surface-2: var(--sunk); --line: var(--rule);
+  --ink-dim: var(--muted); --ink-faint: var(--muted);
+  --accent-ink: var(--accent);
+  --good: var(--good-ink); --good-soft: var(--good-bg);
+  --warning: var(--warning-ink);
+  --critical: var(--critical-ink); --critical-soft: var(--critical-bg);
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    /* Real bug, found 2026-08-28 (Spencer, direct, side-by-side on
-       glass: "spencer.media v spencer.blog are slightly diff colors"):
-       this was an earlier draft of Gold's teal (#2bbdb2/#7fe0d6, matched
-       an early version of resume#32's own PR description) that never
-       got updated to the canonical value everyone else uses
-       (render-review.py, tc-theme.js, resume's blog template). */
-    --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
-    --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
-    --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
-    --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --ground: #0b1211; --surface: #101918; --surface-2: #16211f; --line: #223330;
-  --ink: #e7efec; --ink-dim: #9db3ae; --ink-faint: #5f7a75;
-  --accent: #3fd4c8; --accent-ink: #7fe6dc; --accent-soft: #12302e;
-  --good: #4ecb5b; --good-soft: #10331a; --warning: #e0a634; --critical: #ef5a5a; --critical-soft: #3a1414;
-  color-scheme: dark;
-}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; } }
+:root[data-theme="dark"] { color-scheme: dark; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); line-height: 1.6; }
 .page { max-width: 980px; margin: 0 auto; padding: 40px 20px 70px; }
