@@ -285,7 +285,16 @@ thead th[aria-sort="ascending"],thead th[aria-sort="descending"]{color:var(--acc
 .tc-jump[data-show="false"]{opacity:0;visibility:hidden;transform:translateY(10px);pointer-events:none;transition:opacity .2s,transform .2s,visibility 0s .2s}
 .tc-jump button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:.4rem;min-height:44px;min-width:44px;
   padding:0 .8rem;font:600 .85rem/1 inherit;color:var(--ink);justify-content:center}
-.tc-jump button[hidden]{display:none}
+.tc-jump button[hidden],.tc-jump a[hidden]{display:none}
+/* "link here": an anchor, so it opens, drags and right-click copies like any link */
+.tc-jump a.tc-jump-here{box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:44px;min-width:44px;
+  padding:0 .7rem;color:var(--ink);text-decoration:none;border-left:1px solid var(--edge);font:600 .85rem/1 inherit}
+.tc-jump a.tc-jump-here:hover{color:var(--accent);background:var(--sunk)}
+.tc-jump a.tc-jump-here:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.tc-jump a.tc-jump-here[data-said]{color:var(--good-ink)}
+.tc-jump-said:empty{display:none}
+/* A linked heading lands below the sticky header, not under it. */
+h2[id],h3[id],h4[id],summary[id],[data-tc-collapse-toggle][id],section[id],article[id],[data-tc-collapse][id]{scroll-margin-top:4.75rem}
 .tc-jump button+button{border-left:1px solid var(--edge)}
 .tc-jump button:hover{color:var(--accent);background:var(--sunk)}
 .tc-jump button:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
